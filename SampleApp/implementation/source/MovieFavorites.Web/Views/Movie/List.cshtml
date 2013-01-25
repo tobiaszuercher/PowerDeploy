@@ -1,0 +1,69 @@
+﻿@model IEnumerable<MovieFavorites.Contract.MovieDto>
+
+@{
+    ViewBag.Title = "List";
+}
+
+<div class="row-fluid page-header">
+    <div class="span4"><h1>Movie favorites</h1></div>
+
+    <div class="span8" style="text-align: right">
+        @using (Html.BeginForm("add", "Movie", FormMethod.Post, new { id = "searchForm", @class = "form-search" }))
+        {
+            <div class="input-append">
+                @Html.TextBox("searchFor", "", new { @class = "search-query", placeholder = "search for a movie" })
+                @Html.Hidden("movieTmdbId");
+                <Button type="submit" class="btn btn-primary">Add Movie</Button>
+            </div>
+        }
+    </div>
+</div>
+
+<div class="row-fluid">
+    <table class="table table-hover">
+        @foreach (var item in Model) {
+            <tr>
+                <td>
+                    <img src="@item.Cover" class="img-rounded" />
+                </td>
+                <td>
+                    <h4>@Html.ActionLink(item.Title + " (" + item.Year + ")", "Show", "Movie", new { id = item.TmdbId }, null)</h4>
+                    <p>@item.Teaser</p>
+                </td>
+            </tr>
+        }
+    </table>
+</div>
+
+@section Scripts {
+    
+<script type="text/javascript">
+    $(function () {
+        $("#searchFor").focus(); //Focus on search field
+        $("#searchFor").autocomplete({
+            minLength: 2,
+            delay: 50,
+            source: "@Url.Action("Suggest")",
+            focus: function (event, ui) {
+                $("#searchFor").val(ui.item.Label);
+                return false;
+            },
+            select: function (event, ui) {
+                //assign value   back to the form element
+                if (ui.item) {
+                    $(event.target).val(ui.item.Label);
+                    $("#movieTmdbId").val(ui.item.TmdbId);
+                }
+
+                //submit the form
+                $(event.target.form).submit();
+            }
+        }).data("autocomplete")._renderItem = function (ul, item) {
+            return $("<li></li>")
+            .data("item.autocomplete", item)
+            .append("<a>" + (item.Thumb ? "<img class='imdbImage' width='50' src='" + item.Thumb + "' />" : "") + "<span class='imdbTitle'>" + item.Title + "</span>" + (item.Cast ? "<br /><span class='imdbCast'>" + item.Cast + "</span>" : "") + "<div class='clear'></div></a>")
+            .appendTo(ul);
+        };
+    });
+</script>
+}
