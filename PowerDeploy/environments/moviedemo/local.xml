@@ -1,5 +1,6 @@
 <?xml version="1.0"?>
 <environment name="local" description="used as for local development">
 	<!-- common application configuration -->
-	<property name="RESP_AZURE_SVCCFG_Blob_StorageName"           		value="remaresp ${env}${subenv}" />
-</project>
+	<property name="Property1"           		wert="111${env}${subenv}" />
+	<property name="Property2"					wert="222" />
+</environment>
