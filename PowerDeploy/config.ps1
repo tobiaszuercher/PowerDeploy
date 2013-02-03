@@ -18,9 +18,3 @@ Import-Module "C:\git\PowerDeploy\PowerDeploy\PowerDeploy.psm1"
 Get-Module
 
 Initialize-PowerDeploy C:\git\PowerDeploy\SampleApp moviedemo
-
-Function Get-MSBuild {
-    $lib = [System.Runtime.InteropServices.RuntimeEnvironment]
-    $rtd = $lib::GetRuntimeDirectory()
-    Join-Path $rtd msbuild.exe
-}

@@ -64,3 +64,4 @@ obj/
 [Rr]elease*/
 Ankh.NoLoad
 implementation/source/MovieFavorites.WpfClient/publish
+SampleApp/deployment/deploymentUnits/**
