@@ -1,7 +1,9 @@
 properties {
-  $projectFile = $null;
-  $packageId = $null;
-  $outputDir = $null;
+  $projectFile = $null,
+  $packageId = $null,
+  $outputPath = $null,
+  $outputDir = $null,
+  $toolsDir = $null
 }
 
 task default -depends Build, Package
