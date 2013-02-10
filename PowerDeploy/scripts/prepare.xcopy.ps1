@@ -1,42 +1,33 @@
-properties {
-    $workDir = $null;
-}
+[CmdletBinding()]
+Param(
+    [Parameter(Mandatory = $true, Position = 1)]
+    [string]$workDir,
+    
+    [switch]$Disassemble,
+    [switch]$Reassemble
+)
 
-#task default -depends Build, Package
+# initialize script variables
+$SCRIPT:context = Get-PowerDeployContext
 
-# you can put arguments to task in multiple lines using `
-task Disassemble `
-  -description "TODO" `
+function Disassemble()
 {   
-    #$context = Get-PowerDeployContext
-    #set-alias sz "$($context.paths.tools)\7Zip\7za.exe"
-    
-    #sz "x $packageZip -y o$unzipDir"
-    
-    Write-Host "work-dir: $workDir"
-    Write-Host "nothing todo in disassemble for xcopy"
+    # nothing to do for xcopy
 }
 
-task Reassemble `
-  -description "TODO" `
+function Reassemble()
 {
     $context = Get-PowerDeployContext
     Set-Alias sz "$($context.paths.tools)\7Zip\7za.exe"
     
-    sz a -tzip (Join-Path $workDir package.zip) (Join-Path $workDir "out/*")
+    sz a -tzip (Join-Path $workDir package.zip) (Join-Path $workDir "out/*") | Out-Null
     
     Remove-Item (Join-Path $workDir "out") -Recurse
 }
 
-task Test
-{
-    Generate-Assembly-Info `
-        -file "bla\MefContrib\Properties\SharedAssemblyInfo.cs" `
-        -title "MefContrib $version" `
-        -description "Community-developed library of extensions to the Managed Extensibility Framework (MEF)." `
-        -company "MefContrib" `
-        -product "MefContrib $version" `
-        -version $version `
-        -copyright "Copyright © MefContrib 2009" `
-        -clsCompliant "false"
-}
+if ($Disassemble -eq $false -and $Reassemble -eq $false) { "maybe u should have a look at the source code :)" }
+
+if ($Disassemble) { Disassemble }
+if ($Reassemble) { Reassemble }
+
+# Generate-Assembly-Info -> google

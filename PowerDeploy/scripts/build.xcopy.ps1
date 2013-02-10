@@ -6,6 +6,9 @@ Param(
     [Parameter(Mandatory = $true, Position = 2)]
     [string]$packageId,
     
+    [Parameter(Mandatory = $true, Position = 3)]
+    [string]$configPrefix,
+    
     [switch]$Build,
     [switch]$Package
 )
@@ -16,25 +19,18 @@ $workDir = (Join-Path (Join-Path $env:TEMP PowerDeploy) (Get-Date -Format yyyy-M
 function Build()
 {
     Write-Verbose "Building $projectFile"
-    #todo: exec
-    exec { 
-    msbuild $projectFile /p:Configuration=Release /p:RunCodeAnalysis=false /p:OutputPath=$workDir/out /verbosity:minimal /t:Rebuild 
-    }
+    exec { msbuild $projectFile /p:Configuration=Release /p:RunCodeAnalysis=false /p:OutputPath=$workDir/out /verbosity:minimal /t:Rebuild }
 }
 
 function Package()
 {
-    Write-Verbose "Packaging..."
-    Write-Verbose "PackageId: $packageId"
-    Write-Verbose "WorkDir: $workDir"
-    
     $context = Get-PowerDeployContext
 
     set-alias sz "$($context.paths.tools)\7Zip\7za.exe"
     
     AddPackageParameters 
 
-    sz a -tzip (Join-Path $context.paths.project "deployment/deploymentUnits/$($packageId)_1.0.0.0.zip") "$workDir/*"
+    sz a -tzip (Join-Path $context.paths.project "deployment/deploymentUnits/$($packageId)_1.0.0.0.zip") "$workDir/*" | Out-Null
     
     # Remove-Item $outputDir -Recurse
 }
@@ -50,13 +46,12 @@ function AddPackageParameters()
     $xml.WriteStartDocument()
     $xml.WriteStartElement("package")
     $xml.WriteAttributeString("type", "xcopy")
-    $xml.WriteAttributeString("id", "Bla")
+    $xml.WriteAttributeString("id", $packageId)
     $xml.WriteAttributeString("version", "1.3.3.7")
     $xml.WriteAttributeString("environment", "TODO: parseblae env + subenv") # `${env + subenv}
     
     # pass to each individual impl:
-    $xml.WriteElementString("dbserver", "`${MOVIE_DB_Server}")
-    $xml.WriteElementString("dbname", "`${MOVIE_DB_Name}")
+    $xml.WriteElementString("droplocation", "`${$($configPrefix)_DropLocation}")
     $xml.WriteEndElement()
     $xml.WriteEndDocument()
     

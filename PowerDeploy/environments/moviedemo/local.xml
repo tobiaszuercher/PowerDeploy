@@ -6,4 +6,5 @@
 	<property name="MOVIE_SERVICE_AppServer_URI"	wert="gugus" />
 	<property name="MOVIE_DB_Server"				wert="dbserver.local" />
 	<property name="MOVIE_DB_Name"					wert="dbname" />
+	<property name="MOVIE_DESKTOP_DropLocation"		wert="c:\powerdeploy_drop" />
 </environment>

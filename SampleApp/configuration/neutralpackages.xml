@@ -1,8 +1,8 @@
 <?xml version="1.0"?>
 <neutralpackages>
-    <package type="db" id="MovieFavoritesDatabase" configid="MOVIE_DB" source="MovieFavoritesModel\MovieFavoritesModel.dbproj" />
-    <package type="clickonce" id="MovieFavoritesDesktopClient" configid="MOVIE_DESKTOP" source="MovieFavorites.WpfClient\MovieFavorites.WpfClient.csproj" />
-    <package type="web" id="MovieFavoritesWeb" configid="MOVIE_WEB" source="MovieFavorites.Web\MovieFavorites.Web.csproj" />
-    <package type="web" id="MovieFavoritesService" configid="MOVIE_SERVICE" source="MovieFavorites.Services\MovieFavorites.Services.csproj" />
-    <package type="xcopy" id="MovieFavoritesDesktopClientXCopy" configid="MOVIE_DESKTOP" source="MovieFavorites.WpfClient\MovieFavorites.WpfClient.csproj" />
+    <package type="db" id="MovieFavoritesDatabase" configPrefix="MOVIE_DB" source="MovieFavoritesModel\MovieFavoritesModel.dbproj" />
+    <package type="clickonce" id="MovieFavoritesDesktopClient" configPrefix="MOVIE_DESKTOP" source="MovieFavorites.WpfClient\MovieFavorites.WpfClient.csproj" />
+    <package type="iis" id="MovieFavoritesWeb" configPrefix="MOVIE_WEB" source="MovieFavorites.Web\MovieFavorites.Web.csproj" />
+    <package type="iis" id="MovieFavoritesService" configPrefix="MOVIE_SERVICE" source="MovieFavorites.Services\MovieFavorites.Services.csproj" />
+    <package type="xcopy" id="MovieFavoritesDesktopClientXCopy" configPrefix="MOVIE_DESKTOP" source="MovieFavorites.WpfClient\MovieFavorites.WpfClient.csproj" />
 </neutralpackages>
