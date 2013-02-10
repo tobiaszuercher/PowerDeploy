@@ -52,7 +52,7 @@ function AddPackageParameters()
     
     $xml.WriteStartDocument()
     $xml.WriteStartElement("package")
-    $xml.WriteAttributeString("type", "xcopy")
+    $xml.WriteAttributeString("type", "iis")
     $xml.WriteAttributeString("id", $packageId)
     $xml.WriteAttributeString("version", "1.3.3.7")
     $xml.WriteAttributeString("environment", "TODO: parseblae env + subenv") # `${env + subenv}
