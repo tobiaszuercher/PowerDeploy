@@ -12,14 +12,16 @@ $SCRIPT:context = Get-PowerDeployContext
 
 function Disassemble()
 {   
-    # nothing to do for xcopy
-    Write-Host "[prepare.xcopy.disassemble]"
+    Write-Host "[prepare.iis.disassemble]"
+    $context = Get-PowerDeployContext
+    Set-Alias sz "$($context.paths.tools)\7Zip\7za.exe"
+    
+    sz a -tzip (Join-Path $workDir package.zip) (Join-Path $workDir "out/*") | Out-Null
 }
 
 function Reassemble()
 {
-    Write-Host "[prepare.xcopy.reassemble]"
-
+    Write-Host "[prepare.iis.reassemble]"
     $context = Get-PowerDeployContext
     Set-Alias sz "$($context.paths.tools)\7Zip\7za.exe"
     
