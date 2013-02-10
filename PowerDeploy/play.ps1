@@ -17,4 +17,4 @@ if((get-module | where{$_.name -eq "PowerDeploy"} | Measure-Object).Count -gt 0)
 Import-Module "C:\git\PowerDeploy\PowerDeploy\PowerDeploy.psm1"
 Get-Module
 
-Initialize-PowerDeploy C:\git\PowerDeploy\SampleApp moviedemo
+Initialize-PowerDeploy C:\git\PowerDeploy\SampleApp

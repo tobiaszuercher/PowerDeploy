@@ -1,7 +1,15 @@
 <?xml version="1.0"?>
-<project name="Common configuration for this project">
+<project name="Common configuration for this project" id="moviedemo">
   <property name="Product_FullVersion" value="1.0.0.0" />
   <property name="project.clickonce.startmenu.folder" value="Movie Favorites" />
   <property name="project.assembly.copyright" value="Zühlke Engineering AG" />
   <property name="project.assembly.company" value="Copyright &#169; Tobias Zürcher, Zühlke Engineering AG, Switzerland ${datetime::get-year(datetime::now())}" />"
+  <clickonce>
+	<startmenufolder>MovieFavorites</startmenufolder>
+  </clickonce>
+  <assembly>
+	<version>1.0.0.0</version>
+	<copyright>Zühlke Engineering AG</copyright>
+	<company>Copyright &#169; Tobias Zürcher, Zühlke Engineering AG, Switzerland ${datetime::get-year(datetime::now())}</company>
+  </assembly>
 </project>
