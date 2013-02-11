@@ -1,8 +1,0 @@
-<?xml version="1.0"?>
-<environment name="common" description="used as default values for all environments">
-	<!-- common application configuration -->
-	<property name="RESP_AZURE_SVCCFG_Blob_StorageName"           		value="remaresp" />
-	<property name="RESP_AZURE_SVCCFG_InspectionUpdateCycleInSec" 		value="21600" />
-	<property name="RESP_AZURE_SVCCFG_InspectionUpdateCycleStart" 		value="true" />
-	<property name="RESP_AZURE_SVCCFG_BackgroundCheckInterval" 			value="600" />
-</project>

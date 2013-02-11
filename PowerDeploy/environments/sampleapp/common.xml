@@ -1,0 +1,7 @@
+<?xml version="1.0"?>
+<environment name="common" description="used as default values for all environments">
+	<!-- common application configuration -->
+	<property name="SAMPLE_APP_CONSOLE_Setting"         value="environment setting for console app" />
+	<property name="SAMPLE_APP_DATABASE_Setting" 		value="environment setting for database app" />
+	<property name="SAMPLE_APP_WEB_Setting" 			value="environment setting for web app" />
+</project>
