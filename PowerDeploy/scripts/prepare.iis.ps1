@@ -16,7 +16,9 @@ function Disassemble()
     $context = Get-PowerDeployContext
     Set-Alias sz "$($context.paths.tools)\7Zip\7za.exe"
     
-    sz a -tzip (Join-Path $workDir package.zip) (Join-Path $workDir "out/*") | Out-Null
+    $out = Join-Path $workDir "out/"
+    
+    sz x -y "-o$($out)" (Join-Path $workDir package.zip) | Out-Null
 }
 
 function Reassemble()
