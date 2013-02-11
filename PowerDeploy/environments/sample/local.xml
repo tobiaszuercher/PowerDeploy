@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<environment name="local" description="used as for local development">
+	<!-- common application configuration -->
+	<property name="Property1"           			wert="111${env}${subenv}" />
+	<property name="Property2"						wert="222" />
+	<property name="MOVIE_SERVICE_AppServer_URI"	wert="gugus" />
+	<property name="MOVIE_DB_Server"				wert="dbserver.local" />
+	<property name="MOVIE_DB_Name"					wert="dbname" />
+	<property name="MOVIE_DESKTOP_DropLocation"		wert="c:\powerdeploy_drop" />
+	
+	<property name="SAMPLE_CONSOLE_DropLocation"		wert="c:\powerdeploy_drop" />
+    <property name="SAMPLE_WEB_AppServer_Name"			wert="localhost" />
+    <property name="SAMPLE_WEB_AppServer_Account"		wert="deployer" />
+    <property name="SAMPLE_WEB_AppServer_Password"		wert="testtest1234!" />
+    <property name="SAMPLE_WEB_AppServer_AppPoolName"	wert="SampleAppPool" />
+    <property name="SAMPLE_WEB_AppServer_Root"			wert="" />
+    <property name="SAMPLE_WEB_AppServer_WebSite"		wert="Default Web Site" />
+    
+    <property name="SAMPLE_APP_WEB_Setting"			wert="123" />
+    <property name="SAMPLE_APP_CONSOLE_Setting"		wert="123" />
+</environment>
