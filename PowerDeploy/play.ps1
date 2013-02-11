@@ -9,12 +9,4 @@
 
 #Import-Module PowerDeploy
 
-if((get-module | where{$_.name -eq "PowerDeploy"} | Measure-Object).Count -gt 0)
-{
-    Remove-Module PowerDeploy
-}
-
-Import-Module "C:\git\PowerDeploy\PowerDeploy\PowerDeploy.psm1"
-Get-Module
-
-Initialize-PowerDeploy C:\git\PowerDeploy\SampleApp
+. C:\git\PowerDeploy\PowerDeploy\shell.ps1

@@ -14,11 +14,11 @@ Param(
 )
 
 $context = Get-PowerDeployContext
-$workDir = (Join-Path (Join-Path $env:TEMP PowerDeploy) (Get-Date -Format yyyy-MM-dd__HH.mm.ss))
+$workDir = (Join-Path (Join-Path $env:TEMP PowerDeploy) (Get-Date -Format yyyy-MM-dd_HH.mm.ss))
 
-function Build()
+function DoBuild()
 {
-    Write-Verbose "Building $projectFile"
+    Write-Host "Building $projectFile"
     exec { msbuild $projectFile /p:Configuration=Release /p:RunCodeAnalysis=false /p:OutputPath=$workDir/out /verbosity:minimal /t:Rebuild }
 }
 
@@ -38,7 +38,7 @@ function Package()
 function AddPackageParameters()
 {    
     $file = Join-Path $workDir "package.template.xml"
-    
+        
     $xml = New-Object System.Xml.XmlTextWriter($file, $null)
     $xml.Formatting = "Indented"
     $xml.Indentation = 4
@@ -61,5 +61,12 @@ function AddPackageParameters()
 
 if ($Build -eq $null -and $Package -eq $null) { Write-Host "wrong usage of this script. maybe you should have a look at the source code :)" }
 
-if ($Build) { Build }
-if ($Package) { Package }
+if ($Build)
+{
+    DoBuild
+}
+
+if ($Package)
+{
+    Package
+}
