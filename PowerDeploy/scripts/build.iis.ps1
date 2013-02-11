@@ -16,7 +16,7 @@ Param(
 $context = Get-PowerDeployContext
 $workDir = (Join-Path (Join-Path $env:TEMP PowerDeploy) (Get-Date -Format yyyy-MM-dd__HH.mm.ss))
 
-function Build()
+function DoBuild()
 {
     Write-Verbose "Building $projectFile"
     
@@ -73,5 +73,5 @@ function AddPackageParameters()
 
 if ($Build -eq $null -and $Package -eq $null) { Write-Host "wrong usage of this script. maybe you should have a look at the source code :)" }
 
-if ($Build) { Build }
+if ($Build) { DoBuild }
 if ($Package) { Package }
