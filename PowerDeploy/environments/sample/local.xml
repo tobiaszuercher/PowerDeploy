@@ -17,5 +17,6 @@
     <property name="SAMPLE_WEB_AppServer_WebSite"		wert="Default Web Site" />
     
     <property name="SAMPLE_APP_WEB_Setting"			wert="123" />
-    <property name="SAMPLE_APP_CONSOLE_Setting"		wert="123" />
+    <property name="SAMPLE_APP_CONSOLE_Setting"		wert="iddqd" />
+    <property name="SAMPLE_APP_WPF_Setting"			wert="1337" />
 </environment>
