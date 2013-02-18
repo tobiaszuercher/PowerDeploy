@@ -12,8 +12,6 @@ Set-Alias sz "$($context.paths.tools)\7Zip\7za.exe"
 
 $startup_location = Get-Location
 
-Set-Location $workDir
-
 # initialize script variables
 $SCRIPT:context = Get-PowerDeployContext
 
