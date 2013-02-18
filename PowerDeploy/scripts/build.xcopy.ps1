@@ -13,7 +13,6 @@ Param(
     [switch]$Package
 )
 
-$context = Get-PowerDeployContext
 $workDir = (Join-Path (Join-Path $env:TEMP PowerDeploy) (Get-Date -Format yyyy-MM-dd_HH.mm.ss))
 
 function DoBuild()
@@ -24,13 +23,12 @@ function DoBuild()
 
 function Package()
 {
-    $context = Get-PowerDeployContext
-
-    set-alias sz "$($context.paths.tools)\7Zip\7za.exe"
+#    set-alias sz "$($context.paths.tools)\7Zip\7za.exe"
     
     AddPackageParameters 
 
-    sz a -tzip (Join-Path $context.paths.project "deployment/deploymentUnits/$($packageId)_1.0.0.0.zip") "$workDir/*" | Out-Null
+    # todo: this script shouldn't know anything about those paths...
+    sz a -tzip (Join-Path $powerdeploy.paths.project "deployment/deploymentUnits/$($packageId)_1.0.0.0.zip") "$workDir/*" | Out-Null
     
     # Remove-Item $outputDir -Recurse
 }
