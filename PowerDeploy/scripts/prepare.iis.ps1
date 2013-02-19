@@ -1,35 +1,30 @@
 [CmdletBinding()]
 Param(
     [Parameter(Mandatory = $true, Position = 1)]
-    [string]$workDir,
+    [string]$work_dir,
     
     [switch]$Disassemble,
     [switch]$Reassemble
 )
 
-# initialize script variables
-$SCRIPT:context = Get-PowerDeployContext
-
+# unpack the created iis package.zip that Configure-Environment can apply
+# the template variables to the according files
 function Disassemble()
 {   
     Write-Host "[prepare.iis.disassemble]"
-    $context = Get-PowerDeployContext
-    Set-Alias sz "$($context.paths.tools)\7Zip\7za.exe"
     
-    $out = Join-Path $workDir "out/"
+    $out = Join-Path $work_dir "out/"
     
-    sz x -y "-o$($out)" (Join-Path $workDir package.zip) | Out-Null
+    sz x -y "-o$($out)" (Join-Path $work_dir package.zip) | Out-Null
 }
 
 function Reassemble()
 {
     Write-Host "[prepare.iis.reassemble]"
-    $context = Get-PowerDeployContext
-    Set-Alias sz "$($context.paths.tools)\7Zip\7za.exe"
     
-    sz a -tzip (Join-Path $workDir package.zip) (Join-Path $workDir "out/*") | Out-Null
+    sz a -tzip (Join-Path $work_dir package.zip) (Join-Path $work_dir "out/*") | Out-Null
     
-    Remove-Item (Join-Path $workDir "out") -Recurse
+    Remove-Item (Join-Path $work_dir "out") -Recurse
 }
 
 if ($Disassemble -eq $false -and $Reassemble -eq $false) { "maybe u should have a look at the source code :)" }

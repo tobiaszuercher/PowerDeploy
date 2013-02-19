@@ -1,4 +1,5 @@
-function Prepare-DeploymentUnit([string]$deployment_unit, [string]$environment) # todo: error handling if one of them is null/empty/not-existing/whatever...
+# todo: error handling if one of them is null/empty/not-existing/whatever...
+function Prepare-DeploymentUnit([string]$deployment_unit, [string]$environment)
 {
     # make sure we have the actual version
     Import-Configurations
@@ -41,7 +42,7 @@ function Prepare-DeploymentUnit([string]$deployment_unit, [string]$environment) 
             
             Invoke-Expression -Command "$(Join-Path $($powerdeploy).paths.scripts prepare.$packageType.ps1) $workDir -Disassemble"
             
-            Configure-Environment $environment $workDir -deleteTemplates $true
+            Configure-Environment $environment $workDir -delete_templates $true
             
             Invoke-Expression -Command "$(Join-Path $($powerdeploy).paths.scripts prepare.$packageType.ps1) $workDir -Reassemble"
             
