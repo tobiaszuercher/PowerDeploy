@@ -7,13 +7,7 @@ Param(
     [switch]$Reassemble
 )
 
-$context = Get-PowerDeployContext
-Set-Alias sz "$($context.paths.tools)\7Zip\7za.exe"
-
 $startup_location = Get-Location
-
-# initialize script variables
-$SCRIPT:context = Get-PowerDeployContext
 
 $out_dir = Join-Path $workDir "out"
 $unzip_dir = Join-Path $workDir "unzipped"
