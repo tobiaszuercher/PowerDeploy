@@ -8,9 +8,7 @@ Write-Host "                            \/             \/     \/|__|            
 Write-Host "                                                             by tobias zürcher"
 Write-Host ""
 Write-Host "The following commands are available"
-Write-Host "  Build {unit-type}"
-Write-Host "  Prepare {deploymentUnitSet} {environment}"
-Write-Host "  Configure {environment}"
-Write-Host "  Deploy {deploymentUnitSet} {environment} TODO"
 
-. .\deploy.xcopy.ps1
+Set-Alias
+
+. .\tools\deploy.ps1 -Help

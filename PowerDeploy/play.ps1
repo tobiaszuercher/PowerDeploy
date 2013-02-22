@@ -9,4 +9,7 @@
 
 #Import-Module PowerDeploy
 
-. C:\git\PowerDeploy\PowerDeploy\shell.ps1
+
+
+
+write-output $MyInvocation

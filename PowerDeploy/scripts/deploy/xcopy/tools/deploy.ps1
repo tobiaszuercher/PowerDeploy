@@ -18,6 +18,9 @@ $actions = @{
 	backup = @{ command = "backup"; description = "Backups the current drop location" }
 }
 
+# package is one folder up... wtf!!! isn't there an easier way to do that?
+$work_dir = resolve-path "$(Split-Path -parent $MyInvocation.MyCommand.path)/.."
+
 function Backup()
 {
 	# do the backkup
@@ -25,9 +28,11 @@ function Backup()
 
 	if (Test-Path $drop_location)
 	{
-		$backup_target = ".\Backup_$(Get-Date -Format yyyy-MM-dd_HH.mm.ss)"
+		$backup_target = Join-Path $work_dir "Backup_$(Get-Date -Format yyyy-MM-dd_HH.mm.ss)"
 
-		New-Item -Name $backup_target -ItemType directory
+		Write-Verbose "Create backup target: $backup_target"
+
+		New-Item -Path $backup_target -ItemType directory
 
 		Write-Verbose "copying from $drop_location to $backup_target"
 		Copy-Item "$drop_location\*" $backup_target
@@ -45,6 +50,7 @@ function DoDeploy()
 
 	if (Test-Path $drop_location)
 	{
+		Write-Host "Removing target location ($drop_location)"
 		Remove-Item $drop_location -Force -Recurse
 	}
 
@@ -52,7 +58,7 @@ function DoDeploy()
 
 	Write-Host "unzipping package to $drop_location"
 
-	.\tools\7za.exe x "-o$($drop_location)" ".\package.zip"
+	.\7za.exe x "-o$($drop_location)" ".\package.zip"
 }
 
 function ShowHelp()
@@ -73,11 +79,14 @@ function xmlPeek($filePath, $xpath)
 # i'm still unsure which approach seems to be better... use the [switch]-parameters or "task1,task2,task3" approach
 # i let this hashtable here to get ShowHelp() for free.
 
+$package_xml = Join-Path $work_dir "package.xml"
+$drop_location = xmlPeek $package_xml "/package/droplocation"
+
 if ($All -eq $false -and $Deploy -eq $false -and $Backup -eq $false)
 {
-	$package_name = xmlPeek ".\package.xml" "package/@id"
-	$package_version = xmlPeek ".\package.xml" "package/@version"
-	$package_env = xmlPeek ".\package.xml" "package/@environment"
+	$package_name = xmlPeek $package_xml "package/@id"
+	$package_version = xmlPeek $package_xml "package/@version"
+	$package_env = xmlPeek $package_xml "package/@environment"
 
 	Write-Host ""
 	Write-Host ""
@@ -89,8 +98,6 @@ else
 {
 	$Help = $true
 }
-
-$drop_location = xmlPeek ".\package.xml" "/package/droplocation"
 
 if ($Help) { ShowHelp }
 if ($Backup) { Backup }

@@ -1,15 +1,23 @@
 <?xml version="1.0"?>
 <project id="sample" name="Common configuration for this project">
-  <property name="Product_FullVersion" value="1.0.0.0" />
-  <property name="project.clickonce.startmenu.folder" value="Movie Favorites" />
-  <property name="project.assembly.copyright" value="Zühlke Engineering AG" />
-  <property name="project.assembly.company" value="Copyright &#169; Tobias Zürcher, Zühlke Engineering AG, Switzerland ${datetime::get-year(datetime::now())}" />"
   <clickonce>
-	<startmenufolder>MovieFavorites</startmenufolder>
+    <startmenufolder>MovieFavorites</startmenufolder>
   </clickonce>
   <assembly>
-	<version>1.0.0.0</version>
-	<copyright>Zühlke Engineering AG</copyright>
-	<company>Copyright &#169; Tobias Zürcher, Zühlke Engineering AG, Switzerland ${datetime::get-year(datetime::now())}</company>
+  	<version>1.0.0.*</version>
+  	<copyright>Zühlke Engineering AG</copyright>
+  	<company>Copyright &#169; Tobias Zürcher, Zühlke Engineering AG, Switzerland ${datetime::get-year(datetime::now())}</company>
   </assembly>
+  <versioning type="increment"> <!-- available types: tfs, increment -->
+    <!-- settings for increment: -->
+    <seed>configuration/version_seed.txt</seed>
+
+    <!-- settings for tfs -->
+    <path>c:\tfs\tfspreview\popcorn</path>
+    <tfsserver>https://tzuercher.tfspreview.com/defaultcollection</tfsserver>
+  </versioning>
+  <powerdeploy>
+    <vstools>2010</vstools>
+    <source></source>
+  </powerdeploy>
 </project>
