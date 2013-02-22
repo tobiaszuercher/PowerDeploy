@@ -8,6 +8,9 @@ Param(
     
     [Parameter(Mandatory = $true, Position = 3)]
     [string]$configPrefix,
+
+    [Parameter(Mandatory = $true, Position = 4)]
+    [string]$version,
     
     [switch]$Build,
     [switch]$Package
@@ -24,13 +27,13 @@ function DoBuild()
 function Package()
 {
 #    set-alias sz "$($context.paths.tools)\7Zip\7za.exe"
-    
+    Write-Progress -activity Build -status "packaging"
     AddPackageParameters 
 
     # todo: this script shouldn't know anything about those paths...
-    sz a -tzip (Join-Path $powerdeploy.paths.project "deployment/deploymentUnits/$($packageId)_1.0.0.0.zip") "$workDir/*" | Out-Null
+    sz a -tzip (Join-Path $powerdeploy.paths.project "deployment/deploymentUnits/$($packageId)_$version.zip") "$workDir/*" | Out-Null
     
-    # Remove-Item $outputDir -Recurse
+    #Remove-Item $outputDir -Recurse -Force
 }
 
 function AddPackageParameters()
@@ -38,14 +41,14 @@ function AddPackageParameters()
     $file = Join-Path $workDir "package.template.xml"
         
     $xml = New-Object System.Xml.XmlTextWriter($file, $null)
-    $xml.Formatting = "Indented"
+    $xml.Formatting = "Indented"    
     $xml.Indentation = 4
     
     $xml.WriteStartDocument()
     $xml.WriteStartElement("package")
     $xml.WriteAttributeString("type", "xcopy")
     $xml.WriteAttributeString("id", $packageId)
-    $xml.WriteAttributeString("version", "1.3.3.7")
+    $xml.WriteAttributeString("version", $version)
     $xml.WriteAttributeString("environment", "TODO: parseblae env + subenv") # `${env + subenv}
     
     # pass to each individual impl:
