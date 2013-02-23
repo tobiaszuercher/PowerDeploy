@@ -10,6 +10,8 @@ if((Test-Path $powerdeploy.project.update.target) -eq $false)
 }
 else
 {
+	Write-Host "updating PowerDeploy"
+
 	$location = Get-Location
 
 	Set-Location $powerdeploy.project.update.target
