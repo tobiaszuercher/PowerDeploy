@@ -6,7 +6,7 @@ function Invoke-Build([string]$type)
 
 	$version = Get-Version
 
-    foreach ($package in $powerdeploy.packages | where { $_.type -eq $type })
+    foreach ($package in $powerdeploy.packages | where { $_.type -eq $type -or $type.ToUpper() -eq "ALL" })
     {
         $project_file = Join-Path (Join-Path $powerdeploy.paths.project "/implementation/source/") $package.source
 

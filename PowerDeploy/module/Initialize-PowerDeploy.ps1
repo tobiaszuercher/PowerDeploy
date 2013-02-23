@@ -20,9 +20,3 @@ function Initialize-PowerDeploy([string]$path = (Split-Path -parent $MyInvocatio
     # todo: maybe print out what was loaded, list of env & deployment unit sets...
     # let the user see that something hapened!
 }
-
-function Import-Configurations
-{
-    $powerdeploy.project = ([xml] (Get-Content (Join-Path $powerdeploy.paths.project "configuration/project.xml"))).project
-    $powerdeploy.packages = ([xml] (Get-Content (Join-Path $powerdeploy.paths.project "configuration/neutralpackages.xml"))).neutralpackages.package
-}
