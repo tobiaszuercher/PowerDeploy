@@ -1,4 +1,9 @@
 PowerDeploy
 ===========
 
-i'm working on some tool which will allow you to deploy like you never have before :) stay tuned! if you are really interested, please star this repo, you won't regret it ;)
+i'm working on a small but powerfull .NET deployment framework which encapsulates msbuild/webdeploy 
+to make it more easy and userfriendly without loosing any flexibility...
+
+this is still work in progress but a release is comming soon!
+
+stay tuned!
