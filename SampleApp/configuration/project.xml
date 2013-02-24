@@ -16,17 +16,6 @@
     <path>c:\tfs\tfspreview\popcorn</path>
     <tfsserver>https://tzuercher.tfspreview.com/defaultcollection</tfsserver>
   </versioning>
-  <update type="git">
-    <target>C:\PowerDeploy.git</target>
-
-    <!-- tfs settings -->
-    <source>$/Popcorn/PowerDeploy</source>
-    <server>https://tzuercher.tfspreview.com/defaultcollection</server>
-
-    <!-- git settings -->
-    <repository>https://github.com/tobiaszuercher/PowerDeploy.git</repository>
-    <gitcmd></gitcmd> <!-- todo: handle this property (user should define location of git.exe) -->
-  </update>
   <misc>
     <vstools>2010</vstools>
   </misc>

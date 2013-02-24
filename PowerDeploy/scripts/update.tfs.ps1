@@ -2,9 +2,9 @@ $location = Get-Location
 
 $workspace_name = "PowerDeploy"
 
-$local_dir = $powerdeploy.project.update.target
-$remote_dir = $powerdeploy.project.update.source
-$tfs_server = $powerdeploy.project.update.server
+$local_dir = $powerdeploy.config.update.PowerDeployInstallDir
+$remote_dir = $powerdeploy.config.update.source
+$tfs_server = $powerdeploy.config.update.server
 
 # too lazy atm... WHY THE FUCK IS THERE NO CLEAN COMMANDLINE TOOL TO ACCESS TFS!!! CMDLETS, SnapIns, tf.exe 
 # WHY THE FUCK ARE THERE SO MANY WAYS?????!!!!!!

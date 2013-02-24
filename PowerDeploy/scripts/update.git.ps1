@@ -1,10 +1,10 @@
-# TODO: read git-executable from project.xml
+# TODO: read git-executable from shell.settings
 
-if((Test-Path $powerdeploy.project.update.target) -eq $false)
+if((Test-Path $powerdeploy.config.PowerDeployInstallDir) -eq $false)
 {
-	New-Item -Path $powerdeploy.project.update.target -ItemType directory | Out-Null
+	New-Item -Path $powerdeploy.config.PowerDeployInstallDir -ItemType directory | Out-Null
 
-	Write-Host "No PowerDeploy installation found. Install one, stay tuned!"
+	Write-Host "No PowerDeploy installation found. I'll install it for you, stay tuned!"
 
 	git clone $powerdeploy.project.update.repository $powerdeploy.project.update.target
 }
@@ -14,9 +14,9 @@ else
 
 	$location = Get-Location
 
-	Set-Location $powerdeploy.project.update.target
+	Set-Location $powerdeploy.config.PowerDeployInstallDir
 
-	git pull
+	git fetch # todo: do pulling, but i'm in testmode now :)
 
 	Set-Location $location	
 }

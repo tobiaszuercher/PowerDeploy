@@ -27,7 +27,6 @@ function DoBuild()
 function Package()
 {
 #    set-alias sz "$($context.paths.tools)\7Zip\7za.exe"
-    Write-Progress -activity Build -status "packaging"
     AddPackageParameters 
 
     # todo: this script shouldn't know anything about those paths...
