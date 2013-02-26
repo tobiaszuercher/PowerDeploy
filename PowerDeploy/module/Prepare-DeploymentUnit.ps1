@@ -50,6 +50,7 @@ function Prepare-DeploymentUnit([string]$deployment_unit, [string]$environment)
 
             # copy deploy scripts & tools
             Copy-Item (Join-Path $powerdeploy.paths.scripts "deploy/$packageType/*") "$destination_folder\$($packageId)_$($packageVersion)\" -Recurse
+            Copy-Item (Join-Path $powerdeploy.paths.scripts "deploy/common/*") "$destination_folder\$($packageId)_$($packageVersion)\" -Recurse -Force
         }
     }
 }

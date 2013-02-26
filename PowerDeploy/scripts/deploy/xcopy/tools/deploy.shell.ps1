@@ -8,7 +8,12 @@ Write-Host "                            \/             \/     \/|__|            
 Write-Host "                                                             by tobias zürcher"
 Write-Host ""
 Write-Host "The following commands are available"
+Write-Host ""
 
-Set-Alias
+Set-Location (Split-Path -parent $MyInvocation.MyCommand.path)
 
-. .\tools\deploy.ps1 -Help
+Set-Location ..
+
+Set-Alias package .\tools\deploy.ps1
+
+.\tools\deploy.ps1 -Help

@@ -23,6 +23,6 @@ function Invoke-Build([string]$type)
         # remove if there are some older version of this neutral package
         Get-Childitem $powerdeploy.paths.deployment_units -Filter "$($package.id)*" | Remove-Item -Force -Recurse
 
-        Invoke-Expression -Command "$(Join-Path $($powerdeploy.paths.scripts) build.$type.ps1) $project_file $($package.id) $($package.configPrefix) -Build -Package -Version $version"
+        Invoke-Expression -Command "$(Join-Path $($powerdeploy.paths.scripts) build.$($package.type).ps1) $project_file $($package.id) $($package.configPrefix) -Build -Package -Version $version"
     }
 }

@@ -58,12 +58,12 @@ function DoDeploy()
 
 	Write-Host "unzipping package to $drop_location"
 
-	.\7za.exe x "-o$($drop_location)" ".\package.zip"
+	.\tools\7za.exe x "-o$($drop_location)" ".\package.zip"
 }
 
 function ShowHelp()
 {
-	$actions | Format-Table name,@{ n = 'Description'; e = { $_.Value.Description } }
+	$actions | Format-Table name,@{ n = 'Description'; e = { $_.Value.Description } } -AutoSize
 }
 
 function xmlPeek($filePath, $xpath)
@@ -90,9 +90,10 @@ if ($All -eq $false -and $Deploy -eq $false -and $Backup -eq $false)
 
 	Write-Host ""
 	Write-Host ""
-	Write-Host ("You're about to deploy package {0} v{1} targeting {2}" -f $package_name, $package_version, $package_env.ToUpper())
+	Write-Host "You're about to deploy package " -nonewline
+	Write-Host $package_name -ForegroundColor Red -nonewline
+	Write-Host (" v{1} targeting {2}" -f $package_name, $package_version, $package_env.ToUpper())
 	Write-Host "" 
-	Write-Host "You can do the following commands:"
 }
 else
 {

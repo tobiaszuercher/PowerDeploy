@@ -8,6 +8,9 @@ Param(
     
     [Parameter(Mandatory = $true, Position = 3)]
     [string]$config_prefix,
+
+    [Parameter(Mandatory = $true, Position = 4)]
+    [string]$version,
     
     [switch]$Build,
     [switch]$Package
@@ -32,7 +35,7 @@ function Package()
     Remove-Item "$workDir\package.SetParameters.xml" -Force
     Remove-Item "$workDir\package.SourceManifest.xml" -Force
 
-    sz a -tzip (Join-Path $powerdeploy.paths.project "deployment/deploymentUnits/$($package_id)_1.0.0.0.zip") "$workDir/*" | Out-Null
+    sz a -tzip (Join-Path $powerdeploy.paths.project "deployment/deploymentUnits/$($package_id)_$version.zip") "$workDir/*" | Out-Null
     
     # Remove-Item $outputDir -Recurse
 }
@@ -49,7 +52,7 @@ function AddPackageParameters()
     $xml.WriteStartElement("package")
     $xml.WriteAttributeString("type", "iis")
     $xml.WriteAttributeString("id", $package_id)
-    $xml.WriteAttributeString("version", "1.3.3.7")
+    $xml.WriteAttributeString("version", $version)
     $xml.WriteAttributeString("environment", "TODO: parseblae env + subenv") # `${env + subenv}
     
     # pass to each individual impl:
