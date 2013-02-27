@@ -25,7 +25,7 @@ if ($Deploy -eq $true)
 	$location_backup = Get-Location
 
 	# loop through each package and execute deploy.ps1 -BulkDeploy
-	Get-ChildItem | where { $_.PsIsContainer } | ForEach-Object { # todo: just folder
+	Get-ChildItem | where { $_.PsIsContainer } | ForEach-Object {
 		Set-Location $_
 
 		.\tools\deploy.ps1 -Deploy

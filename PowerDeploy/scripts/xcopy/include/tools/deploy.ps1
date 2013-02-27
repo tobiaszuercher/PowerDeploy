@@ -6,7 +6,6 @@ Param(
     # todo: i'm not sure whtere to do swtiches
     [switch] $Deploy,
     [switch] $Backup,
-    [switch] $All,
     [switch] $Help
 )
 
@@ -64,6 +63,11 @@ function DoDeploy()
 function ShowHelp()
 {
 	#$actions | Format-Table name,@{ n = 'Description'; e = { $_.Value.Description } } -AutoSize
+
+	Write-Host "Deploy "
+	Write-Host "Backup"
+	Write-Host "Help"
+	Write-Host ""
 }
 
 function xmlPeek($filePath, $xpath)
@@ -76,6 +80,39 @@ function xmlPeek($filePath, $xpath)
     return $found.InnerText
 } 
 
+function Write-Welcome
+{
+	$package_name = xmlPeek $package_xml "package/@id"
+	$package_version = xmlPeek $package_xml "package/@version"
+	$package_env = xmlPeek $package_xml "package/@environment"
+
+	cls
+
+	Write-Host ""
+	Write-Host ""
+	Write-Host "Welcome to your deploy shell!"
+	Write-Host ""
+	Write-Host "  Package: " -nonewline
+	Write-Host $package_name v$package_version -ForegroundColor Red -nonewline
+	Write-Host ""
+	Write-Host ("   targeting {0}" -f $package_env.ToUpper())
+	Write-Host "" 
+	Write-Host ""
+
+
+
+#	Write-Host ""
+#	Write-Host ""
+#	Write-Host "Welcome to your deploy shell!"
+#	Write-Host ""
+#	Write-Host ""
+#	Write-Host "    Package: MovieFavoritesConsole in version 1.0.0.2"
+#	Write-Host ""
+#	Write-Host "             targeting environment LOCAL"
+#	Write-Host ""
+#	Write-Host ""
+}
+
 # i'm still unsure which approach seems to be better... use the [switch]-parameters or "task1,task2,task3" approach
 # i let this hashtable here to get ShowHelp() for free.
 
@@ -84,16 +121,7 @@ $drop_location = xmlPeek $package_xml "/package/droplocation"
 
 if ($All -eq $false -and $Deploy -eq $false -and $Backup -eq $false)
 {
-	$package_name = xmlPeek $package_xml "package/@id"
-	$package_version = xmlPeek $package_xml "package/@version"
-	$package_env = xmlPeek $package_xml "package/@environment"
-
-	Write-Host ""
-	Write-Host ""
-	Write-Host "You're about to deploy package " -nonewline
-	Write-Host $package_name -ForegroundColor Red -nonewline
-	Write-Host (" v{1} targeting {2}" -f $package_name, $package_version, $package_env.ToUpper())
-	Write-Host "" 
+	Write-Welcome
 }
 else
 {

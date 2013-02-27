@@ -13,17 +13,42 @@ function Configure-Environment
     process
     {
         #todo: check wheter this environment exists!
+        $environment = $environment.ToUpper()
 
-        Write-Host "Configuring environment for" $environment.ToUpper() " in $target_path" -ForegroundColor "DarkCyan"
-       
-        foreach($template in Get-ChildItem -Path $target_path -Filter "*.template.*" -Recurse)
+        if ((Test-Path (Join-Path $powerdeploy.paths.environments "$($powerdeploy.project.id)/$environment.xml")) -or $environment -eq "NEUTRAL")
         {
-            Transform-Template $template.Fullname $environment
-            
-            if ($delete_templates -eq $true)
+            Write-Host "Configuring environment for" $environment.ToUpper() " in $target_path" -ForegroundColor "DarkCyan"
+           
+            foreach($template in Get-ChildItem -Path $target_path -Filter "*.template.*" -Recurse)
             {
-                Remove-Item $template.Fullname -Force
+                Transform-Template $template.Fullname $environment
+                
+                if ($delete_templates -eq $true)
+                {
+                    Remove-Item $template.Fullname -Force
+                }
             }
+        }
+        else
+        {
+            cls
+            Write-Host "Environment " -nonewline
+            Write-Host $environment -f Cyan -nonewline
+            Write-Host " not found."
+            Write-Host ""
+            Write-Host "The following environments are available:"
+
+            $env_path = Join-Path $powerdeploy.paths.environments $powerdeploy.project.id
+
+            Get-ChildItem $env_path -Filter "*.xml" | ForEach-Object {
+                $bla1 = " - {0}" -f $_.Basename
+                $bla2 = "`t({0})" -f (xmlPeek $_.Fullname "/environment/@description")
+
+                Write-Host $bla1 -nonewline -ForegroundColor White
+                Write-Host $bla2
+            }
+
+            Write-Host ""
         }
     }
 }
