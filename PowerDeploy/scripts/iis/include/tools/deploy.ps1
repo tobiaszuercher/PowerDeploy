@@ -63,7 +63,7 @@ function DoDeploy()
 
 function ShowHelp()
 {
-	$actions | Format-Table name,@{ n = 'Description'; e = { $_.Value.Description } } -AutoSize
+	#$actions | Format-Table name,@{ n = 'Description'; e = { $_.Value.Description } } -AutoSize
 }
 
 function xmlPeek($filePath, $xpath)

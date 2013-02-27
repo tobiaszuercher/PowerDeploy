@@ -40,17 +40,18 @@ function Prepare-DeploymentUnit([string]$deployment_unit, [string]$environment)
             
             Write-Host "Preparing $packageId with type $packageType" -ForegroundColor yellow
             
-            Invoke-Expression -Command "$(Join-Path $($powerdeploy).paths.scripts prepare.$packageType.ps1) $workDir -Disassemble"
+            Invoke-Expression -Command "$(Join-Path $($powerdeploy).paths.scripts $packageType/prepare.$packageType.ps1) $workDir -Disassemble"
             
             Configure-Environment $environment $workDir -delete_templates $true
             
-            Invoke-Expression -Command "$(Join-Path $($powerdeploy).paths.scripts prepare.$packageType.ps1) $workDir -Reassemble"
+            Invoke-Expression -Command "$(Join-Path $($powerdeploy).paths.scripts $packageType/prepare.$packageType.ps1) $workDir -Reassemble"
             
             Copy-Item "$workDir\" "$destination_folder\$($packageId)_$($packageVersion)\" -Recurse
 
             # copy deploy scripts & tools
-            Copy-Item (Join-Path $powerdeploy.paths.scripts "deploy/$packageType/*") "$destination_folder\$($packageId)_$($packageVersion)\" -Recurse
-            Copy-Item (Join-Path $powerdeploy.paths.scripts "deploy/common/*") "$destination_folder\$($packageId)_$($packageVersion)\" -Recurse -Force
+            Copy-Item (Join-Path $powerdeploy.paths.scripts "$packageType/include/*") "$destination_folder\$($packageId)_$($packageVersion)\" -Recurse -Force
+            Copy-Item (Join-Path $powerdeploy.paths.scripts "_includes/package/*") "$destination_folder\$($packageId)_$($packageVersion)\" -Recurse -Force
+            Copy-Item (Join-Path $powerdeploy.paths.scripts "_includes/bulk/*") "$destination_folder\" -Recurse -Force
         }
     }
 }
