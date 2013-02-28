@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<environment name="preprod" description="pre production environment">
+	<!-- common application configuration -->
+	<property name="Property1"           			value="111${env}${subenv}" />
+	<property name="Property2"						value="222" />
+	<property name="MOVIE_SERVICE_AppServer_URI"	value="gugus" />
+	<property name="MOVIE_DB_Server"				value="dbserver.local" />
+	<property name="MOVIE_DB_Name"					value="dbname" />
+	<property name="MOVIE_DESKTOP_DropLocation"		value="c:\powerdeploy_drop" />
+	
+	<property name="SAMPLE_CONSOLE_DropLocation"		value="c:\powerdeploy_drop" />
+    <property name="SAMPLE_WEB_AppServer_Name"			value="localhost" />
+    <property name="SAMPLE_WEB_AppServer_Account"		value="deployer" />
+    <property name="SAMPLE_WEB_AppServer_Password"		value="testtest1234!" />
+    <property name="SAMPLE_WEB_AppServer_AppPoolName"	value="SampleAppPool" />
+    <property name="SAMPLE_WEB_AppServer_Root"			value="" />
+    <property name="SAMPLE_WEB_AppServer_WebSite"		value="Default Web Site" />
+    
+    <property name="SAMPLE_APP_WEB_Setting"			value="123" />
+    <property name="SAMPLE_APP_CONSOLE_Setting"		value="iddqd" />
+    <property name="SAMPLE_APP_WPF_Setting"			value="1337" />
+</environment>

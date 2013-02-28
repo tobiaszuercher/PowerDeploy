@@ -4,4 +4,4 @@
 	<property name="SAMPLE_APP_CONSOLE_Setting"         value="environment setting for console app" />
 	<property name="SAMPLE_APP_DATABASE_Setting" 		value="environment setting for database app" />
 	<property name="SAMPLE_APP_WEB_Setting" 			value="environment setting for web app" />
-</project>
+</environment>
