@@ -4,6 +4,21 @@ function Prepare-DeploymentUnit([string]$deployment_unit, [string]$environment)
     # make sure we have the actual version
     Import-Configurations
     Import-DeploymentUnits
+
+    $env_exists = CheckWheterEnvironmentExist $environment
+
+    if ($env_exists -eq $false)
+    {
+        cls
+        Write-Host "Sorry, there is no environment called " -nonewline
+        Write-Host $environment.ToUpper() -f "Cyan"
+        Write-Host ""
+        Write-Host "This is the list of environments I can work with:"
+
+        Show-Environments
+
+        return
+    }
     
     # remove target folder
     $destination_folder = Join-Path (Join-Path $powerdeploy.paths.deployment_units $deployment_unit) $environment.ToUpper()
