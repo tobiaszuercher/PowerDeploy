@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<environment name="local" description="used as for local development">
+<environment description="used as for local development">
 	<!-- common application configuration -->
 	<property name="Property1"           			value="111${env}${subenv}" />
 	<property name="Property2"						value="222" />
