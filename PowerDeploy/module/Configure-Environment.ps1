@@ -35,6 +35,9 @@ function Configure-Environment
                 Write-Host $environment -f Cyan -nonewline
                 Write-Host " not found."
             }
+
+            Write-Host ""
+            Write-Host "Usage: Configure {environment}    (alias for Configure: config, c"
                         
             Write-Host ""
             Write-Host "The following environments are available:"
