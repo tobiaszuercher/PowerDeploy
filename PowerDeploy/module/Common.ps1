@@ -65,25 +65,25 @@ function createUniqueDir()
 
 
 # check if this is the better format-string...
-function Format-String([string]$string, [hashtable]$replacements)
-{
-    $current_index = 0
-    $replacment_list = @()
-
-    foreach($key in $replacements.Keys)
-    {
-        $inputPattern = '\${' + $key + '}'
-        $replacementPattern = '{${1}' + $current_index + '${2}}'
-        $string = $string -replace $inputPattern, $replacementPattern
-        $replacment_list += $replacements[$key]
-        
-        write-host $inputPattern $replacementPattern
-
-        $current_index++
-    }
-    
-    return $string -f $replacment_list
-}
+#function Format-String([string]$string, [hashtable]$replacements)
+#{
+#    $current_index = 0
+#    $replacment_list = @()
+#
+#    foreach($key in $replacements.Keys)
+#    {
+#        $inputPattern = '{' + $key + '}'
+#        $replacementPattern = '{${1}' + $current_index + '${2}}'
+#        $string = $string -replace $inputPattern, $replacementPattern
+#        $replacment_list += $replacements[$key]
+#        
+#        write-host $inputPattern $replacementPattern -f Blue
+#
+#        $current_index++
+#    }
+#    
+#    return $string -f $replacment_list
+#}
     
 
 # todo: case insensitive! (-> test it, maybe it works already)
@@ -125,12 +125,13 @@ function Replace-Placeholders($template_text, [string]$environment)
       if (@($properties | where { $_.name -eq $templateParaName}).Count -eq 0)
       {
         $missing_properties += $templateParaName
+        Write-Host "    -> Missing property $templateParaName" -ForegroundColor Red
       }
       
       return $match.Result(($properties | where { $_.name -eq $templateParaName }).value)
     }
     
-    $result = [regex]::replace($template_text, "\$\{[^\}]*\}", $MatchEvaluator)
+    $result = [regex]::replace($template_text, "\$\{([^\}]+)\}", $MatchEvaluator)
     
     if ($missing_properties.Count -gt 0)
     {
