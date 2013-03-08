@@ -30,7 +30,7 @@ function Reassemble()
     #The App.config has wrong name, it needs *ProjectName*.exe.config -> patch it!
     $config_file_name = (Get-ChildItem $out_dir -Filter *.exe.config).Name
     $config_file_template = Join-Path $out_dir "App.config"
-
+    
     if ($config_file_name -ne $null -and (Test-Path $config_file_template) -eq $true)
     {
         Write-Host "Found an App.config with exe.config -> replace it"

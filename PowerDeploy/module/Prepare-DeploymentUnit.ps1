@@ -1,9 +1,18 @@
 # todo: error handling if one of them is null/empty/not-existing/whatever...
-function Prepare-DeploymentUnit([string]$deployment_unit, [string]$environment)
+function Prepare-DeploymentUnit
 {
+    [CmdletBinding()]
+    param(
+        [Parameter(Position = 0)] [string]$deployment_unit,
+        [Parameter(Position = 1)] [string]$environment,
+        [Parameter(Position = 2)] [string]$subenv
+    )
+
     # make sure we have the actual version
     Import-Configurations
     Import-DeploymentUnits
+
+    Write-Verbose "prepare"
 
     $env_exists = CheckWheterEnvironmentExist $environment
 
@@ -39,7 +48,7 @@ function Prepare-DeploymentUnit([string]$deployment_unit, [string]$environment)
         # otherwise there could be some half transformed deploymentUnits    
         if ($found_unit -eq $null)
         {
-            Write-Host "No neutral package found for $($unit.path)! Please build the neutral package first." -ForegroundColor "Red"
+            Write-Host "No neutral package found for $($unit.Please)! path build the neutral package first." -ForegroundColor "Red"
         }
         else
         {
@@ -57,7 +66,7 @@ function Prepare-DeploymentUnit([string]$deployment_unit, [string]$environment)
             
             Invoke-Expression -Command "$(Join-Path $($powerdeploy).paths.scripts $packageType/prepare.$packageType.ps1) $workDir -Disassemble"
             
-            Configure-Environment $environment $workDir -delete_templates $true
+            Configure-Environment $environment $subenv $workDir -delete_templates $true
             
             Invoke-Expression -Command "$(Join-Path $($powerdeploy).paths.scripts $packageType/prepare.$packageType.ps1) $workDir -Reassemble"
             

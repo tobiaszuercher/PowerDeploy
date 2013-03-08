@@ -26,7 +26,6 @@ function DoBuild()
 
 function Package()
 {
-#    set-alias sz "$($context.paths.tools)\7Zip\7za.exe"
     AddPackageParameters 
 
     # todo: this script shouldn't know anything about those paths...
@@ -48,7 +47,7 @@ function AddPackageParameters()
     $xml.WriteAttributeString("type", "xcopy")
     $xml.WriteAttributeString("id", $packageId)
     $xml.WriteAttributeString("version", $version)
-    $xml.WriteAttributeString("environment", "TODO: parseblae env + subenv") # `${env + subenv}
+    $xml.WriteAttributeString("environment", "`${env}`${subenv}")
     
     # pass to each individual impl:
     $xml.WriteElementString("droplocation", "`${$($configPrefix)_DropLocation}")

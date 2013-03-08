@@ -16,7 +16,6 @@
     <property name="SAMPLE_WEB_AppServer_Root"			value="" />
     <property name="SAMPLE_WEB_AppServer_WebSite"		value="Default Web Site" />
     
-    <property name="SAMPLE_APP_WEB_Setting"			value="123" />
-    <property name="SAMPLE_APP_CONSOLE_Setting"		value="iddqd" />
-    <property name="SAMPLE_APP_WPF_Setting"			value="1337" />
+    <property name="SAMPLE_APP_WEB_Setting"			value="preprod" />
+    <property name="SAMPLE_APP_CONSOLE_Setting"		value="preprod" />
 </environment>

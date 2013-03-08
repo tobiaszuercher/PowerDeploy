@@ -51,7 +51,7 @@ function Task
 
 function CheckWheterEnvironmentExist($environment)
 {
-    return (Test-Path (Join-Path $powerdeploy.paths.environments "$($powerdeploy.project.id)/$environment.xml"))
+    return (Test-Path (Join-Path $powerdeploy.paths.environments "$($powerdeploy.project.id)/$environment.xml")) -or $environment.ToUpper() -eq "NEUTRAL"
 }
 
 # creates an unique folder. i like to have the date in the folder name for traceability while debugging...
@@ -60,34 +60,8 @@ function createUniqueDir()
 {
     return '{0}___{1}' -f (Get-Date -Format yyyy-MM-dd_HH.mm.ss), [guid]::NewGuid().ToString().Substring(6)
 }
-
-# this from config-env
-
-
-# check if this is the better format-string...
-#function Format-String([string]$string, [hashtable]$replacements)
-#{
-#    $current_index = 0
-#    $replacment_list = @()
-#
-#    foreach($key in $replacements.Keys)
-#    {
-#        $inputPattern = '{' + $key + '}'
-#        $replacementPattern = '{${1}' + $current_index + '${2}}'
-#        $string = $string -replace $inputPattern, $replacementPattern
-#        $replacment_list += $replacements[$key]
-#        
-#        write-host $inputPattern $replacementPattern -f Blue
-#
-#        $current_index++
-#    }
-#    
-#    return $string -f $replacment_list
-#}
-    
-
-# todo: case insensitive! (-> test it, maybe it works already)
-function Transform-Template([string]$template_file, [string]$environment)
+  
+function Transform-Template([string]$template_file, [string]$environment, [string]$subenv = '')
 {
     $target_file = $template_file -replace ".template.", "."
     
@@ -106,39 +80,60 @@ function Transform-Template([string]$template_file, [string]$environment)
     }
     else
     {
-        Replace-Placeholders $content $environment | Set-Content $target_file -Force
+        Replace-Placeholders $content $environment $subenv| Set-Content $target_file -Force
     }
 }  
 
-function Replace-Placeholders($template_text, [string]$environment)
+function Replace-Placeholders($template_text, [string]$environment, [string]$subenv = '')
 {
     $properties = Get-Properties($environment)
-    
-    $missing_properties = @()
 
     $MatchEvaluator = 
     {  
-      param($match)
-    
-      $templateParaName = $match -replace "{", "" -replace "}", "" -replace "\$" # todo use $Match 
-      
-      if (@($properties | where { $_.name -eq $templateParaName}).Count -eq 0)
-      {
-        $missing_properties += $templateParaName
-        Write-Host "    -> Missing property $templateParaName" -ForegroundColor Red
-      }
-      
-      return $match.Result(($properties | where { $_.name -eq $templateParaName }).value)
+        param($match)
+
+        $property_name = $match.Groups["Name"].Value
+
+        $value_available = @($properties | where { $_.name -eq $property_name}).Count -eq 1
+
+        if ($property_name -eq 'env')
+        {
+            Write-Verbose "$property_name -> $environment"
+            return $environment
+        }
+
+        if ($property_name -eq 'subenv')
+        {
+            Write-Verbose "$property_name -> $subenv"
+            return $subenv
+        }
+
+        if ($property_name.Contains('=') -and $value_available -eq $false)
+        {
+            # it's a default proppy and no value found in environment -> use default value
+            $found_value = $property_name.Split('=')[1] -replace "\$\[env\]","$environment" -replace "\$\[subenv\]",$subenv
+
+            Write-Verbose "$property_name -> $found_value (used default value)"
+            
+            return $found_value
+        }
+
+        if ($value_available)
+        {
+            $found_value = (($properties | where { $_.name -eq $property_name }).Value) -replace "\$\[env\]","$environment" -replace "\$\[subenv\]","$subenv"
+            
+            Write-Verbose "$property_name -> $found_value"
+            
+            return $found_value
+        }
+
+        Write-Host "  -> missing environment property $property_name" -ForegroundColor Red
+
+        return "MISSING_PROPERTY: $property_name"
     }
     
-    $result = [regex]::replace($template_text, "\$\{([^\}]+)\}", $MatchEvaluator)
-    
-    if ($missing_properties.Count -gt 0)
-    {
-        Write-Host "  Missing $($missing_properties.Count) properties" -ForegroundColor "Red"
-        $missing_properties | ForEach-Object { write-host "    -> $_" }
-    }
-    
+    $result = [regex]::replace($template_text, "\$\{(?<Name>[^\}]+)\}", $MatchEvaluator)
+        
     return $result
 }
 
@@ -146,4 +141,10 @@ function Replace-Placeholders($template_text, [string]$environment)
 function Get-Properties($environment)
 {
     return ([xml](Get-Content (Join-Path $powerdeploy.paths.environments "$($powerdeploy.project.id)\$environment.xml"))).environment.property
+}
+
+function Test-Administrator  
+{  
+    $user = [Security.Principal.WindowsIdentity]::GetCurrent();
+    (New-Object Security.Principal.WindowsPrincipal $user).IsInRole([Security.Principal.WindowsBuiltinRole]::Administrator)  
 }
