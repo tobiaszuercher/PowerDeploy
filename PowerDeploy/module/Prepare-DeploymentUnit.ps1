@@ -48,7 +48,7 @@ function Prepare-DeploymentUnit
         # otherwise there could be some half transformed deploymentUnits    
         if ($found_unit -eq $null)
         {
-            Write-Host "No neutral package found for $($unit.Please)! path build the neutral package first." -ForegroundColor "Red"
+            Write-Host "No neutral package found for $unit! Please build the neutral package first." -ForegroundColor "Red"
         }
         else
         {

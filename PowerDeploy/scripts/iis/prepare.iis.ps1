@@ -16,6 +16,8 @@ function Disassemble()
     $out = Join-Path $work_dir "out/"
     
     sz x -y "-o$($out)" (Join-Path $work_dir package.zip) | Out-Null
+
+    Move-Item (Join-Path $out "parameters.xml") (Join-Path $out "parameters.template.xml") -Verbose
 }
 
 function Reassemble()

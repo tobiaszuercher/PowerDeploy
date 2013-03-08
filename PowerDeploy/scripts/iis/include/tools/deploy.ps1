@@ -6,7 +6,6 @@ Param(
     # todo: i'm not sure whtere to do swtiches
     [switch] $Deploy,
     [switch] $Backup,
-    [switch] $All,
     [switch] $Help
 )
 
@@ -18,34 +17,14 @@ $actions = @{
 	backup = @{ command = "backup"; description = "Backups the current drop location" }
 }
 
-# package is one folder up... wtf!!! isn't there an easier way to do that?
-$work_dir = resolve-path "$(Split-Path -parent $MyInvocation.MyCommand.path)/.."
-
 function Backup()
 {
-	# do the backkup
-	Write-Host "[Backup]"
-
-	if (Test-Path $drop_location)
-	{
-		$backup_target = Join-Path $work_dir "Backup_$(Get-Date -Format yyyy-MM-dd_HH.mm.ss)"
-
-		Write-Verbose "Create backup target: $backup_target"
-
-		New-Item -Path $backup_target -ItemType directory
-
-		Write-Verbose "copying from $drop_location to $backup_target"
-		Copy-Item "$drop_location\*" $backup_target
-	}
-	else
-	{
-		Write-Host "Nothing found in $drop_location"
-	}
+	Write-Error "Backup not implemented for IIS atm :("
 }
 
 function DoDeploy()
 {
-	Write-Host "deploy target: $drop_location"
+	Write-Host "Deploying iis package to web site $package_website into virtual directory $package_virtualdir"
 	Write-Host "removing $drop_location"
 
 	if (Test-Path $drop_location)
@@ -58,12 +37,22 @@ function DoDeploy()
 
 	Write-Host "unzipping package to $drop_location"
 
-	.\tools\7za.exe x "-o$($drop_location)" ".\package.zip"
+	Import-Module .\tools\PowerDeploy.Extensions.dll
+
+	Create-AppPool -Name $package_apppoolname -ServerName $package_appserver -WAMUserName $package_username -WAMUserPass -package_password
+	Assign-AppPool -ServerName $package_appserver -AppPoolName $package_apppoolname -VirtualDirectory $package_virtualdir -WebsiteName $package_website
+
+	#.\tools\7za.exe x "-o$($drop_location)" ".\package.zip"
 }
 
 function ShowHelp()
 {
 	#$actions | Format-Table name,@{ n = 'Description'; e = { $_.Value.Description } } -AutoSize
+
+	Write-Host "Deploy "
+	Write-Host "Backup"
+	Write-Host "Help"
+	Write-Host ""
 }
 
 function xmlPeek($filePath, $xpath)
@@ -76,24 +65,39 @@ function xmlPeek($filePath, $xpath)
     return $found.InnerText
 } 
 
-# i'm still unsure which approach seems to be better... use the [switch]-parameters or "task1,task2,task3" approach
-# i let this hashtable here to get ShowHelp() for free.
-
-$package_xml = Join-Path $work_dir "package.xml"
-$drop_location = xmlPeek $package_xml "/package/droplocation"
-
-if ($All -eq $false -and $Deploy -eq $false -and $Backup -eq $false)
+function Write-Welcome
 {
 	$package_name = xmlPeek $package_xml "package/@id"
 	$package_version = xmlPeek $package_xml "package/@version"
 	$package_env = xmlPeek $package_xml "package/@environment"
 
+	cls
+
 	Write-Host ""
 	Write-Host ""
-	Write-Host "You're about to deploy package " -nonewline
-	Write-Host $package_name -ForegroundColor Red -nonewline
-	Write-Host (" v{1} targeting {2}" -f $package_name, $package_version, $package_env.ToUpper())
+	Write-Host "Welcome to your deploy shell!"
+	Write-Host ""
+	Write-Host "  Package: " -nonewline
+	Write-Host $package_name v$package_version -ForegroundColor Red -nonewline
+	Write-Host ""
+	Write-Host ("   targeting {0}" -f $package_env.ToUpper())
 	Write-Host "" 
+	Write-Host ""
+}
+
+$work_dir = resolve-path "$(Split-Path -parent $MyInvocation.MyCommand.path)/.."
+
+$package_xml = Join-Path $work_dir "package.xml"
+$package_appserver = xmlPeek $package_xml "/package/appserver"
+$package_username = xmlPeek $package_xml "/package/username"
+$package_password = xmlPeek $package_xml "/package/password"
+$package_apppoolname = xmlPeek $package_xml "/package/apppoolname"
+$package_virtualdir = xmlPeek $package_xml "/package/virtualdir"
+$package_website = xmlPeek $package_xml "/package/website"
+
+if ($All -eq $false -and $Deploy -eq $false -and $Backup -eq $false)
+{
+	Write-Welcome
 }
 else
 {
@@ -107,20 +111,3 @@ if ($Deploy)
 	Backup
 	DoDeploy
 }
-
-# pretty funny way to use on command line deploy.ps1 "task1,task2,task3:"
-
-#$actions = @{
-#	deploy = @{ action = { DoDeploy }; description = "Deploys the xcopy backage to the specified drop location" };
-#	backup = @{ action = { Backup }; description = "Backups the current drop location" }
-#	help = @{ action = { ShowHelp }; description = "Prints this informations out." }
-#}
-
-#if ($todo -eq $null -or $todo.length -eq 0 )
-#{
-#	ShowHelp
-#}
-#else
-#{
-#	$todo.split(',') | % { & $actions.$_.action }
-#}

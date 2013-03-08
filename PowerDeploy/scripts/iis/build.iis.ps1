@@ -23,7 +23,7 @@ function DoBuild()
     Write-Verbose "Building $project_file"
     
     $packageLocation = Join-Path $workDir "package.zip"
-    exec { msbuild $project_file /p:Configuration=Release /p:RunCodeAnalysis=false /verbosity:minimal /p:DesktopBuildPackageLocation=$workDir /p:AutoParameterizationWebConfigConnectionStrings=false /p:PackageLocation=$packageLocation /p:IncludeIisSettings=false /p:FilesToIncludeForPublish=OnlyFilesToRunTheApp /p:IncludeSetAclProviderOnDestination=false /t:Package }
+    exec { msbuild $project_file /p:Configuration=Release /p:RunCodeAnalysis=false /verbosity:minimal /p:DesktopBuildPackageLocation=$workDir /p:AutoParameterizationWebConfigConnectionStrings=false /p:PackageLocation=$packageLocation /p:IncludeIisSettings=false /p:FilesToIncludeForPublish=OnlyFilesToRunTheApp /p:IncludeSetAclProviderOnDestination=false /p:DeployIisAppPath="`${$($config_prefix)_AppServer_Website=Default Web Site}/`${$($config_prefix)_AppServer_Root}/$package_id" /t:Package }
 }
 
 function Package()
@@ -53,14 +53,14 @@ function AddPackageParameters()
     $xml.WriteAttributeString("type", "iis")
     $xml.WriteAttributeString("id", $package_id)
     $xml.WriteAttributeString("version", $version)
-    $xml.WriteAttributeString("environment", "TODO: parseblae env + subenv") # `${env + subenv}
+    $xml.WriteAttributeString("environment", "`${env}`${subenv}")
     
     # pass to each individual impl:
     $xml.WriteElementString("appserver", "`${$($config_prefix)_AppServer_Name}")
     $xml.WriteElementString("username", "`${$($config_prefix)_AppServer_Account}")
     $xml.WriteElementString("password", "`${$($config_prefix)_AppServer_Password}")
-    $xml.WriteElementString("apppoolname", "`${$($config_prefix)_AppServer_AppPoolName}") # todo: make defaultable
-    $xml.WriteElementString("virtualdir", "`${$($config_prefix)_AppServer_Root}")
+    $xml.WriteElementString("apppoolname", "`${$($config_prefix)_AppServer_AppPoolName=$package_id (`$[env]`$[subenv])}") # todo: make defaultable
+    $xml.WriteElementString("virtualdir", "`${$($config_prefix)_AppServer_Root=}$package_id")
     $xml.WriteElementString("website", "`${$($config_prefix)_AppServer_WebSite}") # Default Web Site
     $xml.WriteEndElement()
     $xml.WriteEndDocument()
