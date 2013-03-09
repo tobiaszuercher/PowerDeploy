@@ -1,12 +1,11 @@
 [CmdletBinding()]
 Param(
-    [Parameter(Position = 1)]
-    [string]$todo = $null,
-
-    # todo: i'm not sure whtere to do swtiches
+    [Parameter()] [string] $backup_package = '',
     [switch] $Deploy,
     [switch] $Backup,
-    [switch] $Help
+    [switch] $Help,
+    [switch] $RestoreBackup,
+    [switch] $UpdateExisting
 )
 
 $ErrorActionPreference = "Stop"
@@ -19,35 +18,63 @@ $actions = @{
 
 function Backup()
 {
-	Write-Error "Backup not implemented for IIS atm :("
+	Write-Host "Create backup for $package_appserver/$package_virtualdir"
+
+	Import-Module .\tools\PowerDeploy.Extensions.dll -DisableNameChecking
+
+	# WHAT THE FUCK, LOOK AT THOSE `! this IS ridiculous!
+	.\tools\MsDeploy\x64\msdeploy.exe -source:contentPath=`'Default Web Site/SampleAppWeb`' -dest:"package='backup_$(Get-Date -Format yyyy-MM-dd_HH-mm-ss).zip'" -verb:sync
 }
 
-function DoDeploy()
+function RestoreBackup()
+{
+	cls
+
+	if ($backup_package -eq '')
+	{
+		Write-Host "Following backups available:"
+		Write-Host 
+
+		Get-ChildItem -filter backup_* | Format-table Name -HideTableHeaders
+
+		Write-Host "Usage example: " -nonewline
+		Write-Host "TODO -RestoreBackup backup_2000-01-12_13:37.zip" -f Red
+		Write-Host
+	}
+	else
+	{
+		Write-Host "Restoring package $backup_package"
+		Write-Host 
+
+		# remove optional .\ in front of filename (just if the juster pressed Format-table)
+		DoDeploy (Get-Item $backup_package).Fullname
+	}
+}
+
+function DoDeploy([string] $package = "package.zip")
 {
 	Write-Host "Deploying iis package to web site $package_website into virtual directory $package_virtualdir"
-	Write-Host "removing $drop_location"
 
-	if (Test-Path $drop_location)
-	{
-		Write-Host "Removing target location ($drop_location)"
-		Remove-Item $drop_location -Force -Recurse
-	}
+	Import-Module .\tools\PowerDeploy.Extensions.dll -DisableNameChecking
 
-	New-Item -Path $drop_location -ItemType directory
+	# todo get-architecture
+	.\tools\MsDeploy\x64\msdeploy.exe -source:package="$package" -dest:"auto,includeAcls='False',computerName='$package_appserver',authType='NTLM'" -verb:sync -disableLink:ContentExtension -disableLink:CertificateExtension -allowUntrusted
 
-	Write-Host "unzipping package to $drop_location"
-
-	Import-Module .\tools\PowerDeploy.Extensions.dll
+	Write-Host
 
 	Create-AppPool -Name $package_apppoolname -ServerName $package_appserver -WAMUserName $package_username -WAMUserPass -package_password
-	Assign-AppPool -ServerName $package_appserver -AppPoolName $package_apppoolname -VirtualDirectory $package_virtualdir -WebsiteName $package_website
+	Assign-AppPool -ServerName $package_appserver -ApplicationPoolName $package_apppoolname -VirtualDirectory $package_virtualdir -WebsiteName $package_website
 
 	#.\tools\7za.exe x "-o$($drop_location)" ".\package.zip"
+
+	Write-Host "Done! have fun!"
 }
 
 function ShowHelp()
 {
 	#$actions | Format-Table name,@{ n = 'Description'; e = { $_.Value.Description } } -AutoSize
+
+	Write-Welcome
 
 	Write-Host "Deploy "
 	Write-Host "Backup"
@@ -95,19 +122,20 @@ $package_apppoolname = xmlPeek $package_xml "/package/apppoolname"
 $package_virtualdir = xmlPeek $package_xml "/package/virtualdir"
 $package_website = xmlPeek $package_xml "/package/website"
 
-if ($All -eq $false -and $Deploy -eq $false -and $Backup -eq $false)
+
+
+if ($All -eq $false -and $Deploy -eq $false -and $Backup -eq $false -and $RestoreBackup -eq $false)
 {
 	Write-Welcome
-}
-else
-{
+
 	$Help = $true
 }
 
 if ($Help) { ShowHelp }
 if ($Backup) { Backup }
+if ($RestoreBackup) { RestoreBackup }
 if ($Deploy) 
 {
-	Backup
+	#Backup
 	DoDeploy
 }
