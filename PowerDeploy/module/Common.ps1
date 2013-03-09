@@ -120,7 +120,7 @@ function Replace-Placeholders($template_text, [string]$environment, [string]$sub
 
         if ($value_available)
         {
-            $found_value = (($properties | where { $_.name -eq $property_name }).Value) -replace "\$\[env\]","$environment" -replace "\$\[subenv\]","$subenv"
+            $found_value = (($properties | where { $_.name -eq $property_name }).Value) -replace "\$\{env\}","$environment" -replace "\$\{subenv\}","$subenv"
             
             Write-Verbose "$property_name -> $found_value"
             
