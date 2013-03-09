@@ -89,13 +89,6 @@ function xmlPeek($filePath, $xpath)
     return $found.InnerText
 } 
 
-# functions for aliases
-function DeployAlias()
-{
-	package -Deploy
-}
-
-
 function Write-Welcome
 {
 	Write-Host ""

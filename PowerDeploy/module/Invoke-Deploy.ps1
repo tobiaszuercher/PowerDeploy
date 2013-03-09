@@ -1,8 +1,8 @@
-function Invoke-Deploy([string]$deploymentUnit, [string]$environment)
+function Invoke-Deploy([string]$deploymentUnit, [string]$environment, [string]$subenv = '')
 {
 	$environment = $environment.ToUpper()
 
-	$path = "$($powerdeploy.paths.deployment_units)/$deploymentUnit/$environment"
+	$path = "$($powerdeploy.paths.deployment_units)/$deploymentUnit/$environment$subenv"
 
 	if (Test-Path $path)
 	{
