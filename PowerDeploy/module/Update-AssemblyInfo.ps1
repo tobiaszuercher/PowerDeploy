@@ -11,10 +11,10 @@ function Update-AssemblyInfo
     Get-ChildItem -Path $path -Recurse -Filter AssemblyInfo.cs | ForEach-Object {
         $filename = $_.FullName
 
-        $file_content = Get-Content $filename
+        $file_content = Get-Content $filename | out-string
 
         $replacements.Keys | % { $file_content = $file_content -replace ($pattern -f $_), $replacements.Item($_).ToString()}
 
-        Set-Content $filename $file_content | out-null
+        Set-Content $filename $file_content -Encoding UTF8
     }
 }
