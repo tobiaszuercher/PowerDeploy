@@ -5,7 +5,7 @@ Write-Host " |     ___/  _ \ \/ \/ // __ \_  __ \    |  \_/ __ \\____ \|  |  /  
 Write-Host " |    |  (  <_> )     /\  ___/|  | \/    `   \  ___/|  |_> >  |_(  <_> )___  |"
 Write-Host " |____|   \____/ \/\_/  \___  >__| /_______  /\___  >   __/|____/\____// ____|"
 Write-Host "                            \/             \/     \/|__|               \/     "
-Write-Host "                                                             by tobias zürcher"
+Write-Host "                                                            by tobias zuercher"
 Write-Host ""
 Write-Host "The following commands are available"
 Write-Host ""

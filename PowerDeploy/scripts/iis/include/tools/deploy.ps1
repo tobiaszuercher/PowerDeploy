@@ -4,17 +4,11 @@ Param(
     [switch] $Deploy,
     [switch] $Backup,
     [switch] $Help,
-    [switch] $RestoreBackup,
+    [switch] $Restore,
     [switch] $UpdateExisting
 )
 
 $ErrorActionPreference = "Stop"
-
-$actions = @{
-	deploy = @{ command = "deploy"; description = "Deploys the xcopy backage to the specified drop location" };
-	help = @{ command = "help"; description = "Prints this informations out." };
-	backup = @{ command = "backup"; description = "Backups the current drop location" }
-}
 
 function Backup()
 {
@@ -23,10 +17,14 @@ function Backup()
 	Import-Module .\tools\PowerDeploy.Extensions.dll -DisableNameChecking
 
 	# WHAT THE FUCK, LOOK AT THOSE `! this IS ridiculous!
+	$Host.UI.RawUI.ForegroundColor = "DarkGray"
 	.\tools\MsDeploy\x64\msdeploy.exe -source:contentPath=`'Default Web Site/SampleAppWeb`' -dest:"package='backup_$(Get-Date -Format yyyy-MM-dd_HH-mm-ss).zip'" -verb:sync
+	$Host.UI.RawUI.ForegroundColor = "Gray"
+
+	Write-Host
 }
 
-function RestoreBackup()
+function Restore()
 {
 	cls
 
@@ -38,7 +36,7 @@ function RestoreBackup()
 		Get-ChildItem -filter backup_* | Format-table Name -HideTableHeaders
 
 		Write-Host "Usage example: " -nonewline
-		Write-Host "TODO -RestoreBackup backup_2000-01-12_13:37.zip" -f Red
+		Write-Host "TODO -Restore backup_2000-01-12_13:37.zip" -f Red
 		Write-Host
 	}
 	else
@@ -58,7 +56,9 @@ function DoDeploy([string] $package = "package.zip")
 	Import-Module .\tools\PowerDeploy.Extensions.dll -DisableNameChecking
 
 	# todo get-architecture
+	$Host.UI.RawUI.ForegroundColor = "DarkGray"
 	.\tools\MsDeploy\x64\msdeploy.exe -source:package="$package" -dest:"auto,includeAcls='False',computerName='$package_appserver',authType='NTLM'" -verb:sync -disableLink:ContentExtension -disableLink:CertificateExtension -allowUntrusted
+ 	$Host.UI.RawUI.ForegroundColor = "Gray"
 
 	Write-Host
 
@@ -72,14 +72,11 @@ function DoDeploy([string] $package = "package.zip")
 
 function ShowHelp()
 {
-	#$actions | Format-Table name,@{ n = 'Description'; e = { $_.Value.Description } } -AutoSize
-
-	Write-Welcome
-
-	Write-Host "Deploy "
-	Write-Host "Backup"
-	Write-Host "Help"
-	Write-Host ""
+	Write-Host "  - Deploy	 Deploys $package_name to $package_appserver$package_virtualdir"
+	Write-Host "  - Backup	 Backups the currently deployed $package_name on $package_appserver."
+	Write-Host "  - Restore	 Restores a previously created backup."
+	Write-Host "  - Help 	 Shows help information."
+	Write-Host
 }
 
 function xmlPeek($filePath, $xpath)
@@ -92,17 +89,18 @@ function xmlPeek($filePath, $xpath)
     return $found.InnerText
 } 
 
+# functions for aliases
+function DeployAlias()
+{
+	package -Deploy
+}
+
+
 function Write-Welcome
 {
-	$package_name = xmlPeek $package_xml "package/@id"
-	$package_version = xmlPeek $package_xml "package/@version"
-	$package_env = xmlPeek $package_xml "package/@environment"
-
-	cls
-
 	Write-Host ""
 	Write-Host ""
-	Write-Host "Welcome to your deploy shell!"
+	Write-Host "Welcome to your power deploy shell!"
 	Write-Host ""
 	Write-Host "  Package: " -nonewline
 	Write-Host $package_name v$package_version -ForegroundColor Red -nonewline
@@ -110,32 +108,40 @@ function Write-Welcome
 	Write-Host ("   targeting {0}" -f $package_env.ToUpper())
 	Write-Host "" 
 	Write-Host ""
+
+	#Set-Alias deploy DeployAlias -Scope Global
 }
+
 
 $work_dir = resolve-path "$(Split-Path -parent $MyInvocation.MyCommand.path)/.."
 
-$package_xml = Join-Path $work_dir "package.xml"
-$package_appserver = xmlPeek $package_xml "/package/appserver"
-$package_username = xmlPeek $package_xml "/package/username"
-$package_password = xmlPeek $package_xml "/package/password"
+$package_xml         = Join-Path $work_dir "package.xml"
+
+$package_name 		 = xmlPeek $package_xml "/package/@id"
+$package_version     = xmlPeek $package_xml "/package/@version"
+$package_env         = xmlPeek $package_xml "/package/@environment"
+$package_appserver   = xmlPeek $package_xml "/package/appserver"
+$package_username    = xmlPeek $package_xml "/package/username"
+$package_password    = xmlPeek $package_xml "/package/password"
 $package_apppoolname = xmlPeek $package_xml "/package/apppoolname"
-$package_virtualdir = xmlPeek $package_xml "/package/virtualdir"
-$package_website = xmlPeek $package_xml "/package/website"
+$package_virtualdir  = xmlPeek $package_xml "/package/virtualdir"
+$package_website     = xmlPeek $package_xml "/package/website"
 
-
-
-if ($All -eq $false -and $Deploy -eq $false -and $Backup -eq $false -and $RestoreBackup -eq $false)
+if ($Deploy -eq $false -and $Backup -eq $false -and $Restore -eq $false)
 {
-	Write-Welcome
-
 	$Help = $true
 }
 
-if ($Help) { ShowHelp }
+if ($Help)
+{
+	Write-Welcome
+	ShowHelp
+}
+
 if ($Backup) { Backup }
-if ($RestoreBackup) { RestoreBackup }
+if ($Restore) { Restore }
 if ($Deploy) 
 {
-	#Backup
+	Backup
 	DoDeploy
 }

@@ -59,7 +59,7 @@ function AddPackageParameters()
     $xml.WriteElementString("appserver", "`${$($config_prefix)_AppServer_Name}")
     $xml.WriteElementString("username", "`${$($config_prefix)_AppServer_Account}")
     $xml.WriteElementString("password", "`${$($config_prefix)_AppServer_Password}")
-    $xml.WriteElementString("apppoolname", "`${$($config_prefix)_AppServer_AppPoolName=$config_prefix.ToUpper() (`$[env]`$[subenv])}") # todo: make defaultable
+    $xml.WriteElementString("apppoolname", "`${$($config_prefix)_AppServer_AppPoolName=$config_prefix (`$[env]`$[subenv])}") # todo: make defaultable
     $xml.WriteElementString("virtualdir", "`${$($config_prefix)_AppServer_Root=/}$package_id")
     $xml.WriteElementString("website", "`${$($config_prefix)_AppServer_WebSite}") # Default Web Site
     $xml.WriteEndElement()
