@@ -1,3 +1,5 @@
+@echo off
+
 title loading powerdeploy
 
 echo loading power deploy shell...
