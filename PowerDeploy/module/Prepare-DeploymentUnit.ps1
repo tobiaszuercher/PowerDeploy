@@ -12,13 +12,35 @@ function Prepare-DeploymentUnit
     Import-Configurations
     Import-DeploymentUnits
 
-    Write-Verbose "prepare"
+    if ($deployment_unit -eq '')
+    {
+        Write-Host "The " -nonewline
+        Write-Host "Prepare" -nonewline -f White
+        Write-Host " command will replace any placeholders with the according values from the environment.xml."
+        Write-Host
+        Write-Host "The deployment units are located at: $($powerdeploy.paths.deployment_units)/<deployment-unit-group>/<environment>"
+        Write-Host
+        Write-Host "Usage: " -nonewline
+        Write-Host "Prepare " -f White -nonewline
+        Write-Host "<deployment-unit-group> <environment> <subenvironment>"
+        Write-Host "       Where   <deplyoment-unit-group> is one of:" ([string]::join(', ', @($powerdeploy.deployment_units.Keys)))
+        Write-Host "       and     <environment>          "([string]::join(', ', @(List-Environments)))
+        Write-Host "       and     <subenvironment>        sub environment name like _tobi or _bug1337"
+        Write-Host 
+        Write-Host
+        Write-Host "To get more information about the available environments use " -nonewline
+        Write-Host "Show-Environments" -f White
+        Write-Host
+
+        return
+    }
 
     $env_exists = CheckWheterEnvironmentExist $environment
 
     if ($env_exists -eq $false)
     {
         cls
+        
         Write-Host "Sorry, there is no environment called " -nonewline
         Write-Host $environment.ToUpper() -f "Cyan"
         Write-Host ""
@@ -53,8 +75,7 @@ function Prepare-DeploymentUnit
         else
         {
             $workDir = (Join-Path (Join-Path $env:TEMP PowerDeploy) (createUniqueDir))
-    
-#            Set-Alias sz "$($powerdeploy.paths.tools)\7Zip\7za.exe"        
+            
             sz x -y "-o$($workDir)" $found_unit.Fullname | Out-Null
             
             $packagePath = Join-Path $workDir "package.template.xml"
@@ -62,7 +83,7 @@ function Prepare-DeploymentUnit
             $packageId = xmlPeek $packagePath "package/@id"
             $packageVersion = xmlPeek $packagePath "package/@version"
             
-            Write-Host "Preparing $packageId with type $packageType" -ForegroundColor yellow
+            Write-Host "Preparing $packageId with type $packageType"
             
             Invoke-Expression -Command "$(Join-Path $($powerdeploy).paths.scripts $packageType/prepare.$packageType.ps1) $workDir -Disassemble"
             

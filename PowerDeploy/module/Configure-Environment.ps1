@@ -14,7 +14,10 @@ function Configure-Environment
 
     if (CheckWheterEnvironmentExist $environment)
     {
-        Write-Host "Configuring environment for" $environment.ToUpper() "in $target_path" -ForegroundColor "DarkCyan"
+        if ($target_path -eq $powerdeploy.paths.project)
+        {
+            Write-Host "Configuring environment for" $environment.ToUpper() "in $target_path" -ForegroundColor "DarkCyan"
+        }
        
         foreach($template in Get-ChildItem -Path $target_path -Filter "*.template.*" -Recurse)
         {

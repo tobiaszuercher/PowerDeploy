@@ -20,3 +20,12 @@ function Show-Environments
 
     Write-Host ""
 }
+
+function List-Environments
+{
+    $env_path = Join-Path $powerdeploy.paths.environments $powerdeploy.project.id
+
+    Get-ChildItem $env_path -Filter "*.xml" | ForEach-Object {
+        Write-Output $_.Basename
+    }
+}
