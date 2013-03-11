@@ -10,11 +10,14 @@ Param(
 
 $ErrorActionPreference = "Stop"
 
+# package is one folder up... wtf!!! isn't there an easier way to do that?
+$work_dir = resolve-path "$(Split-Path -parent $MyInvocation.MyCommand.path)/.."
+
+Push-Location $work_dir
+
 function Backup()
 {
 	Write-Host "Create backup for $package_appserver/$package_virtualdir"
-
-	Import-Module .\tools\PowerDeploy.Extensions.dll -DisableNameChecking
 
 	# WHAT THE FUCK, LOOK AT THOSE `! this IS ridiculous!
 	$Host.UI.RawUI.ForegroundColor = "DarkGray"
@@ -65,7 +68,7 @@ function DoDeploy([string] $package = "package.zip")
 	Create-AppPool -Name $package_apppoolname -ServerName $package_appserver -WAMUserName $package_username -WAMUserPass -package_password
 	Assign-AppPool -ServerName $package_appserver -ApplicationPoolName $package_apppoolname -VirtualDirectory $package_virtualdir -WebsiteName $package_website
 
-	#.\tools\7za.exe x "-o$($drop_location)" ".\package.zip"
+	Remove-Module PowerDeploy.Extensions
 
 	Write-Host "Done! have fun!"
 }
@@ -138,3 +141,5 @@ if ($Deploy)
 	Backup
 	DoDeploy
 }
+
+Pop-Location

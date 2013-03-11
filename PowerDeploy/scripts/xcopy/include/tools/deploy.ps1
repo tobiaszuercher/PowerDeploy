@@ -11,34 +11,29 @@ Param(
 
 $ErrorActionPreference = "Stop"
 
-$actions = @{
-	deploy = @{ command = "deploy"; description = "Deploys the xcopy backage to the specified drop location" };
-	help = @{ command = "help"; description = "Prints this informations out." };
-	backup = @{ command = "backup"; description = "Backups the current drop location" }
-}
-
 # package is one folder up... wtf!!! isn't there an easier way to do that?
 $work_dir = resolve-path "$(Split-Path -parent $MyInvocation.MyCommand.path)/.."
 
+Push-Location $work_dir
+
 function Backup()
 {
-	# do the backkup
-	Write-Host "[Backup]"
-
 	if (Test-Path $drop_location)
 	{
 		$backup_target = Join-Path $work_dir "Backup_$(Get-Date -Format yyyy-MM-dd_HH.mm.ss)"
 
-		Write-Verbose "Create backup target: $backup_target"
+		Write-Host "Creating backup..."
+		Write-Verbose "Target: $backup_target"
 
-		New-Item -Path $backup_target -ItemType directory
+		New-Item -Path $backup_target -ItemType directory | out-null
 
 		Write-Verbose "copying from $drop_location to $backup_target"
-		Copy-Item "$drop_location\*" $backup_target
+		
+		Copy-Item "$drop_location\*" $backup_target | out-null
 	}
 	else
 	{
-		Write-Host "Nothing found in $drop_location"
+		Write-Host "Skipped backup, nothing found in $drop_location"
 	}
 }
 
@@ -53,11 +48,11 @@ function DoDeploy()
 		Remove-Item $drop_location -Force -Recurse
 	}
 
-	New-Item -Path $drop_location -ItemType directory
+	New-Item -Path $drop_location -ItemType directory | out-null
 
-	Write-Host "unzipping package to $drop_location"
+	Write-Host "deploying package to $drop_location"
 
-	.\tools\7za.exe x "-o$($drop_location)" ".\package.zip"
+	.\tools\7za.exe x "-o$($drop_location)" ".\package.zip" | out-null
 }
 
 function ShowHelp()
@@ -95,22 +90,9 @@ function Write-Welcome
 	Write-Host "  Package: " -nonewline
 	Write-Host $package_name v$package_version -ForegroundColor Red -nonewline
 	Write-Host ""
-	Write-Host ("   targeting {0}" -f $package_env.ToUpper())
+	Write-Host ("          targeting {0}" -f $package_env.ToUpper())
 	Write-Host "" 
 	Write-Host ""
-
-
-
-#	Write-Host ""
-#	Write-Host ""
-#	Write-Host "Welcome to your deploy shell!"
-#	Write-Host ""
-#	Write-Host ""
-#	Write-Host "    Package: MovieFavoritesConsole in version 1.0.0.2"
-#	Write-Host ""
-#	Write-Host "             targeting environment LOCAL"
-#	Write-Host ""
-#	Write-Host ""
 }
 
 # i'm still unsure which approach seems to be better... use the [switch]-parameters or "task1,task2,task3" approach
@@ -136,19 +118,4 @@ if ($Deploy)
 	DoDeploy
 }
 
-# pretty funny way to use on command line deploy.ps1 "task1,task2,task3:"
-
-#$actions = @{
-#	deploy = @{ action = { DoDeploy }; description = "Deploys the xcopy backage to the specified drop location" };
-#	backup = @{ action = { Backup }; description = "Backups the current drop location" }
-#	help = @{ action = { ShowHelp }; description = "Prints this informations out." }
-#}
-
-#if ($todo -eq $null -or $todo.length -eq 0 )
-#{
-#	ShowHelp
-#}
-#else
-#{
-#	$todo.split(',') | % { & $actions.$_.action }
-#}
+Pop-Location

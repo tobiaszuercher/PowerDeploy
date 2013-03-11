@@ -24,21 +24,18 @@ if ($Deploy -eq $false)
 	Write-Host ""
 
 	Set-Alias packages ".\$($MyInvocation.MyCommand.Name)" -Scope Global
-	Set-Location $this_dir
 }
 
 if ($Deploy -eq $true)
 {
-	$location_backup = Get-Location
-
 	# TODO: duplicate detection: just deploy newest
 
 	# loop through each package and execute deploy.ps1 -BulkDeploy
 	Get-ChildItem $this_dir | where { $_.PsIsContainer } | ForEach-Object {
-		Set-Location $_
+		Push-Location $_.Fullname
 
-		.\tools\deploy.ps1 -Deploy
+		Start-Process powershell -ArgumentList "-NoExit -Command $($_.Fullname)\tools\deploy.ps1 -Deploy"
+
+		Pop-Location
 	}
-
-	Set-Location $location_backup
 }
