@@ -4,7 +4,8 @@ param(
 	[switch] $LocalCopyFirst # TODO	
 )
 
-$this_dir = (Split-Path -parent $MyInvocation.MyCommand.Definition)
+$script_dir = (Split-Path -parent $MyInvocation.MyCommand.Definition)
+Push-Location $script_dir
 
 Set-Alias packages .\bulkdeploy.ps1 -Scope Global -Force 
 
@@ -14,7 +15,7 @@ if ($Deploy -eq $false)
 
 	Write-Host "Found the following deployment units to deploy:"
 
-	Get-ChildItem $this_dir | where { $_.PsIsContainer } | ForEach-Object {
+	Get-ChildItem $script_dir | where { $_.PsIsContainer } | ForEach-Object {
 		Write-Host " ->" $_.Name
 	}
 
@@ -31,7 +32,7 @@ if ($Deploy -eq $true)
 	# TODO: duplicate detection: just deploy newest
 
 	# loop through each package and execute deploy.ps1 -BulkDeploy
-	Get-ChildItem $this_dir | where { $_.PsIsContainer } | ForEach-Object {
+	Get-ChildItem $script_dir | where { $_.PsIsContainer } | ForEach-Object {
 		Push-Location $_.Fullname
 
 		Start-Process powershell -ArgumentList "-NoExit -Command $($_.Fullname)\tools\deploy.ps1 -Deploy"
