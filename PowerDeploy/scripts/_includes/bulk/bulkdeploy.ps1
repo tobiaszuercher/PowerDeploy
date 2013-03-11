@@ -35,7 +35,14 @@ if ($Deploy -eq $true)
 	Get-ChildItem $script_dir | where { $_.PsIsContainer } | ForEach-Object {
 		Push-Location $_.Fullname
 
-		Start-Process powershell -ArgumentList "-NoExit -Command $($_.Fullname)\tools\deploy.ps1 -Deploy"
+		if (Test-Path .\tools\NEED_ADMIN_TO_DEPLOY)
+		{
+			Start-Process powershell -ArgumentList "-NoExit -Command $($_.Fullname)\tools\deploy.ps1 -Deploy" -Verb runas
+		}
+		else
+		{
+			Start-Process powershell -ArgumentList "-NoExit -Command $($_.Fullname)\tools\deploy.ps1 -Deploy"	
+		}
 
 		Pop-Location
 	}
