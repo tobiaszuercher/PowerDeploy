@@ -11,19 +11,15 @@ Param(
 # the template variables to the according files
 function Disassemble()
 {   
-    Write-Host "[prepare.iis.disassemble]"
-    
     $out = Join-Path $work_dir "out/"
     
     sz x -y "-o$($out)" (Join-Path $work_dir package.zip) | Out-Null
 
-    Move-Item (Join-Path $out "parameters.xml") (Join-Path $out "parameters.template.xml") -Verbose
+    Move-Item (Join-Path $out "parameters.xml") (Join-Path $out "parameters.template.xml")
 }
 
 function Reassemble()
 {
-    Write-Host "[prepare.iis.reassemble]"
-    
     sz a -tzip (Join-Path $work_dir package.zip) (Join-Path $work_dir "out/*") | Out-Null
     
     Remove-Item (Join-Path $work_dir "out") -Recurse
@@ -33,5 +29,3 @@ if ($Disassemble -eq $false -and $Reassemble -eq $false) { "maybe u should have 
 
 if ($Disassemble) { Disassemble }
 if ($Reassemble) { Reassemble }
-
-# Generate-Assembly-Info -> google

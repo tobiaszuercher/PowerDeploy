@@ -19,13 +19,12 @@ Write-Verbose "package_zip: $package_zip"
 
 function Disassemble()
 {   
-    Write-Verbose "[prepare.xcopy.disassemble]"
-    #sz x "-o$($unzip_dir)" $package_zip
+    # nothing to do for xcopy, everything is in $out_dir
 }
 
 function Reassemble()
 {
-    Write-Host "[prepare.xcopy.reassemble]"
+    Write-Verbose "Reassembling..."
 
     #The App.config has wrong name, it needs *ProjectName*.exe.config -> patch it!
     $config_file_name = (Get-ChildItem $out_dir -Filter *.exe.config).Name
@@ -33,7 +32,7 @@ function Reassemble()
     
     if ($config_file_name -ne $null -and (Test-Path $config_file_template) -eq $true)
     {
-        Write-Host "Found an App.config with exe.config -> replace it"
+        Write-Verbose "Found an App.config with exe.config -> replace it"
         $config_file_path = Join-Path $out_dir $config_file_name
 
         Remove-Item $config_file_path -Force
@@ -45,6 +44,7 @@ function Reassemble()
         Remove-Item $package_zip -Force
     }
 
+    Write-Verbose "Zipping output to package.zip"
     sz a -tzip $package_zip "$out_dir/*" | Out-Null
     
     Remove-Item $out_dir -Recurse

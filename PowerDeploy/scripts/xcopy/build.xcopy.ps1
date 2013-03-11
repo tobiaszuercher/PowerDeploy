@@ -21,7 +21,10 @@ $workDir = (Join-Path (Join-Path $env:TEMP PowerDeploy) (Get-Date -Format yyyy-M
 function DoBuild()
 {
     Write-Host "Building $projectFile"
+    $color_before = $Host.UI.RawUI.ForegroundColor
+    $Host.UI.RawUI.ForegroundColor = "DarkGray"
     exec { msbuild $projectFile /p:Configuration=Release /p:RunCodeAnalysis=false /p:OutputPath=$workDir/out /verbosity:minimal /t:Rebuild }
+    $Host.UI.RawUI.ForegroundColor = $color_before
 }
 
 function Package()
