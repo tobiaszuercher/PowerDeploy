@@ -9,21 +9,21 @@ function Invoke-Build([string]$type)
         cls
 
         Write-Host "The " -nonewline
-        Write-Host "Build" -nonewline -f White
+        Write-Host "Build" -nonewline -f $powerdeploy.colors.strong
         Write-Host " command builds your project(s) into neutral package(s). A neutral package never contains any"
         Write-Host "environment specific information. Use the " -nonewline
-        Write-Host "Prepare " -f White -nonewline
+        Write-Host "Prepare " -f $powerdeploy.colors.strong -nonewline
         Write-Host "command to apply environment specific informations like"
         Write-Host "connection strings or other typcal configuration values."
         Write-Host
         Write-Host "To switch your local workspace to a specific enviornment, use the " -nonewline
-        Write-Host "Config" -f White -nonewline
+        Write-Host "Config" -f $powerdeploy.colors.strong -nonewline
         Write-Host " command."
         Write-Host
         Write-Host "The neutral packages are located at: $($powerdeploy.paths.deployment_units)"
         Write-Host
         Write-Host "Usage: " -nonewline
-        Write-Host "Build " -f White -nonewline
+        Write-Host "Build " -f $powerdeploy.colors.strong -nonewline
         Write-Host "<package-type>"
         Write-Host "       Where <package-type> is one of all, xcopy or iis"
         Write-Host 
