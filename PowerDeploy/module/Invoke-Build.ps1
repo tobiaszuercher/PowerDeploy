@@ -36,12 +36,14 @@ function Invoke-Build([string]$type)
     $assembly_info = @{
                         AssemblyVersion = $version; 
                         AssemblyFileVersion = $version; 
-                        AssemblyInformationalVersion = "Version $version built on $(Get-Date -Format 'dd.MM.yyyy HH:mm')"
+                        AssemblyInformationalVersion = ("Version $version built on $(Get-Date -Format 'dd.MM.yyyy HH:mm')");
+                        AssemblyCopyright = $ExecutionContext.InvokeCommand.ExpandString($powerdeploy.project.assembly.copyright.ToString());
+                        AssemblyCompany = $ExecutionContext.InvokeCommand.ExpandString($powerdeploy.project.assembly.company);
                     }
 
     Update-AssemblyInfo $assembly_info $powerdeploy.paths.project
 
-    Write-Host "Building version $version built on $(Get-Date -Format 'dd.MM.yyyy HH:mm')" -ForegroundColor "Blue"
+    Write-Host "building version $version..." -ForegroundColor "Blue"
 
     foreach ($package in $powerdeploy.packages | where { $_.type -eq $type -or $type.ToUpper() -eq "ALL" })
     {
