@@ -1,12 +1,14 @@
-<?xml version="1.0"?>
+<?xml version="1.0" encoding="utf-8"?>
 <project id="sample" name="Common configuration for this project">
   <clickonce>
-    <startmenufolder>MovieFavorites</startmenufolder>
+    <!-- Start menu folder name for clickonce packages -->
+    <startmenufolder>Movie Favorites App</startmenufolder>
   </clickonce>
   <assembly>
-  	<version>1.0.0.*</version>
+	<!-- AssemblyInfo.cs will be altered with those values -->
+  	<version>1.0.0.*</version> <!-- the * will be replaced by a value depending on the versioning type -->
   	<copyright>Zühlke Engineering AG</copyright>
-  	<company>Copyright &#169; Tobias Zürcher, Zühlke Engineering AG, Switzerland ${datetime::get-year(datetime::now())}</company>
+  	<company>Copyright &#169; Tobias Zürcher, Switzerland</company>
   </assembly>
   <versioning type="increment"> <!-- available types: tfs, increment -->
     <!-- settings for increment: -->

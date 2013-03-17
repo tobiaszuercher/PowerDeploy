@@ -14,6 +14,8 @@ function Prepare-DeploymentUnit
 
     if ($deployment_unit -eq '')
     {
+        cls
+        
         Write-Host "The " -nonewline
         Write-Host "Prepare" -nonewline -f $powerdeploy.colors.strong
         Write-Host " command will replace any placeholders with the according values from the environment.xml."
