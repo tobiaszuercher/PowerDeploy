@@ -2,6 +2,8 @@ function Initialize-PowerDeploy([string]$path = (Split-Path -parent $MyInvocatio
 {
     $path = Resolve-Path $path # resolve path allows us to have relative paths or .
 
+    Write-Verbose "Initialize PowerDeploy for $path"
+
     # set all paths to the project
     $powerdeploy.paths.project = $path
     $powerdeploy.paths.deployment_units = Join-Path $path "deployment/deploymentUnits"

@@ -1,0 +1,14 @@
+<config>
+	<ProjectDir>.</ProjectDir>
+	<PowerDeployInstallDir>..\PowerDeploy</PowerDeployInstallDir>
+	
+	<update mechanism="tfs">
+		<!-- tfs settings -->
+		<source>$/Popcorn/PowerDeploy</source>
+		<server>https://tzuercher.tfspreview.com/defaultcollection</server>
+
+		<!-- git settings -->
+		<repository>https://github.com/tobiaszuercher/PowerDeploy.git</repository>
+		<gitcmd></gitcmd> <!-- todo: handle this property (user can define location of git.exe) -->
+	</update>
+</config>
