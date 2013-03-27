@@ -31,6 +31,14 @@ function Invoke-Build([string]$type)
         return
     }
 
+    if ($type.ToUpper() -eq 'CLEAN')
+    {
+        Write-Host "Cleaning" $powerdeploy.paths.deployment_units
+        Get-ChildItem $powerdeploy.paths.deployment_units | Remove-Item -Force -Recurse
+
+        return
+    }
+
 	$version = Get-Version
     
     $assembly_info = @{

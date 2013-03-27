@@ -2,7 +2,7 @@
 	<ProjectDir>C:\git\PowerDeploy\SampleApp</ProjectDir>
 	<PowerDeployInstallDir>C:\git\PowerDeploy\PowerDeploy</PowerDeployInstallDir>
 	
-	<update mechanism="git">
+	<update mechanism="tfs">
 		<!-- tfs settings -->
 		<source>$/Popcorn/PowerDeploy</source>
 		<server>https://tzuercher.tfspreview.com/defaultcollection</server>

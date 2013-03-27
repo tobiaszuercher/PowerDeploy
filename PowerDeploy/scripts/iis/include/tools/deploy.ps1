@@ -21,10 +21,20 @@ function Backup()
 
 	# WHAT THE FUCK, LOOK AT THOSE `! this IS ridiculous!
 	$Host.UI.RawUI.ForegroundColor = "DarkGray"
-	.\tools\MsDeploy\x64\msdeploy.exe -source:contentPath=`'Default Web Site/SampleAppWeb`' -dest:"package='backup_$(Get-Date -Format yyyy-MM-dd_HH-mm-ss).zip'" -verb:sync
+
+	# because of the bug mentioned in the link below, we have to make a workaround to create backup
+	# http://connect.microsoft.com/PowerShell/feedback/details/376207/executing-commands-which-require-quotes-and-variables-is-practically-impossible#
+#	.\tools\MsDeploy\x64\msdeploy.exe -source:"contentPath='$package_website/$package_virtualdir'" -dest:"package='backup_$(Get-Date -Format yyyy-MM-dd_HH-mm-ss).zip'" -verb:sync
+
+	CreateBackup ("$package_website/$package_virtualdir") "backup_$(Get-Date -Format yyyy-MM-dd_HH-mm-ss).zip"
 	$Host.UI.RawUI.ForegroundColor = "Gray"
 
 	Write-Host
+}
+
+# call command line tools which require quotes -> impossible (i didn't get it working for backup, this is a workaround)
+function CreateBackup([string]$content_path, [string]$package_name) {
+    cmd.exe /C $("tools\MsDeploy\x64\msdeploy.exe -verb:sync -source:contentPath=`"{0}`" -dest:package=`"{1}`"" -f $content_path, $package_name)
 }
 
 function Restore()
@@ -39,7 +49,7 @@ function Restore()
 		Get-ChildItem -filter backup_* | Format-table Name -HideTableHeaders
 
 		Write-Host "Usage example: " -nonewline
-		Write-Host "TODO -Restore backup_2000-01-12_13:37.zip" -f Red
+		Write-Host "  package -Restore backup_2000-01-12_13:37.zip" -f Red
 		Write-Host
 	}
 	else

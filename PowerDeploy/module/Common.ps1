@@ -92,7 +92,19 @@ function Replace-Placeholders($template_text, [string]$environment, [string]$sub
     {  
         param($match)
 
-        $property_name = $match.Groups["Name"].Value
+        $property_fullname = $match.Groups["Name"].Value
+
+        if ($property_fullname.Contains('='))
+        {
+            # we have to deal with default values
+            $property_defaultvalue = $property_fullname.Split('=')[1]
+        }
+        else
+        {
+            $property_defaultvalue = $null
+        }
+
+        $property_name = $property_fullname.Split('=')[0]
 
         $value_available = @($properties | where { $_.name -eq $property_name}).Count -eq 1
 
@@ -108,10 +120,10 @@ function Replace-Placeholders($template_text, [string]$environment, [string]$sub
             return $subenv
         }
 
-        if ($property_name.Contains('=') -and $value_available -eq $false)
+        if ($property_fullname.Contains('=') -and $value_available -eq $false)
         {
-            # it's a default proppy and no value found in environment -> use default value
-            $found_value = $property_name.Split('=')[1] -replace "\$\[env\]","$environment" -replace "\$\[subenv\]",$subenv
+            # it's a default proppy and no value found in environment -> use default value (you can use $env & $subenv)
+            $found_value = $property_fullname.Split('=')[1] -replace "\$\[env\]","$environment" -replace "\$\[subenv\]",$subenv
 
             Write-Verbose "$property_name -> $found_value (used default value)"
             
@@ -122,7 +134,7 @@ function Replace-Placeholders($template_text, [string]$environment, [string]$sub
         {
             $found_value = (($properties | where { $_.name -eq $property_name }).Value) -replace "\$\{env\}","$environment" -replace "\$\{subenv\}","$subenv"
             
-            Write-Verbose "$property_name -> $found_value"
+            Write-Verbose "$property_name -> $found_value ($environment)"
             
             return $found_value
         }
