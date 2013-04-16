@@ -5,4 +5,4 @@ title loading powerdeploy
 echo loading power deploy shell...
 
 cd "%~dp0"
-powershell.exe -noexit -command ". %~dp0shell.ps1"
+powershell.exe -noexit -command ". '%~dp0shell.ps1'"

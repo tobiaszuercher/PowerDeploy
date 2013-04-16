@@ -19,22 +19,18 @@ function Backup()
 {
 	Write-Host "Create backup for $package_appserver/$package_virtualdir"
 
-	# WHAT THE FUCK, LOOK AT THOSE `! this IS ridiculous!
+	$color = $Host.UI.RawUI.ForegroundColor
 	$Host.UI.RawUI.ForegroundColor = "DarkGray"
 
-	# because of the bug mentioned in the link below, we have to make a workaround to create backup
-	# http://connect.microsoft.com/PowerShell/feedback/details/376207/executing-commands-which-require-quotes-and-variables-is-practically-impossible#
-#	.\tools\MsDeploy\x64\msdeploy.exe -source:"contentPath='$package_website/$package_virtualdir'" -dest:"package='backup_$(Get-Date -Format yyyy-MM-dd_HH-mm-ss).zip'" -verb:sync
+	# because of the bug mentioned in the link below, we have to make a workaround
+	# http://connect.microsoft.com/PowerShell/feedback/details/376207/executing-commands-which-require-quotes-and-variables-is-practically-impossible
 
-	CreateBackup ("$package_website/$package_virtualdir") "backup_$(Get-Date -Format yyyy-MM-dd_HH-mm-ss).zip"
-	$Host.UI.RawUI.ForegroundColor = "Gray"
+	# .\tools\MsDeploy\x64\msdeploy.exe -source:"contentPath='$package_website/$package_virtualdir'" -dest:"package='backup_$(Get-Date -Format yyyy-MM-dd_HH-mm-ss).zip'" -verb:sync
+	cmd.exe /C $("tools\MsDeploy\x64\msdeploy.exe -verb:sync -source:contentPath=`"{0}`" -dest:package=`"{1}`"" -f "$package_website/$package_virtualdir", "backup_$(Get-Date -Format yyyy-MM-dd_HH-mm-ss).zip")
+	
+	$Host.UI.RawUI.ForegroundColor = $color
 
 	Write-Host
-}
-
-# call command line tools which require quotes -> impossible (i didn't get it working for backup, this is a workaround)
-function CreateBackup([string]$content_path, [string]$package_name) {
-    cmd.exe /C $("tools\MsDeploy\x64\msdeploy.exe -verb:sync -source:contentPath=`"{0}`" -dest:package=`"{1}`"" -f $content_path, $package_name)
 }
 
 function Restore()
@@ -85,10 +81,11 @@ function DoDeploy([string] $package = "package.zip")
 
 function ShowHelp()
 {
-	Write-Host "  - Deploy	 Deploys $package_name to $package_appserver$package_virtualdir"
-	Write-Host "  - Backup	 Backups the currently deployed $package_name on $package_appserver."
-	Write-Host "  - Restore	 Restores a previously created backup."
-	Write-Host "  - Help 	 Shows help information."
+	Write-Host " Use package -command where command is one of the following:"
+	Write-Host "  -Deploy	 Deploys $package_name to $package_appserver$package_virtualdir"
+	Write-Host "  -Backup	 Backups the currently deployed $package_name on $package_appserver."
+	Write-Host "  -Restore	 Restores a previously created backup."
+	Write-Host "  -Help 	 Shows help information."
 	Write-Host
 }
 
@@ -104,6 +101,8 @@ function xmlPeek($filePath, $xpath)
 
 function Write-Welcome
 {
+	cls
+	
 	Write-Host ""
 	Write-Host ""
 	Write-Host "Welcome to your power deploy shell!"
@@ -111,7 +110,7 @@ function Write-Welcome
 	Write-Host "  Package: " -nonewline
 	Write-Host $package_name v$package_version -ForegroundColor Red -nonewline
 	Write-Host ""
-	Write-Host ("   targeting {0}" -f $package_env.ToUpper())
+	Write-Host ("           targeting {0}" -f $package_env.ToUpper())
 	Write-Host "" 
 	Write-Host ""
 

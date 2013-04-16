@@ -16,6 +16,11 @@ Param(
     [switch]$Package
 )
 
+Write-Verbose "Project File: $projectFile"
+Write-Verbose "Package ID: $packageId"
+Write-Verbose "Config Prefix: $configPrefix"
+Write-Verbose "Version: $version"
+
 $workDir = (Join-Path (Join-Path $env:TEMP PowerDeploy) (Get-Date -Format yyyy-MM-dd_HH.mm.ss))
 
 function DoBuild()
@@ -23,7 +28,13 @@ function DoBuild()
     Write-Host "Building $projectFile"
     $color_before = $Host.UI.RawUI.ForegroundColor
     $Host.UI.RawUI.ForegroundColor = "DarkGray"
+    #exec { msbuild $projectFile /p:Configuration=Release /p:RunCodeAnalysis=false /p:OutputPath=$workDir/out /verbosity:minimal /t:Rebuild }
+
+    #Push-Location (Split-Path -parent $projectfile)
+    #msbuild "\`"$projectfile`"" /p:Configuration=Release /p:RunCodeAnalysis=false /p:OutputPath=$workDir/out /t:Rebuild
     exec { msbuild $projectFile /p:Configuration=Release /p:RunCodeAnalysis=false /p:OutputPath=$workDir/out /verbosity:minimal /t:Rebuild }
+    #Pop-Location
+
     $Host.UI.RawUI.ForegroundColor = $color_before
 }
 
@@ -32,14 +43,14 @@ function Package()
     AddPackageParameters 
 
     # todo: this script shouldn't know anything about those paths...
-    sz a -tzip (Join-Path $powerdeploy.paths.project "deployment/deploymentUnits/$($packageId)_$version.zip") "$workDir/*" | Out-Null
+    sz a -tzip (Join-Path "$($powerdeploy.paths.project)" "deployment/deploymentUnits/$($packageId)_$version.zip") "$workDir/*" | Out-Null
     
     #Remove-Item $outputDir -Recurse -Force
 }
 
 function AddPackageParameters()
 {    
-    $file = Join-Path $workDir "package.template.xml"
+    $file = Join-Path "$workDir" "package.template.xml"
         
     $xml = New-Object System.Xml.XmlTextWriter($file, $null)
     $xml.Formatting = "Indented"    

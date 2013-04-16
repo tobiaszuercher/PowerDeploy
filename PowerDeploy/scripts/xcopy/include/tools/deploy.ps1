@@ -3,16 +3,16 @@ Param(
     [Parameter(Position = 1)]
     [string]$todo = $null,
 
-    # todo: i'm not sure whtere to do swtiches
     [switch] $Deploy,
     [switch] $Backup,
     [switch] $Help
+    # TODO: restore!
 )
 
 $ErrorActionPreference = "Stop"
 
-# package is one folder up... wtf!!! isn't there an easier way to do that?
-$work_dir = resolve-path "$(Split-Path -parent $MyInvocation.MyCommand.path)/.."
+# package is one folder up...
+$work_dir = Resolve-Path "$(Split-Path -parent $MyInvocation.MyCommand.path)/.."
 
 Push-Location $work_dir
 
@@ -40,7 +40,6 @@ function Backup()
 function DoDeploy()
 {
 	Write-Host "deploy target: $drop_location"
-	Write-Host "removing $drop_location"
 
 	if (Test-Path $drop_location)
 	{
@@ -57,12 +56,12 @@ function DoDeploy()
 
 function ShowHelp()
 {
-	#$actions | Format-Table name,@{ n = 'Description'; e = { $_.Value.Description } } -AutoSize
-
-	Write-Host "Deploy "
-	Write-Host "Backup"
-	Write-Host "Help"
-	Write-Host ""
+	Write-Host " Use package -command where command is one of the following:"
+	Write-Host "   -Deploy	  Deploys $package_name to $package_appserver$package_virtualdir"
+	Write-Host "   -Backup	  Backups the currently deployed $package_name on $package_appserver."
+	Write-Host "   -Restore	  Restores a previously created backup."
+	Write-Host "   -Help 	  Shows help information."
+	Write-Host
 }
 
 function xmlPeek($filePath, $xpath)
@@ -81,7 +80,6 @@ function Write-Welcome
 	$package_version = xmlPeek $package_xml "package/@version"
 	$package_env = xmlPeek $package_xml "package/@environment"
 
-	cls
 
 	Write-Host ""
 	Write-Host ""
@@ -90,32 +88,32 @@ function Write-Welcome
 	Write-Host "  Package: " -nonewline
 	Write-Host $package_name v$package_version -ForegroundColor Red -nonewline
 	Write-Host ""
-	Write-Host ("          targeting {0}" -f $package_env.ToUpper())
+	Write-Host ("           targeting {0}" -f $package_env.ToUpper())
 	Write-Host "" 
 	Write-Host ""
 }
 
-# i'm still unsure which approach seems to be better... use the [switch]-parameters or "task1,task2,task3" approach
-# i let this hashtable here to get ShowHelp() for free.
-
 $package_xml = Join-Path $work_dir "package.xml"
 $drop_location = xmlPeek $package_xml "/package/droplocation"
 
-if ($All -eq $false -and $Deploy -eq $false -and $Backup -eq $false)
-{
-	Write-Welcome
-}
-else
+if ($Deploy -eq $false -and $Backup -eq $false -and $Restore -eq $false)
 {
 	$Help = $true
 }
 
-if ($Help) { ShowHelp }
+if ($Help)
+{
+	Write-Welcome
+	ShowHelp
+}
+
 if ($Backup) { Backup }
+if ($Restore) { Restore }
 if ($Deploy) 
 {
 	Backup
 	DoDeploy
 }
+
 
 Pop-Location
