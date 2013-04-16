@@ -1,4 +1,4 @@
 <?xml version="1.0"?>
-<deploymentunits dropfolder="c:\demo_packages">
-    <deploymentunit path="MovieFavoritesDatabase_*" />
+<deploymentunits>
+    <deploymentunit path="SampleAppDatabase_*" />
 </deploymentunits>

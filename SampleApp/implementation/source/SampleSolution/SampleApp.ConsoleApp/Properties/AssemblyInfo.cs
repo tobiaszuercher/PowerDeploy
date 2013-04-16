@@ -8,9 +8,9 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyTitle("SampleApp.ConsoleApp")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("Zuehlke Engineering AG")]
+[assembly: AssemblyCompany("Copyright © Tobias Zürcher, Switzerland")]
 [assembly: AssemblyProduct("SampleApp.ConsoleApp")]
-[assembly: AssemblyCopyright("Copyright © Zuehlke Engineering AG 2013")]
+[assembly: AssemblyCopyright("Zühlke Engineering AG")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
@@ -31,11 +31,71 @@ using System.Runtime.InteropServices;
 //
 // You can specify all the values or you can default the Build and Revision Numbers 
 // by using the '*' as shown below:
-// [assembly: AssemblyVersion("1.0.0.128")]
-[assembly: AssemblyVersion("1.0.0.128")]
-[assembly: AssemblyFileVersion("1.0.0.128")]
+// [assembly: AssemblyVersion("1.0.0.219")]
+[assembly: AssemblyVersion("1.0.0.219")]
+[assembly: AssemblyFileVersion("1.0.0.219")]
 
-[assembly: AssemblyInformationalVersion("Version 1.0.0.128 built on 08.03.2013 16:26")]
+[assembly: AssemblyInformationalVersion("Version 1.0.0.219 built on 16.04.2013 08:06")]
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
