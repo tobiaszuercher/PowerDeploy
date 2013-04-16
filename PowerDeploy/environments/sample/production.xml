@@ -19,4 +19,7 @@
     <property name="SAMPLE_APP_WEB_Setting"			value="123" />
     <property name="SAMPLE_APP_CONSOLE_Setting"		value="iddqd" />
     <property name="SAMPLE_APP_WPF_Setting"			value="1337" />
+
+    <property name="SAMPLE_DB_Database_Server"		value="localhost\sqlexpress" />
+   	<property name="SAMPLE_DB_Database_Name"		value="PowerDeploySampleApp_${env}${subenv}" />
 </environment>
