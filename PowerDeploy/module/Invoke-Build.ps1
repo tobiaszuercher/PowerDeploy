@@ -4,26 +4,26 @@ function Invoke-Build([string]$type)
     Import-Configurations
     Import-DeploymentUnits
 
-    if ($type -eq '') # haha, its not $null :D
+    if ($type -eq '')
     {
         cls
 
         Write-Host "The " -nonewline
-        Write-Host "Build" -nonewline -f $powerdeploy.colors.strong
+        Write-Host "Build" -nonewline -f $powerdeploy.colors.command
         Write-Host " command builds your project(s) into neutral package(s). A neutral package never contains any"
         Write-Host "environment specific information. Use the " -nonewline
-        Write-Host "Prepare " -f $powerdeploy.colors.strong -nonewline
+        Write-Host "Prepare " -f $powerdeploy.colors.command -nonewline
         Write-Host "command to apply environment specific informations like"
         Write-Host "connection strings or other typcal configuration values."
         Write-Host
         Write-Host "To switch your local workspace to a specific enviornment, use the " -nonewline
-        Write-Host "Config" -f $powerdeploy.colors.strong -nonewline
+        Write-Host "Config" -f $powerdeploy.colors.command -nonewline
         Write-Host " command."
         Write-Host
         Write-Host "The neutral packages are located at: $($powerdeploy.paths.deployment_units)"
         Write-Host
         Write-Host "Usage: " -nonewline
-        Write-Host "Build " -f $powerdeploy.colors.strong -nonewline
+        Write-Host "Build " -f $powerdeploy.colors.command -nonewline
         Write-Host "<package-type>"
         Write-Host "       Where <package-type> is one of all, xcopy or iis"
         Write-Host 
@@ -55,11 +55,11 @@ function Invoke-Build([string]$type)
 
     foreach ($package in $powerdeploy.packages | where { $_.type -eq $type -or $type.ToUpper() -eq "ALL" })
     {
-        $project_file = Join-Path (Join-Path $powerdeploy.paths.project "/implementation/source/") $package.source
+        $project_file = Join-Path (Join-Path ($powerdeploy.paths.project) "/implementation/source/") $package.source
 
         # remove if there are some older version of this neutral package
         Get-Childitem $powerdeploy.paths.deployment_units -Filter "$($package.id)*" | Remove-Item -Force -Recurse
 
-        Invoke-Expression -Command "$(Join-Path $($powerdeploy.paths.scripts) /$($package.type)/build.$($package.type).ps1) $project_file $($package.id) $($package.configPrefix) -Build -Package -Version $version"
+        Invoke-Expression -Command "$(Join-Path ($powerdeploy.paths.scripts) /$($package.type)/build.$($package.type).ps1) '$project_file' $($package.id) $($package.configPrefix) -Build -Package -Version $version"
     }
 }

@@ -17,13 +17,13 @@ function Prepare-DeploymentUnit
         cls
         
         Write-Host "The " -nonewline
-        Write-Host "Prepare" -nonewline -f $powerdeploy.colors.strong
+        Write-Host "Prepare" -nonewline -f $powerdeploy.colors.command
         Write-Host " command will replace any placeholders with the according values from the environment.xml."
         Write-Host
         Write-Host "The deployment units are located at: $($powerdeploy.paths.deployment_units)/<deployment-unit-group>/<environment>"
         Write-Host
         Write-Host "Usage: " -nonewline
-        Write-Host "Prepare " -f $powerdeploy.colors.strong -nonewline
+        Write-Host "Prepare " -f $powerdeploy.colors.command -nonewline
         Write-Host "<deployment-unit-group> <environment> <subenvironment>"
         Write-Host "       Where   <deplyoment-unit-group> is one of:" ([string]::join(', ', @($powerdeploy.deployment_units.Keys)))
         Write-Host "       and     <environment>          "([string]::join(', ', @(List-Environments)))
@@ -31,7 +31,7 @@ function Prepare-DeploymentUnit
         Write-Host 
         Write-Host
         Write-Host "To get more information about the available environments use " -nonewline
-        Write-Host "Show-Environments" -f $powerdeploy.colors.strong
+        Write-Host "Show-Environments" -f $powerdeploy.colors.command
         Write-Host
 
         return
@@ -54,7 +54,7 @@ function Prepare-DeploymentUnit
     }
     
     # remove target folder
-    $destination_folder = Join-Path (Join-Path $powerdeploy.paths.deployment_units $deployment_unit) $environment.ToUpper()
+    $destination_folder = Join-Path (Join-Path $powerdeploy.paths.deployment_units $deployment_unit) "$environment$subenv".ToUpper()
     
     if ([IO.Directory]::Exists($destination_folder))
     {
