@@ -71,6 +71,12 @@ function AddPackageParameters()
     # pass to each individual impl:
     $xml.WriteElementString("dbserver", "`${$($configPrefix)_Database_Server}")
     $xml.WriteElementString("dbname", "`${$($configPrefix)_Database_Name}")
+    $xml.WriteElementString("datadeploy", "`${$($configPrefix)_Database_DataDeploy=Empty}")
+
+    # Empty -> no data deployments (default)
+    # dataset:name -> run the scripts form the dataset folder
+    # env:name -> use database from another environment
+    # unc:\\share\backup.bak -> import from unc path. it's up to you to schedule any backup.
 
     $xml.WriteEndElement()
     $xml.WriteEndDocument()

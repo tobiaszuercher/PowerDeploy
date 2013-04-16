@@ -22,4 +22,5 @@
 
     <property name="SAMPLE_DB_Database_Server"		value="localhost\sqlexpress" />
    	<property name="SAMPLE_DB_Database_Name"		value="PowerDeploySampleApp_${env}${subenv}" />
+    <property name="SAMPLE_DB_Database_DataDeploy"  value="dataset:Default" />
 </environment>

@@ -4,7 +4,7 @@ Param(
     [switch] $Deploy,
     [switch] $Backup,
     [switch] $Help,
-    [switch] $Restore,
+    [switch] $Rollback,
     [switch] $UpdateExisting
 )
 
@@ -33,7 +33,7 @@ function Backup()
 	Write-Host
 }
 
-function Restore()
+function Rollback()
 {
 	cls
 
@@ -45,7 +45,7 @@ function Restore()
 		Get-ChildItem -filter backup_* | Format-table Name -HideTableHeaders
 
 		Write-Host "Usage example: " -nonewline
-		Write-Host "  package -Restore backup_2000-01-12_13:37.zip" -f Red
+		Write-Host "  package -Rollback backup_2000-01-12_13:37.zip" -f Red
 		Write-Host
 	}
 	else
@@ -84,7 +84,7 @@ function ShowHelp()
 	Write-Host " Use package -command where command is one of the following:"
 	Write-Host "  -Deploy	 Deploys $package_name to $package_appserver$package_virtualdir"
 	Write-Host "  -Backup	 Backups the currently deployed $package_name on $package_appserver."
-	Write-Host "  -Restore	 Restores a previously created backup."
+	Write-Host "  -Rollback	 Rollbacks a previously created backup."
 	Write-Host "  -Help 	 Shows help information."
 	Write-Host
 }
@@ -132,7 +132,7 @@ $package_apppoolname = xmlPeek $package_xml "/package/apppoolname"
 $package_virtualdir  = xmlPeek $package_xml "/package/virtualdir"
 $package_website     = xmlPeek $package_xml "/package/website"
 
-if ($Deploy -eq $false -and $Backup -eq $false -and $Restore -eq $false)
+if ($Deploy -eq $false -and $Backup -eq $false -and $Rollback -eq $false)
 {
 	$Help = $true
 }
@@ -144,7 +144,7 @@ if ($Help)
 }
 
 if ($Backup) { Backup }
-if ($Restore) { Restore }
+if ($Rollback) { Rollback }
 if ($Deploy) 
 {
 	Backup
