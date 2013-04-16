@@ -57,15 +57,21 @@ function DoRollback($file)
 	cmd.exe /C $("net share pdRollbackShare=`"{0}`" /GRANT:Everyone,Full" -f "$package_dir")
 	$backup_share_path = "\\$env:computername\pdRollbackShare\$file"
 
-	Write-Host "Dropping $dbname..."
+	DropDatabase
 
-	sqlcmd -S "$dbserver" -i "scripts/kill.connections.sql" -v DatabaseName="$dbname"
-	sqlcmd -S "$dbserver" -i "scripts/drop.sql" -v DatabaseName="$dbname"
 	sqlcmd -S "$dbserver" -i "scripts/restore.sql" -v DatabaseName="$dbname" BackupFile="$backup_share_path"
 
 	Get-WmiObject -Class Win32_Share -Filter "Name='pdRollbackShare'" | Remove-WmiObject
 
 	Write-Host "Rollback completed!"
+}
+
+function DropDatabase
+{
+	Write-Host "Dropping $dbname..."
+
+	sqlcmd -S "$dbserver" -i "scripts/kill.connections.sql" -v DatabaseName="$dbname"
+	sqlcmd -S "$dbserver" -i "scripts/drop.sql" -v DatabaseName="$dbname"
 }
 
 function DoDeploy()
@@ -85,6 +91,11 @@ function DoDeploy()
 		}
 
 		DoRollback $file
+	}
+	else
+	{
+		# DoRollback will drop the database. in this case we have to drop the database exlipcit
+		DropDatabase
 	}
 
 	# execute migration scripts

@@ -60,6 +60,7 @@
     <Folder Include="DataSets\Default" />
     <Folder Include="Migrations" />
     <Folder Include="DataSets\TestCase1337" />
+    <Folder Include="DataSets\Women" />
   </ItemGroup>
   <ItemGroup>
     <None Include="DataSets\Default\001_AddSampleMovies.sql">
@@ -73,6 +74,9 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Include="Migrations\0002_AddTmdbIdToMovies.sql">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="DataSets\Women\001_AddWomenMovies.sql">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
   </ItemGroup>

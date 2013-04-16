@@ -1,0 +1,3 @@
+﻿INSERT [dbo].[Movies] ([Id], [Title], [Abstract], [Year], [ImdbId]) VALUES (1, N'Twilight 1', N'Lorem ipsum dolor', N'2000', N'10000')
+INSERT [dbo].[Movies] ([Id], [Title], [Abstract], [Year], [ImdbId]) VALUES (2, N'Twilight 2', N'Lorem ipsum dolor sit en num.', N'2012', N'1337')
+INSERT [dbo].[Movies] ([Id], [Title], [Abstract], [Year], [ImdbId]) VALUES (3, N'Twilight 3', N'Lorem ipsum dolor sit en num.', N'2012', N'1337')
