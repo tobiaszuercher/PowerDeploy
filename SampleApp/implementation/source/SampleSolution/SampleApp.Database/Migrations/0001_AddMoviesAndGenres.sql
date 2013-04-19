@@ -17,7 +17,6 @@ BEGIN
 
 END
 
-
 /****** Object:  Table [dbo].[Genres]    Script Date: 15.04.2013 13:49:51 ******/
 IF NOT EXISTS (SELECT * FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_SCHEMA = 'dbo' AND TABLE_NAME = 'Genres')
 BEGIN

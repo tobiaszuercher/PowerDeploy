@@ -18,17 +18,21 @@ $package_dir = Resolve-Path "$(Split-Path -parent $MyInvocation.MyCommand.path)/
 
 Push-Location $package_dir
 
-function Backup()
+function Backup($server, $name)
 {
+	Write-Host "Creat backup for database $name from $server"
+
 	$backup_file_name = "backup_$(Get-Date -Format yyyy-MM-dd_HH.mm.ss).bak"
 
 	# well it's really lazy to grant everyone and full, but we'll close the share after the export
 	cmd.exe /C $("net share pdbackupshare=`"{0}`" /GRANT:Everyone,Full" -f "$package_dir")
 
 	$backup_share = "\\$env:computername\pdbackupshare\$backup_file_name"
-	sqlcmd -S "$dbserver" -i "scripts/backup.sql" -v DatabaseName="$dbname" BackupFile="$backup_share"
+	sqlcmd -S "$server" -i "scripts/backup.sql" -v DatabaseName="$name" BackupFile="$backup_share"
 
 	Get-WmiObject -Class Win32_Share -Filter "Name='pdbackupshare'" | Remove-WmiObject
+
+	return $backup_file_name
 }
 
 function Rollback()
@@ -46,7 +50,7 @@ function Rollback()
 	}
 	else
 	{
-		DoRollback	
+		DoRollback $file
 	}
 }
 
@@ -54,12 +58,20 @@ function DoRollback($file)
 {
 	Write-Host "Start rollback..."
 
-	cmd.exe /C $("net share pdRollbackShare=`"{0}`" /GRANT:Everyone,Full" -f "$package_dir")
-	$backup_share_path = "\\$env:computername\pdRollbackShare\$file"
+	if ($file.StartsWith('\\'))
+	{
+		$backup_share_path = $file
+	}
+	else
+	{
+		cmd.exe /C $("net share pdRollbackShare=`"{0}`" /GRANT:Everyone,Full" -f "$package_dir")
+		$backup_share_path = "\\$env:computername\pdRollbackShare\$file"
+	}
 
 	DropDatabase
 
 	sqlcmd -S "$dbserver" -i "scripts/restore.sql" -v DatabaseName="$dbname" BackupFile="$backup_share_path"
+
 
 	Get-WmiObject -Class Win32_Share -Filter "Name='pdRollbackShare'" | Remove-WmiObject
 
@@ -78,11 +90,13 @@ function DoDeploy()
 {
 	Write-Host "deploy to $dbname on $dbserver"
 
-	.\tools\7za.exe x "-oscripts" ".\package.zip" | out-null
+	.\tools\7za.exe x "-oscripts" -y ".\package.zip" #| out-null
 
 	# if unc data deployment enabled: first restore backup file from unc path
 	if($datadeploy.StartsWith("unc"))
 	{
+		Write-Verbose "Restore from unc"
+
 		$file = $datadeploy.Split(":")[1]
 
 		if ($file -eq $null)
@@ -92,13 +106,24 @@ function DoDeploy()
 
 		DoRollback $file
 	}
+	elseif ($datadeploy.StartsWith("livedump"))
+	{
+		# livedump:dbname@dbserver\instance
+		$target = $datadeploy.Split(":")[1].Split("@")
+
+		Write-Verbose "Livedump from db" $target[0] "on server" $target[1]
+
+		$live_backup = Backup $target[1] $target[0]
+		DoRollback $live_backup
+	}
 	else
 	{
-		# DoRollback will drop the database. in this case we have to drop the database exlipcit
+		# if no db was imported then drop the database explicitly
 		DropDatabase
 	}
 
-	# execute migration scripts
+	Write-Host "Executing migration scripts"
+
 	Get-ChildItem ".\scripts/Migrations" -Filter *.sql -Recurse | % {
 		Write-Host "executing $($_.Name)"
 
@@ -112,19 +137,19 @@ function DoDeploy()
 		}
 	}
 
-	# execute data scripts for dataset if datadeploy is dataset
-	if ($datadeploy.StartsWith("dataset"))
+	# execute data scripts for datascripts if datadeploy is datascripts
+	if ($datadeploy.StartsWith("datascripts"))
 	{
-		$dataset = $datadeploy.Split(":")[1]
+		$datascripts = $datadeploy.Split(":")[1]
 
-		if ($dataset -eq $null)
+		if ($datascripts -eq $null)
 		{
-			$dataset = "default"
+			$datascripts = "default"
 		}
 
-		Write-Host "Executing scripts for dataset $dataset"
+		Write-Host "Executing scripts for datascripts $datascripts"
 
-		Get-ChildItem ".\scripts/DataSets/$dataset" -Filter *.sql -Recurse | % {
+		Get-ChildItem ".\scripts/DataScripts/$datascripts" -Filter *.sql -Recurse | % {
 			Write-Host "executing $($_.Name)"
 			
 			sqlcmd -S "$dbserver" -i "$($_.Fullname)" -v DatabaseName="$dbname" -d "$dbname"
@@ -136,7 +161,7 @@ function ShowHelp()
 {
 	Write-Host " Use package -command where command is one of the following:"
 	Write-Host "   -Deploy	  Deploys $package_name to $package_appserver$package_virtualdir"
-	Write-Host "   -Backup	  Backups the currently deployed $package_name on $package_appserver."
+	Write-Host "   -Backup	  Backubps the currently deployed $package_name on $package_appserver."
 	Write-Host "   -Rollback	  Rollbacks a previously created backup."
 	Write-Host "   -Help 	  Shows help information."
 	Write-Host
@@ -169,11 +194,11 @@ if ($Help)
 	ShowHelp
 }
 
-if ($Backup) { Backup }
+if ($Backup) { Backup $dbserver $dbname }
 if ($Rollback) { Rollback }
 if ($Deploy) 
 {
-	Backup
+	Backup $dbserver $dbname
 	DoDeploy
 }
 

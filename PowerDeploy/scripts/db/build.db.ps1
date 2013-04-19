@@ -39,8 +39,7 @@ function Package()
     AddPackageParameters 
 
     # copy script folders
-    if (Test-Path "$workDir/build/Objects")     { Copy-Item "$workDir/build/Objects" "$workDir/package/scripts/" -Recurse }
-    if (Test-Path "$workDir/build/DataSets")    { Copy-Item "$workDir/build/DataSets" "$workDir/package/scripts/" -Recurse }
+    if (Test-Path "$workDir/build/DataScripts")    { Copy-Item "$workDir/build/DataScripts" "$workDir/package/scripts/DataScripts" -Recurse }
     if (Test-Path "$workDir/build/Migrations")  { Copy-Item "$workDir/build/Migrations" "$workDir/package/scripts/Migrations" -Recurse }
     if (Test-Path "$workDir/build/Before")      { Copy-Item "$workDir/build/Before" "$workDir/package/scripts/Before" -Recurse }
     if (Test-Path "$workDir/build/After")       { Copy-Item "$workDir/build/After" "$workDir/package/scripts/After" -Recurse }
@@ -71,11 +70,11 @@ function AddPackageParameters()
     # pass to each individual impl:
     $xml.WriteElementString("dbserver", "`${$($configPrefix)_Database_Server}")
     $xml.WriteElementString("dbname", "`${$($configPrefix)_Database_Name}")
-    $xml.WriteElementString("datadeploy", "`${$($configPrefix)_Database_DataDeploy=Empty}")
+    $xml.WriteElementString("datadeploy", "`${$($configPrefix)_Database_DataDeploy_type=NotUsed}")
 
-    # Empty -> no data deployments (default)
-    # dataset:name -> run the scripts form the dataset folder
-    # env:name -> use database from another environment
+    # NotUsed -> no data deployments (default)
+    # datascripts:default -> run the scripts form the dataset folder
+    # livedump:dbname@dbserver -> use database a specific database, use datadeploy_server & datadeploy_database
     # unc:\\share\backup.bak -> import from unc path. it's up to you to schedule any backup.
 
     $xml.WriteEndElement()
