@@ -56,14 +56,14 @@
     <Folder Include="Properties" />
     <Folder Include="Before" />
     <Folder Include="After" />
-    <Folder Include="DataSets" />
-    <Folder Include="DataSets\Default" />
+    <Folder Include="DataScripts" />
+    <Folder Include="DataScripts\Default" />
     <Folder Include="Migrations" />
-    <Folder Include="DataSets\TestCase1337" />
-    <Folder Include="DataSets\Women" />
+    <Folder Include="DataScripts\TestCase1337" />
+    <Folder Include="DataScripts\Women" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="DataSets\Default\001_AddSampleMovies.sql">
+    <None Include="DataScripts\Default\001_AddSampleMovies.sql">
       <ApplicationScope>False</ApplicationScope>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
@@ -76,7 +76,7 @@
     <None Include="Migrations\0002_AddTmdbIdToMovies.sql">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="DataSets\Women\001_AddWomenMovies.sql">
+    <None Include="DataScripts\Women\001_AddWomenMovies.sql">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
   </ItemGroup>
