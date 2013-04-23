@@ -15,6 +15,6 @@ function Update-AssemblyInfo
 
         $replacements.Keys | % { $file_content = $file_content -replace ($pattern -f $_), $replacements.Item($_).ToString()}
 
-        Set-Content $filename $file_content -Encoding UTF8
+        [System.IO.File]::WriteAllText("$filename", $file_content, [Text.Encoding]::UTF8)
     }
 }
