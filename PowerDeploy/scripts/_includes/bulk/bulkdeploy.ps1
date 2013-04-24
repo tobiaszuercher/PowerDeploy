@@ -30,20 +30,24 @@ if ($Deploy -eq $false)
 if ($Deploy -eq $true)
 {
 	# TODO: duplicate detection: just deploy newest
+	# TODO: wait for the results
 
-	# loop through each package and execute deploy.ps1 -BulkDeploy
+	Write-Host "Deploying... please wait till all subwindows are closed."
+
 	Get-ChildItem $script_dir | where { $_.PsIsContainer } | ForEach-Object {
 		Push-Location $_.Fullname
 
 		if (Test-Path .\tools\NEED_ADMIN_TO_DEPLOY)
 		{
-			Start-Process powershell -ArgumentList "-NoExit -Command $($_.Fullname)\tools\deploy.ps1 -Deploy" -Verb runas
+			Start-Process powershell -ArgumentList "-Command $($_.Fullname)\tools\deploy.ps1 -Deploy" -Verb runas
 		}
 		else
 		{
-			Start-Process powershell -ArgumentList "-NoExit -Command $($_.Fullname)\tools\deploy.ps1 -Deploy"	
+			Start-Process powershell -ArgumentList "-Command $($_.Fullname)\tools\deploy.ps1 -Deploy"
 		}
 
 		Pop-Location
 	}
 }
+
+Pop-Location
