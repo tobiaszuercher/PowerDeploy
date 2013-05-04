@@ -15,6 +15,6 @@ if ($version_seed -eq $null)
 
 $version_seed += 1
 
-Set-Content $version_seed_file $version_seed
+Set-Content $version_seed_file $version_seed -Force
 
 return $version_seed

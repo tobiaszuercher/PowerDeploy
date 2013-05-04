@@ -10,7 +10,7 @@
   	<copyright>Zühlke Engineering AG</copyright>
   	<company>Copyright &#169; Tobias Zürcher, Switzerland</company>
   </assembly>
-  <versioning type="increment"> <!-- available types: tfs, increment -->
+  <versioning type="git"> <!-- available types: tfs, git, increment -->
     <!-- settings for increment: -->
     <seed>configuration/version_seed.txt</seed>
 

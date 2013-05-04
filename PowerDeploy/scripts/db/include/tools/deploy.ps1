@@ -6,7 +6,8 @@ Param(
     [switch] $Deploy,
     [switch] $Backup,
     [switch] $Help,
-    [switch] $Rollback
+    [switch] $Rollback,
+    [switch] $CloseOnEnd
 )
 
 $ErrorActionPreference = "Stop"
@@ -90,7 +91,7 @@ function DoDeploy()
 {
 	Write-Host "deploy to $dbname on $dbserver"
 
-	.\tools\7za.exe x "-oscripts" -y ".\package.zip" #| out-null
+	.\tools\7za.exe x "-oscripts" -y ".\package.zip" | out-null
 
 	# if unc data deployment enabled: first restore backup file from unc path
 	if($datadeploy.StartsWith("unc"))
@@ -203,3 +204,11 @@ if ($Deploy)
 }
 
 Pop-Location
+
+
+Start-Sleep -s 5
+
+if ($CloseOnEnd)
+{
+	Stop-Process -Id $PID
+}
