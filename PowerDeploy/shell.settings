@@ -1,14 +1,12 @@
 <config>
 	<ProjectDir>C:\git\PowerDeploy\SampleApp</ProjectDir>
 	<PowerDeployInstallDir>C:\git\PowerDeploy\PowerDeploy</PowerDeployInstallDir>
-	
 	<update mechanism="none">
 		<!-- tfs settings -->
 		<source>$/Popcorn/PowerDeploy</source>
 		<server>https://tzuercher.tfspreview.com/defaultcollection</server>
-
 		<!-- git settings -->
 		<repository>https://github.com/tobiaszuercher/PowerDeploy.git</repository>
-		<gitcmd></gitcmd> <!-- todo: handle this property (user can define location of git.exe) -->
 	</update>
+	<vstoolsversion>11.0</vstoolsversion> <!-- 10.0, 11.0 (don't miss the '.0' -->
 </config>

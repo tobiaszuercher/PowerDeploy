@@ -5,22 +5,18 @@
     <startmenufolder>Movie Favorites App</startmenufolder>
   </clickonce>
   <assembly>
-	<!-- AssemblyInfo.cs will be altered with those values -->
-  	<version>1.0.0.*</version> <!-- the * will be replaced by a value depending on the versioning type -->
-  	<copyright>Zühlke Engineering AG</copyright>
-  	<company>Copyright &#169; Tobias Zürcher, Switzerland</company>
+    <!-- AssemblyInfo.cs will be altered with those values -->
+    <version>1.0.0.*</version>
+    <!-- the * will be replaced by a value depending on the versioning type -->
+    <copyright>Zühlke Engineering AG</copyright>
+    <company>Copyright © Tobias Zürcher, Switzerland</company>
   </assembly>
   <versioning type="git"> <!-- available types: tfs, git, increment -->
     <!-- settings for increment: -->
     <seed>configuration/version_seed.txt</seed>
-
+    
     <!-- settings for tfs -->
     <path>c:\tfs\tfspreview\popcorn</path>
     <tfsserver>https://tzuercher.tfspreview.com/defaultcollection</tfsserver>
   </versioning>
-  <misc>
-    <vstools>2010</vstools>
-  </misc>
 </project>
-
-<!-- refactor powerdeploy-specific settings out of the project.xml -->
