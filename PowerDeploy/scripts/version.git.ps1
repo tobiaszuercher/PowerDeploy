@@ -1,5 +1,5 @@
 [CmdletBinding()]
-	param()
+param()
 
 Push-Location "$($powerdeploy.paths.project)"
 $revision = (git rev-list --reverse HEAD).Count

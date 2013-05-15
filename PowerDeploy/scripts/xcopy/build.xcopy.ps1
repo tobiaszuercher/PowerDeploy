@@ -23,17 +23,23 @@ Write-Verbose "Version: $version"
 
 $workDir = (Join-Path (Join-Path $env:TEMP PowerDeploy) (Get-Date -Format yyyy-MM-dd_HH.mm.ss))
 
+Write-Host "WorkDir: $workDir"
+
 function DoBuild()
 {
     Write-Host "Building $projectFile"
     $color_before = $Host.UI.RawUI.ForegroundColor
     $Host.UI.RawUI.ForegroundColor = "DarkGray"
-    #exec { msbuild $projectFile /p:Configuration=Release /p:RunCodeAnalysis=false /p:OutputPath=$workDir/out /verbosity:minimal /t:Rebuild }
 
-    #Push-Location (Split-Path -parent $projectfile)
-    #msbuild "\`"$projectfile`"" /p:Configuration=Release /p:RunCodeAnalysis=false /p:OutputPath=$workDir/out /t:Rebuild
-    exec { msbuild $projectFile /p:Configuration=Release /p:RunCodeAnalysis=false /p:OutputPath=$workDir/out /verbosity:minimal /t:Rebuild }
-    #Pop-Location
+    $project_dir = (Split-Path -parent "$projectFile")
+
+    Push-Location (get-item "$project_dir")
+
+    $filename = (get-item "$project_file").Name
+
+    msbuild $filename /p:Configuration=Release /p:RunCodeAnalysis=false /p:OutputPath=$workDir/out /t:Rebuild
+    #exec { echoargs "'$filename'" /p:Configuration=Release /p:RunCodeAnalysis=false /p:OutputPath=$workDir/out /verbosity:minimal /t:Rebuild }
+    Pop-Location
 
     $Host.UI.RawUI.ForegroundColor = $color_before
 }
@@ -53,6 +59,7 @@ function AddPackageParameters()
     $file = Join-Path "$workDir" "package.template.xml"
         
     $xml = New-Object System.Xml.XmlTextWriter($file, $null)
+
     $xml.Formatting = "Indented"    
     $xml.Indentation = 4
     

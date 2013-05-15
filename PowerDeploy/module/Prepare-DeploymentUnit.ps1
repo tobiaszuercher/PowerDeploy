@@ -54,19 +54,19 @@ function Prepare-DeploymentUnit
     }
     
     # remove target folder
-    $destination_folder = Join-Path (Join-Path $powerdeploy.paths.deployment_units $deployment_unit) "$environment$subenv".ToUpper()
+    $destination_folder = Join-Path (Join-Path "$($powerdeploy.paths.deployment_units)" "$deployment_unit") "$environment$subenv".ToUpper()
     
-    if ([IO.Directory]::Exists($destination_folder))
+    if ([IO.Directory]::Exists("$destination_folder"))
     {
         Write-Verbose "Remove existing deployment units."
-        Remove-Item $destination_folder -Recurse -Force
+        Remove-Item "$destination_folder" -Recurse -Force
     }
     
-    New-Item -path $destination_folder -type directory | Out-Null
+    New-Item -path "$destination_folder" -type directory | Out-Null
     
     foreach ($unit in $powerdeploy.deployment_units[$deployment_unit])
     {
-        $found_unit = Get-ChildItem $powerdeploy.paths.deployment_units -Filter $unit.path
+        $found_unit = Get-ChildItem "$($powerdeploy.paths.deployment_units)" -Filter "$($unit.path)"
       
         # todo: first check if all ok and then go further with processing
         # otherwise there could be some half transformed deploymentUnits    
@@ -78,7 +78,7 @@ function Prepare-DeploymentUnit
         {
             $workDir = (Join-Path (Join-Path $env:TEMP PowerDeploy) (createUniqueDir))
             
-            sz x -y "-o$($workDir)" $found_unit.Fullname | Out-Null
+            sz x -y "-o$($workDir)" "$($found_unit.Fullname)" | Out-Null
             
             $packagePath = Join-Path $workDir "package.template.xml"
             $packageType = xmlPeek $packagePath "package/@type"
@@ -87,18 +87,18 @@ function Prepare-DeploymentUnit
             
             Write-Host "Preparing $packageId with type $packageType"
             
-            Invoke-Expression -Command "$(Join-Path $($powerdeploy).paths.scripts $packageType/prepare.$packageType.ps1) $workDir -Disassemble"
-            
-            Configure-Environment $environment $subenv $workDir -delete_templates $true
-            
-            Invoke-Expression -Command "$(Join-Path $($powerdeploy).paths.scripts $packageType/prepare.$packageType.ps1) $workDir -Reassemble"
+            $prepare_script = Join-Path $($powerdeploy.paths.scripts) $packageType/prepare.$packageType.ps1
+
+            & "$prepare_script" "$workDir" -Disassemble
+            Configure-Environment $environment $subenv "$workDir" -delete_templates $true
+            & "$prepare_script" $workDir -Reassemble
             
             Copy-Item "$workDir\" "$destination_folder\$($packageId)_$($packageVersion)\" -Recurse
 
             # copy deploy scripts & tools
-            Copy-Item (Join-Path $powerdeploy.paths.scripts "$packageType/include/*") "$destination_folder\$($packageId)_$($packageVersion)\" -Recurse -Force
-            Copy-Item (Join-Path $powerdeploy.paths.scripts "_includes/package/*") "$destination_folder\$($packageId)_$($packageVersion)\" -Recurse -Force
-            Copy-Item (Join-Path $powerdeploy.paths.scripts "_includes/bulk/*") "$destination_folder\" -Recurse -Force
+            Copy-Item (Join-Path "$($powerdeploy.paths.scripts)" "$packageType/include/*") "$destination_folder\$($packageId)_$($packageVersion)\" -Recurse -Force
+            Copy-Item (Join-Path "$($powerdeploy.paths.scripts)" "_includes/package/*") "$destination_folder\$($packageId)_$($packageVersion)\" -Recurse -Force
+            Copy-Item (Join-Path "$($powerdeploy.paths.scripts)" "_includes/bulk/*") "$destination_folder\" -Recurse -Force
         }
     }
 }

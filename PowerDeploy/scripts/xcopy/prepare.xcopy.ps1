@@ -7,8 +7,6 @@ Param(
     [switch]$Reassemble
 )
 
-$startup_location = Get-Location
-
 $out_dir = Join-Path "$workDir" "out"
 $unzip_dir = Join-Path "$workDir" "unzipped"
 $package_zip = Join-Path "$workDir" "package.zip"
@@ -33,26 +31,24 @@ function Reassemble()
     if ($config_file_name -ne $null -and (Test-Path $config_file_template) -eq $true)
     {
         Write-Verbose "Found an App.config with exe.config -> replace it"
-        $config_file_path = Join-Path "$out_dir" $config_file_name
+        $config_file_path = Join-Path "$out_dir" "$config_file_name"
 
-        Remove-Item $config_file_path -Force
-        Move-Item $config_file_template ($config_file_path) -Force
+        Remove-Item "$config_file_path" -Force
+        Move-Item "$config_file_template" ("$config_file_path") -Force
     }
     
-    if (Test-Path $package_zip)
+    if (Test-Path "$package_zip")
     {
-        Remove-Item $package_zip -Force
+        Remove-Item "$package_zip" -Force
     }
 
     Write-Verbose "Zipping output to package.zip"
-    sz a -tzip $package_zip "$out_dir/*" | Out-Null
+    sz a -tzip "$package_zip" "$out_dir/*" | Out-Null
     
-    Remove-Item $out_dir -Recurse
+    Remove-Item "$out_dir" -Recurse
 }
 
 if ($Disassemble -eq $false -and $Reassemble -eq $false) { "maybe u should have a look at the source code :)" }
 
 if ($Disassemble) { Disassemble }
 if ($Reassemble) { Reassemble }
-
-# Generate-Assembly-Info -> google

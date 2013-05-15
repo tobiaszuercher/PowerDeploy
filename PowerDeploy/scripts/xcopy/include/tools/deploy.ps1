@@ -6,30 +6,32 @@ Param(
     [switch] $Deploy,
     [switch] $Backup,
     [switch] $Help
-    # TODO: restore!
+    # TODO: $Rollback
 )
 
-$ErrorActionPreference = "Stop"
+#$ErrorActionPreference = "Stop"
 
-# package is one folder up...
-$work_dir = Resolve-Path "$(Split-Path -parent $MyInvocation.MyCommand.path)/.."
+# set current directory to package "root" (one up)
+$work_dir = Split-Path -parent (Split-Path -parent "$($MyInvocation.MyCommand.Path)")
 
-Push-Location $work_dir
+Push-Location "$work_dir"
+
+Start-Transcript "deploy.txt"
 
 function Backup()
 {
-	if (Test-Path $drop_location)
+	if (Test-Path "$drop_location")
 	{
 		$backup_target = Join-Path $work_dir "Backup_$(Get-Date -Format yyyy-MM-dd_HH.mm.ss)"
 
 		Write-Host "Creating backup..."
 		Write-Verbose "Target: $backup_target"
 
-		New-Item -Path $backup_target -ItemType directory | out-null
+		New-Item -Path "$backup_target" -ItemType directory | out-null
 
 		Write-Verbose "copying from $drop_location to $backup_target"
 		
-		Copy-Item "$drop_location\*" $backup_target | out-null
+		Copy-Item "$drop_location\*" "$backup_target" | out-null
 	}
 	else
 	{
@@ -41,13 +43,13 @@ function DoDeploy()
 {
 	Write-Host "deploy target: $drop_location"
 
-	if (Test-Path $drop_location)
+	if (Test-Path "$drop_location")
 	{
 		Write-Host "Removing target location ($drop_location)"
-		Remove-Item $drop_location -Force -Recurse
+		Remove-Item "$drop_location" -Force -Recurse
 	}
 
-	New-Item -Path $drop_location -ItemType directory | out-null
+	New-Item -Path "$drop_location" -ItemType directory | out-null
 
 	Write-Host "deploying package to $drop_location"
 
@@ -93,8 +95,8 @@ function Write-Welcome
 	Write-Host ""
 }
 
-$package_xml = Join-Path $work_dir "package.xml"
-$drop_location = xmlPeek $package_xml "/package/droplocation"
+$package_xml = Join-Path "$work_dir" "package.xml"
+$drop_location = xmlPeek "$package_xml" "/package/droplocation"
 
 if ($Deploy -eq $false -and $Backup -eq $false -and $Restore -eq $false)
 {
@@ -115,5 +117,6 @@ if ($Deploy)
 	DoDeploy
 }
 
+Stop-Transcript
 
 Pop-Location

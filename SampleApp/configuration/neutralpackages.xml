@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <neutralpackages>
     <package type="db" id="SampleAppDatabase" configPrefix="SAMPLE_DB" source="SampleSolution\SampleApp.Database\SampleApp.Database.sqlproj" />
-    <package type="xcopy" id="SampleAppDesktopClient" configPrefix="SAMPLE_DESKTOP" source="SampleSolution\SampleApp.WpfApp\SampleApp.WpfApp.csproj" />
+    <!--<package type="xcopy" id="SampleAppDesktopClient" configPrefix="SAMPLE_DESKTOP" source="SampleSolution\SampleApp.WpfApp\SampleApp.WpfApp.csproj" />-->
     <package type="iis" id="SampleAppWeb" configPrefix="SAMPLE_WEB" source="SampleSolution\SampleApp.Web\SampleApp.Web.csproj" />
     <package type="xcopy" id="SampleAppConsole" configPrefix="SAMPLE_CONSOLE" source="SampleSolution\SampleApp.ConsoleApp\SampleApp.ConsoleApp.csproj" />
 </neutralpackages>

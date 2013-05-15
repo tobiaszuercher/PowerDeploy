@@ -8,12 +8,11 @@ Param(
     [switch] $UpdateExisting
 )
 
-$ErrorActionPreference = "Stop"
-
-# package is one folder up... wtf!!! isn't there an easier way to do that?
 $work_dir = resolve-path "$(Split-Path -parent $MyInvocation.MyCommand.path)/.."
 
-Push-Location $work_dir
+Push-Location "$work_dir"
+
+Start-Transcript "deploy.txt"
 
 function Backup()
 {
@@ -54,13 +53,13 @@ function Rollback()
 		Write-Host 
 
 		# remove optional .\ in front of filename (just if the juster pressed Format-table)
-		DoDeploy (Get-Item $backup_package).Fullname
+		DoDeploy (Get-Item "$backup_package").Fullname
 	}
 }
 
 function DoDeploy([string] $package = "package.zip")
 {
-	Write-Host "Deploying iis package to web site $package_website into virtual directory $package_virtualdir"
+	Write-Host "Deploying IIS package to web site $package_website into virtual directory $package_virtualdir"
 
 	Import-Module .\tools\PowerDeploy.Extensions.dll -DisableNameChecking
 
@@ -113,24 +112,22 @@ function Write-Welcome
 	Write-Host ("           targeting {0}" -f $package_env.ToUpper())
 	Write-Host "" 
 	Write-Host ""
-
-	#Set-Alias deploy DeployAlias -Scope Global
 }
 
 
 $work_dir = resolve-path "$(Split-Path -parent $MyInvocation.MyCommand.path)/.."
 
-$package_xml         = Join-Path $work_dir "package.xml"
+$package_xml         = Join-Path "$work_dir" "package.xml"
 
-$package_name 		 = xmlPeek $package_xml "/package/@id"
-$package_version     = xmlPeek $package_xml "/package/@version"
-$package_env         = xmlPeek $package_xml "/package/@environment"
-$package_appserver   = xmlPeek $package_xml "/package/appserver"
-$package_username    = xmlPeek $package_xml "/package/username"
-$package_password    = xmlPeek $package_xml "/package/password"
-$package_apppoolname = xmlPeek $package_xml "/package/apppoolname"
-$package_virtualdir  = xmlPeek $package_xml "/package/virtualdir"
-$package_website     = xmlPeek $package_xml "/package/website"
+$package_name 		 = xmlPeek "$package_xml" "/package/@id"
+$package_version     = xmlPeek "$package_xml" "/package/@version"
+$package_env         = xmlPeek "$package_xml" "/package/@environment"
+$package_appserver   = xmlPeek "$package_xml" "/package/appserver"
+$package_username    = xmlPeek "$package_xml" "/package/username"
+$package_password    = xmlPeek "$package_xml" "/package/password"
+$package_apppoolname = xmlPeek "$package_xml" "/package/apppoolname"
+$package_virtualdir  = xmlPeek "$package_xml" "/package/virtualdir"
+$package_website     = xmlPeek "$package_xml" "/package/website"
 
 if ($Deploy -eq $false -and $Backup -eq $false -and $Rollback -eq $false)
 {
@@ -150,5 +147,7 @@ if ($Deploy)
 	Backup
 	DoDeploy
 }
+
+Stop-Transcript
 
 Pop-Location

@@ -10,14 +10,14 @@ Param(
     [switch] $CloseOnEnd
 )
 
-$ErrorActionPreference = "Stop"
+#$ErrorActionPreference = "Stop"
 
 # package is one folder up...
 $package_dir = Resolve-Path "$(Split-Path -parent $MyInvocation.MyCommand.path)/.."
 
 . (Join-Path "$package_dir" "tools\deploy.common.ps1")
 
-Push-Location $package_dir
+Push-Location "$package_dir"
 
 function Backup($server, $name)
 {

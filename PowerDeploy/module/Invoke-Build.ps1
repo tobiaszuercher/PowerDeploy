@@ -40,7 +40,7 @@ function Invoke-Build([string]$type)
     }
 
 	$version = Get-Version
-    
+
     $assembly_info = @{
                         AssemblyVersion = $version; 
                         AssemblyFileVersion = $version; 
@@ -49,17 +49,20 @@ function Invoke-Build([string]$type)
                         AssemblyCompany = $ExecutionContext.InvokeCommand.ExpandString($powerdeploy.project.assembly.company);
                     }
 
-    Update-AssemblyInfo $assembly_info $powerdeploy.paths.project
+    Update-AssemblyInfo $assembly_info "$($powerdeploy.paths.project)"
 
     Write-Host "building version $version..." -ForegroundColor "Blue"
 
     foreach ($package in $powerdeploy.packages | where { $_.type -eq $type -or $type.ToUpper() -eq "ALL" })
     {
-        $project_file = Join-Path (Join-Path ($powerdeploy.paths.project) "/implementation/source/") $package.source
+        $project_file = Join-Path (Join-Path "$($powerdeploy.paths.project)" "/implementation/source/") $package.source
 
         # remove if there are some older version of this neutral package
         Get-Childitem $powerdeploy.paths.deployment_units -Filter "$($package.id)*" | Remove-Item -Force -Recurse
 
-        Invoke-Expression -Command "$(Join-Path ($powerdeploy.paths.scripts) /$($package.type)/build.$($package.type).ps1) '$project_file' $($package.id) $($package.configPrefix) -Build -Package -Version $version"
+        $build_script = Join-Path "$($powerdeploy.paths.scripts)" "/$($package.type)/build.$($package.type).ps1"
+
+        # executes the build.type.ps1
+        & $build_script "$project_file" "$($package.id)" "$($package.configPrefix)" -Build -Package -Version $version
     }
 }
