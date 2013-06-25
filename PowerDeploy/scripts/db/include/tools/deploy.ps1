@@ -128,7 +128,7 @@ function DoDeploy()
 	Get-ChildItem ".\scripts/Migrations" -Filter *.sql -Recurse | % {
 		Write-Host "executing $($_.Name)"
 
-		if ($_.Name.Contains("CreateDatabase")) # maybe think for a better solution...
+		if ($_.Name.Contains("CreateDatabase")) # maybe think for a better solution... if db doesn't exist, we cannt call sqlcmd with a "-d not-existing-db-name"
 		{
 			sqlcmd -S "$dbserver" -i "$($_.Fullname)" -v DatabaseName="$dbname"
 		}
