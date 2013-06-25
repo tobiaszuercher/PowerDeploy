@@ -22,5 +22,9 @@
 
     <property name="SAMPLE_DB_Database_Server"		value="localhost\sqlexpress" />
    	<property name="SAMPLE_DB_Database_Name"		value="PowerDeploySampleApp_${env}${subenv}" />
-    <property name="SAMPLE_DB_Database_DataDeploy"  value="dataset:Default" />
+    <property name="SAMPLE_DB_Database_DataDeploy"  value="dataset:Women" />
+
+    <property name="TEST_Variable_In_Common_But_Overwritten"    value="test passed" />
+    <property name="SAMPLE_Toggle_Feature_On"                   value="on" />
+    <property name="SAMPLE_Toggle_Feature_Off"                  value="false" />
 </environment>

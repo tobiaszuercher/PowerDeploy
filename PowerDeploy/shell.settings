@@ -1,6 +1,6 @@
 <config>
-	<ProjectDir>C:\git hub\PowerDeploy\SampleApp</ProjectDir>
-	<PowerDeployInstallDir>C:\git hub\PowerDeploy\PowerDeploy</PowerDeployInstallDir>
+	<ProjectDir>C:\git\PowerDeploy\SampleApp</ProjectDir>
+	<PowerDeployInstallDir>C:\git\PowerDeploy\PowerDeploy</PowerDeployInstallDir>
 	<update mechanism="none">
 		<!-- tfs settings -->
 		<source>$/Popcorn/PowerDeploy</source>

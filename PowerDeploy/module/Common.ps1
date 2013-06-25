@@ -106,7 +106,7 @@ function Replace-Placeholders($template_text, [string]$environment, [string]$sub
 
         $property_name = $property_fullname.Split('=')[0]
 
-        $value_available = @($properties | where { $_.name -eq $property_name}).Count -eq 1
+        $value_available = @($properties["$property_name"]).Count -eq 1
 
         if ($property_name -eq 'env')
         {
@@ -132,7 +132,7 @@ function Replace-Placeholders($template_text, [string]$environment, [string]$sub
 
         if ($value_available)
         {
-            $found_value = (($properties | where { $_.name -eq $property_name }).Value) -replace "\$\{env\}","$environment" -replace "\$\{subenv\}","$subenv"
+            $found_value = @($properties["$property_name"]) -replace "\$\{env\}","$environment" -replace "\$\{subenv\}","$subenv"
             
             Write-Verbose "$property_name -> $found_value ($environment)"
             
@@ -143,16 +143,53 @@ function Replace-Placeholders($template_text, [string]$environment, [string]$sub
 
         return "MISSING_PROPERTY: $property_name"
     }
+
+    $match_evaluator_toggle =
+    {
+        param($match)
+
+        if (@("true", "TRUE", "on", "ON", "1", "enabled", "ENABLED").Contains($match.Groups["expression"].Value))
+        {
+            return $match.Groups["content"].Value
+        }
+
+        return ""
+    }
+
+    # regex for conditional comments
+    # \[if\s(?<expression>[^\]]*)\]-->(?<content>.*)(?=<!-- \[endif\]-->)
     
+    # parse and replace all placeholders
     $result = [regex]::replace($template_text, "\$\{(?<Name>[^\}]+)\}", $MatchEvaluator)
+    
+    # handle toggle placeholders
+    $result = [regex]::replace($result, "<!--\s?\[if\s(?<expression>[^\]]*)\]-->(?<content>.*)<!--\s?\[endif\]-->", $match_evaluator_toggle, [System.Text.RegularExpressions.RegexOptions]::SingleLine)
         
     return $result
 }
 
-# TODO: merge with common xml!
 function Get-Properties($environment)
 {
-    return ([xml](Get-Content (Join-Path $powerdeploy.paths.environments "$($powerdeploy.project.id)\$environment.xml"))).environment.property
+    $common_file = Join-Path $powerdeploy.paths.environments "$($powerdeploy.project.id)\common.xml"
+    $environment_file = Join-Path $powerdeploy.paths.environments "$($powerdeploy.project.id)\$environment.xml"
+
+    $common = @{}
+    $environment_specific = @{}
+
+    if (Test-Path $common_file)
+    {
+        ([xml](Get-Content $common_file)).environment.property | % { $common += @{$_.name = $_.value} }
+    }
+
+    ([xml](Get-Content $environment_file)).environment.property | % { $environment_specific += @{ $_.name = $_.value } }
+
+    # create merged hashtable, first copy all from common to $merged, then copy all from specific environment so they will overwrite duplicate entries from common
+    $merged = @{}
+    
+    $common.GetEnumerator() | % { $merged += @{ $_.name = $_.value } } # insert common
+    $environment_specific.GetEnumerator() | % { $merged.set_Item($_.name, $_.value) } # add environment specific properties (overwrite existing)
+
+    Write-Output $merged
 }
 
 function Test-Administrator  
