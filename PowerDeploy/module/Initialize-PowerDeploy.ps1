@@ -9,6 +9,7 @@ function Initialize-PowerDeploy([string]$path = (Split-Path -parent $MyInvocatio
     $powerdeploy.paths.deployment_units = Join-Path $path "deployment/deploymentUnits"
     $powerdeploy.paths.deployment_unit_configs = Join-Path $path "deployment/deploymentUnitConfigs"
     $powerdeploy.paths.project_config_file = Join-Path $path "configuration/project.xml"
+    $powerdeploy.paths.implementation = Join-Path $path "src"
 
     Import-Configurations
     Import-DeploymentUnits

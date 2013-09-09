@@ -55,7 +55,7 @@ function Invoke-Build([string]$type)
 
     foreach ($package in $powerdeploy.packages | where { $_.type -eq $type -or $type.ToUpper() -eq "ALL" })
     {
-        $project_file = Join-Path (Join-Path "$($powerdeploy.paths.project)" "/implementation/source/") $package.source
+        $project_file = Join-Path $powerdeploy.paths.implementation $package.source
 
         # remove if there are some older version of this neutral package
         Get-Childitem $powerdeploy.paths.deployment_units -Filter "$($package.id)*" | Remove-Item -Force -Recurse

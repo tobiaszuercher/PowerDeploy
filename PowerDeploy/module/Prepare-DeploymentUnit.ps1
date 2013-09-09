@@ -76,7 +76,8 @@ function Prepare-DeploymentUnit
         }
         else
         {
-            $workDir = (Join-Path (Join-Path $env:TEMP PowerDeploy) (createUniqueDir))
+            # $workDir = (Join-Path (Join-Path $env:TEMP PowerDeploy) (createUniqueDir)) -> path was too long, TODO: think about it
+            $workDir = (Join-Path (Join-Path "c:\temp" "pd" ) (createUniqueDir))
             
             sz x -y "-o$($workDir)" "$($found_unit.Fullname)" | Out-Null
             

@@ -58,7 +58,7 @@ function CheckWheterEnvironmentExist($environment)
 # this can be refactored to just a guid as soon things gets more stable 
 function createUniqueDir()
 {
-    return '{0}___{1}' -f (Get-Date -Format yyyy-MM-dd_HH.mm.ss), [guid]::NewGuid().ToString().Substring(6)
+    return '{0}' -f [guid]::NewGuid().ToString()
 }
   
 function Transform-Template([string]$template_file, [string]$environment, [string]$subenv = '')
@@ -70,7 +70,7 @@ function Transform-Template([string]$template_file, [string]$environment, [strin
     
     $content = Get-Content $template_file | Out-String
     
-    $replace_pattern = ("{0}\implementation\source\" -f $powerdeploy.paths.project) -replace "\\", "\\"
+    $replace_pattern = ("{0}\{1}" -f $powerdeploy.paths.project, $powerdeploy.paths.implementation) -replace "\\", "\\"
     
     Write-Verbose "transforming $($template_file -replace $replace_pattern) to $($target_file -replace $replace_pattern)"
     
