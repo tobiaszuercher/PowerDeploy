@@ -14,7 +14,17 @@ function Update-AssemblyInfo
         $file_content = Get-Content $filename | out-string
 
         $replacements.Keys | % { $file_content = $file_content -replace ($pattern -f $_), $replacements.Item($_).ToString()}
-
-        [System.IO.File]::WriteAllText("$filename", $file_content, [Text.Encoding]::UTF8)
+        
+        # tfs read-only workaround
+        if (Get-ItemProperty "$filename" -name IsReadOnly)
+        {
+            Set-ItemProperty "$filename" -name IsReadOnly -value $false
+            [System.IO.File]::WriteAllText("$filename", $file_content, [Text.Encoding]::UTF8)
+            Set-ItemProperty "$filename" -name IsReadOnly -value $true
+        }
+        else
+        {
+            [System.IO.File]::WriteAllText("$filename", $file_content, [Text.Encoding]::UTF8)
+        }
     }
 }
