@@ -16,30 +16,28 @@ Param(
     [switch]$Package
 )
 
-$workDir = (Join-Path (Join-Path $env:TEMP PowerDeploy) ([guid]::NewGuid().ToString()))
-$packageLocation = Join-Path $workDir "unzipped"
+$workDir = (Join-Path (Join-Path $env:TEMP PowerDeploy) (Get-Date -Format yyyy-MM-dd__HH.mm.ss))
 
 function DoBuild()
 {
     Write-Verbose "Building $project_file"
     
-    Write-Host $packageLocation
-    exec { msbuild $project_file /p:Configuration=Release /p:RunCodeAnalysis=false /verbosity:minimal /p:AutoParameterizationWebConfigConnectionStrings=false /p:IncludeIisSettings=false /p:FilesToIncludeForPublish=OnlyFilesToRunTheApp /p:IncludeSetAclProviderOnDestination=false /p:DeployOnBuild=true /p:DeployTarget=Package /p:_PackageTempDir="$packageLocation" /t:Rebuild /t:Package }
+    $packageLocation = Join-Path $workDir "package.zip"
+    exec { msbuild $project_file /p:Configuration=Release /p:RunCodeAnalysis=false /verbosity:minimal /p:DesktopBuildPackageLocation=$workDir /p:AutoParameterizationWebConfigConnectionStrings=false /p:PackageLocation=$packageLocation /p:IncludeIisSettings=false /p:FilesToIncludeForPublish=OnlyFilesToRunTheApp /p:IncludeSetAclProviderOnDestination=false /p:DeployIisAppPath="`${$($config_prefix)_AppServer_Website=Default Web Site}/`${$($config_prefix)_AppServer_Root=}/$package_id" /t:Package }
 }
 
 function Package()
 {
     AddPackageParameters 
+    
+    Remove-Item "$workDir\*.cmd" -Force
+    Remove-Item "$workDir\package.deploy-readme.txt" -Force
+    Remove-Item "$workDir\package.SetParameters.xml" -Force
+    Remove-Item "$workDir\package.SourceManifest.xml" -Force
 
-    # msbuild extracts iis-content to $packageLocation, zip that into package.zip
-    sz a -tzip "$workDir\package.zip" "$packageLocation/*" | Out-Null
-    Remove-Item "$packageLocation" -Recurse -Force
-
-    # zip neutral package
     sz a -tzip (Join-Path $powerdeploy.paths.project "deployment/deploymentUnits/$($package_id)_$version.zip") "$workDir/*" | Out-Null
     
-    # remove temp folder
-    Remove-Item $workDir -Recurse -Force
+    # Remove-Item $outputDir -Recurse
 }
 
 function AddPackageParameters()

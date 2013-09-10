@@ -5,11 +5,11 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("SampleApp.ConsoleApp")]
+[assembly: AssemblyTitle("SampleApp.Web")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("Copyright © Tobias Zürcher, Switzerland")]
-[assembly: AssemblyProduct("SampleApp.ConsoleApp")]
+[assembly: AssemblyProduct("SampleApp.Web")]
 [assembly: AssemblyCopyright("Zühlke Engineering AG")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
@@ -20,7 +20,7 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 
 // The following GUID is for the ID of the typelib if this project is exposed to COM
-[assembly: Guid("6768d836-4c03-4ec1-bd76-230a253cc21e")]
+[assembly: Guid("8600a518-3ada-4701-b213-b2b6fa3a130d")]
 
 // Version information for an assembly consists of the following four values:
 //
@@ -29,10 +29,7 @@ using System.Runtime.InteropServices;
 //      Build Number
 //      Revision
 //
-// You can specify all the values or you can default the Build and Revision Numbers 
+// You can specify all the values or you can default the Revision and Build Numbers 
 // by using the '*' as shown below:
-// [assembly: AssemblyVersion("1.0.0.232")]
-[assembly: AssemblyVersion("1.0.0.232")]
-[assembly: AssemblyFileVersion("1.0.0.232")]
-
-[assembly: AssemblyInformationalVersion("Version 1.0.0.232 built on 23.04.2013 11:47")]
+[assembly: AssemblyVersion("1.0.0.99")]
+[assembly: AssemblyFileVersion("1.0.0.99")]

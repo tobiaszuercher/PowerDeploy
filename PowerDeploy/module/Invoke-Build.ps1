@@ -57,8 +57,8 @@ function Invoke-Build([string]$type)
     {
         $project_file = Join-Path $powerdeploy.paths.implementation $package.source
 
-        # remove if there are some older version of this neutral package
-        Get-Childitem $powerdeploy.paths.deployment_units -Filter "$($package.id)*" | Remove-Item -Force -Recurse
+        # remove if there are some older version of this neutral package (output ignored if folder doesn't exist)
+        Get-Childitem $powerdeploy.paths.deployment_units -Filter "$($package.id)*" | Remove-Item -Force -Recurse | Out-Null
 
         $build_script = Join-Path "$($powerdeploy.paths.scripts)" "/$($package.type)/build.$($package.type).ps1"
 
