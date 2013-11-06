@@ -59,11 +59,14 @@ function AddPackageParameters()
     
     # pass to each individual impl:
     $xml.WriteElementString("appserver", "`${$($config_prefix)_AppServer_Name}")
-    $xml.WriteElementString("username", "`${$($config_prefix)_AppServer_Account}")
-    $xml.WriteElementString("password", "`${$($config_prefix)_AppServer_Password}")
-    $xml.WriteElementString("apppoolname", "`${$($config_prefix)_AppServer_AppPoolName=$config_prefix (`$[env]`$[subenv])}") # todo: make defaultable
-    $xml.WriteElementString("virtualdir", "`${$($config_prefix)_AppServer_Root=}/$package_id")
-    $xml.WriteElementString("website", "`${$($config_prefix)_AppServer_WebSite}") # Default Web Site
+    $xml.WriteElementString("username", "`${$($config_prefix)_AppServer_AppPool_User}")
+    $xml.WriteElementString("password", "`${$($config_prefix)_AppServer_AppPool_Pass}")
+    $xml.WriteElementString("apppoolname", "`${$($config_prefix)_AppServer_AppPool_Name=$config_prefix (`$[env]`$[subenv])}") # todo: make defaultable
+    $xml.WriteElementString("websitename", "`${$($config_prefix)_AppServer_WebSite_Name}")
+    $xml.WriteElementString("websitepath", "`${$($config_prefix)_AppServer_WebSite_PhysicalPath}")
+    $xml.WriteElementString("websiteroot", "`${$($config_prefix)_AppServer_WebSite_Root=/}")
+    $xml.WriteElementString("packagepath", "`${$($config_prefix)_PackagePath}")
+    $xml.WriteElementString("appphysicalpath", "`${$($config_prefix)_App_PhysicalPath=}")
     $xml.WriteEndElement()
     $xml.WriteEndDocument()
     

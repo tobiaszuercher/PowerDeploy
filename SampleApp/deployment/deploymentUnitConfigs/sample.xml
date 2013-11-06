@@ -1,5 +1,4 @@
 <?xml version="1.0"?>
 <deploymentunits dropfolder="c:\demo_packages">
-    <deploymentunit path="SampleAppConsole*" />
     <deploymentunit path="SampleAppWeb*" />
 </deploymentunits>

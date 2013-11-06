@@ -106,7 +106,7 @@ function Replace-Placeholders($template_text, [string]$environment, [string]$sub
 
         $property_name = $property_fullname.Split('=')[0]
 
-        $value_available = @($properties["$property_name"]) -ne $null
+        $value_available = $properties.ContainsKey($property_name)
 
         if ($property_name -eq 'env')
         {
