@@ -58,15 +58,15 @@ function AddPackageParameters()
     $xml.WriteAttributeString("environment", "`${env}`${subenv}")
     
     # pass to each individual impl:
-    $xml.WriteElementString("appserver", "`${$($config_prefix)_AppServer_Name}")
-    $xml.WriteElementString("username", "`${$($config_prefix)_AppServer_AppPool_User}")
-    $xml.WriteElementString("password", "`${$($config_prefix)_AppServer_AppPool_Pass}")
-    $xml.WriteElementString("apppoolname", "`${$($config_prefix)_AppServer_AppPool_Name=$config_prefix (`$[env]`$[subenv])}") # todo: make defaultable
-    $xml.WriteElementString("websitename", "`${$($config_prefix)_AppServer_WebSite_Name}")
-    $xml.WriteElementString("websitepath", "`${$($config_prefix)_AppServer_WebSite_PhysicalPath}")
-    $xml.WriteElementString("websiteroot", "`${$($config_prefix)_AppServer_WebSite_Root=/}")
-    $xml.WriteElementString("packagepath", "`${$($config_prefix)_PackagePath}")
-    $xml.WriteElementString("appphysicalpath", "`${$($config_prefix)_App_PhysicalPath=}")
+    $xml.WriteElementString("AppPoolUser", "`${$($config_prefix)_AppServer_AppPool_User}")
+    $xml.WriteElementString("AppPoolPass", "`${$($config_prefix)_AppServer_AppPool_Pass}")
+    $xml.WriteElementString("AppPoolName", "`${$($config_prefix)_AppServer_AppPool_Name=$config_prefix (`$[env]`$[subenv])}") # todo: make defaultable
+    $xml.WriteElementString("WebsiteName", "`${$($config_prefix)_AppServer_WebSite_Name}")
+    $xml.WriteElementString("WebsitePhysicalPath", "`${$($config_prefix)_AppServer_WebSite_PhysicalPath}")
+    $xml.WriteElementString("WebsitePort", "`${$($config_prefix)_AppServer_Website_Port=80}")
+    $xml.WriteElementString("AppRoot", "`${$($config_prefix)_AppServer_App_Root=/}")
+    $xml.WriteElementString("AppPhysicalPath", "`${$($config_prefix)_App_PhysicalPath=}")
+    $xml.WriteElementString("DeployService", "`${$($config_prefix)_DeployService}")
     $xml.WriteEndElement()
     $xml.WriteEndDocument()
     

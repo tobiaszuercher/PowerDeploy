@@ -9,16 +9,15 @@
 	<property name="MOVIE_DESKTOP_DropLocation"		value="c:\powerdeploy_drop\${env}${subenv}" />
 	
 	<property name="SAMPLE_CONSOLE_DropLocation"		value="c:\powerdeploy_drop\${env}${subenv}" />
-    <property name="SAMPLE_WEB_AppServer_Name"			value="localhost" />
-    <property name="SAMPLE_WEB_AppServer_AppPool_User"		value="deployer" />
-    <property name="SAMPLE_WEB_AppServer_AppPool_Pass"		value="testtest1234!" />
-    <property name="SAMPLE_WEB_AppServer_AppPool_Name"	value="SampleAppPool" />
 
+    <property name="SAMPLE_WEB_AppServer_AppPool_User"          value="deployer" />
+    <property name="SAMPLE_WEB_AppServer_AppPool_Pass"          value="testtest1234!" />
+    <property name="SAMPLE_WEB_AppServer_AppPool_Name"	        value="SampleAppPool" />
     <property name="SAMPLE_WEB_AppServer_Website_Name"          value="PowerDeploySample" />
     <property name="SAMPLE_WEB_AppServer_Website_PhysicalPath"  value="c:\inetpub\wwwroot\PowerDeploySampleApp" />
     <property name="SAMPLE_WEB_AppServer_Website_Root"          value="/" />
-
-    <property name="SAMPLE_WEB_PackagePath"           value="c:\temp" />
+    <property name="SAMPLE_WEB_AppServer_Website_Port"          value="80" />
+    <property name="SAMPLE_WEB_DeployService"                   value="http://localhost/PowerDeploy.IISDeployService" />
     
     <property name="SAMPLE_APP_WEB_Setting"			value="123" />
     <property name="SAMPLE_APP_CONSOLE_Setting"		value="iddqd" />
