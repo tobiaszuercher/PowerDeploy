@@ -5,6 +5,7 @@ namespace PowerDeploy.Core.Logging
     /// <summary>
     /// Logs a message in a running application
     /// </summary>
+    /// <remarks>https://github.com/ServiceStackV3/ServiceStackV3 BSD Licence.</remarks>
     public interface ILog
     {
         /// <summary>

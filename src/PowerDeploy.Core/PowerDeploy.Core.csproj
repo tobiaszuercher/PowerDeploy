@@ -66,6 +66,15 @@
     <Compile Include="FileSystem\IFile.cs" />
     <Compile Include="IEnviornmentProvider.cs" />
     <Compile Include="IFileSystem.cs" />
+    <Compile Include="Logging\ConsoleLogFactory.cs" />
+    <Compile Include="Logging\ConsoleLogger.cs" />
+    <Compile Include="Logging\DebugLogFactory.cs" />
+    <Compile Include="Logging\DebugLogger.cs" />
+    <Compile Include="Logging\ILog.cs" />
+    <Compile Include="Logging\ILogFactory.cs" />
+    <Compile Include="Logging\LogManager.cs" />
+    <Compile Include="Logging\NullLogFactory.cs" />
+    <Compile Include="Logging\NullLogger.cs" />
     <Compile Include="PackageManager.cs" />
     <Compile Include="PhysicalFileSystem.cs" />
     <Compile Include="SilentProcessRunner.cs" />
