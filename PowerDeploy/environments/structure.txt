@@ -1,4 +1,0 @@
-folder structure: 
-  project-id/common.xml
-  project-id/environment-a.xml
-  project-id/environment-b.xml

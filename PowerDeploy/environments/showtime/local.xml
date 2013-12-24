@@ -1,6 +1,0 @@
-<?xml version="1.0"?>
-<environment description="used as for local development">
-	<!-- common application configuration -->
-	<property name="MyProperty"           			value="111${env}${subenv}" />
-	<property name="SHOWTIME_CONSOLE_DropLocation"	value="C:\temp\${env}" />
-</environment>

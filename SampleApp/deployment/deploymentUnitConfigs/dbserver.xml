@@ -1,4 +1,0 @@
-<?xml version="1.0"?>
-<deploymentunits>
-    <deploymentunit path="SampleAppDatabase_*" />
-</deploymentunits>

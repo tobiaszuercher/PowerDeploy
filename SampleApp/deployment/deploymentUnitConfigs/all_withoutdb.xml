@@ -1,6 +1,0 @@
-<?xml version="1.0"?>
-<deploymentunits dropfolder="c:\demo_packages">
-    <deploymentunit path="MovieFavoritesDesktopClient_*" />
-    <deploymentunit path="MovieFavoritesWeb_*" />
-    <deploymentunit path="MovieFavoritesService_*" />
-</deploymentunits>
