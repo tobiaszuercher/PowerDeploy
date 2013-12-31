@@ -15,5 +15,7 @@ namespace PowerDeploy.Core
         void DeleteDirectory(string path);
 
         string CreateTempWorkingDir();
+
+        void DeleteTempWorkingDirs();
     }
 }

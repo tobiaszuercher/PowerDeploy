@@ -1,7 +1,5 @@
-﻿using System;
-using System.Globalization;
+﻿using System.Globalization;
 using System.IO;
-using System.Linq;
 
 using Ionic.Zip;
 
@@ -15,6 +13,7 @@ namespace PowerDeploy.Core
     public class PackageManager
     {
         private readonly IFileSystem _fileSystem;
+
         private readonly TemplateEngine _templateEngine;
 
         private readonly ILog _logger;
@@ -51,10 +50,12 @@ namespace PowerDeploy.Core
             }
 
             _templateEngine.TransformDirectory(workingDir, environment);
-            var packageName = nupkg.Id + "_" + nupkg.Version + "_" + environment.ToUpper(CultureInfo.InvariantCulture) + ".nupkg";
-            _fileSystem.DeleteFile(packageName);
+            var packageName = nupkg.Id + "_v" + nupkg.Version + "_" + environment.ToUpper(CultureInfo.InvariantCulture) + ".nupkg";
+            var packageOutputPath = Path.Combine(outputPath, packageName);
 
-            using (var zip = new ZipFile(Path.Combine(outputPath, packageName)))
+            _fileSystem.DeleteFile(packageOutputPath);
+
+            using (var zip = new ZipFile(packageOutputPath))
             {
                 zip.AddDirectory(workingDir);
                 zip.Save();
@@ -66,7 +67,6 @@ namespace PowerDeploy.Core
         public void DeployPackage(string package)
         {
             var nupkg = new ZipPackage(package);
-            
         }
     }
 }

@@ -42,6 +42,11 @@
     <Prefer32Bit>true</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="CommandLine">
+      <HintPath>..\packages\CommandLineParser.1.9.71\lib\net45\CommandLine.dll</HintPath>
+      <EmbedInteropTypes>False</EmbedInteropTypes>
+      <Private>False</Private>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -56,6 +61,26 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\PowerDeploy.Core\PowerDeploy.Core.csproj">
+      <Project>{56455038-af11-4710-9d29-fdf7b050553a}</Project>
+      <Name>PowerDeploy.Core</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="..\packages\CommandLineParser.1.9.71\lib\net45\CommandLine.dll">
+      <Link>Resources\CommandLine.dll</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\packages\DotNetZip.1.9.1.8\lib\net20\Ionic.Zip.dll">
+      <Link>Resources\Ionic.Zip.dll</Link>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="..\packages\Nuget.Core.2.7.2\lib\net40-Client\NuGet.Core.dll">
+      <Link>Resources\NuGet.Core.dll</Link>
+    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -1,6 +1,6 @@
 <package>
   <metadata>
-    <id>PowerDeploy.SampleApp.ConsoleXCopy</id>
+    <id>PowerDeploy.Sample.XCopy</id>
     <version>1.0.0.0</version>
     <authors>Tobias Zürcher</authors>
     <owners>Tobias Zürcher</owners>

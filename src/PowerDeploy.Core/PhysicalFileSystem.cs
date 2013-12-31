@@ -6,6 +6,13 @@ namespace PowerDeploy.Core
 {
     public class PhysicalFileSystem : IFileSystem
     {
+        private List<string> TempWorkingDirs { get; set; }
+
+        public PhysicalFileSystem()
+        {
+            TempWorkingDirs = new List<string>();
+        }
+
         public IEnumerable<string> EnumerateDirectoryRecursive(string path, string pattern, SearchOption options)
         {
             return Directory.GetFiles(path, pattern, options);
@@ -37,7 +44,15 @@ namespace PowerDeploy.Core
         public string CreateTempWorkingDir()
         { 
             // todo: appdata
-            return Directory.CreateDirectory(@"c:\temp\pd.reloaded\" + Guid.NewGuid()).FullName;
+            var path = @"c:\temp\pd.reloaded\" + Guid.NewGuid();
+            TempWorkingDirs.Add(path);
+
+            return Directory.CreateDirectory(path).FullName;
+        }
+
+        public void DeleteTempWorkingDirs()
+        {
+            TempWorkingDirs.ForEach(path => Directory.Delete(path, true));
         }
     }
 }

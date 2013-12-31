@@ -29,6 +29,8 @@ namespace PowerDeploy.Core.Template
         {
             _logger.DebugFormat("Transforming {0} for environment {1}", path, environment.ToUpper(CultureInfo.InvariantCulture));
             var targetEnvironment = EnviornmentProvider.GetVariables(environment);
+            targetEnvironment.Variables.Add(new Variable() { Name = "env", Value = environment.ToUpper(CultureInfo.InvariantCulture)});
+            targetEnvironment.Variables.Add(new Variable() {Name = "subenv", Value = string.Empty }); // no subenv support for now
 
             VariableResolver = new VariableResolver(targetEnvironment.Variables);
 
@@ -37,7 +39,7 @@ namespace PowerDeploy.Core.Template
                 _logger.DebugFormat("Transforming {0}", templateFile);
                 var templateText = _fileSystem.ReadFile(templateFile);
                 var transformed = VariableResolver.TransformVariables(templateText);
-                _fileSystem.OverwriteFile(templateFile.Replace(".template.", "."), transformed);
+                _fileSystem.OverwriteFile(templateFile.Replace(".template.", ".").Replace(".Template.", "."), transformed);
                 _fileSystem.DeleteFile(templateFile);
             }
         }
