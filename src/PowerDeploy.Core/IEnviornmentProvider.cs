@@ -2,6 +2,8 @@
 {
     public interface IEnviornmentProvider
     {
-        Environment GetVariables(string environmentName);
+        Environment GetEnvironment(string environmentName);
+
+        Environment GetEnvironmentFromFile(string file);
     }
 }

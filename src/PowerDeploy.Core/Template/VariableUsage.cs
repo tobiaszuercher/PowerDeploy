@@ -32,7 +32,7 @@ namespace PowerDeploy.Core.Template
 
         public string GetValueOrDefault(IEnumerable<Variable> variables)
         {
-            if (IsMissingValue) return "<<Missing variable for " + Variable.Name + ">>";
+            if (IsMissingValue) return "!!Missing variable for " + Variable.Name + "!!";
 
             if (Variable.Value == null)
             {

@@ -1,11 +1,7 @@
-﻿using System.Collections.Generic;
-using System.IO;
+﻿using System.IO;
 using System.IO.Packaging;
 
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-
-using PowerDeploy.Core;
-using PowerDeploy.Core.Template;
 
 namespace PowerDeploy.Tests.TemplateEngineTests
 {

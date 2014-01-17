@@ -1,0 +1,13 @@
+<package>
+  <metadata>
+    <id>PowerDeploy.PackageExplorerPlugin</id>
+    <version>0.1.0.2</version>
+    <authors>Tobias Zürcher</authors>
+    <owners>Tobias Zürcher</owners>
+    <licenseUrl>http://tobiaszuercher.github.io/PowerDeploy/</licenseUrl>
+    <projectUrl>http://tobiaszuercher.github.io/PowerDeploy/</projectUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>Package Explorer Plugin.</description>
+    <releaseNotes></releaseNotes>
+  </metadata>
+</package>

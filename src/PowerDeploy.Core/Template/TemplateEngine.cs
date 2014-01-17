@@ -10,27 +10,24 @@ namespace PowerDeploy.Core.Template
         private readonly IFileSystem _fileSystem;
         private readonly ILog _logger;
 
-        public IEnviornmentProvider EnviornmentProvider { get; set; }
         public VariableResolver VariableResolver { get; set; }
 
-        public TemplateEngine(IEnviornmentProvider environmentProvider)
-            : this(new PhysicalFileSystem(), environmentProvider)
+        public TemplateEngine()
+            : this(new PhysicalFileSystem())
         {
         }
 
-        public TemplateEngine(IFileSystem fileSystem, IEnviornmentProvider environmentProvider)
+        public TemplateEngine(IFileSystem fileSystem)
         {
             _logger = LogManager.GetLogger(GetType());
             _fileSystem = fileSystem;
-            EnviornmentProvider = environmentProvider;
         }
 
-        public void TransformDirectory(string path, string environment)
+        public void TransformDirectory(string path, Environment targetEnvironment)
         {
-            _logger.DebugFormat("Transforming {0} for environment {1}", path, environment.ToUpper(CultureInfo.InvariantCulture));
-            var targetEnvironment = EnviornmentProvider.GetVariables(environment);
-            targetEnvironment.Variables.Add(new Variable() { Name = "env", Value = environment.ToUpper(CultureInfo.InvariantCulture)});
-            targetEnvironment.Variables.Add(new Variable() {Name = "subenv", Value = string.Empty }); // no subenv support for now
+            _logger.DebugFormat("Transforming {0} for environment {1}", path, targetEnvironment.Name);
+
+            ////targetEnvironment.Variables.Add(new Variable() {Name = "subenv", Value = string.Empty }); // no subenv support for now
 
             VariableResolver = new VariableResolver(targetEnvironment.Variables);
 

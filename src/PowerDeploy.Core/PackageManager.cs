@@ -5,6 +5,7 @@ using Ionic.Zip;
 
 using NuGet;
 
+using PowerDeploy.Core.Extensions;
 using PowerDeploy.Core.Logging;
 using PowerDeploy.Core.Template;
 
@@ -20,6 +21,8 @@ namespace PowerDeploy.Core
 
         public IEnviornmentProvider EnviornmentProvider { get; set; }
 
+        private PluginLoader _pluginsLoader;
+
         public PackageManager(IEnviornmentProvider environmentProvider)
             : this(new PhysicalFileSystem(), environmentProvider)
         {
@@ -28,14 +31,29 @@ namespace PowerDeploy.Core
         public PackageManager(IFileSystem fileSystem, IEnviornmentProvider environmentProvider)
         {
             _fileSystem = fileSystem;
-            _templateEngine = new TemplateEngine(fileSystem, environmentProvider);
+            _templateEngine = new TemplateEngine(fileSystem);
             EnviornmentProvider = environmentProvider;
             _logger = LogManager.GetLogger(GetType());
+            _pluginsLoader = new PluginLoader();
         }
 
-        public void ConfigurePackage(string packagePath, string environment, string outputPath)
+        public void ConfigurePackageByEnvironment(string packagePath, string environment, string outputPath)
         {
-            _logger.InfoFormat("Configuring package {0} for {1}", new FileInfo(packagePath).Name, environment.ToUpper());
+            var targetEnvironment = EnviornmentProvider.GetEnvironment(environment);
+
+            DoConfigure(packagePath, targetEnvironment, outputPath);
+        }
+
+        public void ConfigurePackage(string packageFile, string environmentFile, string outputPath)
+        {
+            var targetEnvironment = EnviornmentProvider.GetEnvironmentFromFile(environmentFile);
+
+            DoConfigure(packageFile, targetEnvironment, outputPath);
+        }
+
+        private void DoConfigure(string packagePath, Environment env, string outputPath)
+        {
+            _logger.InfoFormat("Configuring package {0} for {1}", new FileInfo(packagePath).Name, env.Name.ToUpper());
             var workingDir = _fileSystem.CreateTempWorkingDir();
 
             _logger.DebugFormat("Create temp work dir {0}", workingDir);
@@ -49,8 +67,8 @@ namespace PowerDeploy.Core
                 zip.ExtractAll(workingDir);
             }
 
-            _templateEngine.TransformDirectory(workingDir, environment);
-            var packageName = nupkg.Id + "_v" + nupkg.Version + "_" + environment.ToUpper(CultureInfo.InvariantCulture) + ".nupkg";
+            _templateEngine.TransformDirectory(workingDir, env);
+            var packageName = nupkg.Id + "_v" + nupkg.Version + "_" + env.Name.ToUpper(CultureInfo.InvariantCulture) + ".nupkg";
             var packageOutputPath = Path.Combine(outputPath, packageName);
 
             _fileSystem.DeleteFile(packageOutputPath);
@@ -67,6 +85,19 @@ namespace PowerDeploy.Core
         public void DeployPackage(string package)
         {
             var nupkg = new ZipPackage(package);
+            var packageType = nupkg.PeekPackageType();
+
+            _logger.Info("Deploy {1} package {0}".Fmt(packageType, package));
+
+            foreach (var deployer in _pluginsLoader.Deployers)
+            {
+                if (deployer.Metadata.PackageType == packageType)
+                {
+                    deployer.Value.Deploy(nupkg, _logger);
+
+                    break;
+                }
+            }
         }
     }
 }

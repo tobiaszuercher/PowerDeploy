@@ -1,4 +1,4 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <package type="xcopy" environment="${env}">
-  <Destination>${SampleAppConsole_Destination}</Destination>
+  <destination>${SampleAppConsole_Destination}</destination>
 </package>

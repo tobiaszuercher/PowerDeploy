@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Text;
@@ -9,7 +10,7 @@ using NuGet;
 
 using PowerDeploy.Core;
 
-using Environment = System.Environment;
+using Environment = PowerDeploy.Core.Environment;
 using IFileSystem = PowerDeploy.Core.IFileSystem;
 using PhysicalFileSystem = PowerDeploy.Core.PhysicalFileSystem;
 
@@ -24,7 +25,7 @@ namespace PowerDeploy.Tests
         [TestInitialize]
         public void InitTests()
         {
-            _originalDirectory = Environment.CurrentDirectory;
+            _originalDirectory = System.Environment.CurrentDirectory;
             FileSystem = new PhysicalFileSystem();
 
             var root = new Uri(typeof(PackageFixtures).Assembly.CodeBase).LocalPath;
@@ -33,13 +34,7 @@ namespace PowerDeploy.Tests
                 root = Path.GetFullPath(Path.Combine(root, @".."));
             }
 
-            Environment.CurrentDirectory = Path.Combine(root, "Samples");
-
-            // do that with /t:clean on msbuild because cleaning isn't that easy (no access to file etc)
-            ////Clean(@"PowerDeploy.Sample.XCopy\bin");
-            ////Clean(@"PowerDeploy.Sample.XCopy\obj");
-            ////Clean(@"PowerDeploy.Sample.WebApp\bin");
-            ////Clean(@"PowerDeploy.Sample.WebApp\obj");
+            System.Environment.CurrentDirectory = Path.Combine(root, "Samples");
         }
 
         protected static void MsBuild(string commandLineArguments)
@@ -59,7 +54,7 @@ namespace PowerDeploy.Tests
                 Trace.WriteLine(output);
             };
 
-            var result = SilentProcessRunner.ExecuteCommand(msBuild, commandLineArguments, Environment.CurrentDirectory, writer, e => writer("ERROR: " + e));
+            var result = SilentProcessRunner.ExecuteCommand(msBuild, commandLineArguments, System.Environment.CurrentDirectory, writer, e => writer("ERROR: " + e));
 
             if (result != 0)
             {
@@ -67,14 +62,31 @@ namespace PowerDeploy.Tests
             }
         }
 
+        // todo: read from dir
+        protected Environment GetUnitEnvironment()
+        {
+            return new Environment()
+            {
+                Name = "Unit",
+                Description = "UnitTest",
+                Variables = new List<Variable>()
+                {
+                    new Variable() { Name = "xcopy.unit.variable1", Value = "Val1" }, 
+                    new Variable() { Name = "xcopy.unit.variable2", Value = "Val2" }, 
+                    new Variable() { Name = "SampleAppConsole_Destination", Value = @"c:\temp" },
+                    new Variable() { Name = "env", Value = "UNIT" }
+                }
+            };
+        }
+
         protected void Clean(string directory)
         {
-            new PhysicalFileSystem().DeleteDirectory(Path.Combine(Environment.CurrentDirectory, directory));
+            new PhysicalFileSystem().DeleteDirectory(Path.Combine(System.Environment.CurrentDirectory, directory));
         }
 
         protected static void AssertPackage(string packageFilePath, Action<ZipPackage> packageAssertions)
         {
-            var fullPath = Path.Combine(Environment.CurrentDirectory, packageFilePath);
+            var fullPath = Path.Combine(System.Environment.CurrentDirectory, packageFilePath);
             if (!File.Exists(fullPath))
             {
                 Assert.Fail("Could not find package file: " + fullPath);
@@ -90,7 +102,7 @@ namespace PowerDeploy.Tests
         [TestCleanup]
         public void CleanupTest()
         {
-            Environment.CurrentDirectory = _originalDirectory;
+            System.Environment.CurrentDirectory = _originalDirectory;
             FileSystem.DeleteTempWorkingDirs();
         }
     }

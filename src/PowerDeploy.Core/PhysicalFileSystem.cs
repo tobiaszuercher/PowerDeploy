@@ -13,6 +13,19 @@ namespace PowerDeploy.Core
             TempWorkingDirs = new List<string>();
         }
 
+        public void EnsureDirectoryExists(string path)
+        {
+            if (!Directory.Exists(path))
+            {
+                Directory.CreateDirectory(path);
+            }
+        }
+
+        public bool DirectoryExists(string path)
+        {
+            return Directory.Exists(path);
+        }
+
         public IEnumerable<string> EnumerateDirectoryRecursive(string path, string pattern, SearchOption options)
         {
             return Directory.GetFiles(path, pattern, options);

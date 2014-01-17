@@ -7,6 +7,15 @@ namespace PowerDeploy
 {
     public class Program
     {
+        /// <summary>
+        /// powerdeploy config -> default is current sln dir
+        /// powerdeploy config bla_v1.3.3.7.nupkg --target-path=c:\temp
+        /// powerdeploy deploy bla_v1.3.3.7_DEV.nupkg
+        /// powerdeploy deploy --group=frontend ?? where to define the group?
+        /// 
+        /// should also be possible to say powerdeploy deploy *.nupkg
+        /// </summary>
+        /// <param name="args"></param>
         public static void Main(string[] args)
         {
             // search for assemblies embedded in the exe (powerdeploy should be just one exe file, no dlls)

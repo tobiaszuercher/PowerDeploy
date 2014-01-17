@@ -125,7 +125,7 @@ namespace PowerDeploy.Tests.TemplateEngineTests
             var result = target.TransformVariables("Hello ${FirstName} ${LastName}!");
 
             Assert.AreEqual(1, target.VariableUsageList.Count(v => v.IsMissingValue));
-            Assert.AreEqual("Hello Jack <<Missing variable for LastName>>!", result);
+            Assert.AreEqual("Hello Jack !!Missing variable for LastName!!!", result);
         }
 
         [TestMethod]
