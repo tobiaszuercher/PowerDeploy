@@ -81,11 +81,13 @@
     <Compile Include="Deploy\XCopyDeployer.cs" />
     <Compile Include="Deploy\XCopyOptions.cs" />
     <Compile Include="Environment.cs" />
+    <Compile Include="EnvironmentLocator.cs" />
+    <Compile Include="EnvironmentProvider.cs" />
     <Compile Include="Extensions\StringExtensions.cs" />
     <Compile Include="Extensions\ZipPackageExtensions.cs" />
     <Compile Include="FileSystem\FileAdapter.cs" />
     <Compile Include="FileSystem\IFile.cs" />
-    <Compile Include="IEnviornmentProvider.cs" />
+    <Compile Include="IEnvironmentParser.cs" />
     <Compile Include="IFileSystem.cs" />
     <Compile Include="Logging\ConsoleLogFactory.cs" />
     <Compile Include="Logging\ConsoleLogger.cs" />

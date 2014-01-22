@@ -23,7 +23,7 @@ namespace PowerDeploy.Core.Template
             _fileSystem = fileSystem;
         }
 
-        public void TransformDirectory(string path, Environment targetEnvironment)
+        public void TransformDirectory(string path, Environment targetEnvironment, bool deleteTemplate = true)
         {
             _logger.DebugFormat("Transforming {0} for environment {1}", path, targetEnvironment.Name);
 
@@ -37,7 +37,11 @@ namespace PowerDeploy.Core.Template
                 var templateText = _fileSystem.ReadFile(templateFile);
                 var transformed = VariableResolver.TransformVariables(templateText);
                 _fileSystem.OverwriteFile(templateFile.Replace(".template.", ".").Replace(".Template.", "."), transformed);
-                _fileSystem.DeleteFile(templateFile);
+
+                if (deleteTemplate)
+                {
+                    _fileSystem.DeleteFile(templateFile);
+                }
             }
         }
     }

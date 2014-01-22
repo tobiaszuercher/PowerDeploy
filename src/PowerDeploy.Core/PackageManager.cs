@@ -19,34 +19,42 @@ namespace PowerDeploy.Core
 
         private readonly ILog _logger;
 
-        public IEnviornmentProvider EnviornmentProvider { get; set; }
+        public IEnvironmentParser EnvironmentParser { get; set; }
 
         private PluginLoader _pluginsLoader;
 
-        public PackageManager(IEnviornmentProvider environmentProvider)
-            : this(new PhysicalFileSystem(), environmentProvider)
+        private string _environmentDir;
+
+        public PackageManager(string environmentDir)
+            : this(new PhysicalFileSystem(), environmentDir, new XmlEnvironmentParser(environmentDir))
         {
         }
 
-        public PackageManager(IFileSystem fileSystem, IEnviornmentProvider environmentProvider)
+        public PackageManager(IEnvironmentParser environmentParser)
+            : this(new PhysicalFileSystem(), string.Empty, environmentParser)
+        {
+        }
+
+        public PackageManager(IFileSystem fileSystem, string environmentDir, IEnvironmentParser environmentParser)
         {
             _fileSystem = fileSystem;
             _templateEngine = new TemplateEngine(fileSystem);
-            EnviornmentProvider = environmentProvider;
+            EnvironmentParser = environmentParser;
             _logger = LogManager.GetLogger(GetType());
             _pluginsLoader = new PluginLoader();
+            _environmentDir = environmentDir;
         }
 
         public void ConfigurePackageByEnvironment(string packagePath, string environment, string outputPath)
         {
-            var targetEnvironment = EnviornmentProvider.GetEnvironment(environment);
+            var targetEnvironment = EnvironmentParser.GetEnvironment(environment);
 
             DoConfigure(packagePath, targetEnvironment, outputPath);
         }
 
         public void ConfigurePackage(string packageFile, string environmentFile, string outputPath)
         {
-            var targetEnvironment = EnviornmentProvider.GetEnvironmentFromFile(environmentFile);
+            var targetEnvironment = EnvironmentParser.GetEnvironmentFromFile(environmentFile);
 
             DoConfigure(packageFile, targetEnvironment, outputPath);
         }

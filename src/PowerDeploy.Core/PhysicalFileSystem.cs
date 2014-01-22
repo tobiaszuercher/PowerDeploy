@@ -54,6 +54,11 @@ namespace PowerDeploy.Core
             }
         }
 
+        public DirectoryInfo GetParentDirectory(string path)
+        {
+            return Directory.GetParent(path);
+        }
+
         public string CreateTempWorkingDir()
         { 
             // todo: appdata

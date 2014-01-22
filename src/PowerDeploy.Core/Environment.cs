@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using System.Xml.Serialization;
 
 namespace PowerDeploy.Core
@@ -14,5 +15,11 @@ namespace PowerDeploy.Core
 
         [XmlElement("variable")]
         public List<Variable> Variables { get; set; }
+
+        [XmlIgnore]
+        public Variable this[string name]
+        {
+            get { return Variables.FirstOrDefault(v => v.Name == name); }
+        }
     }
 }

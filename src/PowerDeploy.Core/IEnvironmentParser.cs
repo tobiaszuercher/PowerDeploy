@@ -1,6 +1,6 @@
 ﻿namespace PowerDeploy.Core
 {
-    public interface IEnviornmentProvider
+    public interface IEnvironmentParser
     {
         Environment GetEnvironment(string environmentName);
 

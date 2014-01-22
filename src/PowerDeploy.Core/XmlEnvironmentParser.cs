@@ -6,12 +6,17 @@ using System.Xml.Serialization;
 
 namespace PowerDeploy.Core
 {
-    public class XmlEnvironmentParser : IEnviornmentProvider
+    public class XmlEnvironmentParser : IEnvironmentParser
     {
         private readonly IFileSystem _fileSystem;
 
         public string Location { get; private set; }
 
+        public XmlEnvironmentParser()
+            : this(new PhysicalFileSystem(), string.Empty)
+        {
+        }
+        
         public XmlEnvironmentParser(string location)
             : this(new PhysicalFileSystem(), location)
         {

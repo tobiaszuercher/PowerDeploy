@@ -1,0 +1,18 @@
+<package>
+  <metadata>
+    <id>PowerDeploy.PackageManagerExtension</id>
+    <version>0.0.3.14</version>
+    <authors>Tobias Zürcher</authors>
+    <owners>Tobias Zürcher</owners>
+    <licenseUrl>http://tobiaszuercher.github.io/PowerDeploy/</licenseUrl>
+    <projectUrl>http://tobiaszuercher.github.io/PowerDeploy/</projectUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>Visual Studio Integration for PowerDeploy.</description>
+    <releaseNotes></releaseNotes>
+  </metadata>
+  <files>
+    <file src="scripts\*.ps1" target="tools" />
+    <file src="scripts\*.psm1" target="tools" />
+    <file src="bin\debug\*.dll" target="tools" />
+  </files>
+</package>

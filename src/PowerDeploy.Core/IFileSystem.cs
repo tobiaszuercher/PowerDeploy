@@ -21,5 +21,7 @@ namespace PowerDeploy.Core
         void EnsureDirectoryExists(string path);
 
         bool DirectoryExists(string path);
+
+        DirectoryInfo GetParentDirectory(string path);
     }
 }

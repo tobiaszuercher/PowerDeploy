@@ -31,7 +31,7 @@ namespace PowerDeploy.Tests
             var root = new Uri(typeof(PackageFixtures).Assembly.CodeBase).LocalPath;
             while (!root.EndsWith("PowerDeploy") && !root.EndsWith("PowerDeploy\\"))
             {
-                root = Path.GetFullPath(Path.Combine(root, @".."));
+                root = Directory.GetParent(root).FullName;
             }
 
             System.Environment.CurrentDirectory = Path.Combine(root, "Samples");
