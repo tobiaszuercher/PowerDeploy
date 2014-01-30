@@ -1,18 +1,24 @@
 ﻿$environments = "local", "dev", "test", "prod"
 
-#pwd | write-host -> C:\git\PowerDeploy\src
-
-function Switch-Environment($environment) {
-	Get-Module
+function Switch-Environment {
+	[CmdletBinding()]
+    param(
+        [Parameter(Position = 0)] [string]$environment
+    )
 
 	Get-Project -All | % { Invoke-DirectoryTransform -Environment $environment -Directory (Split-Path -parent $_.Fullname) }
-	
-	#Add-Type -Path (Join-Path "lib/net451" "PowerDeploy.PackageManagerExtension.dll")
-	#[PowerDeploy.PackageManagerExtension.PowerShellBuddy]::ConfigureEnvironment("bla", $null)
+}
+
+function Get-Environments {
+	[CmdletBinding()]
+	param()
+
+	Get-EnvironmentDir | Get-ChildItem | % { $_.Basename }
 }
 
 Register-TabExpansion 'Switch-Environment' @{
-    'environment' = { "local", "dev", "test", "prod" }
+    'environment' = $environments
 }
 
+Export-ModuleMember Get-Environments
 Export-ModuleMember Switch-Environment

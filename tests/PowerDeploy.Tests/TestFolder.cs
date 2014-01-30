@@ -27,7 +27,7 @@ namespace PowerDeploy.Tests
                 targetDir.Create();
             }
 
-            using (var filestream = File.CreateText(filename))
+            using (var filestream = File.CreateText(Path.Combine(DirectoryInfo.FullName, filename)))
             {
                 filestream.Write(content);
                 filestream.Flush();

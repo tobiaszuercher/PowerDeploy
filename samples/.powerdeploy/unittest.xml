@@ -1,0 +1,6 @@
+<?xml version="1.0"?>
+<environment name="unittest" description="Used for unit tests, not a real environment">
+  <variable name="Firstname" value="Jack" />
+  <variable name="Lastname" value="Bauer" />
+  <variable name="SampleAppConsole_Destination" value="c:\temp\yes_baby" />
+</environment>

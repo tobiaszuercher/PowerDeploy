@@ -14,47 +14,41 @@ namespace PowerDeploy.Core
     public class PackageManager
     {
         private readonly IFileSystem _fileSystem;
-
         private readonly TemplateEngine _templateEngine;
-
         private readonly ILog _logger;
+        private readonly PluginLoader _pluginsLoader;
 
-        public IEnvironmentParser EnvironmentParser { get; set; }
-
-        private PluginLoader _pluginsLoader;
-
-        private string _environmentDir;
+        public IEnvironmentProvider _environmentProvider;
 
         public PackageManager(string environmentDir)
-            : this(new PhysicalFileSystem(), environmentDir, new XmlEnvironmentParser(environmentDir))
+            : this(new PhysicalFileSystem(), new EnvironmentProvider(environmentDir))
         {
         }
 
-        public PackageManager(IEnvironmentParser environmentParser)
-            : this(new PhysicalFileSystem(), string.Empty, environmentParser)
+        public PackageManager(IEnvironmentProvider environmentProvider)
+            : this(new PhysicalFileSystem(), environmentProvider)
         {
         }
 
-        public PackageManager(IFileSystem fileSystem, string environmentDir, IEnvironmentParser environmentParser)
+        public PackageManager(IFileSystem fileSystem, IEnvironmentProvider environmentProvider)
         {
             _fileSystem = fileSystem;
             _templateEngine = new TemplateEngine(fileSystem);
-            EnvironmentParser = environmentParser;
             _logger = LogManager.GetLogger(GetType());
             _pluginsLoader = new PluginLoader();
-            _environmentDir = environmentDir;
+            _environmentProvider = environmentProvider;
         }
 
         public void ConfigurePackageByEnvironment(string packagePath, string environment, string outputPath)
         {
-            var targetEnvironment = EnvironmentParser.GetEnvironment(environment);
+            var targetEnvironment = _environmentProvider.GetEnvironment(environment);
 
             DoConfigure(packagePath, targetEnvironment, outputPath);
         }
 
         public void ConfigurePackage(string packageFile, string environmentFile, string outputPath)
         {
-            var targetEnvironment = EnvironmentParser.GetEnvironmentFromFile(environmentFile);
+            var targetEnvironment = _environmentProvider.GetEnvironmentFromFile(environmentFile);
 
             DoConfigure(packageFile, targetEnvironment, outputPath);
         }

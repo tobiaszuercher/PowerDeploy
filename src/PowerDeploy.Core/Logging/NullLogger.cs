@@ -59,6 +59,14 @@ namespace PowerDeploy.Core.Logging
         {
         }
 
+        public void Print(object message)
+        {
+        }
+
+        public void PrintFormat(string format, params object[] args)
+        {
+        }
+
         public void Error(object message, Exception exception)
         {
         }

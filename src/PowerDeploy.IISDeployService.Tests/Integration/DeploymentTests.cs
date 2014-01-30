@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Net;
 
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Microsoft.Web.Administration;
@@ -270,9 +271,8 @@ namespace PowerDeploy.IISDeployService.Tests.Integration
             {
                 client.Send(new RollbackDeployment());
             }
-            catch (WebServiceException ex)
+            catch (WebException ex)
             {
-                 
                 Assert.IsTrue(ex.Message.Contains("(401)"));
             }
         }

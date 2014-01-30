@@ -1,6 +1,6 @@
-﻿using System.Globalization;
-using System.IO;
+﻿using System.IO;
 
+using PowerDeploy.Core.Extensions;
 using PowerDeploy.Core.Logging;
 
 namespace PowerDeploy.Core.Template
@@ -23,19 +23,22 @@ namespace PowerDeploy.Core.Template
             _fileSystem = fileSystem;
         }
 
-        public void TransformDirectory(string path, Environment targetEnvironment, bool deleteTemplate = true)
+        public int TransformDirectory(string path, Environment targetEnvironment, bool deleteTemplate = true)
         {
-            _logger.DebugFormat("Transforming {0} for environment {1}", path, targetEnvironment.Name);
-
-            ////targetEnvironment.Variables.Add(new Variable() {Name = "subenv", Value = string.Empty }); // no subenv support for now
+            _logger.InfoFormat("Transforming {0} for environment {1} {2} deleting templates", path, targetEnvironment.Name, deleteTemplate ? "with" : "without");
 
             VariableResolver = new VariableResolver(targetEnvironment.Variables);
 
+            int templateCounter = 0;
+
             foreach (var templateFile in _fileSystem.EnumerateDirectoryRecursive(path, "*.template.*", SearchOption.AllDirectories))
             {
-                _logger.DebugFormat("Transforming {0}", templateFile);
+                ++templateCounter;
+                _logger.InfoFormat("Transforming template {0}", templateFile);
+
                 var templateText = _fileSystem.ReadFile(templateFile);
                 var transformed = VariableResolver.TransformVariables(templateText);
+
                 _fileSystem.OverwriteFile(templateFile.Replace(".template.", ".").Replace(".Template.", "."), transformed);
 
                 if (deleteTemplate)
@@ -43,6 +46,10 @@ namespace PowerDeploy.Core.Template
                     _fileSystem.DeleteFile(templateFile);
                 }
             }
+
+            _logger.Print("Transformed {0} template(s) in {1}.".Fmt(templateCounter, path));
+
+            return templateCounter;
         }
     }
 }

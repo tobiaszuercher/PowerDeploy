@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<environment name="local" description="Used for local development">
+  <variable name="Firstname" value="LocalJack" />
+  <variable name="Lastname" value="LocalBauer" />
+  <variable name="SampleAppConsole_Destination" value="c:\temp\local" />
+  
+  <variable name="xcopy.unit.variable1" value="hello var1" />
+  <variable name="xcopy.unit.variable2" value="hello var2" />
+</environment>

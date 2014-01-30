@@ -15,8 +15,8 @@ namespace PowerDeploy.Tests.TemplateEngineTests
         [TestMethod]
         public void Transform_Package_Test()
         {
-            var mock = new Mock<IEnvironmentParser>();
-            mock.Setup(provider => provider.GetEnvironment("unit")).Returns(GetUnitEnvironment());
+            var mock = new Mock<IEnvironmentSerializer>();
+            mock.Setup(provider => provider.Deserialize("unit")).Returns(GetUnitEnvironment());
 
             var target = new TemplateEngine();
             ////target.ConfigurePackage(@"c:\temp\nuget\Testpackage.1.0.0.nupkg", "DEV", @"c:\temp\");

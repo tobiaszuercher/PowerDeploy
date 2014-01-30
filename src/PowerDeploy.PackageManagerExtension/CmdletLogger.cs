@@ -31,6 +31,16 @@ namespace PowerDeploy.PackageManagerExtension
             _cmdLet.WriteDebug(string.Format(format, args));
         }
 
+        public void Print(object message)
+        {
+            _cmdLet.WriteObject(message);
+        }
+
+        public void PrintFormat(string format, params object[] args)
+        {
+            _cmdLet.WriteObject(string.Format(format, args));
+        }
+
         public void Error(object message)
         {
             _cmdLet.WriteWarning("ERROR: " + message);

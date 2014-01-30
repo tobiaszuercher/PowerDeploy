@@ -37,6 +37,19 @@ namespace PowerDeploy.Core.Logging
         void DebugFormat(string format, params object[] args);
 
         /// <summary>
+        /// Print normal message.
+        /// </summary>
+        /// <param name="message">The message.</param>
+        void Print(object message);
+
+        /// <summary>
+        /// Print normal format message.
+        /// </summary>
+        /// <param name="format">The format.</param>
+        /// <param name="args">The args.</param>
+        void PrintFormat(string format, params object[] args);
+
+        /// <summary>
         /// Logs a Error message.
         /// </summary>
         /// <param name="message">The message.</param>

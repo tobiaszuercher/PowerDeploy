@@ -1,7 +1,7 @@
 <package>
   <metadata>
     <id>PowerDeploy.PackageManagerExtension</id>
-    <version>0.0.3.14</version>
+    <version>0.0.3.19</version>
     <authors>Tobias Zürcher</authors>
     <owners>Tobias Zürcher</owners>
     <licenseUrl>http://tobiaszuercher.github.io/PowerDeploy/</licenseUrl>

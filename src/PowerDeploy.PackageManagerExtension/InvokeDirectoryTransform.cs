@@ -1,16 +1,14 @@
-﻿using System;
-using System.Diagnostics;
+﻿using System.IO;
 using System.Management.Automation;
 
 using PowerDeploy.Core;
-using PowerDeploy.Core.Extensions;
 using PowerDeploy.Core.Logging;
 using PowerDeploy.Core.Template;
 
 namespace PowerDeploy.PackageManagerExtension
 {
     [Cmdlet(VerbsLifecycle.Invoke, "DirectoryTransform")]
-    public class InvokeDirectoryTransform : Cmdlet
+    public class InvokeDirectoryTransform : PSCmdlet
     {
         [Parameter(Mandatory = true)]
         public string Environment { get; set; }
@@ -21,13 +19,24 @@ namespace PowerDeploy.PackageManagerExtension
         protected override void ProcessRecord()
         {
             LogManager.LogFactory = new CmdletLogFactory(this);
+            var logger = LogManager.GetLogger(GetType());
+            logger.DebugFormat("Invoke-DirectoryTransform for environment {0} in {1}", Environment, Directory);
 
-            var xml = new XmlEnvironmentParser(); // TODO: just pass the project dir or current dir and then according to some rules/config files find the folder
-            var environment = xml.GetEnvironmentFromFile(@"C:\git\PowerDeploy\src\.powerdeploy\{0}.xml".Fmt(Environment));
-
-            LogManager.GetLogger(GetType()).Info("Test template engine");
-            var templateEngine = new TemplateEngine();
-            templateEngine.TransformDirectory(Directory, environment, false);
+            try
+            {
+                var envProvider = new EnvironmentProvider(Directory);
+                
+                var templateEngine = new TemplateEngine();
+                templateEngine.TransformDirectory(Directory, envProvider.GetEnvironment(Environment), false);
+            }
+            catch (DirectoryNotFoundException)
+            {
+                logger.Warn(".powerdeploy folder not found for project " + Directory + "! i'll skip it!");
+            }
+            catch (FileNotFoundException exception)
+            {
+                logger.Error(exception.Message);
+            }
         }
     }
 }

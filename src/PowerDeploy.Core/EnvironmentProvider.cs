@@ -1,51 +1,82 @@
 ﻿using System;
+using System.Collections;
 using System.IO;
 using System.Linq;
 
 using PowerDeploy.Core.Extensions;
+using PowerDeploy.Core.Logging;
 
 namespace PowerDeploy.Core
 {
-    // Todo: add proper tests
-    public class EnvironmentProvider
+    public class EnvironmentProvider : IEnvironmentProvider
     {
-        public XmlEnvironmentParser Parser { get; set; }
+        private IEnvironmentSerializer Serializer { get; set; }
 
-        public EnvironmentLocator Locator { get; set; }
+        public DirectoryInfo EnvironmentDirectory { get; private set; }
 
         public EnvironmentProvider()
         {
-            Parser = new XmlEnvironmentParser();
+            Serializer = new XmlEnvironmentSerializer();
+        }
+
+        public EnvironmentProvider(string startFolder)
+            : this()
+        {
+            Initialize(startFolder);
+        }
+
+        public void Initialize(string startFolder)
+        {
+            EnvironmentDirectory = FindEnvironmentFolder(startFolder);
         }
 
         public Environment GetEnvironmentFromFile(string path)
         {
-            return Parser.GetEnvironmentFromFile(path);
+            return Serializer.Deserialize(path);
         }
 
-        public Environment GetEnvironment(string startFolder, string environmentName)
+        public Environment GetEnvironment(string environmentName)
         {
+            LogManager.GetLogger(GetType()).Debug("EnvironmentProvider.GetEnvironment");
+            if (EnvironmentDirectory == null)
+            {
+                throw new InvalidOperationException("Please initialize EnvironmentProvider first.");    
+            }
+
+            if (EnvironmentDirectory.Exists)
+            {
+                var path = Path.Combine(EnvironmentDirectory.FullName, "{0}.xml".Fmt(environmentName));
+
+                return GetEnvironmentFromFile(Path.Combine(EnvironmentDirectory.FullName, "{0}.xml".Fmt(environmentName)));
+            }
+            
+            throw new DirectoryNotFoundException(".powerdeploy folder not found");
+        }
+
+        private DirectoryInfo FindEnvironmentFolder(string startFolder)
+        {
+            LogManager.GetLogger(GetType()).Debug("gugus " + startFolder);
             var dirInfo = new DirectoryInfo(startFolder);
             var root = Directory.GetDirectoryRoot(startFolder);
 
             while (dirInfo.FullName != root)
             {
-                dirInfo = Directory.GetParent(dirInfo.FullName);
-
                 if (dirInfo.GetDirectories(".powerdeploy").Any())
                 {
                     break;
                 }
+
+                dirInfo = Directory.GetParent(dirInfo.FullName);
             }
 
-            dirInfo = new DirectoryInfo(Path.Combine(dirInfo.FullName, ".powerdeploy"));
+            var envFolder = new DirectoryInfo(Path.Combine(dirInfo.FullName, ".powerdeploy"));
 
-            if (dirInfo.Exists)
+            if (!envFolder.Exists)
             {
-                return GetEnvironmentFromFile(Path.Combine(dirInfo.FullName, "{0}.xml".Fmt(environmentName)));
+                throw new DirectoryNotFoundException(".powerdeploy folder not found with start folder " + startFolder);
             }
-            
-            throw new InvalidOperationException(".powerdeploy folder not found");
+
+            return envFolder;
         }
     }
 }

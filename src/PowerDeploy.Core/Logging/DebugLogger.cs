@@ -78,6 +78,16 @@ namespace PowerDeploy.Core.Logging
             LogFormat(DEBUG + format, args);
         }
 
+        public void Print(object message)
+        {
+            Log(message);
+        }
+
+        public void PrintFormat(string format, params object[] args)
+        {
+            LogFormat(format, args);
+        }
+
         public void Error(object message, Exception exception)
         {
             Log(ERROR + message, exception);

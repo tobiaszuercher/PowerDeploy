@@ -38,7 +38,7 @@ namespace PowerDeploy.Tests.Integration
         {
             MsBuild("PowerDeploy.Sample.XCopy\\PowerDeploy.Sample.XCopy.csproj /t:clean,build /p:RunOctoPack=true /p:OctoPackPackageVersion=1.3.3.7 /p:Configuration=Release /v:m");
 
-            var environmentMock = new Mock<IEnvironmentParser>();
+            var environmentMock = new Mock<IEnvironmentProvider>();
             environmentMock.Setup(prov => prov.GetEnvironment(It.IsAny<string>())).Returns(GetUnitEnvironment);
 
             var outputPath = FileSystem.CreateTempWorkingDir();
@@ -77,7 +77,7 @@ namespace PowerDeploy.Tests.Integration
         {
             MsBuild("PowerDeploy.Sample.XCopy\\PowerDeploy.Sample.XCopy.csproj /t:clean,build /p:RunOctoPack=true /p:OctoPackPackageVersion=1.3.3.7 /p:Configuration=Release /v:m");
 
-            var environmentMock = new Mock<IEnvironmentParser>();
+            var environmentMock = new Mock<IEnvironmentProvider>();
             environmentMock.Setup(prov => prov.GetEnvironment(It.IsAny<string>())).Returns(GetUnitEnvironment);
 
             var outputPath = FileSystem.CreateTempWorkingDir();
@@ -98,7 +98,7 @@ namespace PowerDeploy.Tests.Integration
         {
             MsBuild("PowerDeploy.Sample.XCopy\\PowerDeploy.Sample.XCopy.csproj /t:clean,build /p:RunOctoPack=true /p:OctoPackPackageVersion=1.3.3.7 /p:Configuration=Release /v:m");
 
-            var environmentMock = new Mock<IEnvironmentParser>();
+            var environmentMock = new Mock<IEnvironmentProvider>();
             environmentMock.Setup(prov => prov.GetEnvironment(It.IsAny<string>())).Returns(GetUnitEnvironment);
 
             var outputPath = FileSystem.CreateTempWorkingDir();

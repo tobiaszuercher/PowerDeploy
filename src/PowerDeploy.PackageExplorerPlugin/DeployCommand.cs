@@ -18,8 +18,9 @@ namespace PowerDeploy.PackageExplorerPlugin
 
             if (result == DialogResult.OK)
             {
-                var packageManager = new PackageManager(@"c:\");
+                var provider = new EnvironmentProvider();
 
+                var packageManager = new PackageManager(provider);
                 packageManager.ConfigurePackage(packagePath, dialog.FileNames[0], @"c:\temp\packageexplorer");
             }
         }

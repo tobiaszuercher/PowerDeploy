@@ -81,13 +81,14 @@
     <Compile Include="Deploy\XCopyDeployer.cs" />
     <Compile Include="Deploy\XCopyOptions.cs" />
     <Compile Include="Environment.cs" />
-    <Compile Include="EnvironmentLocator.cs" />
+    <Compile Include="EnvironmentOverview.cs" />
     <Compile Include="EnvironmentProvider.cs" />
     <Compile Include="Extensions\StringExtensions.cs" />
     <Compile Include="Extensions\ZipPackageExtensions.cs" />
     <Compile Include="FileSystem\FileAdapter.cs" />
     <Compile Include="FileSystem\IFile.cs" />
-    <Compile Include="IEnvironmentParser.cs" />
+    <Compile Include="IEnvironmentProvider.cs" />
+    <Compile Include="IEnvironmentSerializer.cs" />
     <Compile Include="IFileSystem.cs" />
     <Compile Include="Logging\ConsoleLogFactory.cs" />
     <Compile Include="Logging\ConsoleLogger.cs" />
@@ -107,14 +108,14 @@
     <Compile Include="Variable.cs" />
     <Compile Include="Template\VariableResolver.cs" />
     <Compile Include="Template\VariableUsage.cs" />
-    <Compile Include="XmlEnvironmentParser.cs" />
+    <Compile Include="XmlEnvironmentSerializer.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\PowerDeploy.IISDeployService.Contract\PowerDeploy.IISDeployService.Contract.csproj">
-      <Project>{3B501155-8890-40F0-A23E-E164C8627AEF}</Project>
+      <Project>{3b501155-8890-40f0-a23e-e164c8627aef}</Project>
       <Name>PowerDeploy.IISDeployService.Contract</Name>
     </ProjectReference>
   </ItemGroup>
