@@ -32,13 +32,20 @@
     <div id="main_content_wrap" class="outer">
       <section id="main_content" class="inner">
         <h3>Welcome to PowerDeploy</h3>
-
-<pre><code>$ git clone https://github.com/tobiaszuercher/PowerDeploy.git
-$ cd PowerDeploy/SampleApp
-$ execute shell.cmd or call shell.ps1 from powershell
-</code></pre>
-
-<p>Note this is still under construction! I'll blog about the first "official" release soon!</p>
+        
+        I used to implement PowerDeploy in PowerShell. A couple of weeks ago i changed my decision and im going to do as much
+        as possible in C# with proper unit testing. So I have to implement a lot of things I've already implemented 
+        with PowerShell which took some time. But I promise you: it will be much better!
+        
+        The neutral package will be in future a nuget package which can be published to any nuget server. This new approach
+        gives me a lot of new opportunities.
+        
+        Current State:
+          - The core library is almost done. Some finetuning needed, but functions are done.
+          - XCopy and IIS deployments are implemented (IIS deployment go through a DeploymentService, i gave it up to deal with webdeploy or powershell snappis, it just didn't work out as well as expected')
+          - Visual Studio NuGet Package Manager Extension: enables to switch between environments locally -> done
+          - NuGet Package Manager extension which allows to do manual deployments with the NuGet Package Manager (npe.codeplex.com)
+          - I'm working now on a website called "PowerDeploy Dashboard"
       </section>
     </div>
 
