@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
+﻿using System.IO;
 using System.Net;
 
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -37,7 +35,7 @@ namespace PowerDeploy.IISDeployService.Tests.Integration
 
         [TestMethod]
         [TestCategory("Integration")]
-        [DeploymentItem("PowerDeploy.IISDeployService.Tests/Files/package.zip")]
+        [DeploymentItem("Files/package.zip")]
         public void Trigger_Simple_Deployment_And_Check_AppPool_And_Website_Test()
         {
             var client = GetClient();
@@ -74,7 +72,7 @@ namespace PowerDeploy.IISDeployService.Tests.Integration
 
         [TestMethod]
         [TestCategory("Integration")]
-        [DeploymentItem("PowerDeploy.IISDeployService.Tests/Files/package.zip")]
+        [DeploymentItem("Files/package.zip")]
         public void Trigger_Deployment_With_App_Virtual_Dir_And_Check_AppPool_And_Website_Test()
         {
             var client = GetClient();
@@ -111,9 +109,9 @@ namespace PowerDeploy.IISDeployService.Tests.Integration
 
         [TestMethod]
         [TestCategory("Integration")]
-        [DeploymentItem("PowerDeploy.IISDeployService.Tests/Files/package.zip")]
+        [DeploymentItem("Files/package.zip")]
         public void List_Deployed_Folders_For_a_Website_Test()
-        {
+         {
             var client = GetClient();
 
             const string version1 = "1.3.3.7";
@@ -146,7 +144,7 @@ namespace PowerDeploy.IISDeployService.Tests.Integration
 
         [TestMethod]
         [TestCategory("Integration")]
-        [DeploymentItem("PowerDeploy.IISDeployService.Tests/Files/package.zip")]
+        [DeploymentItem("Files/package.zip")]
         public void List_Deployed_Folders_For_a_Website_with_VDIR_Test()
         {
             var client = GetClient();
@@ -184,7 +182,7 @@ namespace PowerDeploy.IISDeployService.Tests.Integration
 
         [TestMethod]
         [TestCategory("Integration")]
-        [DeploymentItem("PowerDeploy.IISDeployService.Tests/Files/package.zip")]
+        [DeploymentItem("Files/package.zip")]
         public void Rollback_Website_Test()
         {
             var client = GetClient();
@@ -218,7 +216,7 @@ namespace PowerDeploy.IISDeployService.Tests.Integration
 
         [TestMethod]
         [TestCategory("Integration")]
-        [DeploymentItem("PowerDeploy.IISDeployService.Tests/Files/package.zip")]
+        [DeploymentItem("Files/package.zip")]
         public void Rollback_Website_with_VDIR_Test()
         {
             var client = GetClient();
