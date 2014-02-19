@@ -52,6 +52,12 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{7DBFEE
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PowerDeploy.Sample.Tests", "PowerDeploy.Sample.Tests\PowerDeploy.Sample.Tests.csproj", "{AD48CB61-9E2F-40F4-9FBA-D5390EF1EA78}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "environments", "environments", "{6C7F3BCB-A15F-45E5-A83A-5F29A48F82B8}"
+	ProjectSection(SolutionItems) = preProject
+		..\samples\.powerdeploy\local.xml = ..\samples\.powerdeploy\local.xml
+		..\samples\.powerdeploy\unittest.xml = ..\samples\.powerdeploy\unittest.xml
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -162,6 +168,7 @@ Global
 		{41523A1F-9A61-4104-999B-3A07A5914C49} = {23ED1B95-135D-4B5C-B9D1-E1AE3DAC2AC2}
 		{14641F47-10E9-46B0-9F57-384466A4267A} = {23ED1B95-135D-4B5C-B9D1-E1AE3DAC2AC2}
 		{AD48CB61-9E2F-40F4-9FBA-D5390EF1EA78} = {23ED1B95-135D-4B5C-B9D1-E1AE3DAC2AC2}
+		{6C7F3BCB-A15F-45E5-A83A-5F29A48F82B8} = {23ED1B95-135D-4B5C-B9D1-E1AE3DAC2AC2}
 	EndGlobalSection
 	GlobalSection(TestCaseManagementSettings) = postSolution
 		CategoryFile = PowerDeploy.Dashboard.vsmdi

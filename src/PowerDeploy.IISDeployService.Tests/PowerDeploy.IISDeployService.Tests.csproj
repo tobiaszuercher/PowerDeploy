@@ -108,7 +108,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Files\package.zip">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <None Include="packages.config" />
   </ItemGroup>
