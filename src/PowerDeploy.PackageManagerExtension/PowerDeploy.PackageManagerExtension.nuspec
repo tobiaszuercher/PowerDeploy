@@ -1,14 +1,19 @@
 <package>
   <metadata>
     <id>PowerDeploy.PackageManagerExtension</id>
+    <title>PowerDeploy Package Manager Extension</title>
     <version>0.0.3.19</version>
     <authors>Tobias Zürcher</authors>
     <owners>Tobias Zürcher</owners>
     <licenseUrl>http://tobiaszuercher.github.io/PowerDeploy/</licenseUrl>
     <projectUrl>http://tobiaszuercher.github.io/PowerDeploy/</projectUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
-    <description>Visual Studio Integration for PowerDeploy.</description>
-    <releaseNotes></releaseNotes>
+    <description>
+      Offers commands for PowerDeploy in the NuGet Package Manager Console like Switch-Environment. PowerDeploy is
+      a tool which makes deployment of IIS Applications, XCopy and Databases easy.
+    </description>
+    <summary>Offers commands for PowerDeploy in the NuGet Package Manager Console.</summary>
+    <releaseNotes>This is still beta and under construction.</releaseNotes>
   </metadata>
   <files>
     <file src="scripts\*.ps1" target="tools" />

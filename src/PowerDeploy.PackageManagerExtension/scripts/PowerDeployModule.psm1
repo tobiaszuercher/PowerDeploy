@@ -1,6 +1,4 @@
-﻿$environments = "local", "dev", "test", "prod"
-
-function Switch-Environment {
+﻿function Switch-Environment {
 	[CmdletBinding()]
     param(
         [Parameter(Position = 0)] [string]$environment
@@ -16,9 +14,7 @@ function Get-Environments {
 	Get-EnvironmentDir | Get-ChildItem | % { $_.Basename }
 }
 
-Register-TabExpansion 'Switch-Environment' @{
-    'environment' = $environments
-}
-
 Export-ModuleMember Get-Environments
 Export-ModuleMember Switch-Environment
+
+Register-TabExpansion 'Switch-Environment' @{ 'environment' = { Get-EnvironmentDir | Get-ChildItem | % { $_.Basename } } }
