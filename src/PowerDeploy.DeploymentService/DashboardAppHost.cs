@@ -1,10 +1,14 @@
 ﻿using Funq;
 
-using ServiceStack.WebHost.Endpoints;
+using PowerDeploy.DeploymentService.Contract;
+
+using ServiceStack;
+using ServiceStack.Messaging.Redis;
+using ServiceStack.Redis;
 
 namespace PowerDeploy.DeploymentService
 {
-    public class DashboardAppHost : AppHostBase
+    public class DashboardAppHost : AppHostHttpListenerBase
     {
         public DashboardAppHost() : base("Environment Service", typeof(DashboardAppHost).Assembly)
         {
@@ -13,8 +17,12 @@ namespace PowerDeploy.DeploymentService
 
         public override void Configure(Container container)
         {
-            ////var dbConnectionFactory = new OrmLiteConnectionFactory(HttpContext.Current.Server.MapPath("~/App_Data/db.sql"), SqliteDialect.Provider);
-            ////container.Register<IDbConnectionFactory>(dbConnectionFactory);
+            var redisFactory = new PooledRedisClientManager("localhost:6379");
+            container.Register<IRedisClientsManager>(redisFactory); // req. to log exceptions in redis
+            var mqHost = new RedisMqServer(redisFactory);
+
+            
+            mqHost.RegisterHandler<TriggerDeployment>(m => new TriggerDeploymentMessageQueue().PopulateWith(m));
         }
     }
 }
