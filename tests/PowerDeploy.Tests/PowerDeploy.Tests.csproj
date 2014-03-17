@@ -72,6 +72,7 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
+    <Compile Include="GitTests.cs" />
     <Compile Include="Integration\XCopyTests.cs" />
     <Compile Include="PackageAssertExtensions.cs" />
     <Compile Include="PackageFixtures.cs" />

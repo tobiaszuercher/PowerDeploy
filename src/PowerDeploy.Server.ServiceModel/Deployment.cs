@@ -1,13 +1,12 @@
 ﻿using System;
 
-namespace PowerDeploy.DeploymentService.Contract
+namespace PowerDeploy.Server.ServiceModel
 {
     /// <summary>
     /// Represents an executed deployment.
     /// </summary>
     public class Deployment
     {
-
         public DateTime TimeStamp { get; set; }
     }
 }

@@ -1,9 +1,9 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 
+using PowerDeploy.Server.Provider;
 using PowerDeploy.Server.ServiceModel;
 using PowerDeploy.Server.Services;
 
-using Raven.Client;
 using Raven.Client.Document;
 
 using ServiceStack.Logging;
@@ -12,7 +12,7 @@ using ServiceStack.Testing;
 namespace Powerdeploy.Server.Tests
 {
     [TestClass]
-    public class ConfigurationServiceTests
+    public class PackageServiceTests
     {
         private BasicAppHost _appHost;
 
@@ -33,19 +33,17 @@ namespace Powerdeploy.Server.Tests
             }.Initialize();
 
             container.Register(documentStore);
-            container.RegisterAutoWired<ConfigurationService>();
+            container.RegisterAutoWired<PackageProvider>();
+            container.RegisterAutoWired<PackageService>();
         }
 
         [TestMethod]
-        public void ConfigurationService_Returns_Valid_Configration()
+        public void Synchronize_Packages()
         {
-            var target = _appHost.TryResolve<ConfigurationService>();
+            var target = _appHost.TryResolve<PackageService>();
+            var response = target.Any(new SynchronizePackageRequest());
 
-            var result = target.Get(new QueryServerSettings());
 
-            Assert.IsNotNull(result);
-            Assert.AreEqual(1, result.Id);
-            Assert.IsTrue(result.GitExecutable.Contains("git.exe"));
         }
     }
 }

@@ -1,4 +1,4 @@
-﻿namespace PowerDeploy.DeploymentService.Contract
+﻿namespace PowerDeploy.Server.ServiceModel
 {
     public class Environment
     {

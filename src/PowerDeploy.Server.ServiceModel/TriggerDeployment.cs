@@ -1,6 +1,6 @@
 ﻿using ServiceStack;
 
-namespace PowerDeploy.DeploymentService.Contract
+namespace PowerDeploy.Server.ServiceModel
 {
     [Route("/deployment/trigger", Verbs = "POST")]
     public class TriggerDeployment : IReturn<TriggerDeploymentResponse>

@@ -3,17 +3,13 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2013
 VisualStudioVersion = 12.0.30110.0
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PowerDeploy.DeploymentService", "PowerDeploy.DeploymentService\PowerDeploy.DeploymentService.csproj", "{BE91A5DE-6F8F-4920-80B2-67FC6CCA6E33}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PowerDeploy.DeploymentService.Contract", "PowerDeploy.DeploymentService.Contract\PowerDeploy.DeploymentService.Contract.csproj", "{63BF2093-4B85-45F6-8705-167129262827}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PowerDeploy.IISDeployService", "PowerDeploy.IISDeployService\PowerDeploy.IISDeployService.csproj", "{89A89B78-893A-44BD-B56D-BD66B15F091D}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PowerDeploy.IISDeployService.Contract", "PowerDeploy.IISDeployService.Contract\PowerDeploy.IISDeployService.Contract.csproj", "{3B501155-8890-40F0-A23E-E164C8627AEF}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "03 - IIS Deployment Service", "03 - IIS Deployment Service", "{818EDBE8-BE3C-480B-B4E0-270460E84D18}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "02 - Dashboard", "02 - Dashboard", "{183AB815-C128-47E3-BD16-AF0085B20952}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "02 - Server", "02 - Server", "{183AB815-C128-47E3-BD16-AF0085B20952}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PowerDeploy.IISDeployService.Tests", "PowerDeploy.IISDeployService.Tests\PowerDeploy.IISDeployService.Tests.csproj", "{55398309-06D2-4A2E-AD23-08B7692232B3}"
 EndProject
@@ -23,7 +19,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "00 - Solution Items", "00 -
 		PowerDeploy.Dashboard.vsmdi = PowerDeploy.Dashboard.vsmdi
 	EndProjectSection
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "01 - PowerDeploy", "01 - PowerDeploy", "{7F6EF1C9-238F-4933-A911-7BED8F302168}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "01 - PowerDeploy Core", "01 - PowerDeploy Core", "{7F6EF1C9-238F-4933-A911-7BED8F302168}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PowerDeploy", "PowerDeploy\PowerDeploy.csproj", "{0C419885-20DC-4CCA-86DC-67B71D3A70F8}"
 EndProject
@@ -58,6 +54,12 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "environments", "environment
 		..\samples\.powerdeploy\unittest.xml = ..\samples\.powerdeploy\unittest.xml
 	EndProjectSection
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PowerDeploy.Server", "PowerDeploy.Server\PowerDeploy.Server.csproj", "{E8845574-680F-431A-A8BB-86B02C226660}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Powerdeploy.Server.Tests", "Powerdeploy.Server.Tests\Powerdeploy.Server.Tests.csproj", "{F184C418-E21E-4C69-AB82-D4613075A8D8}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PowerDeploy.Server.ServiceModel", "PowerDeploy.Server.ServiceModel\PowerDeploy.Server.ServiceModel.csproj", "{63BF2093-4B85-45F6-8705-167129262827}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -65,16 +67,6 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{BE91A5DE-6F8F-4920-80B2-67FC6CCA6E33}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{BE91A5DE-6F8F-4920-80B2-67FC6CCA6E33}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{BE91A5DE-6F8F-4920-80B2-67FC6CCA6E33}.Package|Any CPU.ActiveCfg = Release|Any CPU
-		{BE91A5DE-6F8F-4920-80B2-67FC6CCA6E33}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{BE91A5DE-6F8F-4920-80B2-67FC6CCA6E33}.Release|Any CPU.Build.0 = Release|Any CPU
-		{63BF2093-4B85-45F6-8705-167129262827}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{63BF2093-4B85-45F6-8705-167129262827}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{63BF2093-4B85-45F6-8705-167129262827}.Package|Any CPU.ActiveCfg = Package|Any CPU
-		{63BF2093-4B85-45F6-8705-167129262827}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{63BF2093-4B85-45F6-8705-167129262827}.Release|Any CPU.Build.0 = Release|Any CPU
 		{89A89B78-893A-44BD-B56D-BD66B15F091D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{89A89B78-893A-44BD-B56D-BD66B15F091D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{89A89B78-893A-44BD-B56D-BD66B15F091D}.Package|Any CPU.ActiveCfg = Release|Any CPU
@@ -148,15 +140,34 @@ Global
 		{AD48CB61-9E2F-40F4-9FBA-D5390EF1EA78}.Package|Any CPU.Build.0 = Release|Any CPU
 		{AD48CB61-9E2F-40F4-9FBA-D5390EF1EA78}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{AD48CB61-9E2F-40F4-9FBA-D5390EF1EA78}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E8845574-680F-431A-A8BB-86B02C226660}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E8845574-680F-431A-A8BB-86B02C226660}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E8845574-680F-431A-A8BB-86B02C226660}.Package|Any CPU.ActiveCfg = Release|Any CPU
+		{E8845574-680F-431A-A8BB-86B02C226660}.Package|Any CPU.Build.0 = Release|Any CPU
+		{E8845574-680F-431A-A8BB-86B02C226660}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E8845574-680F-431A-A8BB-86B02C226660}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F184C418-E21E-4C69-AB82-D4613075A8D8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F184C418-E21E-4C69-AB82-D4613075A8D8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F184C418-E21E-4C69-AB82-D4613075A8D8}.Package|Any CPU.ActiveCfg = Release|Any CPU
+		{F184C418-E21E-4C69-AB82-D4613075A8D8}.Package|Any CPU.Build.0 = Release|Any CPU
+		{F184C418-E21E-4C69-AB82-D4613075A8D8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F184C418-E21E-4C69-AB82-D4613075A8D8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{63BF2093-4B85-45F6-8705-167129262827}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{63BF2093-4B85-45F6-8705-167129262827}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{63BF2093-4B85-45F6-8705-167129262827}.Package|Any CPU.ActiveCfg = Package|Any CPU
+		{63BF2093-4B85-45F6-8705-167129262827}.Package|Any CPU.Build.0 = Package|Any CPU
+		{63BF2093-4B85-45F6-8705-167129262827}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{63BF2093-4B85-45F6-8705-167129262827}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
-		{63BF2093-4B85-45F6-8705-167129262827} = {183AB815-C128-47E3-BD16-AF0085B20952}
-		{BE91A5DE-6F8F-4920-80B2-67FC6CCA6E33} = {183AB815-C128-47E3-BD16-AF0085B20952}
 		{DA9CC559-E8FD-42F8-9909-521B013450A8} = {183AB815-C128-47E3-BD16-AF0085B20952}
 		{7F6FC879-F6B0-4EF7-B22D-BB47B6D96E4D} = {183AB815-C128-47E3-BD16-AF0085B20952}
+		{E8845574-680F-431A-A8BB-86B02C226660} = {183AB815-C128-47E3-BD16-AF0085B20952}
+		{F184C418-E21E-4C69-AB82-D4613075A8D8} = {183AB815-C128-47E3-BD16-AF0085B20952}
+		{63BF2093-4B85-45F6-8705-167129262827} = {183AB815-C128-47E3-BD16-AF0085B20952}
 		{3B501155-8890-40F0-A23E-E164C8627AEF} = {818EDBE8-BE3C-480B-B4E0-270460E84D18}
 		{89A89B78-893A-44BD-B56D-BD66B15F091D} = {818EDBE8-BE3C-480B-B4E0-270460E84D18}
 		{55398309-06D2-4A2E-AD23-08B7692232B3} = {818EDBE8-BE3C-480B-B4E0-270460E84D18}

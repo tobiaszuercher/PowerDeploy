@@ -1,10 +1,10 @@
 ﻿using System.Collections.Generic;
 
-namespace PowerDeploy.DeploymentService.Contract
+namespace PowerDeploy.Server.ServiceModel
 {
     public class Release
     {
         public string Name { get; set; }
-        public List<Package> Packages { get; set; }
+        public List<PackageInfo> Packages { get; set; }
     }
 }

@@ -2,7 +2,7 @@
 
 using ServiceStack;
 
-namespace PowerDeploy.DeploymentService.Contract
+namespace PowerDeploy.Server.ServiceModel
 {
     [Route("/configuration", Verbs = "GET")]
     public class QueryServerSettings : IReturn<ServerSettings>
@@ -15,7 +15,7 @@ namespace PowerDeploy.DeploymentService.Contract
     {
         public int Id { get; set; }
         public string GitExecutable { get; set; }
-        public Uri NugetUri { get; set; }
+        public Uri NuGetServerUri { get; set; }
 
         // in future those will be refactored to a project configuration
         public string EnvironmentsPath { get; set; }

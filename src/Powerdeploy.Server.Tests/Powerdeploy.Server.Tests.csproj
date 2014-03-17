@@ -73,15 +73,17 @@
   </Choose>
   <ItemGroup>
     <Compile Include="ConfigurationServiceTests.cs" />
+    <Compile Include="EnvironmentServiceTests.cs" />
+    <Compile Include="PackageServiceTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\PowerDeploy.DeploymentService.Contract\PowerDeploy.DeploymentService.Contract.csproj">
-      <Project>{63bf2093-4b85-45f6-8705-167129262827}</Project>
-      <Name>PowerDeploy.DeploymentService.Contract</Name>
+    <ProjectReference Include="..\PowerDeploy.Server.ServiceModel\PowerDeploy.Server.ServiceModel.csproj">
+      <Project>{63BF2093-4B85-45F6-8705-167129262827}</Project>
+      <Name>PowerDeploy.Server.ServiceModel</Name>
     </ProjectReference>
     <ProjectReference Include="..\PowerDeploy.Server\PowerDeploy.Server.csproj">
       <Project>{E8845574-680F-431A-A8BB-86B02C226660}</Project>
