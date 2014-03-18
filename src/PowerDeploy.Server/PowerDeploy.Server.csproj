@@ -89,6 +89,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DataInitializer.cs" />
     <Compile Include="Provider\PackageProvider.cs" />
     <Compile Include="Provider\SynchronizeSummary.cs" />
     <Compile Include="Service References\NuGetServer\Reference.cs">

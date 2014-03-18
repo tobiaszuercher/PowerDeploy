@@ -49,6 +49,8 @@ namespace PowerDeploy.Server
                 });
 
             mqHost.Start(); //Starts listening for messages
+
+            DataInitializer.InitializerWithDefaultValuesIfEmpty(documentStore);
         }
     }
 
