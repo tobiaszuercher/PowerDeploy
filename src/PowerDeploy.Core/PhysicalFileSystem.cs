@@ -59,10 +59,10 @@ namespace PowerDeploy.Core
             return Directory.GetParent(path);
         }
 
-        public string CreateTempWorkingDir()
-        { 
+        public string CreateTempWorkingDir(string baseDir = @"c:\temp\pd.reloaded")
+        {
             // todo: appdata
-            var path = @"c:\temp\pd.reloaded\" + Guid.NewGuid();
+            var path = Path.Combine(baseDir, Guid.NewGuid().ToString());
             TempWorkingDirs.Add(path);
 
             return Directory.CreateDirectory(path).FullName;

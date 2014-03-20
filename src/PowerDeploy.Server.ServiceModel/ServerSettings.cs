@@ -20,7 +20,7 @@ namespace PowerDeploy.Server.ServiceModel
         // in future those will be refactored to a project configuration
         public string EnvironmentsPath { get; set; }
         public string RepositoryUrl { get; set; }
-        public string SourceControlWorkingDir { get; set; }
+        public string WorkDir { get; set; }
            
         public VersionControlSystem VersionControlSystem { get; set; }
     }

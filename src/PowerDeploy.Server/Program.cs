@@ -3,16 +3,11 @@
 using Funq;
 
 using PowerDeploy.Server.Provider;
-using PowerDeploy.Server.ServiceModel;
 
 using Raven.Client.Document;
 
 using ServiceStack;
 using ServiceStack.Api.Swagger;
-using ServiceStack.Messaging;
-using ServiceStack.Messaging.Redis;
-using ServiceStack.Redis;
-
 
 namespace PowerDeploy.Server
 {
@@ -28,27 +23,6 @@ namespace PowerDeploy.Server
 
             container.Register(documentStore);
             container.RegisterAutoWired<PackageProvider>();
-
-            var redisFactory = new PooledRedisClientManager("localhost:6379");
-            container.Register<IRedisClientsManager>(redisFactory); // req. to log exceptions in redis
-            var mqHost = new RedisMqServer(redisFactory);
-
-            mqHost.RegisterHandler<TriggerDeploymentMessageQueueResponse>(m =>
-            {
-                Console.WriteLine("Deployment {0} done".Fmt(m.GetBody()));
-                return null;
-            });
-
-            mqHost.RegisterHandler<TriggerDeployment>(
-                m =>
-                {
-                    var mqMessage = new Message<TriggerDeploymentMessageQueue>(new TriggerDeploymentMessageQueue().PopulateWith(m.GetBody()));
-                    ServiceController.ExecuteMessage(mqMessage);
-
-                    return null;
-                });
-
-            mqHost.Start(); //Starts listening for messages
 
             DataInitializer.InitializerWithDefaultValuesIfEmpty(documentStore);
         }

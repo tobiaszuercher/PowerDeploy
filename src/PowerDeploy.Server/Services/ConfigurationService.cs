@@ -29,6 +29,7 @@ namespace PowerDeploy.Server.Services
                         GitExecutable = @"c:\Program Files (x86)\git\bin\git.exe",
                         NuGetServerUri = new Uri("http://localhost/nuggy/nuget"),
                         VersionControlSystem = VersionControlSystem.Git,
+                        WorkDir = @"c:\powerdeploy\work",
                     };
 
                     session.Store(config);
@@ -41,16 +42,17 @@ namespace PowerDeploy.Server.Services
 
         public void Put(ServerSettings request)
         {
-            if (request.Id == default(int))
-            {
-                request.Id = 1;
-            }
-
             using (var session = DocumentStore.OpenSession())
             {
-                var config = session.Load<ServerSettings>("ServerSettings/1");
+                var config = session.Load<ServerSettings>("ServerSettings/" + request.Id);
 
+                if (config == null)
+                {
+                    throw HttpError.NotFound("ServerSettings not found.");
+                }
 
+                config.PopulateWith(request);
+                session.SaveChanges();
             }
         }
     }

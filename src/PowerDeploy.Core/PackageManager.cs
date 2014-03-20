@@ -39,21 +39,21 @@ namespace PowerDeploy.Core
             _environmentProvider = environmentProvider;
         }
 
-        public void ConfigurePackageByEnvironment(string packagePath, string environment, string outputPath)
+        public string ConfigurePackageByEnvironment(string packagePath, string environment, string outputPath)
         {
             var targetEnvironment = _environmentProvider.GetEnvironment(environment);
 
-            DoConfigure(packagePath, targetEnvironment, outputPath);
+            return DoConfigure(packagePath, targetEnvironment, outputPath);
         }
 
-        public void ConfigurePackage(string packageFile, string environmentFile, string outputPath)
+        public string ConfigurePackage(string packageFile, string environmentFile, string outputPath)
         {
             var targetEnvironment = _environmentProvider.GetEnvironmentFromFile(environmentFile);
 
-            DoConfigure(packageFile, targetEnvironment, outputPath);
+            return DoConfigure(packageFile, targetEnvironment, outputPath);
         }
 
-        private void DoConfigure(string packagePath, Environment env, string outputPath)
+        private string DoConfigure(string packagePath, Environment env, string outputPath)
         {
             _logger.InfoFormat("Configuring package {0} for {1}", new FileInfo(packagePath).Name, env.Name.ToUpper());
             var workingDir = _fileSystem.CreateTempWorkingDir();
@@ -82,6 +82,8 @@ namespace PowerDeploy.Core
             }
 
             _fileSystem.DeleteDirectory(workingDir);
+
+            return packageOutputPath;
         }
 
         public void DeployPackage(string package)

@@ -14,7 +14,7 @@ namespace PowerDeploy.Core
 
         void DeleteDirectory(string path);
 
-        string CreateTempWorkingDir();
+        string CreateTempWorkingDir(string baseDir = @"c:\temp\pd.reloaded");
 
         void DeleteTempWorkingDirs();
 

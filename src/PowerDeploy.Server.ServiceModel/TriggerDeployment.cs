@@ -2,25 +2,20 @@
 
 namespace PowerDeploy.Server.ServiceModel
 {
-    [Route("/deployment/trigger", Verbs = "POST")]
+    [Api("Trigger a deployment of a package by id.")]
+    [Route("/package/deploy", Verbs = "POST")]
+    [Route("/package/{id}/deploy", Verbs = "POST")]
     public class TriggerDeployment : IReturn<TriggerDeploymentResponse>
     {
-        [ApiMember(Name = "Name", DataType = "string", ParameterType = "query")]
-        public string Name { get; set; }
+        [ApiMember(Name = "PackageId", DataType = "int", ParameterType = "path")]
+        public int PackageId { get; set; }
+
+        //[ApiMember(Name = "EnvironmentName", DataType = "string", ParameterType = "query")]
+        public string EnvironmentName { get; set; }
     }
 
     public class TriggerDeploymentResponse
     {
         
-    }
-
-    public class TriggerDeploymentMessageQueue : IReturn<TriggerDeploymentMessageQueueResponse>
-    {
-        public string Name { get; set; }
-    }
-
-    public class TriggerDeploymentMessageQueueResponse
-    {
-        public bool Success { get; set; }
     }
 }

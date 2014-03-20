@@ -15,11 +15,14 @@ namespace PowerDeploy.Server
         {
             _directory = directory;
             _output = Console.WriteLine;
+            _gitExecutable = gitExecutable;
         }
 
         public void Clone(string repository)
         {
-            SilentProcessRunner.ExecuteCommand(_gitExecutable, "clone -q", repository, _output, e => _output("ERROR: " + e));
+            new PhysicalFileSystem().EnsureDirectoryExists(_directory);
+
+            SilentProcessRunner.ExecuteCommand(_gitExecutable, "clone -q " + repository + " .", _directory, _output, e => _output("ERROR: " + e));
         }
 
         public void Pull()

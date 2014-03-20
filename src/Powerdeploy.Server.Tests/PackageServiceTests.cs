@@ -42,8 +42,13 @@ namespace Powerdeploy.Server.Tests
         {
             var target = _appHost.TryResolve<PackageService>();
             var response = target.Any(new SynchronizePackageRequest());
+        }
 
-
+        [TestMethod]
+        public void First_Deploy()
+        {
+            var target = _appHost.TryResolve<PackageService>();
+            target.Post(new TriggerDeployment() { EnvironmentName = "local", PackageId = 40 });
         }
     }
 }
