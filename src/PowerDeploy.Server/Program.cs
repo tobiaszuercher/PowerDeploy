@@ -2,8 +2,6 @@
 
 using Funq;
 
-using PowerDeploy.Server.Provider;
-
 using Raven.Client.Document;
 
 using ServiceStack;
@@ -21,8 +19,7 @@ namespace PowerDeploy.Server
 
             var documentStore = new DocumentStore() { DefaultDatabase = "PowerDeploy", Url = "http://localhost:8080", }.Initialize();
 
-            container.Register(documentStore);
-            container.RegisterAutoWired<PackageProvider>();
+            Bootstrapper.ConfigureDependencies(container, documentStore);
 
             DataInitializer.InitializerWithDefaultValuesIfEmpty(documentStore);
         }

@@ -1,17 +1,13 @@
-﻿using System;
-using System.IO;
-using System.Linq;
+﻿using System.IO;
 using System.Net;
 
 using PowerDeploy.Core;
-using PowerDeploy.Server.NuGetServer;
 using PowerDeploy.Server.Provider;
 using PowerDeploy.Server.ServiceModel;
 
 using Raven.Client;
 
 using ServiceStack;
-using ServiceStack.Logging;
 
 namespace PowerDeploy.Server.Services
 {
@@ -19,6 +15,8 @@ namespace PowerDeploy.Server.Services
     {
         public PackageProvider PackageProvider { get; set; }
         public IDocumentStore DocumentStore { get; set; }
+        public IFileSystem FileSystem { get; set; }
+        public ServerSettings ServerSettings { get; set; }
 
         public SynchronizePackageResponse Any(SynchronizePackageRequest request)
         {
@@ -42,37 +40,30 @@ namespace PowerDeploy.Server.Services
 
         public TriggerDeploymentResponse Post(TriggerDeployment request)
         {
-            // get package from nuget
+            var tempDir = FileSystem.CreateTempWorkingDir(ServerSettings.WorkDir);
+            var neutralPackagePath = Path.Combine(tempDir, "{0}_v{1}.nupkg".Fmt(request.PackageId, request.Version));
+
             using (var webclient = new WebClient())
             {
-                webclient.DownloadFile("http://localhost/Nuggy/api/v2/package/powerdeploy.sample.xcopy/1.0.0.12", @"c:\temp\powerdeploy.sample.xcopy_v0.0.3.18_svc.nupkg");
+                webclient.DownloadFile(
+                    "{0}/api/v2/package/{1}/{2}".Fmt(ServerSettings.NuGetServerUri, request.PackageId, request.Version),
+                    neutralPackagePath);
             }
 
-            using (var session = DocumentStore.OpenSession())
-            {
-                var serverSettings = session.Load<ServerSettings>("ServerSettings/1");
-                var environment = session.Load<ServiceModel.Environment>("Environments/" + request.EnvironmentName);
+            FileSystem.EnsureDirectoryExists(ServerSettings.WorkDir);
 
-                var fs = new PhysicalFileSystem();
-                fs.EnsureDirectoryExists(serverSettings.WorkDir);
-                var workDir = fs.CreateTempWorkingDir(serverSettings.WorkDir);
+            // todo git/tfs decision
+            var repoDir = Path.Combine(ServerSettings.WorkDir, "repo");
+            var git = new GitWrapper(repoDir);
+            git.PullOrCloneRepository(ServerSettings.RepositoryUrl);
 
-                // todo git/tfs decision
-                var repoDir = Path.Combine(workDir, "repo");
-                var git = new GitWrapper(repoDir);
-                git.PullOrCloneRepository(serverSettings.RepositoryUrl);
+            var envPath = Path.Combine(repoDir, ServerSettings.EnvironmentsPath);
 
-                var envPath = Path.Combine(repoDir, serverSettings.EnvironmentsPath);
+            var packageManager = new PackageManager(envPath);
+            var configuredPackage = packageManager.ConfigurePackageByEnvironment(neutralPackagePath, request.Environment, tempDir);
+            packageManager.DeployPackage(configuredPackage);
 
-                var configureDir = Path.Combine(workDir, "configured");
-                fs.EnsureDirectoryExists(configureDir);
-
-                var packageManager = new PackageManager(envPath);
-                var configuredPackage = packageManager.ConfigurePackageByEnvironment(@"c:\temp\powerdeploy.sample.xcopy_v0.0.3.18_svc.nupkg", request.EnvironmentName, configureDir);
-                packageManager.DeployPackage(configuredPackage);
-
-                fs.DeleteTempWorkingDirs();
-            }
+            FileSystem.DeleteTempWorkingDirs();
 
             return new TriggerDeploymentResponse();
             //var m = new PackageManager();
