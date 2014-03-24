@@ -8,8 +8,8 @@ namespace PowerDeploy.Server
     public class GitWrapper
     {
         private readonly string _directory;
-        private string _gitExecutable;
-        private Action<string> _output;
+        private readonly string _gitExecutable;
+        private readonly Action<string> _output;
 
         public GitWrapper(string directory, string gitExecutable = "git.exe")
         {
@@ -35,6 +35,10 @@ namespace PowerDeploy.Server
             if (!Directory.Exists(Path.Combine(_directory, ".git")))
             {
                 Clone(repository);
+            }
+            else
+            {
+                Pull();
             }
         }
     }
