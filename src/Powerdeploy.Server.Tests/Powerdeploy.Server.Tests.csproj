@@ -81,6 +81,10 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\PowerDeploy.Core\PowerDeploy.Core.csproj">
+      <Project>{56455038-AF11-4710-9D29-FDF7B050553A}</Project>
+      <Name>PowerDeploy.Core</Name>
+    </ProjectReference>
     <ProjectReference Include="..\PowerDeploy.Server.ServiceModel\PowerDeploy.Server.ServiceModel.csproj">
       <Project>{63BF2093-4B85-45F6-8705-167129262827}</Project>
       <Name>PowerDeploy.Server.ServiceModel</Name>

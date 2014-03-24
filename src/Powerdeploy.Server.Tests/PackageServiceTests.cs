@@ -1,6 +1,6 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-using PowerDeploy.Server.Provider;
+using PowerDeploy.Server;
 using PowerDeploy.Server.ServiceModel;
 using PowerDeploy.Server.Services;
 
@@ -32,9 +32,7 @@ namespace Powerdeploy.Server.Tests
                 Url = "http://localhost:8080",
             }.Initialize();
 
-            container.Register(documentStore);
-            container.RegisterAutoWired<PackageProvider>();
-            container.RegisterAutoWired<PackageService>();
+            Bootstrapper.ConfigureDependencies(container, documentStore);
         }
 
         [TestMethod]
@@ -48,7 +46,15 @@ namespace Powerdeploy.Server.Tests
         public void First_Deploy()
         {
             var target = _appHost.TryResolve<PackageService>();
-            target.Post(new TriggerDeployment() { EnvironmentName = "local", PackageId = 40 });
+            
+            target.Post(new TriggerDeployment()
+            {
+                Environment = "local", 
+                PackageId = "PowerDeploy.Sample.XCopy",
+                Version = "0.0.3.18",
+            });
+
+
         }
     }
 }

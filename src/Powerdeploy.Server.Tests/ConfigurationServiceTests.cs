@@ -3,7 +3,6 @@
 using PowerDeploy.Server.ServiceModel;
 using PowerDeploy.Server.Services;
 
-using Raven.Client;
 using Raven.Client.Document;
 
 using ServiceStack.Logging;
