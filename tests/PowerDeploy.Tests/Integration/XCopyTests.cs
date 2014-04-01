@@ -20,7 +20,7 @@ namespace PowerDeploy.Tests.Integration
     public class XCopyTests : PackageFixtures
     {
         [TestMethod]
-        public void Build_And_Package_XCopy_Sample_Project_Test()
+        public void Build_And_Packaged_XCopy_Has_Correct_Metadata()
         {
             MsBuild("PowerDeploy.Sample.XCopy\\PowerDeploy.Sample.XCopy.csproj /t:clean,build /p:RunOctoPack=true /p:OctoPackPackageVersion=1.3.3.7 /p:Configuration=Release /v:m");
 
@@ -34,7 +34,7 @@ namespace PowerDeploy.Tests.Integration
         }
 
         [TestMethod]
-        public void Configure_XCopy_Sample_Project_With_Mocked_Environment_Test()
+        public void Configure_XCopy_Sample_Project_With_Mocked_Environment()
         {
             MsBuild("PowerDeploy.Sample.XCopy\\PowerDeploy.Sample.XCopy.csproj /t:clean,build /p:RunOctoPack=true /p:OctoPackPackageVersion=1.3.3.7 /p:Configuration=Release /v:m");
 
@@ -63,11 +63,14 @@ namespace PowerDeploy.Tests.Integration
                     {
                         "App.config",
                         @"<?xml version=""1.0"" encoding=""utf-8"" ?>
+                          <configuration>
                             <appSettings>
                               <add key=""variable1"" value=""Val1"" />
                               <add key=""variable2"" value=""Val2"" />
                               <add key=""default.variable"" value=""defaultvalue"" />
-                            </appSettings>".ToXmlOneLine()
+                              <add key=""env"" value=""UNIT"" />
+                            </appSettings>
+                          </configuration>".ToXmlOneLine()
                     }
                 }));
         }

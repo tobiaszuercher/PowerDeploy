@@ -4,13 +4,13 @@ using ServiceStack;
 
 namespace PowerDeploy.Server.ServiceModel
 {
-    [Route("/configuration", Verbs = "GET")]
+    [Route("/settings", Verbs = "GET")]
     public class QueryServerSettings : IReturn<ServerSettings>
     {
     }
 
-    [Route("/configuration", Verbs = "PUT")]
-    [Route("/configuration/{Id}", Verbs = "PUT")]
+    [Route("/settings", Verbs = "PUT")]
+    [Route("/settings/{Id}", Verbs = "PUT")]
     public class ServerSettings
     {
         public int Id { get; set; }

@@ -6,6 +6,7 @@ using PowerDeploy.Server.Services;
 using Raven.Client;
 using Raven.Client.Document;
 
+using ServiceStack;
 using ServiceStack.Logging;
 using ServiceStack.Testing;
 
@@ -30,6 +31,9 @@ namespace Powerdeploy.Server.Tests
 
             container.Register(documentStore);
             container.RegisterAutoWired<EnvironmentService>();
+
+            var bla = new JsonServiceClient("http://localhost");
+            bla.Get(new QueryEnvironment() { Id = 1 });
         }
 
         [Ignore]

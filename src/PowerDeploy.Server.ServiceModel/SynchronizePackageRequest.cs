@@ -2,7 +2,7 @@
 
 namespace PowerDeploy.Server.ServiceModel
 {
-    [Route("/packages/sync")]
+    [Route("/package/sync", Verbs = "POST", Summary = "Syncs packages from the nuget server to the PowerDeploy server.")]
     public class SynchronizePackageRequest : IReturn<SynchronizePackageResponse>
     {
     }

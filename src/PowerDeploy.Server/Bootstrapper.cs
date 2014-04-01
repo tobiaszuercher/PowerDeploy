@@ -16,9 +16,11 @@ namespace PowerDeploy.Server
             container.Register<IDocumentStore>(documentStore);
             container.RegisterAutoWired<PackageProvider>();
             container.RegisterAutoWired<PackageService>();
+            container.RegisterAutoWired<DeployService>();
             container.RegisterAutoWired<PhysicalFileSystem>();
             container.Register<IFileSystem>(new PhysicalFileSystem());
-            container.Register<ServerSettings>(c => GetServerSettings(c.Resolve<IDocumentStore>()));
+            container.Register<ServerSettings>(c => GetServerSettings(c.Resolve<IDocumentStore>())).ReusedWithin(ReuseScope.Request);
+            container.RegisterAutoWired<NugetPackageDownloader>();
         }
 
         private static ServerSettings GetServerSettings(IDocumentStore documentStore)
