@@ -65,3 +65,7 @@ Ankh.NoLoad
 
 # PowerDeploy
 src/packages/**
+
+# PowerDeploy - Template target files
+[Aa]pp.config
+powerdeploy.config
