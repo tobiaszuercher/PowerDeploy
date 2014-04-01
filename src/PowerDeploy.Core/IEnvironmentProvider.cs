@@ -9,6 +9,6 @@ namespace PowerDeploy.Core
         void Initialize(string startFolder);
 
         Environment GetEnvironment(string environmentName);
-        Environment GetEnvironmentFromFile(string path);
+        Environment GetEnvironmentFromFile(string environmentFile);
     }
 }

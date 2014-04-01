@@ -30,9 +30,9 @@ namespace PowerDeploy.Core
             EnvironmentDirectory = FindEnvironmentFolder(startFolder);
         }
 
-        public Environment GetEnvironmentFromFile(string path)
+        public Environment GetEnvironmentFromFile(string environmentFile)
         {
-            return Serializer.Deserialize(path);
+            return Serializer.Deserialize(environmentFile);
         }
 
         public Environment GetEnvironment(string environmentName)
@@ -63,6 +63,12 @@ namespace PowerDeploy.Core
             {
                 if (dirInfo.GetDirectories(".powerdeploy").Any())
                 {
+                    break;
+                }
+
+                if (dirInfo.Name == ".powerdeploy")
+                {
+                    dirInfo = dirInfo.Parent;
                     break;
                 }
 
