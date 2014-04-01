@@ -1,6 +1,6 @@
 ﻿using System.Runtime.Serialization;
 
-using ServiceStack.ServiceHost;
+using ServiceStack;
 
 namespace PowerDeploy.IISDeployService.Contract
 {

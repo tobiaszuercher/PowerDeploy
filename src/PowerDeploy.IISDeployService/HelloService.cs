@@ -1,8 +1,6 @@
 ﻿using PowerDeploy.IISDeployService.Contract;
 
-using ServiceStack.ServiceInterface;
-
-using ServiceStack.Text;
+using ServiceStack;
 
 namespace PowerDeploy.IISDeployService
 {

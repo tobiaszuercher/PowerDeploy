@@ -6,7 +6,7 @@ using Microsoft.Web.Administration;
 
 using PowerDeploy.IISDeployService.Contract;
 
-using ServiceStack.ServiceClient.Web;
+using ServiceStack;
 using ServiceStack.Text;
 
 using System.Linq;
@@ -65,7 +65,7 @@ namespace PowerDeploy.IISDeployService.Tests.Integration
                 Assert.IsNotNull(manager.Sites[request.WebsiteName]);
                 Assert.AreEqual(Path.Combine(request.WebsitePhysicalPath, "{0}_v{1}".Fmt(request.PackageId, request.PackageVersion)), manager.Sites[request.WebsiteName].Applications["/"].VirtualDirectories["/"].PhysicalPath);
             }
-
+            
             IISManagerTestBuddy.DeleteAppPool(request.AppPoolName);
             IISManagerTestBuddy.DeleteWebsite(request.WebsiteName);
         }
@@ -84,8 +84,7 @@ namespace PowerDeploy.IISDeployService.Tests.Integration
                 AppPoolPassword = "topsecret",
                 WebsiteName = "ZZZ_Integration_Website_VDIR",
                 AppRoot = "/sub1/sub2",
-                PackageId = "IntegrationTest",
-                PackageVersion = "1.3.3.7",
+                PackageId = "IntegrationTest",PackageVersion = "1.3.3.7",
                 WebsitePhysicalPath = @"C:\temp\www",
                 WebsitePort = 8000,
                 RuntimeVersion = RuntimeVersion.Version40,
@@ -130,6 +129,7 @@ namespace PowerDeploy.IISDeployService.Tests.Integration
                 RuntimeVersion = RuntimeVersion.Version40,
             };
 
+            
             client.PostFileWithRequest<TriggerDeploymentResponse>("/deployments", new FileInfo("package.zip"), request).PrintDump();
             request.PackageVersion = version2;
             client.PostFileWithRequest<TriggerDeploymentResponse>("/deployments", new FileInfo("package.zip"), request).PrintDump();

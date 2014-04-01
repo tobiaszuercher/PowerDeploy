@@ -6,7 +6,7 @@ using PowerDeploy.Core.Extensions;
 using PowerDeploy.Core.Logging;
 using PowerDeploy.IISDeployService.Contract;
 
-using ServiceStack.ServiceClient.Web;
+using ServiceStack;
 
 namespace PowerDeploy.Core.Deploy
 {

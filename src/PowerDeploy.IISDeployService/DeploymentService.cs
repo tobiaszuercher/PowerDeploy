@@ -8,12 +8,8 @@ using Ionic.Zip;
 
 using PowerDeploy.IISDeployService.Contract;
 
-using ServiceStack.Common.Extensions;
-using ServiceStack.Common.Web;
+using ServiceStack;
 using ServiceStack.Configuration;
-using ServiceStack.ServiceHost;
-using ServiceStack.ServiceInterface;
-using ServiceStack.Text;
 
 namespace PowerDeploy.IISDeployService
 {
@@ -38,10 +34,12 @@ namespace PowerDeploy.IISDeployService
     {
         public IISManager IISManager { get; set; }
 
-        public IResourceManager Settings { get; set; }
+        public IAppSettings Settings { get; set; }
 
         public object Post(TriggerDeployment request)
         {
+            
+
             if (Request.Files.Length != 1)
             {
                 throw new HttpError(HttpStatusCode.BadRequest, "Please add one (and just one) file to deploy.");

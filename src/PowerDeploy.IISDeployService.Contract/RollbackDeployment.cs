@@ -1,4 +1,4 @@
-﻿using ServiceStack.ServiceHost;
+﻿using ServiceStack;
 
 namespace PowerDeploy.IISDeployService.Contract
 {
@@ -15,7 +15,7 @@ namespace PowerDeploy.IISDeployService.Contract
         [ApiMember(Name = "AppName", ParameterType = "query", Description = "The name of the application.", DataType = "string", IsRequired = false)]
         public string AppName { get; set; }
 
-        [ApiMember(Name = "RollbackTarget", ParameterType = "query", Description = "The rollback target", DataType = "string", IsRequired = false)]
+        [ApiMember(Name = "RollbackTarget", ParameterType = "quer3y", Description = "The rollback target", DataType = "string", IsRequired = false)]
         public string RollbackTarget { get; set; }
     }
 }

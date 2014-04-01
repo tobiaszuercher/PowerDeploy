@@ -7,7 +7,7 @@ namespace PowerDeploy.IISDeployService.Auth
     /// </summary>
     public class AppSettingsApiKeyValidator : IApiKeyValidator
     {
-        public IResourceManager Settings { get; set; }
+        public IAppSettings Settings { get; set; }
         
         public bool Validate(string apiKey)
         {

@@ -3,7 +3,7 @@ using System.IO;
 
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-using ServiceStack.Text;
+using ServiceStack;
 
 using System.Linq;
 

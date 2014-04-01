@@ -1,11 +1,11 @@
 ﻿using PowerDeploy.IISDeployService.Auth;
 using PowerDeploy.IISDeployService.Contract;
 
-using ServiceStack.Common.Web;
-using ServiceStack.ServiceHost;
-using ServiceStack.ServiceInterface;
+using ServiceStack;
 
 using System.Linq;
+
+using ServiceStack.Web;
 
 namespace PowerDeploy.IISDeployService
 {
@@ -13,7 +13,7 @@ namespace PowerDeploy.IISDeployService
     {
         public IApiKeyValidator ApiKeyValidator { get; set; }
 
-        public override void Execute(IHttpRequest req, IHttpResponse res, object requestDto)
+        public override void Execute(IRequest req, IResponse res, object requestDto)
         {
             string apiKey;
 
@@ -25,7 +25,7 @@ namespace PowerDeploy.IISDeployService
             {
                 // try to get it through the dto
                 var apiKeyDto = requestDto as IHasApiKey;
-                
+
                 if (apiKeyDto != null)
                 {
                     apiKey = apiKeyDto.ApiKey;

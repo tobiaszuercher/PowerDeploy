@@ -1,9 +1,7 @@
 ﻿using System.IO;
 using System.Linq;
-using System.Net;
 
-using ServiceStack.Common.Extensions;
-using ServiceStack.Text;
+using ServiceStack;
 
 namespace PowerDeploy.IISDeployService
 {
@@ -11,10 +9,10 @@ namespace PowerDeploy.IISDeployService
     {
         public static void DeleteOldFolders(string path, string folderPrefix, int keep)
         {
-            new DirectoryInfo(path).GetDirectories("{0}_v*".Fmt(folderPrefix))
-                .OrderByDescending(d => d.CreationTimeUtc)
-                .Skip(keep)
-                .ForEach(d => d.Delete(true));
+            foreach (var directory in new DirectoryInfo(path).GetDirectories("{0}_v*".Fmt(folderPrefix)).OrderByDescending(d => d.CreationTimeUtc).Skip(keep))
+            {
+                directory.Delete(true);
+            }
         }
     }
 }

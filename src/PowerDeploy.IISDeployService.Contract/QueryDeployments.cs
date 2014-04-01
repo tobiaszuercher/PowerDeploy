@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-using ServiceStack.ServiceHost;
+using ServiceStack;
 
 namespace PowerDeploy.IISDeployService.Contract
 {

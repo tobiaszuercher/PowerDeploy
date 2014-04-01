@@ -3,9 +3,7 @@
 using PowerDeploy.IISDeployService.Contract;
 
 using ServiceStack.Logging;
-using ServiceStack.Logging.Support.Logging;
-using ServiceStack.ServiceInterface.Testing;
-
+using ServiceStack.Testing;
 using ServiceStack.Text;
 
 namespace PowerDeploy.IISDeployService.Tests.Unit

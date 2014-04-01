@@ -2,9 +2,9 @@
 
 using PowerDeploy.IISDeployService.Auth;
 
+using ServiceStack;
 using ServiceStack.Api.Swagger;
 using ServiceStack.Configuration;
-using ServiceStack.WebHost.Endpoints;
 
 namespace PowerDeploy.IISDeployService
 {
@@ -21,7 +21,7 @@ namespace PowerDeploy.IISDeployService
             ////var dbConnectionFactory = new OrmLiteConnectionFactory(HttpContext.Current.Server.MapPath("~/App_Data/db.sql"), SqliteDialect.Provider);
             ////container.Register<IDbConnectionFactory>(dbConnectionFactory);
             
-            IResourceManager appSettings = new AppSettings();
+            IAppSettings appSettings = new AppSettings();
             
             Plugins.Add(new SwaggerFeature());
             //Plugins.Add(new RequestLogsFeature() { RequiredRoles = null });

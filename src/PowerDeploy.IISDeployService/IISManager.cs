@@ -5,7 +5,7 @@ using Microsoft.Web.Administration;
 
 using PowerDeploy.IISDeployService.Contract;
 
-using ServiceStack.Text;
+using ServiceStack;
 
 namespace PowerDeploy.IISDeployService
 {

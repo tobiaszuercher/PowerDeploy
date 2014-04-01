@@ -4,11 +4,9 @@ using Funq;
 
 using PowerDeploy.IISDeployService.Auth;
 
+using ServiceStack;
 using ServiceStack.Configuration;
 using ServiceStack.Logging;
-using ServiceStack.Logging.Support.Logging;
-using ServiceStack.ServiceInterface.Admin;
-using ServiceStack.WebHost.Endpoints;
 
 namespace PowerDeploy.IISDeployService.Tests
 {
@@ -26,7 +24,7 @@ namespace PowerDeploy.IISDeployService.Tests
         {
             LogManager.LogFactory = new ConsoleLogFactory();
 
-            IResourceManager appSettings = new DictionarySettings(
+            IAppSettings appSettings = new DictionarySettings(
                 new Dictionary<string, string>
                     {
                         { "backup.history", "5" }, 
