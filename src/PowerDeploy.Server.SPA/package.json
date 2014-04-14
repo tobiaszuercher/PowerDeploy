@@ -1,0 +1,10 @@
+{
+    "name": "powerdeploy-dashboard",
+    "version": "0.1.0",
+    "author" : "Tobias Zürcher",
+    "private" : true,
+
+    "devDependencies" : {
+        "grunt" :                   "~0.4.0",
+    }
+}

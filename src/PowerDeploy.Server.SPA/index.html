@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="powerdeployApp">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="PowerDeploy Dashboard" />
+    <meta name="author" content="Tobias Zürcher" />
+
+    <title>PowerDeploy | Dashboard</title>
+
+    <link rel="stylesheet" href="assets/js/jquery-ui/css/no-theme/jquery-ui-1.10.3.custom.min.css">
+    <link rel="stylesheet" href="assets/css/font-icons/entypo/css/entypo.css">
+    <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Noto+Sans:400,700,400italic">
+    <link rel="stylesheet" href="assets/css/bootstrap.css">
+    <link rel="stylesheet" href="assets/css/neon-core.css">
+    <link rel="stylesheet" href="assets/css/neon-theme.css">
+    <link rel="stylesheet" href="assets/css/neon-forms.css">
+    <link rel="stylesheet" href="assets/css/custom.css">
+
+    <script src="assets/js/jquery-1.11.0.min.js"></script>
+
+    <!--[if lt IE 9]><script src="assets/js/ie8-responsive-file-warning.js"></script><![endif]-->
+
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+    <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <script src="lib/angular/angular.js"></script>
+    <script src="lib/angular-route/angular-route.js"></script>
+    <script src="js/app.js"></script>
+    <script src="js/settings/SettingsCtrl.js"></script>
+</head>
+<body class="page-body" data-url="http://neon.dev">
+
+    <div class="page-container"><!-- add class "sidebar-collapsed" to close sidebar by default, "chat-visible" to make chat appear always -->
+
+        <div class="sidebar-menu">
+
+        <header class="logo-env">
+            <!-- logo -->
+            <div class="logo">
+                <a href="index.html">
+                    <img src="assets/images/logo@2x.png" width="120" alt="" />
+                </a>
+            </div>
+
+            <!-- logo collapse icon -->
+            <div class="sidebar-collapse">
+                <a href="#" class="sidebar-collapse-icon with-animation">
+                    <i class="entypo-menu"></i>
+                </a>
+            </div>
+
+            <!-- open/close menu icon (do not remove if you want to enable menu on mobile devices) -->
+            <div class="sidebar-mobile-menu visible-xs">
+                <a href="#" class="with-animation">
+                    <i class="entypo-menu"></i>
+                </a>
+            </div>
+        </header>
+
+        <ul id="main-menu" class="multiple-expanded auto-inherit-active-class">
+            <!-- add class "multiple-expanded" to allow multiple submenus to open -->
+            <!-- class "auto-inherit-active-class" will automatically add "active" class for parent elements who are marked already with class "active" -->
+
+            <li>
+                <a href="index.html">
+                    <i class="entypo-gauge"></i>
+                    <span>Dashboard</span>
+                </a>
+                <ul>
+                    <li>
+                        <a href="index.html">
+                            <span>Dashboard 1</span>
+                        </a>
+                    </li>
+                </ul>
+            </li>
+            <li>
+                <a href="layout-api.html">
+                    <i class="entypo-layout"></i>
+                    <span>Environments</span>
+                </a>
+                <ul>
+                    <li>
+                        <a href="layout-api.html">
+                            <span>dev</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="layout-collapsed-sidebar.html">
+                            <span>test</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="layout-fixed-sidebar.html">
+                            <span>production</span>
+                        </a>
+                    </li>
+                </ul>
+            </li>
+            <li>
+                <a href="index.html">
+                    <i class="entypo-doc-text"></i>
+                    <span>Packages</span>
+                </a>
+                <ul>
+                    <li>
+                        <a href="#">
+                            <span>Sample.Web</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#">
+                            <span>Sample.Services</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#">
+                            <span>Sample.Database</span>
+                        </a>
+                    </li>
+                </ul>
+
+            </li>
+            <li>
+                <a href="#/settings">
+                    <i class="entypo-newspaper"></i>
+                    <span>Settings</span>
+                </a>
+            </li>
+        </ul>
+
+        </div>
+
+        <div class="main-content">
+            <div ng-view></div>
+
+            <br />
+
+            <footer class="main">
+                &copy; 2014 <strong>Power Deploy</strong> by <a href="http://github.com/tobiaszuercher" target="_blank">Tobias Z&uuml;rcher</a>
+
+            </footer>
+
+        </div>
+
+    </div>
+
+    <!-- Bottom Scripts -->
+    <script src="assets/js/gsap/main-gsap.js"></script>
+    <script src="assets/js/jquery-ui/js/jquery-ui-1.10.3.minimal.min.js"></script>
+    <script src="assets/js/bootstrap.js"></script>
+    <script src="assets/js/joinable.js"></script>
+    <script src="assets/js/resizeable.js"></script>
+    <script src="assets/js/neon-api.js"></script>
+    <script src="assets/js/neon-custom.js"></script>
+    <script src="assets/js/neon-demo.js"></script>
+
+</body>
+</html>
