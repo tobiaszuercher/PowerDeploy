@@ -1,10 +1,8 @@
 ﻿using System.IO;
-using System.Linq;
 
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 using PowerDeploy.Core;
-using PowerDeploy.Core.Extensions;
 using PowerDeploy.Server;
 using PowerDeploy.Server.ServiceModel;
 using PowerDeploy.Server.Services;
