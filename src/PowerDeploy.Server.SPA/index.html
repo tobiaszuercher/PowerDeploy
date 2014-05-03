@@ -1,12 +1,12 @@
 <!DOCTYPE html>
-<html lang="en" ng-app="powerdeployApp">
+<html lang="en" ng-app="pdApp">
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
 
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="description" content="PowerDeploy Dashboard" />
-    <meta name="author" content="Tobias Zürcher" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <meta name="description" content="PowerDeploy Dashboard"/>
+    <meta name="author" content="Tobias Zürcher"/>
 
     <title>PowerDeploy | Dashboard</title>
 
@@ -18,6 +18,8 @@
     <link rel="stylesheet" href="assets/css/neon-theme.css">
     <link rel="stylesheet" href="assets/css/neon-forms.css">
     <link rel="stylesheet" href="assets/css/custom.css">
+
+    <link rel="stylesheet" href="assets/js/vertical-timeline/css/component.css">
 
     <script src="assets/js/jquery-1.11.0.min.js"></script>
 
@@ -32,134 +34,613 @@
     <script src="lib/angular/angular.js"></script>
     <script src="lib/angular-route/angular-route.js"></script>
     <script src="js/app.js"></script>
-    <script src="js/settings/SettingsCtrl.js"></script>
 </head>
 <body class="page-body" data-url="http://neon.dev">
 
-    <div class="page-container"><!-- add class "sidebar-collapsed" to close sidebar by default, "chat-visible" to make chat appear always -->
+<div class="page-container">
+<!-- add class "sidebar-collapsed" to close sidebar by default, "chat-visible" to make chat appear always -->
 
-        <div class="sidebar-menu">
+<div class="sidebar-menu">
 
-        <header class="logo-env">
-            <!-- logo -->
-            <div class="logo">
-                <a href="index.html">
-                    <img src="assets/images/logo@2x.png" width="120" alt="" />
-                </a>
-            </div>
+    <header class="logo-env">
+        <!-- logo -->
+        <div class="logo">
+            <a href="index.html">
+                <img src="assets/images/logo@2x.png" width="120" alt=""/>
+            </a>
+        </div>
 
-            <!-- logo collapse icon -->
-            <div class="sidebar-collapse">
-                <a href="#" class="sidebar-collapse-icon with-animation">
-                    <i class="entypo-menu"></i>
-                </a>
-            </div>
+        <!-- logo collapse icon -->
+        <div class="sidebar-collapse">
+            <a href="#" class="sidebar-collapse-icon with-animation">
+                <i class="entypo-menu"></i>
+            </a>
+        </div>
 
-            <!-- open/close menu icon (do not remove if you want to enable menu on mobile devices) -->
-            <div class="sidebar-mobile-menu visible-xs">
-                <a href="#" class="with-animation">
-                    <i class="entypo-menu"></i>
-                </a>
-            </div>
-        </header>
+        <!-- open/close menu icon (do not remove if you want to enable menu on mobile devices) -->
+        <div class="sidebar-mobile-menu visible-xs">
+            <a href="#" class="with-animation">
+                <i class="entypo-menu"></i>
+            </a>
+        </div>
+    </header>
 
-        <ul id="main-menu" class="multiple-expanded auto-inherit-active-class">
-            <!-- add class "multiple-expanded" to allow multiple submenus to open -->
-            <!-- class "auto-inherit-active-class" will automatically add "active" class for parent elements who are marked already with class "active" -->
+    <ul id="main-menu" class="multiple-expanded auto-inherit-active-class">
+        <!-- add class "multiple-expanded" to allow multiple submenus to open -->
+        <!-- class "auto-inherit-active-class" will automatically add "active" class for parent elements who are marked already with class "active" -->
 
+        <li>
+            <a href="index.html">
+                <i class="entypo-gauge"></i>
+                <span>Dashboard</span>
+            </a>
+            <ul>
+                <li>
+                    <a href="index.html">
+                        <span>Dashboard 1</span>
+                    </a>
+                </li>
+            </ul>
+        </li>
+        <li>
+            <a href="layout-api.html">
+                <i class="entypo-layout"></i>
+                <span>Environments</span>
+            </a>
+            <ul>
+                <li>
+                    <a href="layout-api.html">
+                        <span>dev</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="layout-collapsed-sidebar.html">
+                        <span>test</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="layout-fixed-sidebar.html">
+                        <span>production</span>
+                    </a>
+                </li>
+            </ul>
+        </li>
+        <li>
+            <a href="index.html">
+                <i class="entypo-doc-text"></i>
+                <span>Packages</span>
+            </a>
+            <ul>
+                <li>
+                    <a href="#">
+                        <span>Sample.Web</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#">
+                        <span>Sample.Services</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#">
+                        <span>Sample.Database</span>
+                    </a>
+                </li>
+            </ul>
+
+        </li>
+        <li>
+            <a href="#/settings">
+                <i class="entypo-newspaper"></i>
+                <span>Settings</span>
+            </a>
+        </li>
+    </ul>
+
+</div>
+
+<div class="main-content">
+<div class="row">
+
+<!-- Profile Info and Notifications -->
+<div class="col-md-6 col-sm-8 clearfix">
+
+<ul class="user-info pull-left pull-none-xsm">
+
+    <!-- Profile Info -->
+    <li class="profile-info dropdown"><!-- add class "pull-right" if you want to place this from right -->
+
+        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+            <img src="assets/images/thumb-1@2x.png" alt="" class="img-circle" width="44">Tobias Z&uuml;rcher
+        </a>
+
+        <ul class="dropdown-menu">
+
+            <!-- Reverse Caret -->
+            <li class="caret"></li>
+
+            <!-- Profile sub-links -->
             <li>
-                <a href="index.html">
-                    <i class="entypo-gauge"></i>
-                    <span>Dashboard</span>
+                <a href="extra-timeline.html">
+                    <i class="entypo-user"></i>
+                    Edit Profile
                 </a>
-                <ul>
-                    <li>
-                        <a href="index.html">
-                            <span>Dashboard 1</span>
-                        </a>
-                    </li>
-                </ul>
             </li>
-            <li>
-                <a href="layout-api.html">
-                    <i class="entypo-layout"></i>
-                    <span>Environments</span>
-                </a>
-                <ul>
-                    <li>
-                        <a href="layout-api.html">
-                            <span>dev</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="layout-collapsed-sidebar.html">
-                            <span>test</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="layout-fixed-sidebar.html">
-                            <span>production</span>
-                        </a>
-                    </li>
-                </ul>
-            </li>
-            <li>
-                <a href="index.html">
-                    <i class="entypo-doc-text"></i>
-                    <span>Packages</span>
-                </a>
-                <ul>
-                    <li>
-                        <a href="#">
-                            <span>Sample.Web</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#">
-                            <span>Sample.Services</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#">
-                            <span>Sample.Database</span>
-                        </a>
-                    </li>
-                </ul>
 
-            </li>
             <li>
-                <a href="#/settings">
-                    <i class="entypo-newspaper"></i>
-                    <span>Settings</span>
+                <a href="mailbox.html">
+                    <i class="entypo-mail"></i>
+                    Inbox
+                </a>
+            </li>
+
+            <li>
+                <a href="extra-calendar.html">
+                    <i class="entypo-calendar"></i>
+                    Calendar
+                </a>
+            </li>
+
+            <li>
+                <a href="#">
+                    <i class="entypo-clipboard"></i>
+                    Tasks
                 </a>
             </li>
         </ul>
+    </li>
 
+</ul>
+
+<ul class="user-info pull-left pull-right-xs pull-none-xsm">
+
+<!-- Raw Notifications -->
+<li class="notifications dropdown">
+
+    <a href="#" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
+        <i class="entypo-attention"></i>
+        <span class="badge badge-info">6</span>
+    </a>
+
+    <ul class="dropdown-menu">
+        <li class="top">
+            <p class="small">
+                <a href="#" class="pull-right">Mark all Read</a>
+                You have <strong>3</strong> new notifications.
+            </p>
+        </li>
+
+        <li>
+            <ul class="dropdown-menu-list scroller" tabindex="5001" style="overflow: hidden; outline: none;">
+                <li class="unread notification-success">
+                    <a href="#">
+                        <i class="entypo-user-add pull-right"></i>
+
+				<span class="line">
+					<strong>New user registered</strong>
+				</span>
+
+				<span class="line small">
+					30 seconds ago
+				</span>
+                    </a>
+                </li>
+
+                <li class="unread notification-secondary">
+                    <a href="#">
+                        <i class="entypo-heart pull-right"></i>
+
+				<span class="line">
+					<strong>Someone special liked this</strong>
+				</span>
+
+				<span class="line small">
+					2 minutes ago
+				</span>
+                    </a>
+                </li>
+
+                <li class="notification-primary">
+                    <a href="#">
+                        <i class="entypo-user pull-right"></i>
+
+				<span class="line">
+					<strong>Privacy settings have been changed</strong>
+				</span>
+
+				<span class="line small">
+					3 hours ago
+				</span>
+                    </a>
+                </li>
+
+                <li class="notification-danger">
+                    <a href="#">
+                        <i class="entypo-cancel-circled pull-right"></i>
+
+				<span class="line">
+					John cancelled the event
+				</span>
+
+				<span class="line small">
+					9 hours ago
+				</span>
+                    </a>
+                </li>
+
+                <li class="notification-info">
+                    <a href="#">
+                        <i class="entypo-info pull-right"></i>
+
+				<span class="line">
+					The server is status is stable
+				</span>
+
+				<span class="line small">
+					yesterday at 10:30am
+				</span>
+                    </a>
+                </li>
+
+                <li class="notification-warning">
+                    <a href="#">
+                        <i class="entypo-rss pull-right"></i>
+
+				<span class="line">
+					New comments waiting approval
+				</span>
+
+				<span class="line small">
+					last week
+				</span>
+                    </a>
+                </li>
+            </ul>
+        </li>
+
+        <li class="external">
+            <a href="#">View all notifications</a>
+        </li>
+        <div id="ascrail2001" class="nicescroll-rails"
+             style="padding-right: 3px; width: 10px; z-index: 1000; position: absolute; top: 0px; left: -10px; height: 0px; cursor: default; display: none;">
+            <div style="position: relative; top: 0px; float: right; width: 5px; height: 0px; background-color: rgb(212, 212, 212); border: 1px solid rgb(204, 204, 204); background-clip: padding-box; border-top-left-radius: 1px; border-top-right-radius: 1px; border-bottom-right-radius: 1px; border-bottom-left-radius: 1px;"></div>
         </div>
-
-        <div class="main-content">
-            <div ng-view></div>
-
-            <br />
-
-            <footer class="main">
-                &copy; 2014 <strong>Power Deploy</strong> by <a href="http://github.com/tobiaszuercher" target="_blank">Tobias Z&uuml;rcher</a>
-
-            </footer>
-
+        <div id="ascrail2001-hr" class="nicescroll-rails"
+             style="height: 7px; z-index: 1000; top: -7px; left: 0px; position: absolute; cursor: default; display: none;">
+            <div style="position: relative; top: 0px; height: 5px; width: 0px; background-color: rgb(212, 212, 212); border: 1px solid rgb(204, 204, 204); background-clip: padding-box; border-top-left-radius: 1px; border-top-right-radius: 1px; border-bottom-right-radius: 1px; border-bottom-left-radius: 1px;"></div>
         </div>
+    </ul>
 
-    </div>
+</li>
 
-    <!-- Bottom Scripts -->
-    <script src="assets/js/gsap/main-gsap.js"></script>
-    <script src="assets/js/jquery-ui/js/jquery-ui-1.10.3.minimal.min.js"></script>
-    <script src="assets/js/bootstrap.js"></script>
-    <script src="assets/js/joinable.js"></script>
-    <script src="assets/js/resizeable.js"></script>
-    <script src="assets/js/neon-api.js"></script>
-    <script src="assets/js/neon-custom.js"></script>
-    <script src="assets/js/neon-demo.js"></script>
+<!-- Message Notifications -->
+<li class="notifications dropdown">
+
+    <a href="#" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
+        <i class="entypo-mail"></i>
+        <span class="badge badge-secondary">10</span>
+    </a>
+
+    <ul class="dropdown-menu">
+        <li>
+            <ul class="dropdown-menu-list scroller" tabindex="5002" style="overflow: hidden; outline: none;">
+                <li class="active">
+                    <a href="#">
+				<span class="image pull-right">
+					<img src="assets/images/thumb-1.png" alt="" class="img-circle">
+				</span>
+
+				<span class="line">
+					<strong>Luc Chartier</strong>
+					- yesterday
+				</span>
+
+				<span class="line desc small">
+					This ain’t our first item, it is the best of the rest.
+				</span>
+                    </a>
+                </li>
+
+                <li class="active">
+                    <a href="#">
+				<span class="image pull-right">
+					<img src="assets/images/thumb-2.png" alt="" class="img-circle">
+				</span>
+
+				<span class="line">
+					<strong>Salma Nyberg</strong>
+					- 2 days ago
+				</span>
+
+				<span class="line desc small">
+					Oh he decisively impression attachment friendship so if everything.
+				</span>
+                    </a>
+                </li>
+
+                <li>
+                    <a href="#">
+				<span class="image pull-right">
+					<img src="assets/images/thumb-3.png" alt="" class="img-circle">
+				</span>
+
+				<span class="line">
+					Hayden Cartwright
+					- a week ago
+				</span>
+
+				<span class="line desc small">
+					Whose her enjoy chief new young. Felicity if ye required likewise so doubtful.
+				</span>
+                    </a>
+                </li>
+
+                <li>
+                    <a href="#">
+				<span class="image pull-right">
+					<img src="assets/images/thumb-4.png" alt="" class="img-circle">
+				</span>
+
+				<span class="line">
+					Sandra Eberhardt
+					- 16 days ago
+				</span>
+
+				<span class="line desc small">
+					On so attention necessary at by provision otherwise existence direction.
+				</span>
+                    </a>
+                </li>
+            </ul>
+        </li>
+
+        <li class="external">
+            <a href="mailbox.html">All Messages</a>
+        </li>
+        <div id="ascrail2002" class="nicescroll-rails"
+             style="padding-right: 3px; width: 10px; z-index: 1000; position: absolute; top: 0px; left: -10px; height: 0px; cursor: default; display: none;">
+            <div style="position: relative; top: 0px; float: right; width: 5px; height: 0px; background-color: rgb(212, 212, 212); border: 1px solid rgb(204, 204, 204); background-clip: padding-box; border-top-left-radius: 1px; border-top-right-radius: 1px; border-bottom-right-radius: 1px; border-bottom-left-radius: 1px;"></div>
+        </div>
+        <div id="ascrail2002-hr" class="nicescroll-rails"
+             style="height: 7px; z-index: 1000; top: -7px; left: 0px; position: absolute; cursor: default; display: none;">
+            <div style="position: relative; top: 0px; height: 5px; width: 0px; background-color: rgb(212, 212, 212); border: 1px solid rgb(204, 204, 204); background-clip: padding-box; border-top-left-radius: 1px; border-top-right-radius: 1px; border-bottom-right-radius: 1px; border-bottom-left-radius: 1px;"></div>
+        </div>
+    </ul>
+
+</li>
+
+<!-- Task Notifications -->
+<li class="notifications dropdown">
+
+    <a href="#" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
+        <i class="entypo-list"></i>
+        <span class="badge badge-warning">1</span>
+    </a>
+
+    <ul class="dropdown-menu">
+        <li class="top">
+            <p>You have 6 pending tasks</p>
+        </li>
+
+        <li>
+            <ul class="dropdown-menu-list scroller" tabindex="5003" style="overflow: hidden; outline: none;">
+                <li>
+                    <a href="#">
+				<span class="task">
+					<span class="desc">Procurement</span>
+					<span class="percent">27%</span>
+				</span>
+
+				<span class="progress">
+					<span style="width: 27%;" class="progress-bar progress-bar-success">
+						<span class="sr-only">27% Complete</span>
+					</span>
+				</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#">
+				<span class="task">
+					<span class="desc">App Development</span>
+					<span class="percent">83%</span>
+				</span>
+
+				<span class="progress progress-striped">
+					<span style="width: 83%;" class="progress-bar progress-bar-danger">
+						<span class="sr-only">83% Complete</span>
+					</span>
+				</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#">
+				<span class="task">
+					<span class="desc">HTML Slicing</span>
+					<span class="percent">91%</span>
+				</span>
+
+				<span class="progress">
+					<span style="width: 91%;" class="progress-bar progress-bar-success">
+						<span class="sr-only">91% Complete</span>
+					</span>
+				</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#">
+				<span class="task">
+					<span class="desc">Database Repair</span>
+					<span class="percent">12%</span>
+				</span>
+
+				<span class="progress progress-striped">
+					<span style="width: 12%;" class="progress-bar progress-bar-warning">
+						<span class="sr-only">12% Complete</span>
+					</span>
+				</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#">
+				<span class="task">
+					<span class="desc">Backup Create Progress</span>
+					<span class="percent">54%</span>
+				</span>
+
+				<span class="progress progress-striped">
+					<span style="width: 54%;" class="progress-bar progress-bar-info">
+						<span class="sr-only">54% Complete</span>
+					</span>
+				</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#">
+				<span class="task">
+					<span class="desc">Upgrade Progress</span>
+					<span class="percent">17%</span>
+				</span>
+
+				<span class="progress progress-striped">
+					<span style="width: 17%;" class="progress-bar progress-bar-important">
+						<span class="sr-only">17% Complete</span>
+					</span>
+				</span>
+                    </a>
+                </li>
+            </ul>
+        </li>
+
+        <li class="external">
+            <a href="#">See all tasks</a>
+        </li>
+        <div id="ascrail2003" class="nicescroll-rails"
+             style="padding-right: 3px; width: 10px; z-index: 1000; position: absolute; top: 0px; left: -10px; height: 0px; cursor: default; display: none;">
+            <div style="position: relative; top: 0px; float: right; width: 5px; height: 0px; background-color: rgb(212, 212, 212); border: 1px solid rgb(204, 204, 204); background-clip: padding-box; border-top-left-radius: 1px; border-top-right-radius: 1px; border-bottom-right-radius: 1px; border-bottom-left-radius: 1px;"></div>
+        </div>
+        <div id="ascrail2003-hr" class="nicescroll-rails"
+             style="height: 7px; z-index: 1000; top: -7px; left: 0px; position: absolute; cursor: default; display: none;">
+            <div style="position: relative; top: 0px; height: 5px; width: 0px; background-color: rgb(212, 212, 212); border: 1px solid rgb(204, 204, 204); background-clip: padding-box; border-top-left-radius: 1px; border-top-right-radius: 1px; border-bottom-right-radius: 1px; border-bottom-left-radius: 1px;"></div>
+        </div>
+    </ul>
+
+</li>
+
+</ul>
+
+</div>
+
+
+<!-- Raw Links -->
+<div class="col-md-6 col-sm-4 clearfix hidden-xs">
+
+    <ul class="list-inline links-list pull-right">
+
+        <!-- Language Selector -->
+        <li class="dropdown language-selector">
+
+            Language: &nbsp;
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown" data-close-others="true">
+                <img src="assets/images/flag-uk.png">
+            </a>
+
+            <ul class="dropdown-menu pull-right">
+                <li>
+                    <a href="#">
+                        <img src="assets/images/flag-de.png">
+                        <span>Deutsch</span>
+                    </a>
+                </li>
+                <li class="active">
+                    <a href="#">
+                        <img src="assets/images/flag-uk.png">
+                        <span>English</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#">
+                        <img src="assets/images/flag-fr.png">
+                        <span>François</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#">
+                        <img src="assets/images/flag-al.png">
+                        <span>Shqip</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#">
+                        <img src="assets/images/flag-es.png">
+                        <span>Español</span>
+                    </a>
+                </li>
+            </ul>
+
+        </li>
+
+        <li class="sep"></li>
+
+
+        <li>
+            <a href="#" data-toggle="chat" data-animate="1" data-collapse-sidebar="1">
+                <i class="entypo-chat"></i>
+                Chat
+
+                <span class="badge badge-success chat-notifications-badge">3</span>
+            </a>
+        </li>
+
+        <li class="sep"></li>
+
+        <li>
+            <a href="extra-login.html">
+                Log Out <i class="entypo-logout right"></i>
+            </a>
+        </li>
+    </ul>
+
+</div>
+
+</div>
+
+<hr>
+<ol class="breadcrumb bc-3">
+    <li>
+        <a href="index.html"><i class="entypo-home"></i>Home</a>
+    </li>
+    <li>
+
+        <a href="extra-icons.html">Extra</a>
+    </li>
+    <li class="active">
+
+        <strong>Timeline</strong>
+    </li>
+</ol>
+
+<div ng-view></div>
+
+<br/>
+
+<footer class="main">
+    &copy; 2014 <strong>Power Deploy</strong> by <a href="http://github.com/tobiaszuercher" target="_blank">Tobias Z&uuml;rcher</a>
+
+</footer>
+
+</div>
+
+</div>
+
+<!-- Bottom Scripts -->
+<script src="assets/js/gsap/main-gsap.js"></script>
+<script src="assets/js/jquery-ui/js/jquery-ui-1.10.3.minimal.min.js"></script>
+<script src="assets/js/bootstrap.js"></script>
+<script src="assets/js/joinable.js"></script>
+<script src="assets/js/resizeable.js"></script>
+<script src="assets/js/neon-api.js"></script>
+<script src="assets/js/neon-custom.js"></script>
+<script src="assets/js/neon-demo.js"></script>
 
 </body>
 </html>

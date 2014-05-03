@@ -1,16 +1,29 @@
-var powerdeployApp = angular.module('powerdeployApp', [
-    'ngRoute',
-    'powerdeployControllers'
+var pdApp = angular.module('pdApp', [
+    'ngRoute'
 ]);
 
-powerdeployApp.config(['$routeProvider',
+pdApp.config(['$routeProvider',
     function($routeProvider) {
         $routeProvider.
             when('/settings', {
                 templateUrl: 'js/settings/settings.html',
                 controller: 'SettingsCtrl'
             }).
+            when('/dashboard', {
+                templateUrl: 'js/dashboard/dashboard.html',
+                controller: 'dashboardCtrl'
+            }).
             otherwise({
-                redirectTo: '/'
+                redirectTo: '/dashboard'
             });
     }]);
+
+pdApp.controller('SettingsCtrl', ['$scope', '$routeParams',
+    function($scope, $routeParams) {
+    }
+]);
+
+pdApp.controller('dashboardCtrl', ['$scope', '$routeParams',
+    function($scope, $routeParams) {
+    }
+]);
