@@ -2,7 +2,10 @@
 
 using Funq;
 
+using PowerDeploy.Server.Indexes;
+
 using Raven.Client.Document;
+using Raven.Client.Indexes;
 
 using ServiceStack;
 using ServiceStack.Api.Swagger;
@@ -18,6 +21,8 @@ namespace PowerDeploy.Server
             Plugins.Add(new SwaggerFeature());
 
             var documentStore = new DocumentStore() { DefaultDatabase = "PowerDeploy", Url = "http://localhost:8080", }.Initialize();
+
+            IndexCreation.CreateIndexes(typeof(Environment_ByName).Assembly, documentStore);
 
             Bootstrapper.ConfigureDependencies(container, documentStore);
 

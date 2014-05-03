@@ -9,6 +9,8 @@ using PowerDeploy.Core.Extensions;
 using PowerDeploy.Core.Logging;
 using PowerDeploy.Core.Template;
 
+using ServiceStack;
+
 namespace PowerDeploy.Core
 {
     public class PackageManager

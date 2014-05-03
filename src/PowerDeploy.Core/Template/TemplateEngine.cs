@@ -3,6 +3,8 @@
 using PowerDeploy.Core.Extensions;
 using PowerDeploy.Core.Logging;
 
+using ServiceStack;
+
 namespace PowerDeploy.Core.Template
 {
     public class TemplateEngine

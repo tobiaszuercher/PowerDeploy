@@ -38,8 +38,6 @@ namespace PowerDeploy.IISDeployService
 
         public object Post(TriggerDeployment request)
         {
-            
-
             if (Request.Files.Length != 1)
             {
                 throw new HttpError(HttpStatusCode.BadRequest, "Please add one (and just one) file to deploy.");

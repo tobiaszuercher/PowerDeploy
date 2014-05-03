@@ -30,17 +30,17 @@ namespace PowerDeploy
 
         private static Assembly SearchInEmbeddedAssembly(object sender, ResolveEventArgs args)
         {
-            var assembly = Assembly.GetExecutingAssembly();
+            ////var assembly = Assembly.GetExecutingAssembly();
 
-            var resourceName = "PowerDeploy.Resources.{0}.dll".Fmt(new AssemblyName(args.Name).Name);
+            ////var resourceName = "PowerDeploy.Resources.{0}.dll".Fmt(new AssemblyName(args.Name).Name);
 
-            using (var stream = assembly.GetManifestResourceStream(resourceName))
-            {
-                var assemblyData = new Byte[stream.Length];
-                stream.Read(assemblyData, 0, assemblyData.Length);
+            ////using (var stream = assembly.GetManifestResourceStream(resourceName))
+            ////{
+            ////    var assemblyData = new Byte[stream.Length];
+            ////    stream.Read(assemblyData, 0, assemblyData.Length);
 
-                return Assembly.Load(assemblyData);
-            }
+            ////    return Assembly.Load(assemblyData);
+            ////}
         }
     }
 }

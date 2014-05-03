@@ -6,6 +6,8 @@ using System.Linq;
 using PowerDeploy.Core.Extensions;
 using PowerDeploy.Core.Logging;
 
+using ServiceStack;
+
 namespace PowerDeploy.Core
 {
     public class EnvironmentProvider : IEnvironmentProvider

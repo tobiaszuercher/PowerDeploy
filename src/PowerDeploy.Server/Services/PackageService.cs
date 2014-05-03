@@ -1,7 +1,9 @@
 ﻿using System.IO;
+using System.Linq;
 using System.Net;
 
 using PowerDeploy.Core;
+using PowerDeploy.Server.Indexes;
 using PowerDeploy.Server.Provider;
 using PowerDeploy.Server.ServiceModel;
 
@@ -32,11 +34,26 @@ namespace PowerDeploy.Server.Services
             {
                 if (request.Id == default(int))
                 {
-                    return session.Query<PackageInfo>();
+                    return session.Query<Package>();
                 }
 
-                return session.Query<PackageInfo>("PackageInfos/" + request.Id);
+                return session.Query<Package>("PackageInfos/" + request.Id);
             }
+        }
+
+        public object Get(QueryPackageGroup request)
+        {
+            //using (var session = DocumentStore.OpenSession())
+            //{
+            //    if (string.IsNullOrEmpty(request.NugetId))
+            //    {
+            //        return session.Query<PackageGroup, PackageGroup_ByPackageNugetId>().ToList();
+            //    }
+
+            //    return session.Query<PackageGroup, PackageGroup_ByPackageNugetId>().Where(pg => pg.NugetId == request.NugetId);
+            //}
+
+            return null;
         }
     }
 }

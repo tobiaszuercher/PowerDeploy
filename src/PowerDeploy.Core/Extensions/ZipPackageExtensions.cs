@@ -5,6 +5,8 @@ using NuGet;
 
 using PowerDeploy.Core.Deploy;
 
+using ServiceStack;
+
 namespace PowerDeploy.Core.Extensions
 {
     public enum PackageType

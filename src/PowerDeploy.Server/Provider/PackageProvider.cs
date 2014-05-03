@@ -2,11 +2,12 @@
 using System.Linq;
 
 using PowerDeploy.Server.NuGetServer;
-using PowerDeploy.Server.ServiceModel;
 
 using Raven.Client;
 
 using ServiceStack;
+
+using Package = PowerDeploy.Server.ServiceModel.Package;
 
 namespace PowerDeploy.Server.Provider
 {
@@ -14,7 +15,7 @@ namespace PowerDeploy.Server.Provider
     {
         public IDocumentStore DocumentStore { get; set; }
 
-        public SynchronizeSummary Synchronize()
+        public SynchronizationSummary Synchronize()
         {
             var packageContext = new PackageContext(new Uri("http://localhost/nuggy/nuget"));
             int addedPackages = 0;
@@ -23,14 +24,17 @@ namespace PowerDeploy.Server.Provider
 
             using (var session = DocumentStore.OpenSession())
             {               
-                foreach (var package in packages)
+                foreach (var nugetPackage in packages)
                 {
-                    if (!session.Query<PackageInfo>().Any(pi => package.Id == pi.NugetId && package.Version == pi.Version))
+                    var package = session.Load<Package>("packages/" + nugetPackage.Id + "/" + nugetPackage.Version);
+
+                    if (package == null)
                     {
                         ++addedPackages;
 
-                        var packageInfo = new PackageInfo().PopulateWith(package);
-                        packageInfo.NugetId = package.Id;
+                        var packageInfo = new Package().PopulateWith(nugetPackage);
+                        packageInfo.NugetId = nugetPackage.Id;
+                        packageInfo.Id = "packages/" + nugetPackage.Id + "/" + nugetPackage.Version;
 
                         session.Store(packageInfo);
                     }
@@ -39,7 +43,7 @@ namespace PowerDeploy.Server.Provider
                 session.SaveChanges();
             }
 
-            return new SynchronizeSummary() { AddedPackages = addedPackages, TotalPackages = packages.Count() };
+            return new SynchronizationSummary() { AddedPackages = addedPackages, TotalPackages = packages.Count() };
         }
     }
 }

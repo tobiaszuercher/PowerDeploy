@@ -3,6 +3,8 @@
 using PowerDeploy.Core.Extensions;
 using PowerDeploy.Core.Logging;
 
+using ServiceStack;
+
 using ZipPackage = NuGet.ZipPackage;
 
 namespace PowerDeploy.Core.Deploy

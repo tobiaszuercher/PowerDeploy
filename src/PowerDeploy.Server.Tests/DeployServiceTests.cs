@@ -12,6 +12,7 @@ using PowerDeploy.Server.Tests;
 
 using Raven.Client.Document;
 
+using ServiceStack;
 using ServiceStack.Logging;
 using ServiceStack.Testing;
 
