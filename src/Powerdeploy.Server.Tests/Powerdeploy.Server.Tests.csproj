@@ -137,7 +137,8 @@
     <Compile Include="ConfigurationServiceTests.cs" />
     <Compile Include="EnvironmentServiceTests.cs" />
     <Compile Include="DeployServiceTests.cs" />
-    <Compile Include="Indexes\DeploymentStatusIndexesTests.cs" />
+    <Compile Include="Indexes\Deplyoment_LatestTests.cs" />
+    <Compile Include="Indexes\DeploySzenario.cs" />
     <Compile Include="PackageFixtures.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RavenTests\CanCallLastOnArray.cs" />

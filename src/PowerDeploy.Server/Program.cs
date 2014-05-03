@@ -22,7 +22,7 @@ namespace PowerDeploy.Server
 
             var documentStore = new DocumentStore() { DefaultDatabase = "PowerDeploy", Url = "http://localhost:8080", }.Initialize();
 
-            IndexCreation.CreateIndexes(typeof(Environment_ByName).Assembly, documentStore);
+            IndexCreation.CreateIndexes(typeof(Deployment_Latest).Assembly, documentStore);
 
             Bootstrapper.ConfigureDependencies(container, documentStore);
 

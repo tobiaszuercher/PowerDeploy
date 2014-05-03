@@ -101,11 +101,9 @@
     <Compile Include="Bootstrapper.cs" />
     <Compile Include="DataInitializer.cs" />
     <Compile Include="GitWrapper.cs" />
-    <Compile Include="Indexes\DeploymentStatus_LastDeployed.cs" />
-    <Compile Include="Indexes\Environment_ByName.cs" />
-    <Compile Include="Indexes\Packages_ByNugetId.cs" />
-    <Compile Include="Indexes\Packages_GroupedByNugetId.cs" />
-    <Compile Include="Indexes\Package_ByIdAndVersion.cs" />
+    <Compile Include="Indexes\Deployment_ByEnvironment.cs" />
+    <Compile Include="Indexes\Deployment_Latest.cs" />
+    <Compile Include="Indexes\Pakages_GroupedByNugetId.cs" />
     <Compile Include="Provider\NugetPackageDownloader.cs" />
     <Compile Include="Provider\PackageProvider.cs" />
     <Compile Include="Provider\Workspace.cs" />
