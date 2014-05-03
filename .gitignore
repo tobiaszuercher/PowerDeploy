@@ -100,3 +100,4 @@ powerdeploy.xml
 node_modules/
 
 src/PowerDeploy.Server.SPA/lib/
+src/PowerDeploy.PackageExplorerPlugin/*.nupkg
