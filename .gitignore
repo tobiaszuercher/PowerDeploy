@@ -98,3 +98,5 @@ src/packages/**
 powerdeploy.config
 powerdeploy.xml
 node_modules/
+
+src/PowerDeploy.Server.SPA/lib/
