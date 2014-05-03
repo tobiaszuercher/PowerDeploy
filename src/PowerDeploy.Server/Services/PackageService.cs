@@ -6,6 +6,7 @@ using PowerDeploy.Core;
 using PowerDeploy.Server.Indexes;
 using PowerDeploy.Server.Provider;
 using PowerDeploy.Server.ServiceModel;
+using PowerDeploy.Server.ServiceModel.Package;
 
 using Raven.Client;
 

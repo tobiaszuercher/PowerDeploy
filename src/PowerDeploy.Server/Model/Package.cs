@@ -1,5 +1,7 @@
 ﻿using System;
 
+using PowerDeploy.Server.ServiceModel.Package;
+
 namespace PowerDeploy.Server.Model
 {
     /// <summary>
@@ -32,7 +34,7 @@ namespace PowerDeploy.Server.Model
 
         public int CompareTo(object other)
         {
-            var otherVersion = new Version(((ServiceModel.PackageDto)other).Version);
+            var otherVersion = new Version(((PackageDto)other).Version);
 
             return new Version(Version).CompareTo(otherVersion);
         }

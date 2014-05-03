@@ -1,18 +1,19 @@
 ﻿using System;
 
-namespace PowerDeploy.Server.ServiceModel
+using PowerDeploy.Server.ServiceModel.Package;
+
+using ServiceStack;
+
+namespace PowerDeploy.Server.ServiceModel.Deployment
 {
-    /// <summary>
-    /// Represents an executed deployment.
-    /// </summary>
+    [Route("/deployments")]
     public class DeploymentDto
     {
-        public string Url { get; set; }
+        public string Uri { get; set; }
         public DateTime RequestedAt { get; set; }
         public DateTime FinishedAt { get; set; }
-        public string EnvironmentName { get; set; }
-        public string EnvironmentUrl { get; set; }
-        
+        public EnvironmentDto Environment { get; set; }
+        public PackageDto Package { get; set; }
         public DeployStatus Status { get; set; }
     }
 

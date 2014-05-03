@@ -3,6 +3,7 @@ using System.Linq;
 
 using PowerDeploy.Server.Model;
 using PowerDeploy.Server.ServiceModel;
+using PowerDeploy.Server.ServiceModel.Deployment;
 
 using Raven.Client.Indexes;
 

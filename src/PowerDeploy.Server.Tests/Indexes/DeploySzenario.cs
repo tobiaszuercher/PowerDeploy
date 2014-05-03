@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 
 using PowerDeploy.Server.Model;
-using PowerDeploy.Server.ServiceModel;
+using PowerDeploy.Server.ServiceModel.Deployment;
 
 using Raven.Client;
 using Raven.Tests.Helpers;

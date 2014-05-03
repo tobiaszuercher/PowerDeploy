@@ -1,6 +1,6 @@
 ﻿using System;
 
-using PowerDeploy.Server.ServiceModel;
+using PowerDeploy.Server.ServiceModel.Deployment;
 
 namespace PowerDeploy.Server.Model
 {

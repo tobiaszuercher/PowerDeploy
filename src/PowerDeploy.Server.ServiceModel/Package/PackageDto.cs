@@ -3,13 +3,14 @@ using System.Collections.Generic;
 
 using ServiceStack;
 
-namespace PowerDeploy.Server.ServiceModel
+namespace PowerDeploy.Server.ServiceModel.Package
 {
     /// <summary>
     /// Metadata for a package from nuget which is stored in raven db.
     /// </summary>
     public class PackageDto : IComparable
     {
+        public string Uri { get; set; }
         public string Id { get; set; }
         public string NugetId { get; set; }
         public string Title { get; set; }

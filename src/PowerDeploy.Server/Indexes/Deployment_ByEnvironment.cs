@@ -3,6 +3,8 @@ using System.Linq;
 
 using PowerDeploy.Server.Model;
 using PowerDeploy.Server.ServiceModel;
+using PowerDeploy.Server.ServiceModel.Deployment;
+using PowerDeploy.Server.ServiceModel.Package;
 
 using Raven.Abstractions.Indexing;
 using Raven.Client.Indexes;

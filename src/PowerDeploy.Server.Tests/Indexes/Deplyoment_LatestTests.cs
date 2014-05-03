@@ -4,6 +4,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 using PowerDeploy.Server.Indexes;
 using PowerDeploy.Server.ServiceModel;
+using PowerDeploy.Server.ServiceModel.Package;
 
 using Raven.Tests.Helpers;
 
