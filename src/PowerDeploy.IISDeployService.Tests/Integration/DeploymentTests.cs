@@ -260,6 +260,7 @@ namespace PowerDeploy.IISDeployService.Tests.Integration
         }
 
         [TestMethod]
+        [TestCategory("Integration")]
         public void Try_to_access_service_without_API_Key_Test()
         {
             var client = GetClient();
