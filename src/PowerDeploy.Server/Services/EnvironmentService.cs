@@ -18,18 +18,18 @@ namespace PowerDeploy.Server.Services
             {
                 if (request.Id == default(int))
                 {
-                    return session.Query<Environment>().ToList();
+                    return session.Query<EnvironmentDto>().ToList();
                 }
 
-                return session.Load<Environment>("Environments/" + request.Id);
+                return session.Load<EnvironmentDto>("Environments/" + request.Id);
             }
         }
 
-        public Environment Put(Environment request)
+        public EnvironmentDto Put(EnvironmentDto request)
         {
             using (var session = DocumentStore.OpenSession())
             {
-                var environment = session.Load<Environment>("Environments/" + request.Id);
+                var environment = session.Load<EnvironmentDto>("Environments/" + request.Id);
                 environment.PopulateWith(request);
 
                 session.SaveChanges();
@@ -38,7 +38,7 @@ namespace PowerDeploy.Server.Services
             }
         }
 
-        public Environment Post(Environment request)
+        public EnvironmentDto Post(EnvironmentDto request)
         {
             using (var session = DocumentStore.OpenSession())
             {

@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Linq;
 
-using PowerDeploy.Server.ServiceModel;
+using PowerDeploy.Server.Model;
 
 using Raven.Abstractions.Indexing;
 using Raven.Client.Indexes;

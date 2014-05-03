@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 
+using PowerDeploy.Server.Model;
 using PowerDeploy.Server.ServiceModel;
 
 using Raven.Client;
@@ -68,9 +69,9 @@ namespace Powerdeploy.Server.Tests.Indexes
 
         private void AddEnvironments(IDocumentStore store)
         {
-            var e1 = new PowerDeploy.Server.ServiceModel.Environment() { Id = (int)Environment.Dev, Name = "DEV" };
-            var e2 = new PowerDeploy.Server.ServiceModel.Environment() { Id = (int)Environment.Test, Name = "TEST" };
-            var e3 = new PowerDeploy.Server.ServiceModel.Environment() { Id = (int)Environment.Prod, Name = "PROD" };
+            var e1 = new PowerDeploy.Server.Model.Environment() { Id = (int)Environment.Dev, Name = "DEV" };
+            var e2 = new PowerDeploy.Server.Model.Environment() { Id = (int)Environment.Test, Name = "TEST" };
+            var e3 = new PowerDeploy.Server.Model.Environment() { Id = (int)Environment.Prod, Name = "PROD" };
 
             using (var session = store.OpenSession())
             {

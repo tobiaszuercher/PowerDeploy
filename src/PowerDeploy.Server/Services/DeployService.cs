@@ -1,18 +1,16 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 
 using PowerDeploy.Core;
-using PowerDeploy.Server.Indexes;
+using PowerDeploy.Server.Model;
 using PowerDeploy.Server.Provider;
 using PowerDeploy.Server.ServiceModel;
 
 using Raven.Client;
-using Raven.Client.Linq;
 
 using ServiceStack;
 
-using Environment = PowerDeploy.Server.ServiceModel.Environment;
+using Environment = PowerDeploy.Server.Model.Environment;
 
 namespace PowerDeploy.Server.Services
 {

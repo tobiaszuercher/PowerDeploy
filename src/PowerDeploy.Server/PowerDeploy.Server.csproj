@@ -104,6 +104,9 @@
     <Compile Include="Indexes\Deployment_ByEnvironment.cs" />
     <Compile Include="Indexes\Deployment_Latest.cs" />
     <Compile Include="Indexes\Pakages_GroupedByNugetId.cs" />
+    <Compile Include="Model\Deployment.cs" />
+    <Compile Include="Model\Environment.cs" />
+    <Compile Include="Model\Package.cs" />
     <Compile Include="Provider\NugetPackageDownloader.cs" />
     <Compile Include="Provider\PackageProvider.cs" />
     <Compile Include="Provider\Workspace.cs" />
@@ -115,7 +118,6 @@
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\ConfigurationService.cs" />
-    <Compile Include="Services\DeploymentStatusService.cs" />
     <Compile Include="Services\DeployService.cs" />
     <Compile Include="Services\EnvironmentService.cs" />
     <Compile Include="Services\PackageService.cs" />

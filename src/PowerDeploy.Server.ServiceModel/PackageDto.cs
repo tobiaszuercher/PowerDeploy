@@ -8,7 +8,7 @@ namespace PowerDeploy.Server.ServiceModel
     /// <summary>
     /// Metadata for a package from nuget which is stored in raven db.
     /// </summary>
-    public class Package : IComparable
+    public class PackageDto : IComparable
     {
         public string Id { get; set; }
         public string NugetId { get; set; }
@@ -22,11 +22,11 @@ namespace PowerDeploy.Server.ServiceModel
         public DateTime Published { get; set; }
         public long PackageSize { get; set; }
 
-        public Package()
+        public PackageDto()
         {
         }
 
-        public Package(string nugetId, string version)
+        public PackageDto(string nugetId, string version)
         {
             Id = string.Format("packages/{0}/{1}", nugetId, version);
             NugetId = nugetId;
@@ -35,7 +35,7 @@ namespace PowerDeploy.Server.ServiceModel
 
         public int CompareTo(object other)
         {
-            var otherVersion = new Version(((Package)other).Version);
+            var otherVersion = new Version(((PackageDto)other).Version);
 
             return new Version(Version).CompareTo(otherVersion);
         }
@@ -43,7 +43,7 @@ namespace PowerDeploy.Server.ServiceModel
 
     [Route("/package", Verbs = "GET")]
     [Route("/package/{id}", Verbs = "GET")]
-    public class QueryPackageInfo : IReturn<List<Package>>
+    public class QueryPackageInfo : IReturn<List<PackageDto>>
     {
         public int Id { get; set; }
     }

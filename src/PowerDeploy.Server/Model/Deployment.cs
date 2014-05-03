@@ -1,10 +1,9 @@
 ﻿using System;
 
-namespace PowerDeploy.Server.ServiceModel
+using PowerDeploy.Server.ServiceModel;
+
+namespace PowerDeploy.Server.Model
 {
-    /// <summary>
-    /// Represents an executed deployment.
-    /// </summary>
     public class Deployment
     {
         public string Id { get; set; }
@@ -13,13 +12,5 @@ namespace PowerDeploy.Server.ServiceModel
         public string EnvironmentId { get; set; }
         public string PackageId { get; set; }
         public DeployStatus Status { get; set; }
-    }
-
-    public enum DeployStatus
-    {
-        Requested,
-        Deploying,
-        Successful,
-        Failed
     }
 }

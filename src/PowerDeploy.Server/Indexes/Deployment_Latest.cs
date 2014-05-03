@@ -1,11 +1,12 @@
 ﻿using System;
 using System.Linq;
 
+using PowerDeploy.Server.Model;
 using PowerDeploy.Server.ServiceModel;
 
 using Raven.Client.Indexes;
 
-using Environment = PowerDeploy.Server.ServiceModel.Environment;
+using Environment = PowerDeploy.Server.Model.Environment;
 
 namespace PowerDeploy.Server.Indexes
 {

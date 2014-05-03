@@ -34,10 +34,10 @@ namespace PowerDeploy.Server.Services
             {
                 if (request.Id == default(int))
                 {
-                    return session.Query<Package>();
+                    return session.Query<PackageDto>();
                 }
 
-                return session.Query<Package>("PackageInfos/" + request.Id);
+                return session.Query<PackageDto>("PackageInfos/" + request.Id);
             }
         }
 

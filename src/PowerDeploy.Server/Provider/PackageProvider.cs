@@ -2,12 +2,11 @@
 using System.Linq;
 
 using PowerDeploy.Server.NuGetServer;
+using PowerDeploy.Server.ServiceModel;
 
 using Raven.Client;
 
 using ServiceStack;
-
-using Package = PowerDeploy.Server.ServiceModel.Package;
 
 namespace PowerDeploy.Server.Provider
 {
@@ -26,13 +25,13 @@ namespace PowerDeploy.Server.Provider
             {               
                 foreach (var nugetPackage in packages)
                 {
-                    var package = session.Load<Package>("packages/" + nugetPackage.Id + "/" + nugetPackage.Version);
+                    var package = session.Load<PackageDto>("packages/" + nugetPackage.Id + "/" + nugetPackage.Version);
 
                     if (package == null)
                     {
                         ++addedPackages;
 
-                        var packageInfo = new Package().PopulateWith(nugetPackage);
+                        var packageInfo = new PackageDto().PopulateWith(nugetPackage);
                         packageInfo.NugetId = nugetPackage.Id;
                         packageInfo.Id = "packages/" + nugetPackage.Id + "/" + nugetPackage.Version;
 

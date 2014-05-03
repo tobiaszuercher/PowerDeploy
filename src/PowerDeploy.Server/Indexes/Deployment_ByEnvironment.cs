@@ -1,12 +1,11 @@
 using System;
 using System.Linq;
 
+using PowerDeploy.Server.Model;
 using PowerDeploy.Server.ServiceModel;
 
 using Raven.Abstractions.Indexing;
 using Raven.Client.Indexes;
-
-using Environment = PowerDeploy.Server.ServiceModel.Environment;
 
 namespace PowerDeploy.Server.Indexes
 {
@@ -34,8 +33,8 @@ namespace PowerDeploy.Server.Indexes
                     LastFinishedAt = deployment.FinishedAt,
                     LastRequestedAt = deployment.RequestedAt,
                     EnvironmentId = deployment.EnvironmentId,
-                    EnvironmentName = LoadDocument<Environment>(deployment.EnvironmentId).Name,
-                    PackageName = LoadDocument<Package>(deployment.PackageId).NugetId,
+                    EnvironmentName = LoadDocument<EnvironmentDto>(deployment.EnvironmentId).Name,
+                    PackageName = LoadDocument<PackageDto>(deployment.PackageId).NugetId,
                     PackageId = deployment.PackageId,
                 };
 
