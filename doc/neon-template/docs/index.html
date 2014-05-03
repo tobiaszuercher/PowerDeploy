@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+<!-- saved from url=(0039)http://documentation.laborator.co/neon/ -->
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">  
+	<meta charset="utf-8">  
+	<title>Neon - Laborator Documentation</title>  
+	<meta name="description" content="Laborator Documentation">  
+	<meta name="author" content="Laborator">  
+	
+	<meta name="robots" content="noindex,nofollow">
+<link rel="alternate" type="application/rss+xml" title="Laborator Documentation » Neon Comments Feed" href="http://documentation.laborator.co/neon/feed/">
+<link rel="stylesheet" id="crayon-css" href="./assets/crayon.min.css" type="text/css" media="all">
+<script type="text/javascript" src="./assets/jquery.js"></script>
+<script type="text/javascript" src="./assets/jquery-migrate.min.js"></script>
+<script type="text/javascript">
+/* <![CDATA[ */
+var CrayonSyntaxSettings = {"version":"2.4.3","is_admin":"0","ajaxurl":"http:\/\/documentation.laborator.co\/wp-admin\/admin-ajax.php","prefix":"crayon-","setting":"crayon-setting","selected":"crayon-setting-selected","changed":"crayon-setting-changed","special":"crayon-setting-special","orig_value":"data-orig-value","debug":""};
+var CrayonSyntaxStrings = {"copy":"Press %s to Copy, %s to Paste","minimize":"Click To Expand Code"};
+/* ]]> */
+</script>
+<script type="text/javascript" src="./assets/crayon.min.js"></script>
+<link rel="EditURI" type="application/rsd+xml" title="RSD" href="http://documentation.laborator.co/xmlrpc.php?rsd">
+<link rel="wlwmanifest" type="application/wlwmanifest+xml" href="http://documentation.laborator.co/wp-includes/wlwmanifest.xml"> 
+<link rel="prev" title="Blog" href="http://documentation.laborator.co/chromium/setting-up-the-theme/blog/">
+<link rel="next" title="Getting Started" href="http://documentation.laborator.co/neon/getting-started/">
+<meta name="generator" content="WordPress 3.7.1">
+<link rel="canonical" href="./assets/assets.html">
+<link rel="shortlink" href="http://documentation.laborator.co/?p=1155">
+	
+	<link rel="stylesheet" href="http://documentation.laborator.co/wp-content/themes/laborator/css/documentation.css">  
+	<link rel="stylesheet" href="http://documentation.laborator.co/wp-content/themes/laborator/js/jquery-ui-1.9.0.custom/css/no-theme/jquery-ui-1.9.0.custom.css">
+	<script src="./assets/jquery-1.8.2.js"></script>
+	<script src="./assets/jquery-ui-1.9.0.custom.min.js"></script>
+
+	<!-- Add fancyBox -->
+	<link rel="stylesheet" href="./assets/jquery.fancybox.css" type="text/css" media="screen">
+	<script type="text/javascript" src="./assets/jquery.fancybox.pack.js"></script>
+
+ <!--[if lt IE 9]>  
+  <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>  
+  <![endif]-->  
+    <script>
+    $(document).ready(function($)
+    {
+        $( ".accordion" ).accordion({
+            collapsible: true,
+            active: false,
+            autoHeight: true,
+            clearStyle: true
+        });
+        
+        $(".section_entry").click(function(ev)
+        {
+	       var $this = $(this);
+	       
+	       var id = $this.data('id');
+	       
+	       var top = $(document).scrollTop();
+	       
+	       window.location.hash = id;
+	       
+	       $(document).scrollTop(top);
+        });
+        
+        $("a img").each(function()
+        {
+        	var $a = $(this).parent();
+        	
+        	$a.click(function(ev)
+        	{
+	        	ev.preventDefault();
+	        	$.fancybox.open($a.attr('href'), {padding: 0, radius: 0});
+        	});
+        });
+        
+        // hash
+        var hash = window.location.hash.toString();
+        var matches;
+        
+        if(matches = hash.match(/^#(([0-9]+)_([0-9]+))$/))
+        {
+        	var section_id = matches[1];
+        	
+        	var section_entry = $("h3.section_entry[data-id="+section_id+"]");
+        	
+        	if(section_entry.length)
+        	{
+        		section_entry.click();
+        		        		
+        		var offset_top = section_entry.offset().top;
+        		$(document).scrollTop(offset_top);
+        	}
+        }
+    });
+    </script>  
+</head>
+
+
+<body style="">  
+  <header>
+	<div class="wrap">
+		<div class="logo">
+			<h1>
+				Neon (Documentation)									<div class="last_update">
+						Last update: <span>12/20/2013 - 09:39</span>
+					</div>
+								</h1>
+			
+			<a class="support" href="http://support.laborator.co/">Support Forum</a>
+			
+						<div class="clear"></div>
+		</div>
+		
+		
+	</div>
+	
+  </header>	<section>
+		<div class="wrap documentation">
+			
+							<h1>1. Getting Started</h1>
+				
+				<div class="heading_description"></div>
+				
+				<div id="accordion_1157" class="accordion ui-accordion ui-widget ui-helper-reset" role="tablist">
+									<h3 class="section_entry ui-accordion-header ui-helper-reset ui-state-default ui-corner-all ui-accordion-icons" data-id="1_1" role="tab" id="ui-accordion-accordion_1157-header-0" aria-controls="ui-accordion-accordion_1157-panel-0" aria-selected="false" tabindex="0"><span class="ui-accordion-header-icon ui-icon ui-icon-triangle-1-e"></span>1.1. Theme Overview</h3>
+					
+					<div class="ui-accordion-content ui-helper-reset ui-widget-content ui-corner-bottom" id="ui-accordion-accordion_1157-panel-0" aria-labelledby="ui-accordion-accordion_1157-header-0" role="tabpanel" aria-expanded="false" aria-hidden="true" style="display: none;">
+						<p><strong>Neon</strong> – is flat admin template for multi-purpose usage built with the latest version of <strong><em>Bootstrap</em></strong> – 3.</p>
+<p>It contains more than <strong>60</strong>&nbsp;HTML files which offer you great variety of layout options and resources, and it will be extended in the future updates with newer plugins and pages.</p>
+						
+												
+					</div>
+										<h3 class="section_entry ui-accordion-header ui-helper-reset ui-state-default ui-corner-all ui-accordion-icons" data-id="1_2" role="tab" id="ui-accordion-accordion_1157-header-1" aria-controls="ui-accordion-accordion_1157-panel-1" aria-selected="false" tabindex="-1"><span class="ui-accordion-header-icon ui-icon ui-icon-triangle-1-e"></span>1.2. First Steps</h3>
+					
+					<div class="ui-accordion-content ui-helper-reset ui-widget-content ui-corner-bottom" id="ui-accordion-accordion_1157-panel-1" aria-labelledby="ui-accordion-accordion_1157-header-1" role="tabpanel" aria-expanded="false" aria-hidden="true" style="display: none;">
+						<p>To get you started with <strong>Neon</strong> theme, you should be familiar with <em><strong>Twitter Bootstrap</strong>&nbsp;</em>which is widely used and most-preferred HTML framework from developers worldwide.</p>
+<p>Firstly, open&nbsp;<em><strong>extra-blank-page.html</strong></em>&nbsp;file to know more about the main theme structure. It basically includes the markup that all other pages <strong><em>will</em></strong> include it too.</p>
+						
+												
+					</div>
+									</div>
+								<h1>2. Template Structure</h1>
+				
+				<div class="heading_description"><p>Neon requires that body to have the "<strong>page-body</strong>" class, so this is mandatory.</p>
+<p>Inside the body you should apply this main markup structure:</p>
+<p><a href="./assets/Screen-Shot-2013-12-19-at-4.43.54-AM.png"><img alt="Screen Shot 2013-12-19 at 4.43.54 AM" src="./assets/Screen-Shot-2013-12-19-at-4.43.54-AM.png" width="319" height="156"></a></p>
+<p>Or in the case if you use Horizontal menu layout:</p>
+<p><a href="./assets/Screen-Shot-2013-12-20-at-8.35.29-AM.png"><img class="alignnone size-full wp-image-1197" alt="" src="./assets/Screen-Shot-2013-12-20-at-8.35.29-AM.png" width="385" height="181"></a></p>
+<p>&nbsp;</p>
+<p>And if you use both menu types then it should start like this:</p>
+<p><a href="./assets/Screen-Shot-2013-12-20-at-8.37.55-AM.png"><img class="alignnone size-full wp-image-1198" alt="" src="./assets/Screen-Shot-2013-12-20-at-8.37.55-AM.png" width="457" height="210"></a></p>
+<p>&nbsp;</p>
+<p>The markup above is mandatory, so you have to put your markup inside this structure.</p>
+</div>
+				
+				<div id="accordion_1159" class="accordion ui-accordion ui-widget ui-helper-reset" role="tablist">
+								</div>
+								<h1>3. Layout Configuration</h1>
+				
+				<div class="heading_description"><p>To see all options that Neon Layout offers, refer to this link:<a href="http://themes.laborator.co/neon/layouts/layout-api/" target="_blank">&nbsp;http://themes.laborator.co/neon/layouts/layout-api/</a></p>
+</div>
+				
+				<div id="accordion_1161" class="accordion ui-accordion ui-widget ui-helper-reset" role="tablist">
+									<h3 class="section_entry ui-accordion-header ui-helper-reset ui-state-default ui-corner-all ui-accordion-icons" data-id="3_1" role="tab" id="ui-accordion-accordion_1161-header-0" aria-controls="ui-accordion-accordion_1161-panel-0" aria-selected="false" tabindex="0"><span class="ui-accordion-header-icon ui-icon ui-icon-triangle-1-e"></span>3.1. Sidebar Left</h3>
+					
+					<div class="ui-accordion-content ui-helper-reset ui-widget-content ui-corner-bottom" id="ui-accordion-accordion_1161-panel-0" aria-labelledby="ui-accordion-accordion_1161-header-0" role="tabpanel" aria-expanded="false" aria-hidden="true" style="display: none;">
+						<p>To use this type of layout your markup should start with:</p>
+<p><a href="./assets/Screen-Shot-2013-12-19-at-4.43.54-AM.png"><img class="alignnone size-full wp-image-1189" alt="Screen Shot 2013-12-19 at 4.43.54 AM" src="./assets/Screen-Shot-2013-12-19-at-4.43.54-AM.png" width="319" height="156"></a></p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>Then inside "sidebar-menu" you put the logo and menu markup.</p>
+<p>Here is sample HTML code you can put here:<br>
+<iframe width="320" height="240" style="border: none; width: 95%; height: 500px;" src="./assets/embed_iframe(3).html"></iframe></p>
+<p>&nbsp;</p>
+<h3>Collapsed Sidebar</h3>
+<p>To set collapsed sidebar by default add class "sidebar-collapsed" to element "div.page-container".</p>
+<p>&nbsp;</p>
+<h3>Fixed Sidebar</h3>
+<p>Add "fixed" class to "div.sidebar-menu" element. See an example on this file: <strong>html/layout-sidebar-static.html</strong></p>
+<p>&nbsp;</p>
+<h3>Static Sidebar</h3>
+<p>If you want to prevent users to collapse/expand sidebar just remove this part of code from the above pastebin:</p>
+<p><iframe src="./assets/embed_iframe(2).html" style="border:none;width:95%; height: 200px"></iframe></p>
+						
+												
+					</div>
+										<h3 class="section_entry ui-accordion-header ui-helper-reset ui-state-default ui-corner-all ui-accordion-icons" data-id="3_2" role="tab" id="ui-accordion-accordion_1161-header-1" aria-controls="ui-accordion-accordion_1161-panel-1" aria-selected="false" tabindex="-1"><span class="ui-accordion-header-icon ui-icon ui-icon-triangle-1-e"></span>3.2. Horizontal Menu</h3>
+					
+					<div class="ui-accordion-content ui-helper-reset ui-widget-content ui-corner-bottom" id="ui-accordion-accordion_1161-panel-1" aria-labelledby="ui-accordion-accordion_1161-header-1" role="tabpanel" aria-expanded="false" aria-hidden="true" style="display: none;">
+						<p>To apply this form of menu, firstly add "horizontal-menu" class to "page-container" div. Then as a children add this markup:</p>
+<p>&nbsp;</p>
+<pre>&lt;header class="navbar navbar-fixed-top"&gt;</pre>
+<p>Note: "navbar-fixed-top" class is optional, just in case you need it to stick to the top always when user scrolls down.</p>
+<p>See the example markup of this menu:</p>
+<p><iframe width="320" height="240" style="border: none; width: 95%; height: 500px;" src="./assets/embed_iframe(1).html"></iframe></p>
+						
+												
+					</div>
+										<h3 class="section_entry ui-accordion-header ui-helper-reset ui-state-default ui-corner-all ui-accordion-icons" data-id="3_3" role="tab" id="ui-accordion-accordion_1161-header-2" aria-controls="ui-accordion-accordion_1161-panel-2" aria-selected="false" tabindex="-1"><span class="ui-accordion-header-icon ui-icon ui-icon-triangle-1-e"></span>3.3. Both Menus</h3>
+					
+					<div class="ui-accordion-content ui-helper-reset ui-widget-content ui-corner-bottom" id="ui-accordion-accordion_1161-panel-2" aria-labelledby="ui-accordion-accordion_1161-header-2" role="tabpanel" aria-expanded="false" aria-hidden="true" style="display: none;">
+						<p>You can also include both of these menus in one page, simply by using the above examples, but you should add these classes "<strong>horizontal-menu with-sidebar</strong>" then proceed with the menus, here is an example:</p>
+<p>Note that you must include this markup inside "page-container" div.</p>
+<p><iframe width="320" height="240" style="border: none; width: 95%; height: 700px;" src="./assets/embed_iframe.html"></iframe></p>
+<p>&nbsp;</p>
+<p>In this case, if you have two menus included, you can make the logo width the same as sidebar, simply by adding "<strong>fit-logo-with-sidebar</strong>" class to "<strong>page-container</strong>". Here is an example:</p>
+<p>Before:</p>
+<p><a href="./assets/Screen-Shot-2013-12-20-at-9.32.18-AM.png"><img class="alignnone size-full wp-image-1229" alt="" src="./assets/Screen-Shot-2013-12-20-at-9.32.18-AM.png" width="397" height="341"></a></p>
+<p>&nbsp;</p>
+<p>After added the fit-logo-with-sidebar container:</p>
+<p><a href="./assets/Screen-Shot-2013-12-20-at-9.32.56-AM.png"><img class="alignnone size-full wp-image-1230" alt="" src="./assets/Screen-Shot-2013-12-20-at-9.32.56-AM.png" width="488" height="492"></a></p>
+						
+												
+					</div>
+									</div>
+								<h1>4. Setting Up The Menu</h1>
+				
+				<div class="heading_description"><p><a href="./assets/menus.png"><img class="alignnone size-full wp-image-1193" alt="menus" src="./assets/menus.png" width="960" height="300"></a></p>
+</div>
+				
+				<div id="accordion_1163" class="accordion ui-accordion ui-widget ui-helper-reset" role="tablist">
+									<h3 class="section_entry ui-accordion-header ui-helper-reset ui-state-default ui-corner-all ui-accordion-icons" data-id="4_1" role="tab" id="ui-accordion-accordion_1163-header-0" aria-controls="ui-accordion-accordion_1163-panel-0" aria-selected="false" tabindex="0"><span class="ui-accordion-header-icon ui-icon ui-icon-triangle-1-e"></span>4.1. Left Menu</h3>
+					
+					<div class="ui-accordion-content ui-helper-reset ui-widget-content ui-corner-bottom" id="ui-accordion-accordion_1163-panel-0" aria-labelledby="ui-accordion-accordion_1163-header-0" role="tabpanel" aria-expanded="false" aria-hidden="true" style="display: none;">
+						<p>The markup for sidebar menu is quite simple:</p>
+<p>&nbsp;</p>
+<pre>&lt;ul id="main-menu" class=""&gt;
+	&lt;!-- add class "multiple-expanded" to allow multiple submenus to open --&gt;
+	&lt;!-- class "auto-inherit-active-class" will automatically add "active" class for parent elements who are marked already with class "active" --&gt;
+	&lt;!-- Search Bar --&gt;
+
+	&lt;li&gt;...&lt;/li&gt;
+	...
+&lt;/ul&gt;</pre>
+<p>Note that "<strong>multiple-expanded</strong>" means that several submenu items can be opened, so by not adding this class will make the menu container to have only one submenu open, and others will be collapsed.</p>
+<p>&nbsp;</p>
+<p>An item could be set with this markup:</p>
+<pre>&lt;li&gt;
+	&lt;a href="charts-charts.html"&gt;
+		&lt;i class="entypo-chart-bar"&gt;&lt;/i&gt;
+		&lt;span&gt;Charts&lt;/span&gt;
+	&lt;/a&gt;
+&lt;/li&gt;</pre>
+<p>If you want to apply badge to the link:</p>
+<pre>&lt;a href="mailbox.html"&gt;
+	&lt;i class="entypo-mail"&gt;&lt;/i&gt;
+	&lt;span&gt;Mailbox&lt;/span&gt;
+	&lt;span class="badge badge-secondary"&gt;8&lt;/span&gt;
+&lt;/a&gt;</pre>
+<p>Repeat this process with other submenus, simply only the parent element (menu container) should have <strong><code>#main_menu</code></strong> id.</p>
+<p>&nbsp;</p>
+<p>In case when you have submenu and you want to make it always open add this class to <strong>li</strong> parent element: <strong>opened</strong></p>
+<p>Active class is name as usually "<strong>active</strong>", so it should applied to <strong>li</strong> element.</p>
+<h4>Search form</h4>
+<p>It has custom structure and cannot be any different, so always apply this markup if you want to add the search to sidebar menu:</p>
+<pre>&lt;li id="search"&gt;
+	&lt;form method="get" action=""&gt;
+		&lt;input type="text" name="q" class="search-input" placeholder="Search something..."/&gt;
+		&lt;button type="submit"&gt;
+			&lt;i class="entypo-search"&gt;&lt;/i&gt;
+		&lt;/button&gt;
+	&lt;/form&gt;
+&lt;/li&gt;</pre>
+						
+												
+					</div>
+										<h3 class="section_entry ui-accordion-header ui-helper-reset ui-state-default ui-corner-all ui-accordion-icons" data-id="4_2" role="tab" id="ui-accordion-accordion_1163-header-1" aria-controls="ui-accordion-accordion_1163-panel-1" aria-selected="false" tabindex="-1"><span class="ui-accordion-header-icon ui-icon ui-icon-triangle-1-e"></span>4.2. Top Menu</h3>
+					
+					<div class="ui-accordion-content ui-helper-reset ui-widget-content ui-corner-bottom" id="ui-accordion-accordion_1163-panel-1" aria-labelledby="ui-accordion-accordion_1163-header-1" role="tabpanel" aria-expanded="false" aria-hidden="true" style="display: none;">
+						<p>Just like the left menu, it has the same structure, you just need to add "<strong>.navbar-nav</strong>" class and not <strong>#main_menu </strong>id.</p>
+<p>Please refer to the <strong>Left menu</strong> topic if you want to know how to insert items on this menu.</p>
+						
+												
+					</div>
+										<h3 class="section_entry ui-accordion-header ui-helper-reset ui-state-default ui-corner-all ui-accordion-icons" data-id="4_3" role="tab" id="ui-accordion-accordion_1163-header-2" aria-controls="ui-accordion-accordion_1163-panel-2" aria-selected="false" tabindex="-1"><span class="ui-accordion-header-icon ui-icon ui-icon-triangle-1-e"></span>4.3. Mixed Menus</h3>
+					
+					<div class="ui-accordion-content ui-helper-reset ui-widget-content ui-corner-bottom" id="ui-accordion-accordion_1163-panel-2" aria-labelledby="ui-accordion-accordion_1163-header-2" role="tabpanel" aria-expanded="false" aria-hidden="true" style="display: none;">
+						<p>If you already can manage to set Left and Top menu then all you need is to set them in their own HTML structure. Read more at this topic about how to set the both menus:&nbsp;<strong><em>Layout Configuration &gt; Both Menus</em></strong><em>&nbsp;</em></p>
+<p>&nbsp;</p>
+<p>These files demonstrate this:</p>
+<p>html/layout-mixed-menus.html</p>
+<p>html/layout-mixed-menus-collapsed.html</p>
+<p>html/layout-mixed-menus-logo-fit.html</p>
+						
+												
+					</div>
+									</div>
+								<h1>5. Extending the Theme</h1>
+				
+				<div class="heading_description"><p>This is the most important part of the theme documentation, because you will learn how to dig deeper in the theme and get it better. Apart from other sections, they all have files to see the live demonstration, but here you will learn how you can extend this theme.</p>
+</div>
+				
+				<div id="accordion_1165" class="accordion ui-accordion ui-widget ui-helper-reset" role="tablist">
+									<h3 class="section_entry ui-accordion-header ui-helper-reset ui-state-default ui-corner-all ui-accordion-icons" data-id="5_1" role="tab" id="ui-accordion-accordion_1165-header-0" aria-controls="ui-accordion-accordion_1165-panel-0" aria-selected="false" tabindex="0"><span class="ui-accordion-header-icon ui-icon ui-icon-triangle-1-e"></span>5.1. Styling</h3>
+					
+					<div class="ui-accordion-content ui-helper-reset ui-widget-content ui-corner-bottom" id="ui-accordion-accordion_1165-panel-0" aria-labelledby="ui-accordion-accordion_1165-header-0" role="tabpanel" aria-expanded="false" aria-hidden="true" style="display: none;">
+						<p>Neon its built on Twitter Bootstrap 3 framework, so the chances are higher for you know how to handle the development of this kind of framework.</p>
+<p>We have developed Neon theme using LESS dynamic styling language, and all files are separated to make you more easy to find and customize any part of theme, add or remove parts of CSS that are not needed on your theme.</p>
+<p>The only file needed to compile is <strong>assets/css/neon.less,</strong>&nbsp;it contains all the CSS, and you don't need to add anything else outside this file, except when you use custom resource which has its own CSS style.</p>
+<p>The LESS structure of the items organized on this principle:</p>
+<ul>
+<li>&nbsp;assets/css/bs-less/</li>
+<li>assets/css/neon-less/</li>
+<li>assets/css/other-less/</li>
+</ul>
+<p>It clearly describes what is included, what should be in, and other stylesheets. They have been grouped on single file neon.less, here is how it looks:</p>
+<p><a href="./assets/Screen-Shot-2013-12-20-at-10.07.36-AM.png"><img class="alignnone size-full wp-image-1263" alt="neon.less" src="./assets/Screen-Shot-2013-12-20-at-10.07.36-AM.png" width="390" height="663"></a></p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>So in case you need to remove any feature on CSS simply comment the line, for example</p>
+<p><strong><em>//@import "neon-less/datatables.less";</em></strong></p>
+<p>And if you want to add custom styling just create less file and include it:</p>
+<p><strong><em>@import "my-less/modals-v2.less";</em></strong></p>
+<p>Then compile the CSS using any related LESS compiler, my preferred one and used to build Neon is: LESS.app, <a href="http://incident57.com/less/" target="_blank"><strong>download it here</strong></a>.</p>
+<p>&nbsp;</p>
+<h3>Not familiar with LESS? No Problem</h3>
+<p>LESS styling has been used only to keep control what you want to include on the theme and what not. If you want not to touch the development files, then open <strong>assets/css/custom.css</strong> and put your own CSS.</p>
+<p>This file its called on all HTML pages that come with Neon.</p>
+						
+												
+					</div>
+										<h3 class="section_entry ui-accordion-header ui-helper-reset ui-state-default ui-corner-all ui-accordion-icons" data-id="5_2" role="tab" id="ui-accordion-accordion_1165-header-1" aria-controls="ui-accordion-accordion_1165-panel-1" aria-selected="false" tabindex="-1"><span class="ui-accordion-header-icon ui-icon ui-icon-triangle-1-e"></span>5.2. Scripting</h3>
+					
+					<div class="ui-accordion-content ui-helper-reset ui-widget-content ui-corner-bottom" id="ui-accordion-accordion_1165-panel-1" aria-labelledby="ui-accordion-accordion_1165-header-1" role="tabpanel" aria-expanded="false" aria-hidden="true" style="display: none;">
+						<p>Main scripts instances of the theme are executed on <strong>assets/js/neon-custom.js&nbsp;</strong>so if you want to learn more how they coded read the code. Its all commented to help you understand what does what.</p>
+<p>&nbsp;</p>
+<p><strong>Browser Intent - Responsive</strong></p>
+<p>For responsiveness, we have created <strong>neon.resize&nbsp;</strong>event that is applied on $(window) and tells you when the window has been resized. This is special event because it fires only when the window has finished the resizing, not every pixel it has been resized. They you can use helper functions to detect the device type and they are:</p>
+<ul>
+<li><em><strong>is(device_type);</strong></em>
+<ul>
+<li>Example: <em><strong>is('largescreen'); or&nbsp;is('tabletscreen'); or&nbsp;is('devicescreen'); or&nbsp;is('sdevicescreen');</strong></em></li>
+</ul>
+</li>
+<li><em><strong>ismdxl();</strong></em> // true when screen size is large screen or tablet screen</li>
+<li><em><strong>isxs();</strong></em> // true when screen is smaller than tablet</li>
+</ul>
+<p>You can change the breakpoints or add custom on this file: <em><strong>assets/js/resizeable.js</strong></em></p>
+<p><a href="./assets/Screen-Shot-2013-12-20-at-10.23.28-AM.png"><img class="alignnone size-full wp-image-1269" alt="Breakpoints" src="./assets/Screen-Shot-2013-12-20-at-10.23.28-AM.png" width="580" height="273"></a></p>
+						
+												
+					</div>
+									</div>
+								<h1>6. Other</h1>
+				
+				<div class="heading_description"></div>
+				
+				<div id="accordion_1272" class="accordion ui-accordion ui-widget ui-helper-reset" role="tablist">
+									<h3 class="section_entry ui-accordion-header ui-helper-reset ui-state-default ui-corner-all ui-accordion-icons" data-id="6_1" role="tab" id="ui-accordion-accordion_1272-header-0" aria-controls="ui-accordion-accordion_1272-panel-0" aria-selected="false" tabindex="0"><span class="ui-accordion-header-icon ui-icon ui-icon-triangle-1-e"></span>6.1. Chat</h3>
+					
+					<div class="ui-accordion-content ui-helper-reset ui-widget-content ui-corner-bottom" id="ui-accordion-accordion_1272-panel-0" aria-labelledby="ui-accordion-accordion_1272-header-0" role="tabpanel" aria-expanded="false" aria-hidden="true" style="display: none;">
+						<p>Neon Chat is also an important part of the theme. If you are going to use it, include it inside the <strong>.page-container</strong></p>
+<p>&nbsp;</p>
+<pre>&lt;div class="page-container"&gt;
+
+	...
+
+	&lt;div class="main-content"&gt;...&lt;/div&gt;
+
+	&lt;!-- Chat Main Container --&gt;
+	&lt;div id="chat"&gt;
+		...
+	&lt;/div&gt;
+
+&lt;/div&gt;</pre>
+<p>&nbsp;</p>
+<p>The chat structure should be like this:</p>
+<p><a href="./assets/Screen-Shot-2013-12-20-at-10.31.23-AM.png"><img class="alignnone size-full wp-image-1278" alt="Chat Structure" src="./assets/Screen-Shot-2013-12-20-at-10.31.23-AM.png" width="864" height="531"></a></p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>To learn about all the facilities of the chat and how to implement it properly, <strong><a href="http://themes.laborator.co/neon/extra/chat-api/" target="_blank">read here</a></strong>&nbsp;about<strong> Chat API</strong>.</p>
+<p>The required scripts to include are&nbsp;<strong>assets/js/neon-chat.js </strong>and <strong>jquery-ui</strong></p>
+						
+												
+					</div>
+									</div>
+								<h1>7. Credits</h1>
+				
+				<div class="heading_description"><p><strong>Neon</strong> wouldn't be this great if the staff of&nbsp;<strong>Laborator</strong>,&nbsp;<strong>Arlind Nushi</strong>&nbsp;and&nbsp;<strong>Art Ramadani&nbsp;</strong>wouldn't be part of this project, neither without the presence of these great plugins, graphics and other resources:</p>
+<ul>
+<li><a href="http://getbootstrap.com/" target="_blank">Twitter Bootstrap</a></li>
+<li><a href="http://jvectormap.com/" target="_blank">jVectormap</a></li>
+<li><a href="http://oesmith.co.uk/morris.js/" target="_blank">Morris.js</a></li>
+<li><a href="http://omnipotent.net/jquery.sparkline/" target="_blank">jQuery Sparklines</a></li>
+<li><a href="http://code.shutterstock.com/rickshaw/" target="_blank">Rickshaw </a></li>
+<li><a href="http://arshaw.com/fullcalendar/" target="_blank">FullCalendar</a></li>
+<li><a href="http://google.com/webfonts" target="_blank">Google Webfonts</a></li>
+<li><a href="http://rocha.la/jQuery-slimScroll" target="_blank">SlimScroll</a></li>
+<li><a href="http://areaaperta.com/nicescroll/" target="_blank">Nice Scroll</a></li>
+<li><a href="http://codeseven.github.io/toastr/" target="_blank">Toastr</a></li>
+<li><a href="http://anthonyterrien.com/knob/" target="_blank">Knob</a></li>
+</ul>
+<p>&nbsp;</p>
+<p>Visit our official webiste for more Themes, Templates and Plugins -&nbsp;<a href="http://www.laborator.co/">www.laborator.co</a></p>
+</div>
+				
+				<div id="accordion_1167" class="accordion ui-accordion ui-widget ui-helper-reset" role="tablist">
+								</div>
+					
+		</div>
+	</section>
+	
+  
+  </body></html>

@@ -1,0 +1,119 @@
+*** Neon Theme - Changelog ***
+
+# Mar 28, 2014 v 1.7
+
+* [Added] Boxed Layout support
+* [Added] Members page (extra-members.html)
+* [Added] Comments page (extra-comments.html)
+* [Added] New post page (extra-new-post.html)
+* [Added] Settings page (extra-settings.html)
+* [Added] Nested list plugin (extra-nestable.html)
+* [Added] File tree plugin (extra-file-tree.html)
+* [Added] Progress indicator (extra-load-progress.html)
+* [Added] New front-end mobile menu
+
+* [Fix] Better organized assets files
+
+
+# Mar 25, 2014 v 1.6
+
+* [Added] Tabs in XS mode will display icons instead of text (ui-tabs-accordions.html)
+
+* [Fix] Group tile with stats now its properly aligned, Firefox background tiles that are pushed little lower (ui-tiles.html)
+* [Fix] When opening modals will not bounce the page content container (ui-modals.html)
+* [Fix] (CSS) IE fixes
+* [Fix] RTL logo on Navbar
+* [Fix] Front-end carousel issue in Safari
+* [Fix] $.noConflict() - Neon will no longer have issues with this declaration
+* [Fix] (CSS) DataTable width when sidebar is collapsed/expanded
+* [Fix] (CSS) DataTable Rows per page broken width
+* [Fix] Modals not opening in firefox (ui-modals.html)
+
+* [Added] Tabs will have icons in responsive (XS-mode, file: ui-tabs-accordions.html)
+
+
+# Feb 13, 2014 v 1.5.1
+
+* [Fix] Fixed CSS Issues
+* [Fix] Data folder missing
+
+
+# Feb 12, 2014 v 1.5.0
+
+* [Added] Front-end Interface
+* [Added] Neon is now upgraded to Bootstrap 3.1
+* [Added] Full RTL Support
+* [Added] Sidebar position on the right (+Chat left)
+* [Added] CSS files are now separated into groups for to decrease load size
+* [Added] 10 new PSD files
+* [Added] New Dashboard Page (dashboard-3.html)
+
+* [Fix] Firefox issues fixed
+
+
+# Jan 31, 2014 v 1.1.4
+
+* [Added] Register form page (extra-register.html)
+* [Added] Forgot password form page (extra-forgot-password.html)
+* [Added] Login form processing with PHP (extra-login.html and data/sample-login-form.php)
+* [Added] Search Result page added (extra-search.html)
+* [Added] UIKit Markdown editor (forms-wysiwyg.html)
+* [Added] iCheck replacement for radio buttons and checkboxes (forms-icheck.html)
+* [Added] Language select bar
+* [Added] Input spinner (forms-advanced.html)
+* [Added] Alternative Social networks login buttons on Login page (extra-login.html)
+
+* [Fix] Time picker in popup not showing the time popup selector
+* [Fix] Sidebar issue "Flash of unstyle content"
+* [Fix] Fixed Sidebar page, collapsed sidebar menu hover don't work
+* [Fix] Fixed lot of reported CSS incosistencies
+* [Fix] Fixed collapsing effect with tables as panel body
+* [Fix] Chat conversation, auto-close when collapsing chat container
+
+* [Updated] jQuery updated to latest public version
+
+
+# Jan 9, 2014 v 1.1.3
+
+* [Added] Theme Skins are now supported! Available skins: Blue, Red, Green, Purple, Black, White, Yellow, Cafe
+* [Added] DataTables examples: Filtering Columns, Data Exporting, Responsive Data Tables
+* [Added] Image Crop plugin is now added - See extra-image-crop.html
+* [Added] 3 PSD files are included in extra/ folder
+
+
+# Jan 6, 2014 v 1.1.2
+
+* [Added] Profile Page added (extra-profile.html)
+* [Added] Timeline - vertical left aligned (extra-timeline.html)
+* [Added] Responsive tables (tables-main.html)
+
+* [Fix] Charts page will not render properly the profile notification tooltips.
+* [Fix] Improved Retina Support for logos and images
+
+
+# Jan 5, 2014 v 1.1.1
+
+* [Added] Gallery Albums Page (extra-gallery.html)
+* [Added] Gallery Album Single Page (extra-gallery-single.html)
+
+
+# Jan 3, 2014 v 1.1.0
+
+* [Added] User Info on Sidebar + Popup Menu
+* [Added] Notes Page functionality added on extra-notes.html - You can save notes. Handle file assets/js/neon-notes.js
+
+* [Fix] WYSIHTML5 editor - text colors now are applied properly. Attribute [data-stylesheet-url] solves this.
+* [Fix] Sliders (forms-sliders.html) are now compatible with Touch Devices.
+
+
+# Jan 1, 2014 v 1.0.2
+
+* [Fix] Calendar Week and Day Agenda not styled properly
+
+
+# Dec 20, 2013	V 1.0.1
+
+* [Fix] Overall fixes and improvements
+* [Fix] Fail-safe page transitions are added.
+* [Added] Modals are now shown in better way (ui-modals.html)
+* [Added] Dropzone now shows info for uploaded files (forms-file-upload.html)
