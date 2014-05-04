@@ -41,6 +41,7 @@ namespace Powerdeploy.Server.Tests
         }
 
         [TestMethod]
+        [TestCategory("Integration")]
         public void Synchronize_Packages()
         {
             var target = _appHost.TryResolve<PackageService>();
