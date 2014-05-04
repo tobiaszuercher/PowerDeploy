@@ -109,7 +109,7 @@
     <Compile Include="Model\Environment.cs" />
     <Compile Include="Model\Package.cs" />
     <Compile Include="Provider\NugetPackageDownloader.cs" />
-    <Compile Include="Provider\PackageProvider.cs" />
+    <Compile Include="Provider\NugetServerBridge.cs" />
     <Compile Include="Provider\Workspace.cs" />
     <Compile Include="Service References\NuGetServer\Reference.cs">
       <AutoGen>True</AutoGen>

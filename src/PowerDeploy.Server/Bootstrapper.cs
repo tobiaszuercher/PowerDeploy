@@ -14,7 +14,7 @@ namespace PowerDeploy.Server
         public static void ConfigureDependencies(Container container, IDocumentStore documentStore)
         {
             container.Register<IDocumentStore>(documentStore);
-            container.RegisterAutoWired<PackageProvider>();
+            container.RegisterAutoWired<NugetServerBridge>();
             container.RegisterAutoWired<PackageService>();
             container.RegisterAutoWired<DeployService>();
             container.RegisterAutoWired<PhysicalFileSystem>();

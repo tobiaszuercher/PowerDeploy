@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-
-using ServiceStack;
 
 namespace PowerDeploy.Server.ServiceModel.Package
 {
@@ -40,12 +37,5 @@ namespace PowerDeploy.Server.ServiceModel.Package
 
             return new Version(Version).CompareTo(otherVersion);
         }
-    }
-
-    [Route("/package", Verbs = "GET")]
-    [Route("/package/{id}", Verbs = "GET")]
-    public class QueryPackageInfo : IReturn<List<PackageDto>>
-    {
-        public int Id { get; set; }
     }
 }

@@ -9,6 +9,8 @@ using PowerDeploy.Server.ServiceModel.Package;
 using Raven.Abstractions.Indexing;
 using Raven.Client.Indexes;
 
+using Environment = PowerDeploy.Server.Model.Environment;
+
 namespace PowerDeploy.Server.Indexes
 {
     public class Deployment_ByEnvironment : AbstractIndexCreationTask<Deployment>
@@ -35,8 +37,8 @@ namespace PowerDeploy.Server.Indexes
                     LastFinishedAt = deployment.FinishedAt,
                     LastRequestedAt = deployment.RequestedAt,
                     EnvironmentId = deployment.EnvironmentId,
-                    EnvironmentName = LoadDocument<EnvironmentDto>(deployment.EnvironmentId).Name,
-                    PackageName = LoadDocument<PackageDto>(deployment.PackageId).NugetId,
+                    EnvironmentName = LoadDocument<Environment>(deployment.EnvironmentId).Name,
+                    PackageName = LoadDocument<Package>(deployment.PackageId).NugetId,
                     PackageId = deployment.PackageId,
                 };
 

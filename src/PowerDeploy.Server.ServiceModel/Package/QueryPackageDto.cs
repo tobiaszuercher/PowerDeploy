@@ -8,7 +8,7 @@ namespace PowerDeploy.Server.ServiceModel.Package
     [Route("/packages/{NugetId}", Verbs = "GET")]
     public class QueryPackagesDto : IReturn<List<PackageDto>>
     {
-        
+        public string NugetId { get; set; }
     }
     
     [Route("/packages/{NugetId}/{Version}", Verbs = "GET")]

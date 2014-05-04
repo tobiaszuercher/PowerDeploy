@@ -3,6 +3,6 @@
     public class SynchronizationSummary
     {
         public int AddedPackages { get; set; }
-        public int TotalPackages { get; set; }
+        public int PackagesInNuget { get; set; }
     }
 }

@@ -2,8 +2,6 @@
 using System.Linq;
 
 using PowerDeploy.Server.NuGetServer;
-using PowerDeploy.Server.ServiceModel;
-using PowerDeploy.Server.ServiceModel.Package;
 
 using Raven.Client;
 
@@ -11,7 +9,7 @@ using ServiceStack;
 
 namespace PowerDeploy.Server.Provider
 {
-    public class PackageProvider
+    public class NugetServerBridge
     {
         public IDocumentStore DocumentStore { get; set; }
 
@@ -26,13 +24,13 @@ namespace PowerDeploy.Server.Provider
             {               
                 foreach (var nugetPackage in packages)
                 {
-                    var package = session.Load<PackageDto>("packages/" + nugetPackage.Id + "/" + nugetPackage.Version);
+                    var package = session.Load<PowerDeploy.Server.Model.Package>("packages/" + nugetPackage.Id + "/" + nugetPackage.Version);
 
                     if (package == null)
                     {
                         ++addedPackages;
 
-                        var packageInfo = new PackageDto().PopulateWith(nugetPackage);
+                        var packageInfo = new PowerDeploy.Server.Model.Package().PopulateWith(nugetPackage);
                         packageInfo.NugetId = nugetPackage.Id;
                         packageInfo.Id = "packages/" + nugetPackage.Id + "/" + nugetPackage.Version;
 
@@ -43,7 +41,7 @@ namespace PowerDeploy.Server.Provider
                 session.SaveChanges();
             }
 
-            return new SynchronizationSummary() { AddedPackages = addedPackages, TotalPackages = packages.Count() };
+            return new SynchronizationSummary() { AddedPackages = addedPackages, PackagesInNuget = packages.Count() };
         }
     }
 }

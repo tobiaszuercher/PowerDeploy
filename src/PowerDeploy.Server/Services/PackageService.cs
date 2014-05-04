@@ -1,9 +1,9 @@
-﻿using System.IO;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Net;
 
 using PowerDeploy.Core;
-using PowerDeploy.Server.Indexes;
+using PowerDeploy.Server.Mapping;
+using PowerDeploy.Server.Model;
 using PowerDeploy.Server.Provider;
 using PowerDeploy.Server.ServiceModel;
 using PowerDeploy.Server.ServiceModel.Package;
@@ -16,7 +16,7 @@ namespace PowerDeploy.Server.Services
 {
     public class PackageService : Service
     {
-        public PackageProvider PackageProvider { get; set; }
+        public NugetServerBridge NugetServerBridge { get; set; }
         public NugetPackageDownloader PackageDownloader { get; set; }
         public IDocumentStore DocumentStore { get; set; }
         public IFileSystem FileSystem { get; set; }
@@ -24,37 +24,36 @@ namespace PowerDeploy.Server.Services
 
         public SynchronizePackageResponse Any(SynchronizePackageRequest request)
         {
-            var summary = PackageProvider.Synchronize();
+            var summary = NugetServerBridge.Synchronize();
 
             return new SynchronizePackageResponse().PopulateWith(summary);
         }
 
-        public object Get(QueryPackageInfo request)
+        public object Get(QueryPackageDto request)
         {
+            // todo add validator for version & nugetid.
             using (var session = DocumentStore.OpenSession())
             {
-                if (request.Id == default(int))
-                {
-                    return session.Query<PackageDto>();
-                }
-
-                return session.Query<PackageDto>("PackageInfos/" + request.Id);
+                return session.Load<Package>("packages/{0}/{1}".Fmt(request.NugetId, request.Version)).ToDto();
             }
         }
 
-        public object Get(QueryPackageGroup request)
+        public List<PackageDto> Get(QueryPackagesDto request)
         {
-            //using (var session = DocumentStore.OpenSession())
-            //{
-            //    if (string.IsNullOrEmpty(request.NugetId))
-            //    {
-            //        return session.Query<PackageGroup, PackageGroup_ByPackageNugetId>().ToList();
-            //    }
+            using (var session = DocumentStore.OpenSession())
+            {
+                if (string.IsNullOrEmpty(request.NugetId))
+                {
+                    return session.Query<Package>().OrderByDescending(p => p.Published).ToList().Select(p => p.ToDto()).ToList();
+                }
 
-            //    return session.Query<PackageGroup, PackageGroup_ByPackageNugetId>().Where(pg => pg.NugetId == request.NugetId);
-            //}
-
-            return null;
+                return session.Query<Package>()
+                                .Where(p => p.NugetId == request.NugetId)
+                                .OrderByDescending(p => p.Published)
+                                .ToList()
+                                .Select(p => p.ToDto())
+                                .ToList();
+            }
         }
     }
 }

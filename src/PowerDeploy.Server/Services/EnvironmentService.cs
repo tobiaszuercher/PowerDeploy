@@ -1,5 +1,7 @@
 ﻿using System.Linq;
 
+using PowerDeploy.Server.Mapping;
+using PowerDeploy.Server.Model;
 using PowerDeploy.Server.ServiceModel;
 
 using Raven.Client;
@@ -18,10 +20,10 @@ namespace PowerDeploy.Server.Services
             {
                 if (request.Id == default(int))
                 {
-                    return session.Query<EnvironmentDto>().ToList();
+                    return session.Query<Environment>().ToList();
                 }
 
-                return session.Load<EnvironmentDto>("Environments/" + request.Id);
+                return session.Load<Environment>("Environments/" + request.Id);
             }
         }
 
@@ -29,12 +31,12 @@ namespace PowerDeploy.Server.Services
         {
             using (var session = DocumentStore.OpenSession())
             {
-                var environment = session.Load<EnvironmentDto>("Environments/" + request.Id);
+                var environment = session.Load<Environment>("Environments/" + request.Id);
                 environment.PopulateWith(request);
 
                 session.SaveChanges();
 
-                return environment;
+                return environment.ToDto();
             }
         }
 
