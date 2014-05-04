@@ -124,7 +124,7 @@
     <Compile Include="Services\PackageService.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="App.config" />
+    <None Include="App.template.config" />
     <None Include="packages.config" />
     <None Include="Properties\DataSources\PowerDeploy.Server.NuGetServer.PackageContext.datasource" />
     <None Include="Service References\NuGetServer\service.edmx" />
