@@ -1,9 +1,7 @@
 ﻿using System;
-using System.Collections;
 using System.IO;
 using System.Linq;
 
-using PowerDeploy.Core.Extensions;
 using PowerDeploy.Core.Logging;
 
 using ServiceStack;
@@ -39,7 +37,6 @@ namespace PowerDeploy.Core
 
         public Environment GetEnvironment(string environmentName)
         {
-            LogManager.GetLogger(GetType()).Debug("EnvironmentProvider.GetEnvironment");
             if (EnvironmentDirectory == null)
             {
                 throw new InvalidOperationException("Please initialize EnvironmentProvider first.");    

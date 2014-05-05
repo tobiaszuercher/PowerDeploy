@@ -1,5 +1,6 @@
 ﻿using System.IO;
 
+using Microsoft.Build.Framework;
 using Microsoft.Build.Utilities;
 
 using PowerDeploy.Core;
@@ -16,7 +17,7 @@ namespace PowerDeploy.MsBuild
         public override bool Execute()
         {
             LogManager.LogFactory = new BuildLogFactory(Log);
-
+            
             try
             {
                 var envProvider = new EnvironmentProvider(Directory);

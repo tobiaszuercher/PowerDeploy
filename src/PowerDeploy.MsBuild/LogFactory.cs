@@ -23,12 +23,12 @@ namespace PowerDeploy.MsBuild
 
         public ILog GetLogger(Type type)
         {
-            return new BuildLogger(_taskLogHelper);
+            return new MsBuildLogger(_taskLogHelper);
         }
 
         public ILog GetLogger(string typeName)
         {
-            return new BuildLogger(_taskLogHelper);
+            return new MsBuildLogger(_taskLogHelper);
         }
     }
 }
