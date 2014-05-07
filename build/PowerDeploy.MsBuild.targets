@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="12.0">
+  <PropertyGroup>
+    <SrcDir>../src</SrcDir>
+    <BuildLibDir>lib</BuildLibDir>
+    <Configuration>Release</Configuration>
+  </PropertyGroup>
+  
+  <ItemGroup>
+	<LibFiles Include="$(SrcDir)/PowerDeploy.MsBuild/bin/$(Configuration)/*.dll"/>
+  </ItemGroup>
+
+  <Target Name="Build">
+    <MSBuild Projects="$(SrcDir)/PowerDeploy.MsBuild/PowerDeploy.MsBuild.csproj"
+             Targets="Rebuild"
+             Properties="Configuration=$(Configuration)" />
+  </Target>
+
+  <Target Name="CopyToToolsLibFolder" DependsOnTargets="Build">
+    <Copy SourceFiles="@(LibFiles)" DestinationFolder="$(BuildLibDir)" />
+  </Target>
+</Project>
