@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Reflection;
 //using CommandLine;
-using PowerDeploy.Core.Extensions;
+//using PowerDeploy.Core.Extensions;
 
 namespace PowerDeploy
 {
@@ -41,6 +41,8 @@ namespace PowerDeploy
 
             ////    return Assembly.Load(assemblyData);
             ////}
+
+            return null;
         }
     }
 }
