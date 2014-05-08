@@ -141,7 +141,6 @@
     <Compile Include="Indexes\DeploySzenario.cs" />
     <Compile Include="PackageFixtures.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="RavenTests\CanCallLastOnArray.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.template.config" />
