@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Reflection;
-//using CommandLine;
+using CommandLine;
 //using PowerDeploy.Core.Extensions;
 
 namespace PowerDeploy
