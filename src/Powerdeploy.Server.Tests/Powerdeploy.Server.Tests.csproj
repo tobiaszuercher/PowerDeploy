@@ -144,6 +144,7 @@
     <Compile Include="RavenTests\CanCallLastOnArray.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="app.config" />
     <None Include="app.template.config" />
     <None Include="packages.config" />
   </ItemGroup>
