@@ -37,6 +37,7 @@ namespace PowerDeploy.Tests
                 Console.WriteLine("DEBUG: " + root);
                 Trace.WriteLine("DEBUG: " + root);
                 Debug.WriteLine("DEBUG: " + root);
+       
                 root = Directory.GetParent(root).FullName;
             }
 
