@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
+using System.Linq;
 using System.Text;
 
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -28,8 +29,10 @@ namespace PowerDeploy.Tests
             _originalDirectory = System.Environment.CurrentDirectory;
             FileSystem = new PhysicalFileSystem();
 
-            var root = new Uri(typeof(PackageFixtures).Assembly.CodeBase).LocalPath;
-            while (!root.EndsWith("PowerDeploy") && !root.EndsWith("PowerDeploy\\"))
+            var root = new DirectoryInfo(new Uri(typeof(PackageFixtures).Assembly.CodeBase).LocalPath).Parent.FullName;
+            
+            // abuse .gitignore file to find out where the root dir is
+            while (!Directory.GetFiles(root).Any(f => f.Contains(".gitignore")))
             {
                 root = Directory.GetParent(root).FullName;
             }
