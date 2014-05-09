@@ -1,4 +1,5 @@
-﻿using System.IO;
+﻿using System;
+using System.IO;
 using System.Net;
 
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -270,9 +271,9 @@ namespace PowerDeploy.IISDeployService.Tests.Integration
             {
                 client.Send(new RollbackDeployment());
             }
-            catch (WebException ex)
+            catch (WebServiceException ex)
             {
-                Assert.IsTrue(ex.Message.Contains("(401)"));
+                Assert.AreEqual((int)HttpStatusCode.Unauthorized, ex.StatusCode);
             }
         }
 
