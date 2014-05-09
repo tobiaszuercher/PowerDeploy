@@ -34,6 +34,7 @@ namespace PowerDeploy.Tests
             // abuse .gitignore file to find out where the root dir is
             while (!Directory.GetFiles(root).Any(f => f.Contains(".gitignore")))
             {
+                Console.WriteLine("DEBUG: " + root);
                 root = Directory.GetParent(root).FullName;
             }
 
