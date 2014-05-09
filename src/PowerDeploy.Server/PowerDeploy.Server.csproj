@@ -100,7 +100,7 @@
   <ItemGroup>
     <Compile Include="Bootstrapper.cs" />
     <Compile Include="DataInitializer.cs" />
-    <Compile Include="GitWrapper.cs" />
+    <Compile Include="GitCommandLineWrapper.cs" />
     <Compile Include="Indexes\Deployment_ByEnvironment.cs" />
     <Compile Include="Indexes\Deployment_Latest.cs" />
     <Compile Include="Indexes\Pakages_GroupedByNugetId.cs" />

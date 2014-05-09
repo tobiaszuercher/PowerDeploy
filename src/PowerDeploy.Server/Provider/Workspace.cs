@@ -35,7 +35,7 @@ namespace PowerDeploy.Server.Provider
         public void UpdateSources()
         {
             var repoDir = Path.Combine(ServerSettings.WorkDir, "repo");
-            var git = new GitWrapper(repoDir);
+            var git = new GitCommandLineWrapper(repoDir);
             git.PullOrCloneRepository(ServerSettings.RepositoryUrl);
         }
 
