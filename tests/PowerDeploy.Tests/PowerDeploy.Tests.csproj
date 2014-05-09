@@ -86,6 +86,7 @@
     <Compile Include="TemplateEngineTests\TemplateEngineTests.cs" />
     <Compile Include="TemplateEngineTests\VariableResolverTests.cs" />
     <Compile Include="TemplateEngineTests\ZipPackagesTests.cs" />
+    <Compile Include="TestBuddy.cs" />
     <Compile Include="TestFolder.cs" />
   </ItemGroup>
   <ItemGroup>

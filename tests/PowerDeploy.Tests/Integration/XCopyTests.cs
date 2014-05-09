@@ -22,6 +22,8 @@ namespace PowerDeploy.Tests.Integration
         [TestMethod]
         public void Build_And_Packaged_XCopy_Has_Correct_Metadata()
         {
+            System.Environment.CurrentDirectory = Path.Combine(TestBuddy.GetProjectRoot(), "Samples");
+
             MsBuild("PowerDeploy.Sample.XCopy\\PowerDeploy.Sample.XCopy.csproj /t:clean,build /p:RunOctoPack=true /p:OctoPackPackageVersion=1.3.3.7 /p:Configuration=Release /v:m");
 
             Assert.IsTrue(File.Exists(@"PowerDeploy.Sample.XCopy\obj\octopacked\PowerDeploy.Sample.XCopy.1.3.3.7.nupkg"));
@@ -36,6 +38,8 @@ namespace PowerDeploy.Tests.Integration
         [TestMethod]
         public void Configure_XCopy_Sample_Project_With_Mocked_Environment()
         {
+            System.Environment.CurrentDirectory = Path.Combine(TestBuddy.GetProjectRoot(), "Samples");
+
             MsBuild("PowerDeploy.Sample.XCopy\\PowerDeploy.Sample.XCopy.csproj /t:clean,build /p:RunOctoPack=true /p:OctoPackPackageVersion=1.3.3.7 /p:Configuration=Release /v:m");
 
             var environmentMock = new Mock<IEnvironmentProvider>();
@@ -78,6 +82,8 @@ namespace PowerDeploy.Tests.Integration
         [TestMethod]
         public void Deserialize_XCopy_Package_Descriptor_Test()
         {
+            System.Environment.CurrentDirectory = Path.Combine(TestBuddy.GetProjectRoot(), "Samples");
+
             MsBuild("PowerDeploy.Sample.XCopy\\PowerDeploy.Sample.XCopy.csproj /t:clean,build /p:RunOctoPack=true /p:OctoPackPackageVersion=1.3.3.7 /p:Configuration=Release /v:m");
 
             var environmentMock = new Mock<IEnvironmentProvider>();
@@ -99,6 +105,8 @@ namespace PowerDeploy.Tests.Integration
         [TestMethod]
         public void Deploy_XCopy_Package_Test()
         {
+            System.Environment.CurrentDirectory = Path.Combine(TestBuddy.GetProjectRoot(), "Samples");
+
             MsBuild("PowerDeploy.Sample.XCopy\\PowerDeploy.Sample.XCopy.csproj /t:clean,build /p:RunOctoPack=true /p:OctoPackPackageVersion=1.3.3.7 /p:Configuration=Release /v:m");
 
             var environmentMock = new Mock<IEnvironmentProvider>();
