@@ -26,7 +26,7 @@ namespace PowerDeploy.Tests
         [TestInitialize]
         public void InitTests()
         {
-            _originalDirectory = System.Environment.CurrentDirectory;
+            //_originalDirectory = System.Environment.CurrentDirectory;
             FileSystem = new PhysicalFileSystem();
         }
 

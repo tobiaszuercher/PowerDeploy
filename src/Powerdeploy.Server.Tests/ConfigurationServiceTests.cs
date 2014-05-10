@@ -36,6 +36,7 @@ namespace Powerdeploy.Server.Tests
         }
 
         [TestMethod]
+        [Ignore]
         public void ConfigurationService_Returns_Valid_Configration()
         {
             var target = _appHost.TryResolve<ConfigurationService>();
