@@ -134,12 +134,6 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
-    <Compile Include="ConfigurationServiceTests.cs" />
-    <Compile Include="EnvironmentServiceTests.cs" />
-    <Compile Include="DeployServiceTests.cs" />
-    <Compile Include="GitCommandLineWrapperTests.cs" />
-    <Compile Include="Indexes\Deplyoment_LatestTests.cs" />
-    <Compile Include="Indexes\DeploySzenario.cs" />
     <Compile Include="PackageFixtures.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -149,6 +143,10 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\tests\PowerDeploy.Tests\PowerDeploy.Tests.csproj">
+      <Project>{53E1351B-6B5C-49E2-9625-228F788DC3EA}</Project>
+      <Name>PowerDeploy.Tests</Name>
+    </ProjectReference>
     <ProjectReference Include="..\PowerDeploy.Core\PowerDeploy.Core.csproj">
       <Project>{56455038-AF11-4710-9D29-FDF7B050553A}</Project>
       <Name>PowerDeploy.Core</Name>

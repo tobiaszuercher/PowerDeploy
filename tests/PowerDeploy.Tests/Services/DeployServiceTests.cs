@@ -1,20 +1,15 @@
 ﻿using System.IO;
-
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-
 using PowerDeploy.Core;
+using PowerDeploy.Core.Logging;
 using PowerDeploy.Server;
 using PowerDeploy.Server.ServiceModel;
 using PowerDeploy.Server.Services;
-using PowerDeploy.Server.Tests;
-
-using Raven.Client.Document;
-
+using Raven.Tests.Helpers;
 using ServiceStack;
-using ServiceStack.Logging;
 using ServiceStack.Testing;
 
-namespace Powerdeploy.Server.Tests
+namespace PowerDeploy.Tests.Services
 {
     [TestClass]
     public class DeployServiceTests : PackageFixtures
@@ -24,20 +19,18 @@ namespace Powerdeploy.Server.Tests
         [TestInitialize]
         public void TestInit()
         {
-            LogManager.LogFactory = new ConsoleLogFactory();
-
-            _appHost = new BasicAppHost();
-            _appHost.Init();
-
-            var container = _appHost.Container;
-
-            var documentStore = new DocumentStore()
+            if (_appHost == null)
             {
-                DefaultDatabase = "PowerDeploy",
-                Url = "http://localhost:8080",
-            }.Initialize();
+                LogManager.LogFactory = new ConsoleLogFactory();
 
-            Bootstrapper.ConfigureDependencies(container, documentStore);
+                _appHost = new BasicAppHost();
+                _appHost.Init();
+
+                var store = NewDocumentStore();
+                DataInitializer.InitializerWithDefaultValuesIfEmpty(store);
+
+                PowerDeploy.Server.Bootstrapper.ConfigureDependencies(_appHost.Container, store);
+            }
         }
 
         [TestMethod]
@@ -57,17 +50,19 @@ namespace Powerdeploy.Server.Tests
             const string Package = "PowerDeploy.Sample.XCopy";
             const string TargetEnvironment = "unittest";
 
+            System.Environment.CurrentDirectory = TestBuddy.GetProjectRootCombined("src");
+
             var target = _appHost.Resolve<DeployService>();
 
             // make sure nuget server has no package with this version
             File.Delete(Path.Combine(NugetServerPackagesPath, "{0}.{1}.nupkg".Fmt(Package, Version)));
 
             MsBuild(@"{0}\{0}.csproj /t:clean,build /p:OctoPackPackageVersion={1} /p:OctoPackPublishPackageToFileShare={2} /p:Configuration=Release /p:RunOctoPack=true /v:m".Fmt(Package, Version, NugetServerPackagesPath));
-            
+
             // act
             target.Post(new TriggerDeployment()
             {
-                Environment = TargetEnvironment, 
+                Environment = TargetEnvironment,
                 PackageId = Package,
                 Version = Version,
             });

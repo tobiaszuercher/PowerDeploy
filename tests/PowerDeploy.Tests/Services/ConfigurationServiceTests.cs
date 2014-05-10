@@ -1,38 +1,34 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-
+using PowerDeploy.Server;
 using PowerDeploy.Server.ServiceModel;
 using PowerDeploy.Server.Services;
-
-using Raven.Client.Document;
-
-using ServiceStack.Logging;
+using Raven.Tests.Helpers;
 using ServiceStack.Testing;
+using ConsoleLogFactory = PowerDeploy.Core.Logging.ConsoleLogFactory;
+using LogManager = PowerDeploy.Core.Logging.LogManager;
 
 namespace Powerdeploy.Server.Tests
 {
     [TestClass]
-    public class ConfigurationServiceTests
+    public class ConfigurationServiceTests : RavenTestBase
     {
         private BasicAppHost _appHost;
 
         [TestInitialize]
         public void TestInit()
         {
-            LogManager.LogFactory = new ConsoleLogFactory();
-
-            _appHost = new BasicAppHost();
-            _appHost.Init();
-
-            var container = _appHost.Container;
-
-            var documentStore = new DocumentStore()
+            if (_appHost == null)
             {
-                DefaultDatabase = "PowerDeploy",
-                Url = "http://localhost:8080",
-            }.Initialize();
+                LogManager.LogFactory = new ConsoleLogFactory();
 
-            container.Register(documentStore);
-            container.RegisterAutoWired<ConfigurationService>();
+                _appHost = new BasicAppHost();
+                _appHost.Init();
+
+                var store = NewDocumentStore();
+                DataInitializer.InitializerWithDefaultValuesIfEmpty(store);
+
+                _appHost.Container.RegisterAutoWired<ConfigurationService>();
+            }
         }
 
         [TestMethod]

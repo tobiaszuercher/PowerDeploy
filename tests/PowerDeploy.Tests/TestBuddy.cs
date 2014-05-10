@@ -23,5 +23,10 @@ namespace PowerDeploy.Tests
 
             return root;
         }
+
+        public static string GetProjectRootCombined(string combinePath)
+        {
+            return Path.Combine(GetProjectRoot(), combinePath);
+        }
     }
 }

@@ -10,23 +10,24 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using NuGet;
 
 using PowerDeploy.Core;
-
+using Raven.Tests.Helpers;
 using Environment = PowerDeploy.Core.Environment;
 using IFileSystem = PowerDeploy.Core.IFileSystem;
 using PhysicalFileSystem = PowerDeploy.Core.PhysicalFileSystem;
 
 namespace PowerDeploy.Tests
 {
-    public abstract class PackageFixtures
+    public abstract class PackageFixtures : RavenTestBase
     {
         private string _originalDirectory;
+        public const string NugetServerPackagesPath = @"c:\temp\nuget.server";
 
         protected IFileSystem FileSystem { get; set; }
 
         [TestInitialize]
         public void InitTests()
         {
-            //_originalDirectory = System.Environment.CurrentDirectory;
+            _originalDirectory = System.Environment.CurrentDirectory;
             FileSystem = new PhysicalFileSystem();
         }
 

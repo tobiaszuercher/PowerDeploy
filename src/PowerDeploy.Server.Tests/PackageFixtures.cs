@@ -28,14 +28,6 @@ namespace PowerDeploy.Server.Tests
         {
             _originalDirectory = System.Environment.CurrentDirectory;
             FileSystem = new PhysicalFileSystem();
-
-            var root = new Uri(typeof(PackageFixtures).Assembly.CodeBase).LocalPath;
-            while (!root.EndsWith("PowerDeploy") && !root.EndsWith("PowerDeploy\\"))
-            {
-                root = Directory.GetParent(root).FullName;
-            }
-
-            System.Environment.CurrentDirectory = Path.Combine(root, "Samples");
         }
 
         protected static void MsBuild(string commandLineArguments)

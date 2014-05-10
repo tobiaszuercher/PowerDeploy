@@ -25,6 +25,12 @@ namespace PowerDeploy.Server
 
                     session.SaveChanges();
                 }
+
+                if (session.Load<ServerSettings>("ServerSettings/1") == null)
+                {
+                    session.Store(new ServerSettings() { Id = 1 });
+                    session.SaveChanges();
+                }
             }
         }
     }

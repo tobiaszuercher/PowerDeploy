@@ -22,7 +22,7 @@ namespace PowerDeploy.Tests.Integration
         [TestMethod]
         public void Build_And_Packaged_XCopy_Has_Correct_Metadata()
         {
-            System.Environment.CurrentDirectory = Path.Combine(TestBuddy.GetProjectRoot(), "Samples");
+            System.Environment.CurrentDirectory = TestBuddy.GetProjectRootCombined("Samples");
 
             MsBuild("PowerDeploy.Sample.XCopy\\PowerDeploy.Sample.XCopy.csproj /t:clean,build /p:RunOctoPack=true /p:OctoPackPackageVersion=1.3.3.7 /p:Configuration=Release /v:m");
 
