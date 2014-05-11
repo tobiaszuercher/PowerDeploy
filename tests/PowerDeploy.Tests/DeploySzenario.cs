@@ -1,13 +1,11 @@
 using System;
 using System.Collections.Generic;
-
 using PowerDeploy.Server.Model;
 using PowerDeploy.Server.ServiceModel.Deployment;
-
 using Raven.Client;
 using Raven.Tests.Helpers;
 
-namespace Powerdeploy.Server.Tests.Indexes
+namespace PowerDeploy.Tests
 {
     public class DeploySzenario
     {
@@ -15,15 +13,24 @@ namespace Powerdeploy.Server.Tests.Indexes
         private readonly IDocumentStore _store;
         private readonly List<Package> _packages;
         private readonly List<Deployment> _deployments;
+        private readonly List<PowerDeploy.Server.Model.Environment> _environments; 
 
         public DeploySzenario(IDocumentStore store)
         {
             _store = store;
             _packages = new List<Package>();
             _deployments = new List<Deployment>();
+            _environments = new List<PowerDeploy.Server.Model.Environment>();
             _startDate = new DateTime(2014, 01, 12);
 
             AddEnvironments(store);
+        }
+
+        public DeploySzenario CreateEnvironment(string name)
+        {
+            _environments.Add(new PowerDeploy.Server.Model.Environment() { Name = name });
+
+            return this;
         }
 
         public DeploySzenario PublishPackage(string nugetId, string version)
@@ -55,6 +62,7 @@ namespace Powerdeploy.Server.Tests.Indexes
             {
                 _packages.ForEach(session.Store);
                 _deployments.ForEach(session.Store);
+                _environments.ForEach(session.Store);
 
                 session.SaveChanges();
             }
@@ -67,6 +75,7 @@ namespace Powerdeploy.Server.Tests.Indexes
             return this;
         }
 
+        // todo: handle environments better to have "CreateEnvironment" Method or EnsureEnvironmentExists
         private void AddEnvironments(IDocumentStore store)
         {
             var e1 = new PowerDeploy.Server.Model.Environment() { Id = (int)Environment.Dev, Name = "DEV" };

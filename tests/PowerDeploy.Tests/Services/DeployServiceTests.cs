@@ -5,6 +5,8 @@ using PowerDeploy.Core.Logging;
 using PowerDeploy.Server;
 using PowerDeploy.Server.ServiceModel;
 using PowerDeploy.Server.Services;
+using Powerdeploy.Server.Tests.Indexes;
+using Raven.Client;
 using Raven.Tests.Helpers;
 using ServiceStack;
 using ServiceStack.Testing;
@@ -50,7 +52,11 @@ namespace PowerDeploy.Tests.Services
             const string Package = "PowerDeploy.Sample.XCopy";
             const string TargetEnvironment = "unittest";
 
-            System.Environment.CurrentDirectory = TestBuddy.GetProjectRootCombined("src");
+            _appHost.Container.Resolve<IDocumentStore>().CreateSzenario()
+                .PublishPackage(Package, Version)
+                .Play();
+
+            System.Environment.CurrentDirectory = TestBuddy.GetProjectRootCombined("samples");
 
             var target = _appHost.Resolve<DeployService>();
 

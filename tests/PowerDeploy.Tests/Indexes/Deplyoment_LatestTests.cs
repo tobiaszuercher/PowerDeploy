@@ -5,7 +5,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using PowerDeploy.Server.Indexes;
 using PowerDeploy.Server.ServiceModel;
 using PowerDeploy.Server.ServiceModel.Package;
-
+using PowerDeploy.Tests;
 using Raven.Tests.Helpers;
 
 using Assert = Microsoft.VisualStudio.TestTools.UnitTesting.Assert;

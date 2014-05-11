@@ -145,13 +145,12 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
-    <Compile Include="Indexes\DeploySzenario.cs" />
+    <Compile Include="DeploySzenario.cs" />
     <Compile Include="Indexes\Deplyoment_LatestTests.cs" />
     <Compile Include="Integration\XCopyTests.cs" />
     <Compile Include="Misc\GitCommandLineWrapperTests.cs" />
     <Compile Include="PackageAssertExtensions.cs" />
     <Compile Include="PackageFixtures.cs" />
-    <Compile Include="RavenTests\CanCallLastOnArray.cs" />
     <Compile Include="Services\ConfigurationServiceTests.cs" />
     <Compile Include="Services\DeployServiceTests.cs" />
     <Compile Include="Services\EnvironmentServiceTests.cs" />

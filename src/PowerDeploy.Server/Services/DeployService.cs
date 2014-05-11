@@ -28,7 +28,7 @@ namespace PowerDeploy.Server.Services
         {
             using (var session = DocumentStore.OpenSession())
             {
-                var environment = session.Query<Environment>().FirstOrDefault(e => e.Name.ToUpperInvariant() == request.Environment.ToUpperInvariant());
+                var environment = session.Query<Environment>().FirstOrDefault(e => e.Name == request.Environment);
 
                 if (environment == null)
                 {

@@ -18,10 +18,12 @@ namespace PowerDeploy.Server
                     var e1 = new Environment() { Id = 1, Name = "DEV", Description = "Development environment for the Dev's" };
                     var e2 = new Environment() { Id = 2, Name = "TEST", Description = "Dedicated environment for tester." };
                     var e3 = new Environment() { Id = 3, Name = "PROD", Description = "Production." };
+                    var e4 = new Environment() { Id = 4, Name = "unittest", Description = "unit tests" };
 
                     session.Store(e1);
                     session.Store(e2);
                     session.Store(e3);
+                    session.Store(e4);
 
                     session.SaveChanges();
                 }
