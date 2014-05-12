@@ -17,7 +17,8 @@ namespace PowerDeploy.Tests.TemplateEngineTests
         public void Find_Environment()
         {
             var target = new EnvironmentProvider();
-            target.Initialize(@"C:\git\PowerDeploy\src\PowerDeploy.PackageManagerExtension");
+
+            target.Initialize(TestBuddy.GetProjectRootCombined(@"samples\PowerDeploy.Sample.XCopy"));
             var result = target.GetEnvironment("unittest");
 
             Assert.IsNotNull(result);
