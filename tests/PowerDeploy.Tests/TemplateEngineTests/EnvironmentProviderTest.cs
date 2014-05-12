@@ -80,15 +80,5 @@ namespace PowerDeploy.Tests.TemplateEngineTests
                 Assert.AreEqual("Bauer", result["Jack"].Value);
             }
         }
-
-        [TestMethod]
-        public void Find_Null_Reference()
-        {
-            var target = new EnvironmentProvider(@"C:\git\PowerDeploy\src\PowerDeploy.Sample.Tests");
-
-            var templateEngine = new TemplateEngine();
-
-            templateEngine.TransformDirectory(@"C:\git\PowerDeploy\src\PowerDeploy.Sample.Tests", target.GetEnvironment("unittest"), false);
-        }
     }
 }

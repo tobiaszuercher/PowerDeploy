@@ -9,6 +9,7 @@ namespace PowerDeploy.Tests.TemplateEngineTests
     public class ZipPackagesTests
     {
          [TestMethod]
+         [Ignore] // just a test to understand how the unzip works
          public void Extract_Zip_Package_Test()
          {
              var package = ZipPackage.Open(@"c:\temp\nuget\Testpackage.1.0.0.nupkg", FileMode.Open, FileAccess.ReadWrite);

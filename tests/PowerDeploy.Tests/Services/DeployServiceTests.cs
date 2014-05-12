@@ -45,6 +45,7 @@ namespace PowerDeploy.Tests.Services
 
         [TestMethod]
         [TestCategory("Integration")]
+        [Ignore] // todo: Think about how to test nuget server
         public void Deploy_XCopy_Package()
         {
             // arrange
