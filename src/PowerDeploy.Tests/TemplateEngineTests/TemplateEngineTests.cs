@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using NUnit.Framework;
 
 using Moq;
 
@@ -9,10 +9,10 @@ using PowerDeploy.Core.Template;
 
 namespace PowerDeploy.Tests.TemplateEngineTests
 {
-    [TestClass]
+    [TestFixture]
     public class TemplateEngineTests
     {
-        [TestMethod]
+        [Test]
         public void Transform_Package_Test()
         {
             var mock = new Mock<IEnvironmentSerializer>();

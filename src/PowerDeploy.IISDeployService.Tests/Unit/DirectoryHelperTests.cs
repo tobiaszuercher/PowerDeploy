@@ -1,7 +1,7 @@
 ﻿using System;
 using System.IO;
 
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using NUnit.Framework;
 
 using ServiceStack;
 
@@ -9,10 +9,10 @@ using System.Linq;
 
 namespace PowerDeploy.IISDeployService.Tests.Unit
 {
-    [TestClass]
+    [TestFixture]
     public class DirectoryHelperTests
     {
-        [TestMethod]
+        [Test]
         public void Cleanup_Folder_with_less_than_5_Folders()
         {
             var target = Directory.CreateDirectory(@"c:\temp\{0}".Fmt(Guid.NewGuid()));

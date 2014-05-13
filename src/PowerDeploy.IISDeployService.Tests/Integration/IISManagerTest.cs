@@ -1,14 +1,14 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using NUnit.Framework;
 
 using PowerDeploy.IISDeployService.Contract;
 
 namespace PowerDeploy.IISDeployService.Tests.Integration
 {
-    [TestClass]
+    [TestFixture]
     public class IISManagerTest
     {
-        [TestMethod]
-        [TestCategory("Integration")]
+        [Test]
+        [Category("Integration")]
         public void Create_AppPool_Test()
         {
             IISManagerTestBuddy.DeleteAppPool("UnitTestAppPool");
@@ -18,8 +18,8 @@ namespace PowerDeploy.IISDeployService.Tests.Integration
             IISManagerTestBuddy.AssertAppPool("UnitTestAppPool", "pool-user", "pool-pass");
         }
 
-        [TestMethod]
-        [TestCategory("Integration")]
+        [Test]
+        [Category("Integration")]
         public void Create_Website_Test()
         {
             IISManagerTestBuddy.DeleteWebsite("UnitTestWebsite");

@@ -1,4 +1,4 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using NUnit.Framework;
 using PowerDeploy.Server;
 using PowerDeploy.Server.ServiceModel;
 using PowerDeploy.Server.Services;
@@ -9,12 +9,12 @@ using LogManager = PowerDeploy.Core.Logging.LogManager;
 
 namespace Powerdeploy.Server.Tests
 {
-    [TestClass]
+    [TestFixture]
     public class ConfigurationServiceTests : RavenTestBase
     {
         private BasicAppHost _appHost;
 
-        [TestInitialize]
+        [TestFixtureSetUp]
         public void TestInit()
         {
             if (_appHost == null)
@@ -31,7 +31,7 @@ namespace Powerdeploy.Server.Tests
             }
         }
 
-        [TestMethod]
+        [Test]
         [Ignore]
         public void ConfigurationService_Returns_Valid_Configration()
         {

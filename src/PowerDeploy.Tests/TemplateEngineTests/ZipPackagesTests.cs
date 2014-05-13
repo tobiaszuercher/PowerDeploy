@@ -1,14 +1,13 @@
 ﻿using System.IO;
 using System.IO.Packaging;
-
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using NUnit.Framework;
 
 namespace PowerDeploy.Tests.TemplateEngineTests
 {
-    [TestClass]
+    [TestFixture]
     public class ZipPackagesTests
     {
-         [TestMethod]
+         [Test]
          [Ignore] // just a test to understand how the unzip works
          public void Extract_Zip_Package_Test()
          {

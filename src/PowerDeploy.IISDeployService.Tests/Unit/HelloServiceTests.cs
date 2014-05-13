@@ -1,5 +1,4 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-
+﻿using NUnit.Framework;
 using PowerDeploy.IISDeployService.Contract;
 
 using ServiceStack.Logging;
@@ -8,12 +7,12 @@ using ServiceStack.Text;
 
 namespace PowerDeploy.IISDeployService.Tests.Unit
 {
-    [TestClass]
+    [TestFixture]
     public class HelloServiceTests
     {
         private BasicAppHost _appHost;
 
-        [TestInitialize]
+        [TestFixtureSetUp]
         public void TestInit()
         {
             LogManager.LogFactory = new ConsoleLogFactory();
@@ -26,14 +25,14 @@ namespace PowerDeploy.IISDeployService.Tests.Unit
             container.RegisterAutoWired<HelloService>();
         }
 
-        [TestCleanup]
+        [TestFixtureTearDown]
         public void TestCleanup()
         {
             _appHost.Dispose();
         }
 
-        [TestMethod]
-        [TestCategory("Unit")]
+        [Test]
+        [Category("Unit")]
         public void SampleTest()
         {
             var target = _appHost.Container.Resolve<HelloService>();

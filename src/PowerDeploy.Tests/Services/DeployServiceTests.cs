@@ -1,50 +1,40 @@
 ﻿using System.IO;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using NUnit.Framework;
 using PowerDeploy.Core;
 using PowerDeploy.Core.Logging;
 using PowerDeploy.Server;
 using PowerDeploy.Server.ServiceModel;
 using PowerDeploy.Server.Services;
-using Powerdeploy.Server.Tests.Indexes;
 using Raven.Client;
-using Raven.Tests.Helpers;
 using ServiceStack;
 using ServiceStack.Testing;
 
 namespace PowerDeploy.Tests.Services
 {
-    [TestClass]
+    [TestFixture]
     public class DeployServiceTests : PackageFixtures
     {
         private BasicAppHost _appHost;
 
-        [TestInitialize]
-        public void TestInit()
-        {
-            if (_appHost == null)
-            {
-                LogManager.LogFactory = new ConsoleLogFactory();
+        ////[TestFixtureSetUp]
+        ////public void TestInit()
+        ////{
+        ////    if (_appHost == null)
+        ////    {
+        ////        LogManager.LogFactory = new ConsoleLogFactory();
 
-                _appHost = new BasicAppHost();
-                _appHost.Init();
+        ////        _appHost = new BasicAppHost();
+        ////        _appHost.Init();
 
-                var store = NewDocumentStore();
-                DataInitializer.InitializerWithDefaultValuesIfEmpty(store);
+        ////        var store = NewDocumentStore();
+        ////        DataInitializer.InitializerWithDefaultValuesIfEmpty(store);
 
-                PowerDeploy.Server.Bootstrapper.ConfigureDependencies(_appHost.Container, store);
-            }
-        }
+        ////        Bootstrapper.ConfigureDependencies(_appHost.Container, store);
+        ////    }
+        ////}
 
-        [TestMethod]
-        [TestCategory("Integration")]
-        public void Synchronize_Packages()
-        {
-            var target = _appHost.TryResolve<PackageService>();
-            var response = target.Any(new SynchronizePackageRequest());
-        }
-
-        [TestMethod]
-        [TestCategory("Integration")]
+        [Test]
+        [Category("Integration")]
         [Ignore] // todo: Think about how to test nuget server
         public void Deploy_XCopy_Package()
         {

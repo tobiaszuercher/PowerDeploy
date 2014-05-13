@@ -1,6 +1,6 @@
 ﻿using System.Linq;
 
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using NUnit.Framework;
 
 using PowerDeploy.Server.Indexes;
 using PowerDeploy.Server.ServiceModel;
@@ -12,10 +12,10 @@ using Assert = Microsoft.VisualStudio.TestTools.UnitTesting.Assert;
 
 namespace Powerdeploy.Server.Tests.Indexes
 {
-    [TestClass]
+    [TestFixture]
     public class Deplyoment_LatestTests : RavenTestBase
     {
-        [TestMethod]
+        [Test]
         public void Deploy_Old_Then_Newer_Shows_Latest()
         {
             using (var store = NewDocumentStore())
@@ -43,7 +43,7 @@ namespace Powerdeploy.Server.Tests.Indexes
             }
         }
 
-        [TestMethod]
+        [Test]
         public void Deploy_New_Then_Old_Shows_Old()
         {
             using (var store = NewDocumentStore())
@@ -72,7 +72,7 @@ namespace Powerdeploy.Server.Tests.Indexes
             }
         }
 
-        [TestMethod]
+        [Test]
         public void Publish_Different_Packages_One_Deployment_Shows_Latest()
         {
             using (var store = NewDocumentStore())
@@ -99,7 +99,7 @@ namespace Powerdeploy.Server.Tests.Indexes
             }
         }
 
-        [TestMethod]
+        [Test]
         public void Deploy_Different_Packages_Shows_Correct_Latest()
         {
             using (var store = NewDocumentStore())
@@ -131,7 +131,7 @@ namespace Powerdeploy.Server.Tests.Indexes
             }
         }
 
-        [TestMethod]
+        [Test]
         public void Deploy_Different_Packages_To_Different_Environments_Shows_Correct_Latest()
         {
             using (var store = NewDocumentStore())

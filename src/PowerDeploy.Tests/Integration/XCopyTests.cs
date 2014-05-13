@@ -2,24 +2,21 @@
 using System.IO;
 using System.Linq;
 
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-
 using Moq;
 
 using NuGet;
-
+using NUnit.Framework;
 using PowerDeploy.Core;
 using PowerDeploy.Core.Deploy;
 using PowerDeploy.Core.Extensions;
-
 using PackageManager = PowerDeploy.Core.PackageManager;
 
 namespace PowerDeploy.Tests.Integration
 {
-    [TestClass]
+    [TestFixture]
     public class XCopyTests : PackageFixtures
     {
-        [TestMethod]
+        [Test]
         public void Build_And_Packaged_XCopy_Has_Correct_Metadata()
         {
             System.Environment.CurrentDirectory = TestBuddy.GetProjectRootCombined("Samples");
@@ -35,7 +32,7 @@ namespace PowerDeploy.Tests.Integration
             Assert.IsTrue(nupkg.GetFiles().Any(f => f.Path.Contains("powerdeploy.template.xml")));
         }
 
-        [TestMethod]
+        [Test]
         public void Configure_XCopy_Sample_Project_With_Mocked_Environment()
         {
             System.Environment.CurrentDirectory = Path.Combine(TestBuddy.GetProjectRoot(), "Samples");
@@ -79,7 +76,7 @@ namespace PowerDeploy.Tests.Integration
                 }));
         }
 
-        [TestMethod]
+        [Test]
         public void Deserialize_XCopy_Package_Descriptor_Test()
         {
             System.Environment.CurrentDirectory = Path.Combine(TestBuddy.GetProjectRoot(), "Samples");
@@ -102,7 +99,7 @@ namespace PowerDeploy.Tests.Integration
             Assert.AreEqual("UNIT", options.Environment);
         }
 
-        [TestMethod]
+        [Test]
         public void Deploy_XCopy_Package_Test()
         {
             System.Environment.CurrentDirectory = Path.Combine(TestBuddy.GetProjectRoot(), "Samples");

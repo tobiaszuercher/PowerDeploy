@@ -1,4 +1,4 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using NUnit.Framework;
 using Microsoft.Web.Administration;
 
 namespace PowerDeploy.IISDeployService.Tests.Integration

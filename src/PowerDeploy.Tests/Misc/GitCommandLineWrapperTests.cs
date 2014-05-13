@@ -1,14 +1,14 @@
 ﻿using System.IO;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using NUnit.Framework;
 using PowerDeploy.Core;
 using PowerDeploy.Server;
 
-namespace Powerdeploy.Server.Tests
+namespace PowerDeploy.Tests.Misc
 {
-    [TestClass]
+    [TestFixture]
     public class GitTests
     {
-        [TestMethod]
+        [Test]
         public void Pull()
         {
             var filesystem = new PhysicalFileSystem();

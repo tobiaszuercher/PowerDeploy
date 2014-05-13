@@ -4,7 +4,7 @@ using System.IO;
 using System.Xml;
 using System.Xml.Serialization;
 
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using NUnit.Framework;
 
 using PowerDeploy.Core;
 
@@ -12,10 +12,10 @@ using Environment = PowerDeploy.Core.Environment;
 
 namespace PowerDeploy.Tests
 {
-    [TestClass]
+    [TestFixture]
     public class EnvironmentSerializationTests
     {
-        [TestMethod]
+        [Test]
         public void Serialize_Environment_Test()
         {
             var target = new Environment();
@@ -34,7 +34,7 @@ namespace PowerDeploy.Tests
             Console.WriteLine(xml);
         }
 
-        [TestMethod]
+        [Test]
         public void Deserialize_Environment_Test()
         {
             var xml = @"<?xml version=""1.0""?>

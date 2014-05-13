@@ -1,7 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using NUnit.Framework;
 
 using PowerDeploy.Core;
 using PowerDeploy.Core.Template;
@@ -10,10 +9,10 @@ using System.Linq;
 
 namespace PowerDeploy.Tests.TemplateEngineTests
 {
-    [TestClass]
+    [TestFixture]
     public class VariableResolverTests
     {
-         [TestMethod]
+         [Test]
          public void Resolve_One_Variable_Test()
          {
              var variableList = new List<Variable>() { new Variable() { Name = "Var1", Value = "Jack Bauer" } };
@@ -24,7 +23,7 @@ namespace PowerDeploy.Tests.TemplateEngineTests
              Assert.AreEqual("Hello Jack Bauer!", result);
          }
 
-        [TestMethod]
+        [Test]
         public void Resolve_Multiple_Variables_Test()
         {
             var variableList = new List<Variable>()
@@ -39,7 +38,7 @@ namespace PowerDeploy.Tests.TemplateEngineTests
             Assert.AreEqual("Hello Jack Bauer!", result);
         }
 
-        [TestMethod]
+        [Test]
         public void Resolve_On_Multiple_Lines_Test()
         {
             var variableList = new List<Variable>()
@@ -55,7 +54,7 @@ namespace PowerDeploy.Tests.TemplateEngineTests
             Assert.AreEqual(@"Hello Jack Bauer!\r\nThis is another line:2", result);
         }
 
-        [TestMethod]
+        [Test]
         public void Resolve_With_Default_Value_Set_Test()
         {
             var variableList = new List<Variable>()
@@ -70,7 +69,7 @@ namespace PowerDeploy.Tests.TemplateEngineTests
             Assert.AreEqual("Hello Jack Bauer!", result);
         }
 
-        [TestMethod]
+        [Test]
         public void Resolve_Using_Default_Value_Test()
         {
             var variableList = new List<Variable>();
@@ -81,7 +80,7 @@ namespace PowerDeploy.Tests.TemplateEngineTests
             Assert.AreEqual("Hello Mila Kunis!", result);
         }
 
-        [TestMethod]
+        [Test]
         public void Resolve_Variable_In_Variable_Test()
         {
             var variableList = new List<Variable>()
@@ -97,7 +96,7 @@ namespace PowerDeploy.Tests.TemplateEngineTests
             Assert.AreEqual("Hello Mila Kunis!", result);
         }
 
-        [TestMethod]
+        [Test]
         public void Resolve_Variable_In_Variable_In_Variable_Test()
         {
             var variableList = new List<Variable>()
@@ -113,7 +112,7 @@ namespace PowerDeploy.Tests.TemplateEngineTests
             Assert.AreEqual("A + B + C", result);
         }
 
-        [TestMethod]
+        [Test]
         public void List_Missing_Variables_Test()
         {
             var variableList = new List<Variable>()
@@ -128,7 +127,7 @@ namespace PowerDeploy.Tests.TemplateEngineTests
             Assert.AreEqual("Hello Jack !!Missing variable for LastName!!!", result);
         }
 
-        [TestMethod]
+        [Test]
         public void List_Multiple_Missing_Variables_Test()
         {
             var target = new VariableResolver(new List<Variable>());
@@ -138,7 +137,7 @@ namespace PowerDeploy.Tests.TemplateEngineTests
             Assert.AreEqual(3, target.VariableUsageList.Count(v => v.IsMissingValue));
         }
 
-        [TestMethod]
+        [Test]
         public void Resolve_Default_Value_With_Variable_In_It_Test()
         {
             var variableList = new List<Variable>()
@@ -153,7 +152,7 @@ namespace PowerDeploy.Tests.TemplateEngineTests
             Assert.AreEqual("Hello Jack Bauer!", result);
         }
 
-        [TestMethod]
+        [Test]
         [Ignore] // TODO: add warning also for default values
         public void Resolve_Default_Value_With_Missing_Variable_Test()
         {

@@ -5,7 +5,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using NUnit.Framework;
 
 using NuGet;
 
@@ -24,7 +24,7 @@ namespace PowerDeploy.Tests
 
         protected IFileSystem FileSystem { get; set; }
 
-        [TestInitialize]
+        [TestFixtureSetUp]
         public void InitTests()
         {
             _originalDirectory = System.Environment.CurrentDirectory;
@@ -93,7 +93,7 @@ namespace PowerDeploy.Tests
             Trace.WriteLine("Success!");
         }
 
-        [TestCleanup]
+        [TestFixtureTearDown]
         public void CleanupTest()
         {
             System.Environment.CurrentDirectory = _originalDirectory;
