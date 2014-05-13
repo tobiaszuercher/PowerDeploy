@@ -16,8 +16,9 @@ namespace PowerDeploy.IISDeployService
     {
         public void CreateAppPool(string name, string user, string pass, RuntimeVersion version, bool forceOverwrite = false)
         {
-            using (var manager = new ServerManager()) // create app pool if not exists
+            using (var manager = new ServerManager())
             {
+                // create app pool if not exists
                 if (manager.ApplicationPools[name] == null || forceOverwrite)
                 {
                     var pool = manager.ApplicationPools.Add(name);
@@ -41,6 +42,7 @@ namespace PowerDeploy.IISDeployService
                         Directory.CreateDirectory(physicalPath);
                     }
 
+                    // todo: host binding for website!!!
                     var site = manager.Sites.Add(name, physicalPath, port);
                     site.ApplicationDefaults.ApplicationPoolName = appPoolName;
                     manager.CommitChanges();

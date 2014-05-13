@@ -14,7 +14,8 @@ using ServiceStack.Configuration;
 namespace PowerDeploy.IISDeployService
 {
     /// <summary>
-    /// There are two ways to deploy:
+    /// Simple (directly into the web site), typical for prod:
+    /// ======================================================
     /// 
     /// First way (deploy to the root)
     /// deploy the package to the root of the website
@@ -28,6 +29,25 @@ namespace PowerDeploy.IISDeployService
     ///   
     /// The deployment process for "Root-Website"-Deployments just copies the package to the $WebsiteRoot 
     /// and maps the WebSite to this folder.
+    /// 
+    /// The more complex szenario (mutliple applications inside the same web site):
+    /// ===========================================================================
+    ///
+    /// example:
+    ///  WebsiteName:         Default Web Site (localhost)
+    ///  WebsitePhysicalPath: c:\inetpub\root
+    ///  AppRoot:             "sub1/sub2"
+    ///  AppName:             "app"
+    ///  AppPhysicalPath:     "c:\iis_apps\app"
+    ///
+    /// What happens:
+    /// c:\inetpub\root\sub1\sub2 will be created physically. In this folder, it creates an WebApplication Named "app" pointing to "c:\iis_apps\app"
+    /// Each deployment will add a subfolder in "c:\iis_apps\app": 
+    ///   c:\iis_apps\app\app_v1.0.1.0
+    ///   c:\iis_apps\app\app_v1.0.1.1
+    ///   c:\iis_apps\app\app_v1.0.1.2
+    /// 
+    /// The application will be accessible by http://localhost/sub1/sub2/app
     /// </summary>
     [ApiKeyAuth]
     public class DeploymentService : Service
@@ -63,22 +83,6 @@ namespace PowerDeploy.IISDeployService
             }
             else
             {
-                //// lets deploy in a more complex scenario
-                ////
-                //// example:
-                ////  WebsiteName:         Default Web Site
-                ////  WebsitePhysicalPath: c:\inetpub\root
-                ////  AppRoot:             "sub1/sub2"
-                ////  AppName:             "app"
-                ////  AppPhysicalPath:     "c:\iis_apps\app"
-                ////
-                //// What happens:
-                //// c:\inetpub\root\sub1\sub2 will be created physically. In this folder, it creates an WebApplication Named "app" pointing to "c:\iis_apps\app"
-                //// Each deployment will add a subfolder in "c:\iis_apps\app": 
-                ////   c:\iis_apps\app\app_v1.0.1.0
-                ////   c:\iis_apps\app\app_v1.0.1.1
-                ////   c:\iis_apps\app\app_v1.0.1.2
-
                 ////this lets you access your application with for example http://your-host/sub1/sub2/app
                 if (!Directory.Exists(request.AppPhysicalPath))
                 {
