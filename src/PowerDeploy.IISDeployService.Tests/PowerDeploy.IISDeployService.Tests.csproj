@@ -91,6 +91,7 @@
     <Compile Include="Integration\IISManagerTestBuddy.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SelfAppHost.cs" />
+    <Compile Include="TestExtensionMethods.cs" />
     <Compile Include="Unit\DirectoryHelperTests.cs" />
     <Compile Include="Unit\HelloServiceTests.cs" />
     <Compile Include="Integration\IISManagerTest.cs" />

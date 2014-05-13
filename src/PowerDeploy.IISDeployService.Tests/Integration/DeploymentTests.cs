@@ -74,8 +74,6 @@ namespace PowerDeploy.IISDeployService.Tests.Integration
 
         [Test]
         [Category("Integration")]
-        ////[DeploymentItem("Files/package.zip")] // todo: fix test for nunit
-        [Ignore]
         public void Trigger_Deployment_With_App_Virtual_Dir_And_Check_AppPool_And_Website_Test()
         {
             var client = GetClient();
@@ -87,7 +85,8 @@ namespace PowerDeploy.IISDeployService.Tests.Integration
                 AppPoolPassword = "topsecret",
                 WebsiteName = "ZZZ_Integration_Website_VDIR",
                 AppRoot = "/sub1/sub2",
-                PackageId = "IntegrationTest",PackageVersion = "1.3.3.7",
+                PackageId = "IntegrationTest",
+                PackageVersion = "1.3.3.7",
                 WebsitePhysicalPath = @"C:\temp\www",
                 WebsitePort = 8000,
                 RuntimeVersion = RuntimeVersion.Version40,
@@ -95,7 +94,7 @@ namespace PowerDeploy.IISDeployService.Tests.Integration
                 AppPhysicalPath = @"c:\temp\int-app",
             };
 
-            client.PostFileWithRequest<TriggerDeploymentResponse>("/deployments", new FileInfo("package.zip"), request).PrintDump();
+            client.PostFileWithRequest<TriggerDeploymentResponse>("/deployments", new FileInfo("src/PowerDeploy.IISDeployService.Tests/Files/package.zip".MapVcsRoot()), request).PrintDump();
 
             using (var manager = new ServerManager())
             {
