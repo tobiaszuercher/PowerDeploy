@@ -2,18 +2,18 @@
 using System.IO;
 
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-
+using NUnit.Framework;
 using PowerDeploy.Core;
 using PowerDeploy.Core.Template;
-
+using Xunit;
+using Assert = NUnit.Framework.Assert;
 using Environment = System.Environment;
 
 namespace PowerDeploy.Tests.TemplateEngineTests
 {
-    [TestClass]
     public class EnvironmentProviderTest
     {
-        [TestMethod]
+        [Test]
         public void Find_Environment()
         {
             var target = new EnvironmentProvider();
@@ -27,8 +27,8 @@ namespace PowerDeploy.Tests.TemplateEngineTests
             Assert.AreEqual("Bauer", result["Lastname"].Value);
         }
 
-        [TestMethod]
-        [ExpectedException(typeof(DirectoryNotFoundException))]
+        [Test]
+        [NUnit.Framework.ExpectedException(typeof(DirectoryNotFoundException))]
         public void Find_Environment_With_Dir_Not_Existing()
         {
             using (var workDir = new TestFolder(Environment.SpecialFolder.LocalApplicationData))
@@ -41,8 +41,8 @@ namespace PowerDeploy.Tests.TemplateEngineTests
             }
         }
 
-        [TestMethod]
-        [ExpectedException(typeof(FileNotFoundException))]
+        [Test]
+        [NUnit.Framework.ExpectedException(typeof(FileNotFoundException))]
         public void Find_Non_Existing_Environment()
         {
             using (var workDir = new TestFolder(Environment.SpecialFolder.LocalApplicationData))
@@ -56,7 +56,7 @@ namespace PowerDeploy.Tests.TemplateEngineTests
             }
         }
 
-        [TestMethod]
+        [Test]
         public void Find_Environment_In_Same_Dir()
         {
             var xml = @"<?xml version=""1.0""?>
