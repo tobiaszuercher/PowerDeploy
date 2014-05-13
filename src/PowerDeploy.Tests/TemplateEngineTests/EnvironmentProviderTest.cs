@@ -1,16 +1,12 @@
-﻿using System;
-using System.IO;
-
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using System.IO;
 using NUnit.Framework;
 using PowerDeploy.Core;
-using PowerDeploy.Core.Template;
-using Xunit;
 using Assert = NUnit.Framework.Assert;
 using Environment = System.Environment;
 
 namespace PowerDeploy.Tests.TemplateEngineTests
 {
+    [TestFixture]
     public class EnvironmentProviderTest
     {
         [Test]
@@ -28,7 +24,7 @@ namespace PowerDeploy.Tests.TemplateEngineTests
         }
 
         [Test]
-        [NUnit.Framework.ExpectedException(typeof(DirectoryNotFoundException))]
+        [ExpectedException(typeof(DirectoryNotFoundException))]
         public void Find_Environment_With_Dir_Not_Existing()
         {
             using (var workDir = new TestFolder(Environment.SpecialFolder.LocalApplicationData))
@@ -42,7 +38,7 @@ namespace PowerDeploy.Tests.TemplateEngineTests
         }
 
         [Test]
-        [NUnit.Framework.ExpectedException(typeof(FileNotFoundException))]
+        [ExpectedException(typeof(FileNotFoundException))]
         public void Find_Non_Existing_Environment()
         {
             using (var workDir = new TestFolder(Environment.SpecialFolder.LocalApplicationData))
