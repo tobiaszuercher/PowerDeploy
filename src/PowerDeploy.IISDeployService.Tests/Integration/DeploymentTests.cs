@@ -36,8 +36,6 @@ namespace PowerDeploy.IISDeployService.Tests.Integration
 
         [Test]
         [Category("Integration")]
-        ////[DeploymentItem("Files/package.zip")] // TODO: fix test for nunit
-        [Ignore]
         public void Trigger_Simple_Deployment_And_Check_AppPool_And_Website_Test()
         {
             var client = GetClient();
@@ -55,7 +53,7 @@ namespace PowerDeploy.IISDeployService.Tests.Integration
                 RuntimeVersion = RuntimeVersion.Version40,
             };
 
-            client.PostFileWithRequest<TriggerDeploymentResponse>("/deployments", new FileInfo("package.zip"), request).PrintDump();
+            client.PostFileWithRequest<TriggerDeploymentResponse>("/deployments", new FileInfo("src/PowerDeploy.IISDeployService.Tests/Files/package.zip".MapVcsRoot()), request).PrintDump();
 
             using (var manager = new ServerManager())
             {
@@ -110,8 +108,6 @@ namespace PowerDeploy.IISDeployService.Tests.Integration
 
         [Test]
         [Category("Integration")]
-        ////[DeploymentItem("Files/package.zip")] // todo: fix for nunit
-        [Ignore]
         public void List_Deployed_Folders_For_a_Website_Test()
          {
             var client = GetClient();
@@ -132,10 +128,9 @@ namespace PowerDeploy.IISDeployService.Tests.Integration
                 RuntimeVersion = RuntimeVersion.Version40,
             };
 
-            
-            client.PostFileWithRequest<TriggerDeploymentResponse>("/deployments", new FileInfo("package.zip"), request).PrintDump();
+            client.PostFileWithRequest<TriggerDeploymentResponse>("/deployments", new FileInfo("src/PowerDeploy.IISDeployService.Tests/Files/package.zip".MapVcsRoot()), request).PrintDump();
             request.PackageVersion = version2;
-            client.PostFileWithRequest<TriggerDeploymentResponse>("/deployments", new FileInfo("package.zip"), request).PrintDump();
+            client.PostFileWithRequest<TriggerDeploymentResponse>("/deployments", new FileInfo("src/PowerDeploy.IISDeployService.Tests/Files/package.zip".MapVcsRoot()), request).PrintDump();
 
             var response = client.Get(new QueryDeployments() { WebsiteName = request.WebsiteName });
 
@@ -147,8 +142,6 @@ namespace PowerDeploy.IISDeployService.Tests.Integration
 
         [Test]
         [Category("Integration")]
-        [Ignore]
-        ////[DeploymentItem("Files/package.zip")] // todo: fix for nunit
         public void List_Deployed_Folders_For_a_Website_with_VDIR_Test()
         {
             var client = GetClient();
@@ -172,9 +165,9 @@ namespace PowerDeploy.IISDeployService.Tests.Integration
                 AppPhysicalPath = @"c:\temp\int-app",
             };
 
-            client.PostFileWithRequest<TriggerDeploymentResponse>("/deployments", new FileInfo("package.zip"), request).PrintDump();
+            client.PostFileWithRequest<TriggerDeploymentResponse>("/deployments", new FileInfo("src/PowerDeploy.IISDeployService.Tests/Files/package.zip".MapVcsRoot()), request).PrintDump();
             request.PackageVersion = version2;
-            client.PostFileWithRequest<TriggerDeploymentResponse>("/deployments", new FileInfo("package.zip"), request).PrintDump();
+            client.PostFileWithRequest<TriggerDeploymentResponse>("/deployments", new FileInfo("src/PowerDeploy.IISDeployService.Tests/Files/package.zip".MapVcsRoot()), request).PrintDump();
 
             var response = client.Get(new QueryDeployments() { WebsiteName = request.WebsiteName, AppName = request.AppName, AppRoot = request.AppRoot });
 
@@ -186,8 +179,6 @@ namespace PowerDeploy.IISDeployService.Tests.Integration
 
         [Test]
         [Category("Integration")]
-        [Ignore]
-        ////[DeploymentItem("Files/package.zip")] // fix for nunit
         public void Rollback_Website_Test()
         {
             var client = GetClient();
@@ -206,9 +197,9 @@ namespace PowerDeploy.IISDeployService.Tests.Integration
                 WebsitePort = 2000,
             };
 
-            client.PostFileWithRequest<TriggerDeploymentResponse>("/deployments", new FileInfo("package.zip"), request).PrintDump();
+            client.PostFileWithRequest<TriggerDeploymentResponse>("/deployments", new FileInfo("src/PowerDeploy.IISDeployService.Tests/Files/package.zip".MapVcsRoot()), request).PrintDump();
             request.PackageVersion = "1.3.3.8";
-            client.PostFileWithRequest<TriggerDeploymentResponse>("/deployments", new FileInfo("package.zip"), request).PrintDump();
+            client.PostFileWithRequest<TriggerDeploymentResponse>("/deployments", new FileInfo("src/PowerDeploy.IISDeployService.Tests/Files/package.zip".MapVcsRoot()), request).PrintDump();
 
             var rollbackRequest = new RollbackDeployment() { WebsiteName = request.WebsiteName, RollbackTarget = "{0}_v{1}".Fmt(request.PackageId, "1.3.3.7") };
 
@@ -221,8 +212,6 @@ namespace PowerDeploy.IISDeployService.Tests.Integration
 
         [Test]
         [Category("Integration")]
-        [Ignore]
-        //[DeploymentItem("Files/package.zip")] // fix for nunit
         public void Rollback_Website_with_VDIR_Test()
         {
             var client = GetClient();
@@ -246,9 +235,9 @@ namespace PowerDeploy.IISDeployService.Tests.Integration
                 AppPhysicalPath = @"c:\temp\int-app",
             };
 
-            client.PostFileWithRequest<TriggerDeploymentResponse>("/deployments", new FileInfo("package.zip"), request).PrintDump();
+            client.PostFileWithRequest<TriggerDeploymentResponse>("/deployments", new FileInfo("src/PowerDeploy.IISDeployService.Tests/Files/package.zip".MapVcsRoot()), request).PrintDump();
             request.PackageVersion = version2;
-            client.PostFileWithRequest<TriggerDeploymentResponse>("/deployments", new FileInfo("package.zip"), request).PrintDump();
+            client.PostFileWithRequest<TriggerDeploymentResponse>("/deployments", new FileInfo("src/PowerDeploy.IISDeployService.Tests/Files/package.zip".MapVcsRoot()), request).PrintDump();
 
             var rollbackRequest = new RollbackDeployment()
                 {
