@@ -1,8 +1,6 @@
 ﻿using System.IO;
 using NUnit.Framework;
 using PowerDeploy.Core;
-using PowerDeploy.Core.Logging;
-using PowerDeploy.Server;
 using PowerDeploy.Server.ServiceModel;
 using PowerDeploy.Server.Services;
 using Raven.Client;
@@ -47,7 +45,7 @@ namespace PowerDeploy.Tests.Services
                 .PublishPackage(Package, Version)
                 .Play();
 
-            System.Environment.CurrentDirectory = TestBuddy.GetProjectRootCombined("samples");
+            System.Environment.CurrentDirectory = "samples".MapVcsRoot();
 
             var target = _appHost.Resolve<DeployService>();
 

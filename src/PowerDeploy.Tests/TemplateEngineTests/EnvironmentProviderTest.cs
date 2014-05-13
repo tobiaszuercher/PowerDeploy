@@ -1,7 +1,6 @@
 ﻿using System.IO;
 using NUnit.Framework;
 using PowerDeploy.Core;
-using Assert = NUnit.Framework.Assert;
 using Environment = System.Environment;
 
 namespace PowerDeploy.Tests.TemplateEngineTests
@@ -14,9 +13,9 @@ namespace PowerDeploy.Tests.TemplateEngineTests
         {
             var target = new EnvironmentProvider();
 
-            target.Initialize(TestBuddy.GetProjectRootCombined(@"samples\PowerDeploy.Sample.XCopy"));
+            target.Initialize(@"samples\PowerDeploy.Sample.XCopy".MapVcsRoot());
             var result = target.GetEnvironment("unittest");
-
+            
             Assert.IsNotNull(result);
             Assert.AreEqual("unittest", result.Name);
             Assert.AreEqual("Jack", result["Firstname"].Value);

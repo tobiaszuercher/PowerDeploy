@@ -19,7 +19,7 @@ namespace PowerDeploy.Tests.Integration
         [Test]
         public void Build_And_Packaged_XCopy_Has_Correct_Metadata()
         {
-            System.Environment.CurrentDirectory = TestBuddy.GetProjectRootCombined("Samples");
+            System.Environment.CurrentDirectory = "samples".MapVcsRoot();
 
             MsBuild("PowerDeploy.Sample.XCopy\\PowerDeploy.Sample.XCopy.csproj /t:clean,build /p:RunOctoPack=true /p:OctoPackPackageVersion=1.3.3.7 /p:Configuration=Release /v:m");
 
@@ -35,7 +35,7 @@ namespace PowerDeploy.Tests.Integration
         [Test]
         public void Configure_XCopy_Sample_Project_With_Mocked_Environment()
         {
-            System.Environment.CurrentDirectory = Path.Combine(TestBuddy.GetProjectRoot(), "Samples");
+            System.Environment.CurrentDirectory = "samples".MapVcsRoot();
 
             MsBuild("PowerDeploy.Sample.XCopy\\PowerDeploy.Sample.XCopy.csproj /t:clean,build /p:RunOctoPack=true /p:OctoPackPackageVersion=1.3.3.7 /p:Configuration=Release /v:m");
 
@@ -79,7 +79,7 @@ namespace PowerDeploy.Tests.Integration
         [Test]
         public void Deserialize_XCopy_Package_Descriptor_Test()
         {
-            System.Environment.CurrentDirectory = Path.Combine(TestBuddy.GetProjectRoot(), "Samples");
+            System.Environment.CurrentDirectory = "samples".MapVcsRoot();
 
             MsBuild("PowerDeploy.Sample.XCopy\\PowerDeploy.Sample.XCopy.csproj /t:clean,build /p:RunOctoPack=true /p:OctoPackPackageVersion=1.3.3.7 /p:Configuration=Release /v:m");
 
@@ -102,7 +102,7 @@ namespace PowerDeploy.Tests.Integration
         [Test]
         public void Deploy_XCopy_Package_Test()
         {
-            System.Environment.CurrentDirectory = Path.Combine(TestBuddy.GetProjectRoot(), "Samples");
+            System.Environment.CurrentDirectory = "samples".MapVcsRoot();
 
             MsBuild("PowerDeploy.Sample.XCopy\\PowerDeploy.Sample.XCopy.csproj /t:clean,build /p:RunOctoPack=true /p:OctoPackPackageVersion=1.3.3.7 /p:Configuration=Release /v:m");
 
