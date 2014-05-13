@@ -187,6 +187,7 @@ namespace PowerDeploy.IISDeployService.Tests.Integration
 
         [Test]
         [Category("Integration")]
+        [Ignore]
         ////[DeploymentItem("Files/package.zip")] // fix for nunit
         public void Rollback_Website_Test()
         {
