@@ -19,6 +19,7 @@ namespace PowerDeploy.Server
         public override void Configure(Container container)
         {
             Plugins.Add(new SwaggerFeature());
+            Plugins.Add(new PostmanFeature());
 
             var documentStore = new DocumentStore() { DefaultDatabase = "PowerDeploy", Url = "http://localhost:8080", }.Initialize();
 

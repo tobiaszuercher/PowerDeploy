@@ -3,6 +3,7 @@ using System.Linq;
 using NUnit.Framework;
 using PowerDeploy.Core;
 using PowerDeploy.Core.Template;
+using ServiceStack;
 
 namespace PowerDeploy.Tests.TemplateEngineTests
 {
@@ -147,6 +148,73 @@ namespace PowerDeploy.Tests.TemplateEngineTests
             var result = target.TransformVariables("Hello ${Fullname=$[FirstName] $[LastName]}!");
 
             Assert.AreEqual("Hello Jack Bauer!", result);
+        }
+
+        [Test]
+        [TestCase("true")]
+        [TestCase("TRUE")]
+        [TestCase("on")]
+        [TestCase("on")]
+        [TestCase("1")]
+        [TestCase("enabled")]
+        public void Conditional_Is_Visible_With_True(string condition)
+        {
+            var target = new VariableResolver(new List<Variable>());
+            var result = target.TransformVariables("Hello <!--[if " + condition + "]-->tobi!<!--[endif]-->");
+
+            Assert.AreEqual("Hello tobi!", result);
+        }
+
+        [Test]
+        [TestCase("true")]
+        [TestCase("TRUE")]
+        [TestCase("on")]
+        [TestCase("1")]
+        [TestCase("enabled")]
+        public void Conditional_Is_Visible_With_True_Variable(string condition)
+        {
+            var variableList = new List<Variable>()
+            {
+                new Variable() {Name = "condition", Value = condition}
+            };
+
+            var target = new VariableResolver(variableList);
+            var result = target.TransformVariables("Hello <!--[if ${condition}]-->tobi!<!--[endif]-->");
+
+            Assert.AreEqual("Hello tobi!", result);
+        }
+
+        [Test]
+        [TestCase("false")]
+        [TestCase("FALSE")]
+        [TestCase("off")]
+        [TestCase("0")]
+        [TestCase("disabled")]
+        public void Conditional_Not_Visible_With_False(string condition)
+        {
+            var target = new VariableResolver(new List<Variable>());
+            var result = target.TransformVariables("Hello <!--[if " + condition + "]-->tobi<!--[endif]-->!");
+
+            Assert.AreEqual("Hello !", result);
+        }
+
+        [Test]
+        [TestCase("false")]
+        [TestCase("FALSE")]
+        [TestCase("off")]
+        [TestCase("0")]
+        [TestCase("disabled")]
+        public void Conditional_Is_Visible_With_False_Variable(string condition)
+        {
+            var variableList = new List<Variable>()
+            {
+                new Variable() {Name = "condition", Value = condition}
+            };
+
+            var target = new VariableResolver(variableList);
+            var result = target.TransformVariables("Hello <!--[if ${condition}]-->tobi<!--[endif]-->!");
+
+            Assert.AreEqual("Hello !", result);
         }
 
         [Test]
