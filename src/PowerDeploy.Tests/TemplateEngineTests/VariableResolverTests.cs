@@ -218,6 +218,27 @@ namespace PowerDeploy.Tests.TemplateEngineTests
         }
 
         [Test]
+        public void Conditional_Is_Visible_With_False_Variable111()
+        {
+            var variableList = new List<Variable>()
+            {
+                new Variable() {Name = "condition", Value = "true"}
+            };
+
+            var target = new VariableResolver(variableList);
+            var result = target.TransformVariables(@"<!-- [if true] -->
+content 1
+<!-- [endif] -->
+
+<!-- [if true] -->
+content 2
+<!-- [endif] -->
+");
+
+            Assert.AreEqual("content 1content 2", result.Replace("\r", string.Empty).Replace("\n", string.Empty));
+        }
+
+        [Test]
         [Ignore] // TODO: add warning also for default values
         public void Resolve_Default_Value_With_Missing_Variable_Test()
         {

@@ -1,6 +1,8 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;
+using PowerDeploy.Core.Logging;
 
 namespace PowerDeploy.Core.Template
 {
@@ -21,10 +23,11 @@ namespace PowerDeploy.Core.Template
     {
         private IList<Variable> Variables { get; set; }
         private static readonly string[] TrueStrings = { "TRUE", "ON", "1", "ENABLED" };
+        private static readonly ILog Log = LogManager.GetLogger(typeof(VariableResolver));
         public IList<VariableUsage> VariableUsageList { get; private set; }
 
         private readonly Regex VariableRegex = new Regex(@"\$\{(?<Name>[^\}]+)\}", RegexOptions.Compiled);
-        private readonly Regex ConditionalRegex = new Regex(@"<!--\s*\[if\s*(?<expression>[^\]]*)\]\s*-->(?<content>.*)<!--\s*\[endif\]\s*-->", RegexOptions.Compiled | RegexOptions.Singleline);
+        private readonly Regex ConditionalRegex = new Regex(@"<!--\s*\[if\s*(?<expression>[^\]]*)]\s*-->\s*(?<content>.*)\s*<!--\s*\[endif]\s*-->", RegexOptions.Compiled);
 
         public VariableResolver(IList<Variable> variables)
         {

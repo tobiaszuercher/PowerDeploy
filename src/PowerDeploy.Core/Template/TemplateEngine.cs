@@ -1,6 +1,4 @@
 ﻿using System.IO;
-
-using PowerDeploy.Core.Extensions;
 using PowerDeploy.Core.Logging;
 
 using ServiceStack;

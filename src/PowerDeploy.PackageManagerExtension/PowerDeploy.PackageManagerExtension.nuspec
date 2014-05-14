@@ -2,7 +2,7 @@
   <metadata>
     <id>PowerDeploy.PackageManagerExtension</id>
     <title>PowerDeploy Package Manager Extension</title>
-    <version>0.0.3.19</version>
+    <version>0.4.1</version>
     <authors>Tobias Zürcher</authors>
     <owners>Tobias Zürcher</owners>
     <licenseUrl>http://tobiaszuercher.github.io/PowerDeploy/</licenseUrl>
@@ -18,6 +18,6 @@
   <files>
     <file src="scripts\*.ps1" target="tools" />
     <file src="scripts\*.psm1" target="tools" />
-    <file src="bin\debug\*.dll" target="tools" />
+    <file src="bin\Package\*.dll" target="tools" />
   </files>
 </package>
