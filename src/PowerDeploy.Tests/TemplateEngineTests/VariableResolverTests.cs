@@ -1,11 +1,8 @@
 ﻿using System.Collections.Generic;
-
+using System.Linq;
 using NUnit.Framework;
-
 using PowerDeploy.Core;
 using PowerDeploy.Core.Template;
-
-using System.Linq;
 
 namespace PowerDeploy.Tests.TemplateEngineTests
 {
