@@ -24,7 +24,7 @@ namespace PowerDeploy.Core.Template
         public IList<VariableUsage> VariableUsageList { get; private set; }
 
         private readonly Regex VariableRegex = new Regex(@"\$\{(?<Name>[^\}]+)\}", RegexOptions.Compiled);
-        private readonly Regex ConditionalRegex = new Regex(@"<!--\s?\[if\s(?<expression>[^\]]*)\]-->(?<content>.*)<!--\s?\[endif\]-->", RegexOptions.Compiled | RegexOptions.Singleline);
+        private readonly Regex ConditionalRegex = new Regex(@"<!--\s*\[if\s*(?<expression>[^\]]*)\]\s*-->(?<content>.*)<!--\s*\[endif\]\s*-->", RegexOptions.Compiled | RegexOptions.Singleline);
 
         public VariableResolver(IList<Variable> variables)
         {
