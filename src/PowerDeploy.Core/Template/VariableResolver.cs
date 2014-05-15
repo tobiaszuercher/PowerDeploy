@@ -28,6 +28,7 @@ namespace PowerDeploy.Core.Template
 
         private readonly Regex VariableRegex = new Regex(@"\$\{(?<Name>[^\}]+)\}", RegexOptions.Compiled);
         private readonly Regex ConditionalRegex = new Regex(@"<!--\s*\[if\s*(?<expression>[^\]]*)]\s*-->\s*(?<content>.*)\s*<!--\s*\[endif]\s*-->", RegexOptions.Compiled);
+        private readonly Regex _normalizeRegex = new Regex(@"\r\n|\n\r|\n|\r", RegexOptions.Compiled);
 
         public VariableResolver(IList<Variable> variables)
         {
@@ -39,7 +40,7 @@ namespace PowerDeploy.Core.Template
         {
             var transformedVariables = VariableRegex.Replace(content, ReplaceVariables);
             
-            return ConditionalRegex.Replace(transformedVariables, ReplaceConditionals);
+            return _normalizeRegex.Replace(ConditionalRegex.Replace(transformedVariables, ReplaceConditionals), e => "\r\n");
         }
 
         private string ReplaceVariables(Match match)
@@ -61,7 +62,7 @@ namespace PowerDeploy.Core.Template
         {
             if (TrueStrings.Contains(match.Groups["expression"].Value.ToUpperInvariant()))
             {
-                return match.Groups["content"].Value;
+                return match.Groups["content"].Value.Trim();
             }
 
             return string.Empty;
