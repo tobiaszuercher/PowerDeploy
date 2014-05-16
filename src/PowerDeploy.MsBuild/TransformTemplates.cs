@@ -1,6 +1,4 @@
 ﻿using System.IO;
-
-using Microsoft.Build.Framework;
 using Microsoft.Build.Utilities;
 
 using PowerDeploy.Core;
@@ -9,7 +7,7 @@ using PowerDeploy.Core.Template;
 
 namespace PowerDeploy.MsBuild
 {
-    public class SwitchEnvironment : Task
+    public class TransformTemplates : Task
     {
         public string Environment { get; set; }
         public string Directory { get; set; }

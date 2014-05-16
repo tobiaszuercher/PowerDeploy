@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using NUnit.Framework;
 using PowerDeploy.Core;
@@ -160,9 +161,9 @@ namespace PowerDeploy.Tests.TemplateEngineTests
         public void Conditional_Is_Visible_With_True(string condition)
         {
             var target = new VariableResolver(new List<Variable>());
-            var result = target.TransformVariables("Hello <!--[if " + condition + "]-->tobi!<!--[endif]-->");
+            var result = target.TransformVariables("Hello\n<!--[if " + condition + "]-->\ntobi!\n<!--[endif]-->");
 
-            Assert.AreEqual("Hello tobi!", result);
+            Assert.AreEqual("Hello\r\ntobi!", result);
         }
 
         [Test]
@@ -179,9 +180,9 @@ namespace PowerDeploy.Tests.TemplateEngineTests
             };
 
             var target = new VariableResolver(variableList);
-            var result = target.TransformVariables("Hello <!--[if ${condition}]-->tobi!<!--[endif]-->");
+            var result = target.TransformVariables("Hello\n<!--[if ${condition}]-->\ntobi!\n<!--[endif]-->");
 
-            Assert.AreEqual("Hello tobi!", result);
+            Assert.AreEqual("Hello\r\ntobi!", result);
         }
 
         [Test]
@@ -193,9 +194,9 @@ namespace PowerDeploy.Tests.TemplateEngineTests
         public void Conditional_Not_Visible_With_False(string condition)
         {
             var target = new VariableResolver(new List<Variable>());
-            var result = target.TransformVariables("Hello <!--[if " + condition + "]-->tobi<!--[endif]-->!");
+            var result = target.TransformVariables("Hello\n<!--[if " + condition + "]-->\ntobi!\n<!--[endif]-->");
 
-            Assert.AreEqual("Hello !", result);
+            Assert.AreEqual("Hello", result);
         }
 
         [Test]
@@ -212,17 +213,17 @@ namespace PowerDeploy.Tests.TemplateEngineTests
             };
 
             var target = new VariableResolver(variableList);
-            var result = target.TransformVariables("Hello <!--[if ${condition}]-->tobi<!--[endif]-->!");
+            var result = target.TransformVariables("Hello\r\n<!--[if ${condition}]-->\r\ntobi!\r\n<!--[endif]-->");
 
-            Assert.AreEqual("Hello !", result);
+            Assert.AreEqual("Hello", result);
         }
 
         [Test]
         [TestCase("true", "true", "content 1\r\ncontent 2")]
-        [TestCase("true", "false", "content 1\r\n")]
-        [TestCase("false", "false", "\r\n")]
+        [TestCase("true", "false", "content 1")]
+        [TestCase("false", "false", "")]
         [TestCase("${true.condition}", "${true.condition}", "content 1\r\ncontent 2")]
-        [TestCase("${false.condition}", "${false.condition}", "\r\n")]
+        [TestCase("${false.condition}", "${false.condition}", "")]
         public void Multiple_Conditional_Transforming(string condition1, string condition2, string assert)
         {
             var variableList = new List<Variable>()
@@ -241,26 +242,6 @@ namespace PowerDeploy.Tests.TemplateEngineTests
                                                    "<!-- [endif] -->");
 
             Assert.AreEqual(assert, result);
-        }
-
-        [Test]
-        public void Multiple_Conditional_Transforming_Exclude_One()
-        {
-            var variableList = new List<Variable>()
-            {
-                new Variable() {Name = "condition", Value = "true"}
-            };
-
-            var target = new VariableResolver(variableList);
-
-            var result = target.TransformVariables("<!-- [if true] -->" + System.Environment.NewLine +
-                                                   "content 1" + System.Environment.NewLine +
-                                                   "<!-- [endif] -->" + System.Environment.NewLine +
-                                                   "<!-- [if false] -->" + System.Environment.NewLine +
-                                                   "content 2" + System.Environment.NewLine +
-                                                   "<!-- [endif] -->");
-
-            Assert.AreEqual("content 1{0}".Fmt(System.Environment.NewLine), result);
         }
 
         [Test]

@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
+using System.Text;
 using System.Text.RegularExpressions;
 using PowerDeploy.Core.Logging;
 
@@ -26,9 +28,10 @@ namespace PowerDeploy.Core.Template
         private static readonly ILog Log = LogManager.GetLogger(typeof(VariableResolver));
         public IList<VariableUsage> VariableUsageList { get; private set; }
 
-        private readonly Regex VariableRegex = new Regex(@"\$\{(?<Name>[^\}]+)\}", RegexOptions.Compiled);
-        private readonly Regex ConditionalRegex = new Regex(@"<!--\s*\[if\s*(?<expression>[^\]]*)]\s*-->\s*(?<content>.*)\s*<!--\s*\[endif]\s*-->", RegexOptions.Compiled);
-        private readonly Regex _normalizeRegex = new Regex(@"\r\n|\n\r|\n|\r", RegexOptions.Compiled);
+        private static readonly Regex VariableRegex = new Regex(@"\$\{(?<Name>[^\}]+)\}", RegexOptions.Compiled);
+        private static readonly Regex NormalizeRegex = new Regex(@"\r\n|\n\r|\n|\r", RegexOptions.Compiled);
+        private static readonly Regex ConditionalOpenRegex = new Regex(@"<!--\s*\[if\s*(?<expression>[^\]]*)]\s*-->", RegexOptions.Compiled);
+        private static readonly Regex ConditionalCloseRegex = new Regex(@"<!--\s*\[endif]\s*-->", RegexOptions.Compiled);
 
         public VariableResolver(IList<Variable> variables)
         {
@@ -40,7 +43,7 @@ namespace PowerDeploy.Core.Template
         {
             var transformedVariables = VariableRegex.Replace(content, ReplaceVariables);
             
-            return _normalizeRegex.Replace(ConditionalRegex.Replace(transformedVariables, ReplaceConditionals), e => "\r\n");
+            return ParseConditional(transformedVariables);
         }
 
         private string ReplaceVariables(Match match)
@@ -58,14 +61,36 @@ namespace PowerDeploy.Core.Template
             return parsed;
         }
 
-        private string ReplaceConditionals(Match match)
+        private string ParseConditional(string input)
         {
-            if (TrueStrings.Contains(match.Groups["expression"].Value.ToUpperInvariant()))
+            // normalize line endings in order to be aple to split line by line
+            var normalized = NormalizeRegex.Replace(input, e => "\r\n");
+
+            var transformed = new List<string>();
+            bool lastCondition = false;
+            bool insideCondition = false;
+
+            foreach (var line in normalized.Split(new [] { System.Environment.NewLine}, StringSplitOptions.None))
             {
-                return match.Groups["content"].Value.Trim();
+                var match = ConditionalOpenRegex.Match(line);
+
+                // we have a <!-- [if xxxx] -->
+                if (match.Success)
+                {
+                    lastCondition = TrueStrings.Contains(match.Groups["expression"].Value.ToUpperInvariant());
+                    insideCondition = true;
+                }
+                else if(ConditionalCloseRegex.IsMatch(line))
+                {
+                    insideCondition = false;
+                }
+                else if (lastCondition || !insideCondition)
+                {
+                    transformed.Add(line);
+                }
             }
 
-            return string.Empty;
+            return string.Join(System.Environment.NewLine, transformed);
         }
     }
 }
