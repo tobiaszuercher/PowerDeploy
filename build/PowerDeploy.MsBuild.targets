@@ -7,16 +7,22 @@
   </PropertyGroup>
   
   <ItemGroup>
-	<LibFiles Include="$(SrcDir)/PowerDeploy.MsBuild/bin/$(Configuration)/*.dll"/>
+  	<LibFiles4 Include="$(SrcDir)/PowerDeploy.MsBuild/bin/$(Configuration)/v4.0/*.dll"/>
+    <LibFiles12 Include="$(SrcDir)/PowerDeploy.MsBuild/bin/$(Configuration)/v12.0/*.dll"/>
   </ItemGroup>
 
   <Target Name="Build">
-    <MSBuild Projects="$(SrcDir)/PowerDeploy.MsBuild/PowerDeploy.MsBuild.csproj"
+    <MSBuild Projects="$(SrcDir)/PowerDeploy.MsBuild/PowerDeploy.MsBuild.v12.0.csproj"
+             Targets="Rebuild"
+             Properties="Configuration=$(Configuration)" />
+
+    <MSBuild Projects="$(SrcDir)/PowerDeploy.MsBuild/PowerDeploy.MsBuild.v4.0.csproj"
              Targets="Rebuild"
              Properties="Configuration=$(Configuration)" />
   </Target>
 
   <Target Name="CopyToToolsLibFolder" DependsOnTargets="Build">
-    <Copy SourceFiles="@(LibFiles)" DestinationFolder="$(BuildLibDir)" />
+    <Copy SourceFiles="@(LibFiles4)" DestinationFolder="$(BuildLibDir)/v4.0" />
+    <Copy SourceFiles="@(LibFiles12)" DestinationFolder="$(BuildLibDir)/v12.0" />
   </Target>
 </Project>

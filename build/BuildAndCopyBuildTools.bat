@@ -1,3 +1,3 @@
-SET MSBUILD="C:\Program Files (x86)\MSBuild\12.0\Bin\msbuild.exe"
+CALL "%VS120COMNTOOLS%..\..\VC\vcvarsall.bat"
 
-%MSBUILD% PowerDeploy.MsBuild.targets /target:CopyToToolsLibFolder /v:d
+msbuild PowerDeploy.MsBuild.targets /target:CopyToToolsLibFolder /v:d
