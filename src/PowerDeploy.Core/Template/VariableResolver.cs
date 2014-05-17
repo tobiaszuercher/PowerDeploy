@@ -66,7 +66,7 @@ namespace PowerDeploy.Core.Template
             // normalize line endings in order to be aple to split line by line
             var normalized = NormalizeRegex.Replace(input, e => "\r\n");
 
-            var transformed = new List<string>();
+            var transformed = new StringBuilder();
             bool lastCondition = false;
             bool insideCondition = false;
 
@@ -86,11 +86,11 @@ namespace PowerDeploy.Core.Template
                 }
                 else if (lastCondition || !insideCondition)
                 {
-                    transformed.Add(line);
+                    transformed.AppendLine(line);
                 }
             }
 
-            return string.Join(System.Environment.NewLine, transformed);
+            return transformed.ToString().TrimEnd();
         }
     }
 }
