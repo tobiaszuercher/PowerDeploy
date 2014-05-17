@@ -74,14 +74,15 @@ namespace PowerDeploy.Core.Template
             {
                 var match = ConditionalOpenRegex.Match(line);
 
-                // we have a <!-- [if xxxx] -->
                 if (match.Success)
                 {
+                    // we have a <!-- [if xxxx] -->
                     lastCondition = TrueStrings.Contains(match.Groups["expression"].Value.ToUpperInvariant());
                     insideCondition = true;
                 }
                 else if(ConditionalCloseRegex.IsMatch(line))
                 {
+                    // <!-- [endif] -->
                     insideCondition = false;
                 }
                 else if (lastCondition || !insideCondition)
