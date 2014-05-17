@@ -53,5 +53,32 @@ namespace PowerDeploy.Tests
             Assert.AreEqual("Tobi", result.Variables[0].Value);
             Assert.AreEqual("Bauer", result.Variables[1].Value);
         }
+
+        [Test]
+        public void Deserialize_Environment_With_Include()
+        {
+            using (var dir = new TestFolder())
+            {
+                dir.AddFile("common.xml", @"<?xml version=""1.0""?>
+                                            <environment name=""common"" description=""just a base"">
+	                                            <variable name=""firstname"" value=""jack"" />
+	                                            <variable name=""lastname"" value=""bauer"" />
+                                            </environment>");
+                
+                dir.AddFile("testenv.xml", @"<?xml version=""1.0""?>
+                                            <environment name=""testenv"" description=""testenv which includes common.xml"" include=""common.xml"">
+	                                            <variable name=""lastname"" value=""zuercher"" />
+                                            </environment>");
+
+                var envprovider = new EnvironmentProvider();
+                var result = envprovider.GetEnvironmentFromFile(Path.Combine(dir.DirectoryInfo.FullName, "testenv.xml"));
+
+
+                Assert.AreEqual(3, result.Variables.Count);
+                Assert.AreEqual("TESTENV", result["env"].Value);
+                Assert.AreEqual("jack", result["firstname"].Value);
+                Assert.AreEqual("zuercher", result["lastname"].Value);
+            }
+        }
     }
 }

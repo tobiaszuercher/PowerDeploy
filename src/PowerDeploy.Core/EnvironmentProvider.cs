@@ -5,6 +5,7 @@ using System.Linq;
 using PowerDeploy.Core.Logging;
 
 using ServiceStack;
+using ServiceStack.Text;
 
 namespace PowerDeploy.Core
 {
@@ -32,7 +33,29 @@ namespace PowerDeploy.Core
 
         public Environment GetEnvironmentFromFile(string environmentFile)
         {
-            return Serializer.Deserialize(environmentFile);
+            var environment = Serializer.Deserialize(environmentFile);
+
+            // include other environments if defined
+            if (!string.IsNullOrEmpty(environment.Include))
+            {
+                var envToInclude = environment.Include.Split(',');
+
+                foreach (var toInclude in envToInclude)
+                {
+                    var includeEnv = Serializer.Deserialize(Path.Combine(new FileInfo(environmentFile).Directory.FullName, toInclude));
+
+                    // just add the variables which are not available in the requested environment
+                    foreach (var variable in includeEnv.Variables)
+                    {
+                        if (environment.Variables.All(v => v.Name.Equals(variable.Name, StringComparison.OrdinalIgnoreCase)))
+                        {
+                            environment.Variables.Add(variable);
+                        }
+                    }
+                }
+            }
+            
+            return environment;
         }
 
         public Environment GetEnvironment(string environmentName)

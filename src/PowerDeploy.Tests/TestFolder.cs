@@ -12,6 +12,11 @@ namespace PowerDeploy.Tests
             DirectoryInfo = Directory.CreateDirectory(Path.Combine(Environment.GetFolderPath(folder), Guid.NewGuid().ToString()));
         }
 
+        public TestFolder()
+        {
+            DirectoryInfo = Directory.CreateDirectory(Path.Combine(System.Environment.CurrentDirectory, Guid.NewGuid().ToString()));
+        }
+
         public void AddFolder(string name)
         {
             Directory.CreateDirectory(Path.Combine(DirectoryInfo.FullName, name));

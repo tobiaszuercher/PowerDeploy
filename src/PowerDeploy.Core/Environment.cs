@@ -13,6 +13,9 @@ namespace PowerDeploy.Core
         [XmlAttribute("description")]
         public string Description { get; set; }
 
+        [XmlAttribute("include")]
+        public string Include { get; set; }
+
         [XmlElement("variable")]
         public List<Variable> Variables { get; set; }
 
