@@ -15,6 +15,8 @@ namespace PowerDeploy.MsBuild
         public override bool Execute()
         {
             LogManager.LogFactory = new BuildLogFactory(Log);
+
+            Log.LogCommandLine("Transform all project files within the current solution...");
             
             try
             {

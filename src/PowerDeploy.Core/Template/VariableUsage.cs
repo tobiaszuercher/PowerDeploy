@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;
+using PowerDeploy.Core.Logging;
 
 namespace PowerDeploy.Core.Template
 {
@@ -15,6 +16,7 @@ namespace PowerDeploy.Core.Template
     public class VariableUsage
     {
         private readonly Regex DefaultValueVariableRegex = new Regex(@"\$\[(?<Name>[^\]]+)\]", RegexOptions.Compiled);
+        private static readonly ILog Log = LogManager.GetLogger(typeof(VariableResolver));
 
         public Variable Variable { get; set; }
 
@@ -32,7 +34,12 @@ namespace PowerDeploy.Core.Template
 
         public string GetValueOrDefault(IEnumerable<Variable> variables)
         {
-            if (IsMissingValue) return "!!Missing variable for " + Variable.Name + "!!";
+            if (IsMissingValue)
+            {
+                Log.WarnFormat("Missing variable {0}", Variable.Name);
+
+                return "!!Missing variable for " + Variable.Name + "!!";
+            }
 
             if (Variable.Value == null)
             {
@@ -50,6 +57,7 @@ namespace PowerDeploy.Core.Template
                                     return foundVariable.Value;
                                 }
 
+                                Log.WarnFormat("Missing variable {0}", m.Groups["Name"].Value);
                                 // TODO: parse this on variable usage creation to have IsMissing feature
                                 return "<<Missing variable in default value " + m.Groups["Name"].Value + ">>";
                             });

@@ -8,7 +8,7 @@ namespace PowerDeploy.Core.Template
     public class TemplateEngine
     {
         private readonly IFileSystem _fileSystem;
-        private readonly ILog _logger;
+        private static readonly ILog Log = LogManager.GetLogger(typeof(VariableResolver));
 
         public VariableResolver VariableResolver { get; set; }
 
@@ -19,13 +19,12 @@ namespace PowerDeploy.Core.Template
 
         public TemplateEngine(IFileSystem fileSystem)
         {
-            _logger = LogManager.GetLogger(GetType());
             _fileSystem = fileSystem;
         }
 
         public int TransformDirectory(string path, Environment targetEnvironment, bool deleteTemplate = true)
         {
-            _logger.InfoFormat("Transforming {0} for environment {1} {2} deleting templates", path, targetEnvironment.Name, deleteTemplate ? "with" : "without");
+            Log.InfoFormat("Transforming {0} for environment {1} {2} deleting templates", path, targetEnvironment.Name, deleteTemplate ? "with" : "without");
 
             VariableResolver = new VariableResolver(targetEnvironment.Variables);
 
@@ -34,7 +33,7 @@ namespace PowerDeploy.Core.Template
             foreach (var templateFile in _fileSystem.EnumerateDirectoryRecursive(path, "*.template.*", SearchOption.AllDirectories))
             {
                 ++templateCounter;
-                _logger.InfoFormat("Transforming template {0}", templateFile);
+                Log.InfoFormat("Transforming template {0}", templateFile);
 
                 var templateText = _fileSystem.ReadFile(templateFile);
                 var transformed = VariableResolver.TransformVariables(templateText);
@@ -47,7 +46,7 @@ namespace PowerDeploy.Core.Template
                 }
             }
 
-            _logger.Print("Transformed {0} template(s) in {1}.".Fmt(templateCounter, path));
+            Log.InfoFormat("Transformed {0} template(s) in {1}.", templateCounter, path);
 
             return templateCounter;
         }
