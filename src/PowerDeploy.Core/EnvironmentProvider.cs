@@ -47,7 +47,7 @@ namespace PowerDeploy.Core
                     // just add the variables which are not available in the requested environment
                     foreach (var variable in includeEnv.Variables)
                     {
-                        if (environment.Variables.All(v => v.Name.Equals(variable.Name, StringComparison.OrdinalIgnoreCase)))
+                        if (environment.Variables.All(v => !v.Name.Equals(variable.Name, StringComparison.OrdinalIgnoreCase)))
                         {
                             environment.Variables.Add(variable);
                         }
