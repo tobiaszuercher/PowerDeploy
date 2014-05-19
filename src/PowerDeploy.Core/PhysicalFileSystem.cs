@@ -38,6 +38,11 @@ namespace PowerDeploy.Core
 
         public void OverwriteFile(string path, string content)
         {
+            if (File.GetAttributes(path) == FileAttributes.ReadOnly)
+            {
+                new FileInfo(path).IsReadOnly = false;
+            }
+
             File.WriteAllText(path, content);
         }
 

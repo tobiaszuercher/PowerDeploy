@@ -49,6 +49,7 @@ namespace PowerDeploy.Core.Template
         private string ReplaceVariables(Match match)
         {
             var variableUsage = new VariableUsage(match.Groups["Name"].Value, Variables);
+
             VariableUsageList.Add(variableUsage);
 
             var parsed = variableUsage.GetValueOrDefault(Variables);

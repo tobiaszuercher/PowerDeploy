@@ -15,7 +15,7 @@ namespace PowerDeploy.PackageManagerExtension
 
         [Parameter(Mandatory = true)]
         public string Directory { get; set; }
-
+    
         protected override void ProcessRecord()
         {
             LogManager.LogFactory = new CmdletLogFactory(this);
