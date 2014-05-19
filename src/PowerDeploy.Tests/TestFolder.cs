@@ -22,11 +22,11 @@ namespace PowerDeploy.Tests
             Directory.CreateDirectory(Path.Combine(DirectoryInfo.FullName, name));
         }
 
-        public string AddFile(string filename, string content)
+        public string AddFile(string relativeFilename, string content)
         {
-            string fileName = Path.Combine(DirectoryInfo.FullName, filename);
+            string absoluteFileName = Path.Combine(DirectoryInfo.FullName, relativeFilename);
 
-            var fileInfo = new FileInfo(fileName);
+            var fileInfo = new FileInfo(absoluteFileName);
             var targetDir = fileInfo.Directory;
 
             if (!targetDir.Exists)
@@ -34,13 +34,18 @@ namespace PowerDeploy.Tests
                 targetDir.Create();
             }
 
-            using (var filestream = File.CreateText(fileName))
+            using (var filestream = File.CreateText(absoluteFileName))
             {
                 filestream.Write(content);
                 filestream.Flush();
             }
 
-            return filename;
+            return absoluteFileName;
+        }
+
+        public string ReadFile(string filename)
+        {
+            return File.ReadAllText(Path.Combine(DirectoryInfo.FullName, filename));
         }
 
         public void Dispose()

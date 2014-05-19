@@ -38,7 +38,7 @@ namespace PowerDeploy.Core
 
         public void OverwriteFile(string path, string content)
         {
-            if (File.GetAttributes(path) == FileAttributes.ReadOnly)
+            if (File.Exists(path) && File.GetAttributes(path).HasFlag(FileAttributes.ReadOnly))
             {
                 new FileInfo(path).IsReadOnly = false;
             }

@@ -33,12 +33,12 @@ namespace PowerDeploy.Tests.TemplateEngineTests
             using (var dir = new TestFolder())
             {
                 dir.AddFile("read-only.template.txt", "whatever: ${var1}");
-                var file = dir.AddFile("read-only.txt", "empty");
+                dir.AddFile("read-only.txt", "will be transformed").SetReadOnly();
 
-                File.SetAttributes(Path.Combine(dir.DirectoryInfo.FullName, file), FileAttributes.ReadOnly);
-
+                // before the bugfix: this threw a Exception because the file was ReadOnly
                 target.TransformDirectory(dir.DirectoryInfo.FullName, GetUnitEnvironment(), false);
 
+                Assert.AreNotEqual("will be transformed", dir.ReadFile("read-only.txt"));
             }
         }
 
@@ -50,9 +50,9 @@ namespace PowerDeploy.Tests.TemplateEngineTests
                 Description = "UnitTest",
                 Variables = new List<Variable>()
                 {
-                    new Variable() { Name = "Var1", Value = "Val1" }, 
-                    new Variable() { Name = "Var2", Value = "Val2" }, 
-                    new Variable() { Name = "Var3", Value = "Val3" },
+                    new Variable() { Name = "var1", Value = "Val1" }, 
+                    new Variable() { Name = "var2", Value = "Val2" }, 
+                    new Variable() { Name = "ar3", Value = "Val3" },
                 }
             };
         }
