@@ -13,6 +13,8 @@ namespace PowerDeploy.Core
     {
         private IEnvironmentSerializer Serializer { get; set; }
 
+        private static ILog Log = LogManager.GetLogger(typeof (EnvironmentProvider));
+
         public DirectoryInfo EnvironmentDirectory { get; private set; }
 
         public EnvironmentProvider()
@@ -77,14 +79,17 @@ namespace PowerDeploy.Core
 
         private DirectoryInfo FindEnvironmentFolder(string startFolder)
         {
-            LogManager.GetLogger(GetType()).Debug("gugus " + startFolder);
+            Log.Debug("Find environment in " + startFolder);
             var dirInfo = new DirectoryInfo(startFolder);
             var root = Directory.GetDirectoryRoot(startFolder);
 
             while (dirInfo.FullName != root)
             {
+                Log.Debug("Search .powerdeploy folder in " + dirInfo.FullName);
+                
                 if (dirInfo.GetDirectories(".powerdeploy").Any())
                 {
+                    Log.Debug("Found in " + dirInfo.FullName + @"\.powerdeploy");
                     break;
                 }
 
@@ -101,6 +106,7 @@ namespace PowerDeploy.Core
 
             if (!envFolder.Exists)
             {
+                Log.Warn("Folder " + envFolder.FullName + " is missing!");
                 throw new DirectoryNotFoundException(".powerdeploy folder not found with start folder " + startFolder);
             }
 

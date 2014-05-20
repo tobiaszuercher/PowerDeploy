@@ -15,7 +15,7 @@ namespace PowerDeploy.PackageManagerExtension
 
         protected override void ProcessRecord()
         {
-            LogManager.LogFactory = new CmdletLogFactory(this);
+            LogManager.LogFactory = new PowerShellCommandLineLogFactory();
 
             if (string.IsNullOrEmpty(Directory))
             {
@@ -34,7 +34,7 @@ namespace PowerDeploy.PackageManagerExtension
                 
                 return;
             }
-
+            WriteWarning("im here");
             WriteObject(envProvider.EnvironmentDirectory);
         }
     }

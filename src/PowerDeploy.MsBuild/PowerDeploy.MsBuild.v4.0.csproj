@@ -44,7 +44,7 @@
     <Compile Include="MsBuildLogger.cs" />
     <Compile Include="LogFactory.cs" />
     <Compile Include="TransformTemplates.cs" />
-    <Compile Include="Properties\AssemblyInfo.v.40.cs" />
+    <Compile Include="Properties\AssemblyInfo.v4.0.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\PowerDeploy.Core\PowerDeploy.Core.csproj">

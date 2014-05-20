@@ -36,7 +36,7 @@ namespace PowerDeploy.Core.Template
         {
             if (IsMissingValue)
             {
-                Log.WarnFormat("Missing variable {0}", Variable.Name);
+                Log.WarnFormat("    Missing variable {0}", Variable.Name);
 
                 return "!!Missing variable for " + Variable.Name + "!!";
             }
@@ -45,6 +45,8 @@ namespace PowerDeploy.Core.Template
             {
                 var parsedDefaultValue = DefaultValue;
 
+                Log.DebugFormat("    No Value for '{0}' found, using default '{1}'", Variable.Name, DefaultValue);
+                
                 while (DefaultValueVariableRegex.IsMatch(parsedDefaultValue))
                 {
                     parsedDefaultValue = DefaultValueVariableRegex.Replace(
@@ -54,10 +56,11 @@ namespace PowerDeploy.Core.Template
                                 var foundVariable = variables.FirstOrDefault(v => v.Name == m.Groups["Name"].Value);
                                 if (foundVariable != null)
                                 {
+                                    Log.DebugFormat("    Resolve inline variable '{0}' to '{1}'", foundVariable.Name, foundVariable.Value);
                                     return foundVariable.Value;
                                 }
 
-                                Log.WarnFormat("Missing variable {0}", m.Groups["Name"].Value);
+                                Log.WarnFormat("    Missing variable {0}", m.Groups["Name"].Value);
                                 // TODO: parse this on variable usage creation to have IsMissing feature
                                 return "<<Missing variable in default value " + m.Groups["Name"].Value + ">>";
                             });
@@ -65,6 +68,8 @@ namespace PowerDeploy.Core.Template
 
                 return parsedDefaultValue;
             }
+
+            Log.DebugFormat("    Resolve variable '{0}' to {1}", Variable.Name, Variable.Value);
 
             return Variable.Value;
         }

@@ -57,8 +57,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="CmdletLogFactory.cs" />
-    <Compile Include="CmdletLogger.cs" />
+    <Compile Include="PowerShellCommandLineLogFactory.cs" />
+    <Compile Include="PowerShellConsoleLogger.cs" />
     <Compile Include="GetEnvironmentDir.cs" />
     <Compile Include="PowerShellBuddy.cs" />
     <Compile Include="InvokeDirectoryTransform.cs" />
