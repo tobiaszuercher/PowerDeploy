@@ -54,7 +54,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PowerDeploy.Server.ServiceM
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".build", ".build", "{8606A8D6-A928-4609-A596-E8E449D5B590}"
 	ProjectSection(SolutionItems) = preProject
-		..\build\Build_PowerDeploy.MsBuild.targets = ..\build\Build_PowerDeploy.MsBuild.targets
+		..\build\PowerDeploy.MsBuild.targets = ..\build\PowerDeploy.MsBuild.targets
 		..\build\PowerDeploy.targets = ..\build\PowerDeploy.targets
 	EndProjectSection
 EndProject
