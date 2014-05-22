@@ -245,6 +245,15 @@ namespace PowerDeploy.Tests.TemplateEngineTests
         }
 
         [Test]
+        public void Dont_Resolve_Escaped_Variable()
+        {
+            var target = new VariableResolver(new List<Variable>());
+            var result = target.TransformVariables("Hello _$_{Escaped}!");
+
+            Assert.AreEqual("Hello ${Escaped}!", result);
+        }
+
+        [Test]
         [Ignore] // TODO: add warning also for default values
         public void Resolve_Default_Value_With_Missing_Variable_Test()
         {

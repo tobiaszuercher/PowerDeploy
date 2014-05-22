@@ -92,7 +92,7 @@ namespace PowerDeploy.Core.Template
                 }
             }
 
-            return transformed.ToString().TrimEnd();
+            return transformed.ToString().Replace("_$_", "$").TrimEnd();
         }
     }
 }

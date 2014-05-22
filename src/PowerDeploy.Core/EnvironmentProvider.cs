@@ -13,7 +13,7 @@ namespace PowerDeploy.Core
     {
         private IEnvironmentSerializer Serializer { get; set; }
 
-        private static ILog Log = LogManager.GetLogger(typeof (EnvironmentProvider));
+        private ILog Log = LogManager.GetLogger(typeof (EnvironmentProvider));
 
         public DirectoryInfo EnvironmentDirectory { get; private set; }
 
@@ -79,14 +79,12 @@ namespace PowerDeploy.Core
 
         private DirectoryInfo FindEnvironmentFolder(string startFolder)
         {
-            Log.Debug("Find environment in " + startFolder);
+            Log.Debug("Look for environment starting in " + startFolder);
             var dirInfo = new DirectoryInfo(startFolder);
             var root = Directory.GetDirectoryRoot(startFolder);
 
             while (dirInfo.FullName != root)
             {
-                Log.Debug("Search .powerdeploy folder in " + dirInfo.FullName);
-                
                 if (dirInfo.GetDirectories(".powerdeploy").Any())
                 {
                     break;

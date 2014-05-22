@@ -16,7 +16,7 @@ namespace PowerDeploy.Core.Template
     public class VariableUsage
     {
         private readonly Regex DefaultValueVariableRegex = new Regex(@"\$\[(?<Name>[^\]]+)\]", RegexOptions.Compiled);
-        private static readonly ILog Log = LogManager.GetLogger(typeof(VariableResolver));
+        private static ILog Log = LogManager.GetLogger(typeof(VariableResolver));
 
         public Variable Variable { get; set; }
 
@@ -45,7 +45,7 @@ namespace PowerDeploy.Core.Template
             {
                 var parsedDefaultValue = DefaultValue;
 
-                Log.DebugFormat("    No Value for '{0}' found, using default '{1}'", Variable.Name, DefaultValue);
+                Log.Debug(string.Format("    No Value for '{0}' found, using default '{1}'", Variable.Name, DefaultValue));
                 
                 while (DefaultValueVariableRegex.IsMatch(parsedDefaultValue))
                 {
@@ -56,7 +56,8 @@ namespace PowerDeploy.Core.Template
                                 var foundVariable = variables.FirstOrDefault(v => v.Name == m.Groups["Name"].Value);
                                 if (foundVariable != null)
                                 {
-                                    Log.DebugFormat("    Resolve inline variable '{0}' to '{1}'", foundVariable.Name, foundVariable.Value);
+                                    Log.Debug(string.Format("    Resolve inline variable {0} to {1}", foundVariable.Name, foundVariable.Value));
+                                    
                                     return foundVariable.Value;
                                 }
 
@@ -66,10 +67,12 @@ namespace PowerDeploy.Core.Template
                             });
                 }
 
+                Log.Debug("Parsed default value " + parsedDefaultValue);
+
                 return parsedDefaultValue;
             }
 
-            Log.DebugFormat("    Resolve variable '{0}' to {1}", Variable.Name, Variable.Value);
+            Log.Debug(string.Format("    Resolve variable {0} to {1}", Variable.Name, Variable.Value));
 
             return Variable.Value;
         }

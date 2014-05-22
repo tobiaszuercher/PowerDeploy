@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System.IO;
+using System.Linq;
 
 using PowerDeploy.Server.Model;
 using PowerDeploy.Server.ServiceModel;
@@ -30,7 +31,12 @@ namespace PowerDeploy.Server
 
                 if (session.Load<ServerSettings>("ServerSettings/1") == null)
                 {
-                    session.Store(new ServerSettings() { Id = 1 });
+                    session.Store(new ServerSettings()
+                    {
+                        Id = 1, 
+                        WorkDir = Path.Combine(System.Environment.GetFolderPath(System.Environment.SpecialFolder.LocalApplicationData), "PowerDeploy.UnitTests")
+                    });
+
                     session.SaveChanges();
                 }
             }

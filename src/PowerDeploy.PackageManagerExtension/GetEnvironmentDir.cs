@@ -34,7 +34,7 @@ namespace PowerDeploy.PackageManagerExtension
                 
                 return;
             }
-            WriteWarning("im here");
+            
             WriteObject(envProvider.EnvironmentDirectory);
         }
     }

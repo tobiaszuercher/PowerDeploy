@@ -65,17 +65,17 @@ namespace PowerDeploy.PackageManagerExtension
 
         public void Info(object message)
         {
-            ExecutePsCommand("Write-Verbose", message.ToString());
+            ExecutePsCommand("Write-Host", message.ToString());
         }
 
         public void Info(object message, Exception exception)
         {
-            ExecutePsCommand("Write-Verbose", message + " " + exception.Message);
+            ExecutePsCommand("Write-Host", message + " " + exception.Message);
         }
 
         public void InfoFormat(string format, params object[] args)
         {
-            ExecutePsCommand("Write-Verbose", string.Format(format, args));
+            ExecutePsCommand("Write-Host", string.Format(format, args));
         }
 
         public void Warn(object message)
@@ -96,7 +96,9 @@ namespace PowerDeploy.PackageManagerExtension
         private void ExecutePsCommand(string cmd, string message)
         {
             var runspace = Runspace.DefaultRunspace;
+            
             var pipeline = runspace.CreateNestedPipeline(string.Format("{0} '{1}'", cmd, message), false);
+            
             pipeline.Invoke();
         }
     }
