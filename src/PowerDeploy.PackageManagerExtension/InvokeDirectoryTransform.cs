@@ -21,8 +21,6 @@ namespace PowerDeploy.PackageManagerExtension
         {
             LogManager.LogFactory = new PowerShellCommandLineLogFactory();
 
-            Log.DebugFormat("Invoke-DirectoryTransform for environment {0} in {1}", Environment, Directory);
-
             try
             {
                 var envProvider = new EnvironmentProvider(Directory);

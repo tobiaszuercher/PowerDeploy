@@ -2,8 +2,6 @@
 using System.IO;
 using PowerDeploy.Core.Logging;
 
-using ServiceStack;
-
 namespace PowerDeploy.Core.Template
 {
     public class TemplateEngine
@@ -25,7 +23,7 @@ namespace PowerDeploy.Core.Template
 
         public int TransformDirectory(string path, Environment targetEnvironment, bool deleteTemplate = true)
         {
-            Log.DebugFormat("Transforming {0} for environment {1} {2} deleting templates", path, targetEnvironment.Name, deleteTemplate ? "with" : "without");
+            Log.DebugFormat("Transform templates for environment {1} ind {0} {2} deleting templates", path, targetEnvironment.Name, deleteTemplate ? "with" : "without");
 
             VariableResolver = new VariableResolver(targetEnvironment.Variables);
 

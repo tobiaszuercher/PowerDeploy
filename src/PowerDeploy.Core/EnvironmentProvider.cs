@@ -89,7 +89,6 @@ namespace PowerDeploy.Core
                 
                 if (dirInfo.GetDirectories(".powerdeploy").Any())
                 {
-                    Log.Debug("Found in " + dirInfo.FullName + @"\.powerdeploy");
                     break;
                 }
 
@@ -109,6 +108,8 @@ namespace PowerDeploy.Core
                 Log.Warn("Folder " + envFolder.FullName + " is missing!");
                 throw new DirectoryNotFoundException(".powerdeploy folder not found with start folder " + startFolder);
             }
+
+            Log.Debug("Using environment folder from " + envFolder.FullName);
 
             return envFolder;
         }
