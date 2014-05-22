@@ -3,7 +3,7 @@
   <PropertyGroup>
     <Directory>../src</Directory>
   </PropertyGroup>
-  <UsingTask AssemblyFile="lib/v12.0/PowerDeploy.MsBuild.dll" TaskName="TransformTemplates"/>
+  <UsingTask AssemblyFile="lib/v12.0/PowerDeploy.MsBuild.v12.dll" TaskName="TransformTemplates"/>
 
   <Target Name="TransformTemplates">
     <Message Importance="high" Text="##teamcity[progressMessage 'Transforming templates...']" />
