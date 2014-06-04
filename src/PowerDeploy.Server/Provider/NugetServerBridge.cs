@@ -3,7 +3,6 @@ using System.Linq;
 
 using PowerDeploy.Server.NuGetServer;
 using PowerDeploy.Server.ServiceModel;
-
 using Raven.Client;
 
 using ServiceStack;
@@ -18,6 +17,7 @@ namespace PowerDeploy.Server.Provider
         {
             var packageContext = new PackageContext(new Uri("http://localhost/nuggy/nuget"));
             int addedPackages = 0;
+            int packagesInRaven = 0;
 
             var packages = from p in packageContext.Packages select p;
 
@@ -40,9 +40,11 @@ namespace PowerDeploy.Server.Provider
                 }
 
                 session.SaveChanges();
+
+                packagesInRaven = session.Query<PowerDeploy.Server.Model.Package>().Count();
             }
 
-            return new SynchronizationSummary() { AddedPackages = addedPackages, PackagesInNuget = packages.Count() };
+            return new SynchronizationSummary() { AddedPackages = addedPackages, PackagesInNuget = packages.Count(), PackagesInPowerDeploy = packagesInRaven };
         }
     }
 }
