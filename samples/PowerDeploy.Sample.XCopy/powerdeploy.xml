@@ -1,4 +1,4 @@
 <?xml version="1.0" encoding="utf-8" ?>
-<package type="xcopy" environment="UNITTEST">
+<package type="xcopy" environment="LOCAL">
   <destination>c:\temp\yes_baby</destination>
 </package>
