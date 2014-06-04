@@ -9,6 +9,7 @@ using Raven.Client.Indexes;
 
 using ServiceStack;
 using ServiceStack.Api.Swagger;
+using ServiceStack.Text;
 
 namespace PowerDeploy.Server
 {
@@ -18,13 +19,15 @@ namespace PowerDeploy.Server
 
         public override void Configure(Container container)
         {
-            SetConfig(new HostConfig()
+            SetConfig(new HostConfig
             {
                 RedirectToDefaultDocuments = true,
                 DefaultRedirectPath = "index.html",
                 DebugMode = true,
                 WriteErrorsToResponse = true,
             });
+
+            JsConfig.DateHandler = DateHandler.ISO8601;
 
             Plugins.Add(new SwaggerFeature());
             Plugins.Add(new PostmanFeature()
