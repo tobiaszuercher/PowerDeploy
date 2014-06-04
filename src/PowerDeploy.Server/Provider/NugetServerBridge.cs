@@ -2,6 +2,7 @@
 using System.Linq;
 
 using PowerDeploy.Server.NuGetServer;
+using PowerDeploy.Server.ServiceModel;
 
 using Raven.Client;
 
