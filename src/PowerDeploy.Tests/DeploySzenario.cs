@@ -23,7 +23,7 @@ namespace PowerDeploy.Tests
             _environments = new List<PowerDeploy.Server.Model.Environment>();
             _startDate = new DateTime(2014, 01, 12);
 
-            AddEnvironments(store);
+            CreateEnvironments(store);
         }
 
         public DeploySzenario CreateEnvironment(string name)
@@ -75,8 +75,7 @@ namespace PowerDeploy.Tests
             return this;
         }
 
-        // todo: handle environments better to have "CreateEnvironment" Method or EnsureEnvironmentExists
-        private void AddEnvironments(IDocumentStore store)
+        private void CreateEnvironments(IDocumentStore store)
         {
             var e1 = new PowerDeploy.Server.Model.Environment() { Id = (int)Environment.Dev, Name = "DEV" };
             var e2 = new PowerDeploy.Server.Model.Environment() { Id = (int)Environment.Test, Name = "TEST" };

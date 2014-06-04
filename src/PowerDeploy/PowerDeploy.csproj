@@ -73,6 +73,10 @@
     <!--<EmbeddedResource Include="..\packages\Nuget.Core.2.7.2\lib\net40-Client\NuGet.Core.dll">
       <Link>Resources\NuGet.Core.dll</Link>
     </EmbeddedResource>-->
+    <ProjectReference Include="..\PowerDeploy.Core\PowerDeploy.Core.csproj">
+      <Project>{56455038-af11-4710-9d29-fdf7b050553a}</Project>
+      <Name>PowerDeploy.Core</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

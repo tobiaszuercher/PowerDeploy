@@ -2,6 +2,7 @@
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
+using Raven.Client;
 
 namespace PowerDeploy.Tests
 {
@@ -19,6 +20,21 @@ namespace PowerDeploy.Tests
             }
 
             return Path.Combine(root, relativePath);
+        }
+
+        public static void ClearDocuments<T>(this IDocumentSession session)
+        {
+            var objects = session.Query<T>().ToList();
+            while (objects.Any())
+            {
+                foreach (var obj in objects)
+                {
+                    session.Delete(obj);
+                }
+
+                session.SaveChanges();
+                objects = session.Query<T>().ToList();
+            }
         }
     }
 }

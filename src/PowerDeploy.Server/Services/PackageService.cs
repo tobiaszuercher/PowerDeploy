@@ -26,7 +26,12 @@ namespace PowerDeploy.Server.Services
         {
             var summary = NugetServerBridge.Synchronize();
 
-            return new SynchronizePackageResponse().PopulateWith(summary);
+            return new SynchronizePackageResponse()
+            {
+                AddedPackages = summary.AddedPackages,
+                TotalPackagesInNuget = summary.PackagesInNuget,
+                TotalPackagesInPowerDeploy = summary.PackagesInPowerDeploy
+            };
         }
 
         public object Get(QueryPackageDto request)

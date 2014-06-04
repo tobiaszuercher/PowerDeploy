@@ -151,6 +151,7 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
+    <Compile Include="DemoDataGeneratorTest.cs" />
     <Compile Include="DeploySzenario.cs" />
     <Compile Include="Indexes\Deplyoment_LatestTests.cs" />
     <Compile Include="Integration\XCopyTests.cs" />
@@ -184,9 +185,7 @@
       <Name>PowerDeploy.Server</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Packages\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <None Include="app.config" />
     <None Include="app.template.config" />

@@ -10,6 +10,7 @@ namespace PowerDeploy.Server.ServiceModel
     public class SynchronizePackageResponse
     {
         public int AddedPackages { get; set; }
-        public int TotalPackages { get; set; }
+        public int TotalPackagesInNuget { get; set; }
+        public int TotalPackagesInPowerDeploy { get; set; }
     }
 }
