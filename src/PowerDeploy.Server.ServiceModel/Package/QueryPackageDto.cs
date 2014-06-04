@@ -8,6 +8,7 @@ namespace PowerDeploy.Server.ServiceModel.Package
     [Route("/packages/{NugetId}", Verbs = "GET")]
     public class QueryPackagesDto : IReturn<List<PackageDto>>
     {
+        [ApiMember(Name = "NugetId", ParameterType = "path")]
         public string NugetId { get; set; }
     }
     

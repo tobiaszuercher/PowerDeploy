@@ -3,8 +3,8 @@
 namespace PowerDeploy.Server.ServiceModel
 {
     [Api("Trigger a deployment of a package by id.")]
-    [Route("/package/deploy", Verbs = "POST")]
-    [Route("/package/{packageid}/{version}/deploy", Verbs = "POST")]
+    [Route("/packages/deploy", Verbs = "POST")]
+    [Route("/packages/{packageid}/{version}/deploy", Verbs = "POST")]
     public class TriggerDeployment : IReturn<TriggerDeploymentResponse>
     {
         [ApiMember(Name = "PackageId", DataType = "string", ParameterType = "path")]

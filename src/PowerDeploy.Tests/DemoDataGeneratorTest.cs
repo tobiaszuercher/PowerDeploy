@@ -28,6 +28,7 @@ namespace PowerDeploy.Tests
                 .PublishPackage("RestAPI", "1.1.0")
                 .PublishPackage("RestAPI", "2.0.0")
                 .PublishPackage("WebApp", "1.0.0")
+                .PublishPackage("WebApp", "1.0.1")
                 .PublishPackage("WebApp", "1.1.0")
                 .PublishPackage("WebApp", "2.0.0")
                 .Deploy(DeploySzenario.Environment.Dev, "RestAPI", "1.0.0")
