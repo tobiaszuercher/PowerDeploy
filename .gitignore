@@ -94,7 +94,6 @@ atlassian-ide-plugin.xml
 src/packages/**
 
 # PowerDeploy - Template target files
-[Aa]pp.config
 powerdeploy.config
 powerdeploy.xml
 node_modules/
