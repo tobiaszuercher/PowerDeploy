@@ -1,5 +1,5 @@
 ﻿using System;
-
+using System.Collections.Generic;
 using Funq;
 
 using PowerDeploy.Server.Indexes;
@@ -18,8 +18,19 @@ namespace PowerDeploy.Server
 
         public override void Configure(Container container)
         {
+            SetConfig(new HostConfig()
+            {
+                RedirectToDefaultDocuments = true,
+                DefaultRedirectPath = "index.html",
+                DebugMode = true,
+                WriteErrorsToResponse = true,
+            });
+
             Plugins.Add(new SwaggerFeature());
-            Plugins.Add(new PostmanFeature());
+            Plugins.Add(new PostmanFeature()
+            {
+                DefaultLabelFmt = new List<string> { "route" }
+            });
 
             var documentStore = new DocumentStore() { DefaultDatabase = "PowerDeploy", Url = "http://localhost:8080", }.Initialize();
 
