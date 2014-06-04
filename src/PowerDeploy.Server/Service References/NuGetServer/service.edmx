@@ -8,6 +8,7 @@
         </Key>
         <Property Name="Id" Type="Edm.String" Nullable="false" m:FC_TargetPath="SyndicationTitle" m:FC_ContentKind="text" m:FC_KeepInContent="false" />
         <Property Name="Version" Type="Edm.String" Nullable="false" />
+        <Property Name="IsPrerelease" Type="Edm.Boolean" Nullable="false" />
         <Property Name="Title" Type="Edm.String" Nullable="true" />
         <Property Name="Authors" Type="Edm.String" Nullable="true" m:FC_TargetPath="SyndicationAuthorName" m:FC_ContentKind="text" m:FC_KeepInContent="false" />
         <Property Name="Owners" Type="Edm.String" Nullable="true" />
@@ -16,6 +17,7 @@
         <Property Name="ProjectUrl" Type="Edm.String" Nullable="true" />
         <Property Name="DownloadCount" Type="Edm.Int32" Nullable="false" />
         <Property Name="RequireLicenseAcceptance" Type="Edm.Boolean" Nullable="false" />
+        <Property Name="DevelopmentDependency" Type="Edm.Boolean" Nullable="false" />
         <Property Name="Description" Type="Edm.String" Nullable="true" />
         <Property Name="Summary" Type="Edm.String" Nullable="true" m:FC_TargetPath="SyndicationSummary" m:FC_ContentKind="text" m:FC_KeepInContent="false" />
         <Property Name="ReleaseNotes" Type="Edm.String" Nullable="true" />
