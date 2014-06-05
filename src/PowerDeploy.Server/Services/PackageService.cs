@@ -34,30 +34,19 @@ namespace PowerDeploy.Server.Services
             };
         }
 
-        public object Get(QueryPackageDto request)
+        public PackageDto Get(GetPackageByIdRequest request)
         {
-            // todo add validator for version & nugetid.
             using (var session = DocumentStore.OpenSession())
             {
-                return session.Load<Package>("packages/{0}/{1}".Fmt(request.NugetId, request.Version)).ToDto();
+                return session.Query<Package>().FirstOrDefault(p => p.NugetId == request.NugetId).ToDto();
             }
         }
 
-        public List<PackageDto> Get(QueryPackagesDto request)
+        public List<PackageDto> Get(GetPackageRequest request)
         {
             using (var session = DocumentStore.OpenSession())
             {
-                if (string.IsNullOrEmpty(request.NugetId))
-                {
-                    return session.Query<Package>().OrderByDescending(p => p.Published).ToList().Select(p => p.ToDto()).ToList();
-                }
-
-                return session.Query<Package>()
-                                .Where(p => p.NugetId == request.NugetId)
-                                .OrderByDescending(p => p.Published)
-                                .ToList()
-                                .Select(p => p.ToDto())
-                                .ToList();
+                return session.Query<Package>().ToList().Select(p => p.ToDto()).ToList();
             }
         }
     }

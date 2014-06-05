@@ -2,7 +2,6 @@
 using System.Linq;
 
 using PowerDeploy.Server.Model;
-using PowerDeploy.Server.ServiceModel;
 using PowerDeploy.Server.ServiceModel.Deployment;
 
 using Raven.Client.Indexes;
@@ -29,39 +28,39 @@ namespace PowerDeploy.Server.Indexes
 
         public Deployment_Latest()
         {
-            Map = deployments => from deployment in deployments 
+            Map = deployments => from deployment in deployments
                                  select new ReducedResult()
                                  {
-                                     Id = deployment.Id, 
-                                     FinishedAt = deployment.FinishedAt, 
+                                     Id = deployment.Id,
+                                     FinishedAt = deployment.FinishedAt,
                                      RequestedAt = deployment.RequestedAt,
                                      EnvironmentId = deployment.EnvironmentId,
                                      EnvironmentName = LoadDocument<Environment>(deployment.EnvironmentId).Name,
-                                     NugetId = LoadDocument<Package>(deployment.PackageId).NugetId,
-                                     PackageVersion = LoadDocument<Package>(deployment.PackageId).Version,
+                                     PackageVersion = deployment.Version,
                                      PackageId = deployment.PackageId,
+                                     NugetId = LoadDocument<Package>(deployment.PackageId).NugetId,
                                      Deployments = 1,
                                      Status = deployment.Status
                                  };
 
 
             Reduce = deployments => from deployment in deployments
-                group deployment by new { PackageName = deployment.NugetId, deployment.EnvironmentId }
-                into g
-                select
-                    new ReducedResult()
-                    {
-                        EnvironmentId = g.OrderByDescending(d => d.FinishedAt).First().EnvironmentId,
-                        EnvironmentName = g.OrderByDescending(d => d.FinishedAt).First().EnvironmentName,
-                        Deployments = g.Sum(d => d.Deployments),
-                        FinishedAt = g.OrderByDescending(d => d.FinishedAt).First().FinishedAt,
-                        RequestedAt = g.OrderByDescending(d => d.FinishedAt).First().RequestedAt,
-                        PackageId = g.OrderByDescending(d => d.FinishedAt).First().PackageId,
-                        PackageVersion = g.OrderByDescending(d => d.FinishedAt).First().PackageVersion,
-                        Id = g.OrderByDescending(d => d.FinishedAt).First().Id,
-                        NugetId = g.OrderByDescending(d => d.FinishedAt).First().NugetId,
-                        Status = g.OrderByDescending(d => d.FinishedAt).First().Status
-                    };
+                                    group deployment by new { PackageName = deployment.PackageId, deployment.EnvironmentId }
+                                        into g
+                                        select
+                                            new ReducedResult()
+                                            {
+                                                EnvironmentId = g.OrderByDescending(d => d.FinishedAt).First().EnvironmentId,
+                                                EnvironmentName = g.OrderByDescending(d => d.FinishedAt).First().EnvironmentName,
+                                                Deployments = g.Sum(d => d.Deployments),
+                                                FinishedAt = g.OrderByDescending(d => d.FinishedAt).First().FinishedAt,
+                                                RequestedAt = g.OrderByDescending(d => d.FinishedAt).First().RequestedAt,
+                                                PackageId = g.OrderByDescending(d => d.FinishedAt).First().PackageId,
+                                                NugetId= g.OrderByDescending(d => d.FinishedAt).First().NugetId,
+                                                PackageVersion = g.OrderByDescending(d => d.FinishedAt).First().PackageVersion,
+                                                Id = g.OrderByDescending(d => d.FinishedAt).First().Id,
+                                                Status = g.OrderByDescending(d => d.FinishedAt).First().Status
+                                            };
         }
     }
 }

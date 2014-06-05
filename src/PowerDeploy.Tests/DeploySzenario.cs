@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using PowerDeploy.Server.Model;
 using PowerDeploy.Server.ServiceModel.Deployment;
 using Raven.Client;
@@ -35,7 +36,15 @@ namespace PowerDeploy.Tests
 
         public DeploySzenario PublishPackage(string nugetId, string version)
         {
-            _packages.Add(new Package(nugetId, version) { Published = GetNextDate() } );
+            var package = _packages.FirstOrDefault(p => p.NugetId == nugetId);
+
+            if (package == null)
+            {
+                package = new Package(nugetId);
+                _packages.Add(package);
+            }
+
+            package.Versions.Add(new PackageVersion() { Published = GetNextDate(), Version = version });
 
             return this;
         }
@@ -47,9 +56,10 @@ namespace PowerDeploy.Tests
             _deployments.Add(new Deployment
             {
                 EnvironmentId = "environments/" + (int)environment, 
-                PackageId = new Package(nugetId, version).Id, 
+                PackageId = new Package(nugetId).Id, 
                 RequestedAt = timestamp, 
                 FinishedAt = timestamp.AddMinutes(2),
+                Version = version,
                 Status = DeployStatus.Successful
             });
 

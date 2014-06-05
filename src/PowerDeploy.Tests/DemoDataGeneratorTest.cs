@@ -47,8 +47,6 @@ namespace PowerDeploy.Tests
                 .Deploy(DeploySzenario.Environment.Prod, "WebApp", "1.0.1")
                 .Deploy(DeploySzenario.Environment.Prod, "WebApp", "1.1.0")
                 .Play();
-
-
         }
     }
 }

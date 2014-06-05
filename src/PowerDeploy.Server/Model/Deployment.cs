@@ -12,5 +12,6 @@ namespace PowerDeploy.Server.Model
         public string EnvironmentId { get; set; }
         public string PackageId { get; set; }
         public DeployStatus Status { get; set; }
+        public string Version { get; set; }
     }
 }
