@@ -99,4 +99,5 @@ powerdeploy.xml
 node_modules/
 
 src/PowerDeploy.Server.SPA/lib/
+src/PowerDeploy.Server.SPA/dist/
 src/PowerDeploy.PackageExplorerPlugin/*.nupkg
