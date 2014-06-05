@@ -9,7 +9,7 @@ namespace PowerDeploy.Tests
     {
         [Test]
         [Ignore]
-        public void Generate_Demo_Data()
+        public void Clear_And_Generate_Demo_Data()
         {
             var documentStore = new DocumentStore() { DefaultDatabase = "PowerDeploy", Url = "http://localhost:8080", }.Initialize();
 
@@ -29,6 +29,8 @@ namespace PowerDeploy.Tests
                 .PublishPackage("RestAPI", "2.0.0")
                 .PublishPackage("WebApp", "1.0.0")
                 .PublishPackage("WebApp", "1.0.1")
+                .PublishPackage("WebApp", "1.0.2")
+                .PublishPackage("WebApp", "1.0.3")
                 .PublishPackage("WebApp", "1.1.0")
                 .PublishPackage("WebApp", "2.0.0")
                 .Deploy(DeploySzenario.Environment.Dev, "RestAPI", "1.0.0")

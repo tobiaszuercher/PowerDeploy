@@ -19,9 +19,7 @@ namespace PowerDeploy.Server.Indexes
             public DateTime FinishedAt { get; set; }
             public string EnvironmentId { get; set; }
             public string EnvironmentName { get; set; }
-            public string PackageId { get; set; }
-            public string NugetId { get; set; }
-            public string PackageVersion { get; set; }
+            public Package Package { get; set; }
             public int Deployments { get; set; }
             public DeployStatus Status { get; set; }
         }
@@ -36,29 +34,25 @@ namespace PowerDeploy.Server.Indexes
                                      RequestedAt = deployment.RequestedAt,
                                      EnvironmentId = deployment.EnvironmentId,
                                      EnvironmentName = LoadDocument<Environment>(deployment.EnvironmentId).Name,
-                                     PackageVersion = deployment.Version,
-                                     PackageId = deployment.PackageId,
-                                     NugetId = LoadDocument<Package>(deployment.PackageId).NugetId,
+                                     Package = deployment.Package,
                                      Deployments = 1,
                                      Status = deployment.Status
                                  };
 
 
             Reduce = deployments => from deployment in deployments
-                                    group deployment by new { PackageName = deployment.PackageId, deployment.EnvironmentId }
+                                    group deployment by new { PackageName = deployment.Package.NugetId, deployment.EnvironmentId }
                                         into g
                                         select
                                             new ReducedResult()
                                             {
-                                                EnvironmentId = g.OrderByDescending(d => d.FinishedAt).First().EnvironmentId,
-                                                EnvironmentName = g.OrderByDescending(d => d.FinishedAt).First().EnvironmentName,
-                                                Deployments = g.Sum(d => d.Deployments),
+                                                Id = g.OrderByDescending(d => d.FinishedAt).First().Id,
                                                 FinishedAt = g.OrderByDescending(d => d.FinishedAt).First().FinishedAt,
                                                 RequestedAt = g.OrderByDescending(d => d.FinishedAt).First().RequestedAt,
-                                                PackageId = g.OrderByDescending(d => d.FinishedAt).First().PackageId,
-                                                NugetId= g.OrderByDescending(d => d.FinishedAt).First().NugetId,
-                                                PackageVersion = g.OrderByDescending(d => d.FinishedAt).First().PackageVersion,
-                                                Id = g.OrderByDescending(d => d.FinishedAt).First().Id,
+                                                EnvironmentId = g.OrderByDescending(d => d.FinishedAt).First().EnvironmentId,
+                                                EnvironmentName = g.OrderByDescending(d => d.FinishedAt).First().EnvironmentName,
+                                                Package = g.OrderByDescending(d => d.FinishedAt).First().Package,
+                                                Deployments = g.Sum(d => d.Deployments),
                                                 Status = g.OrderByDescending(d => d.FinishedAt).First().Status
                                             };
         }

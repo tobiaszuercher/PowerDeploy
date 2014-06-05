@@ -10,8 +10,13 @@ namespace PowerDeploy.Server.Model
         public DateTime RequestedAt { get; set; }
         public DateTime FinishedAt { get; set; }
         public string EnvironmentId { get; set; }
-        public string PackageId { get; set; }
+        public Package Package { get; set; }
         public DeployStatus Status { get; set; }
         public string Version { get; set; }
+
+        public Deployment()
+        {
+            Package = new Package();
+        }
     }
 }

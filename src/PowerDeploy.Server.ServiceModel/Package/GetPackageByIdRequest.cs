@@ -11,7 +11,7 @@ namespace PowerDeploy.Server.ServiceModel.Package
     }
 
     [Route("/packages", "GET")]
-    public class GetPackageRequest : IReturn<List<PackageOverviewDto>>
+    public class GetPackageOverviewRequest : IReturn<List<PackageOverviewDto>>
     {
     }
 }
