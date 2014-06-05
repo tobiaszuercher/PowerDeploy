@@ -1,4 +1,6 @@
-pdApp.filter('StripRavenDbIdPrefix', [
+var powerdeploy = angular.module('powerdeploy');
+
+powerdeploy.filter('StripRavenDbIdPrefix', [
     function () {
       var result = function (id) {
         var index = id.indexOf('/') + 1;
@@ -9,7 +11,7 @@ pdApp.filter('StripRavenDbIdPrefix', [
     }
 ]);
 
-pdApp.filter('boolConverter', [
+powerdeploy.filter('boolConverter', [
     function () {
       var result = function (valueToCheck, trueValue, falseValue) {
         if (valueToCheck) {
@@ -23,7 +25,7 @@ pdApp.filter('boolConverter', [
     }
 ]);
 
-//pdApp.filter('formatdate', [function () {
+//powerdeploy.filter('formatdate', [function () {
 //  var result = function (date, formatstring) {
 //    if (formatstring === null) {
 //      formatstring = 'DD MMM YYYY';
@@ -34,7 +36,7 @@ pdApp.filter('boolConverter', [
 //  return result;
 //}]);
 
-//pdApp.filter('convertdate', [function () {
+//powerdeploy.filter('convertdate', [function () {
 //  var result = function (date) {
 //    return moment(date).toDate();
 //  };
