@@ -27,6 +27,7 @@ namespace PowerDeploy.Server
 
             JsConfig.DateHandler = DateHandler.ISO8601;
 
+            Plugins.Add(new CorsFeature());
             Plugins.Add(new SwaggerFeature());
             Plugins.Add(new PostmanFeature()
             {

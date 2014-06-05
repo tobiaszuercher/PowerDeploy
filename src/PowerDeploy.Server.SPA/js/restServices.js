@@ -1,7 +1,7 @@
-pdApp.factory('Packages', [
+pdApp.factory('settings', [
   '$resource', function ($resource) {
-    return $resource('/packages/:Id', null, {
-      'update': { method: 'POST' }
+    return $resource('http://localhost:81/settings/:Id', null, {
+      'save': { method: 'PUT' }
     });
   }
 ]);
