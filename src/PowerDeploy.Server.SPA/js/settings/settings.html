@@ -19,7 +19,25 @@
                 </div>
 
                 <div class="panel-body">
+                    
+                    <div class="form-group">
+                        <label for="field-1" class="col-sm-3 control-label">Work Dir</label>
 
+                        <div class="col-sm-5">
+                            <input type="text" class="form-control" id="field-1" ng-model="settings.WorkDir">
+                        </div>
+                    </div>
+                        
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label">Version Control System</label>
+                        <div class="col-sm-5">
+                            <select class="form-control" ng-model="settings.VersionControlSystem" ng-options="vcs.name for vcs in versionControlSystems">
+                                <option value="">-- choose color --</option>
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <!-- examples -->
                     <div class="form-group">
                         <label for="field-1" class="col-sm-3 control-label">Site title</label>
 
