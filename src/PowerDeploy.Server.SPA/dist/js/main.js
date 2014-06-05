@@ -11,6 +11,10 @@ pdApp.config(['$routeProvider',
                 templateUrl: 'js/dashboard/dashboard.html',
                 controller: 'dashboardCtrl'
             }).
+            when('/package', {
+               templateUrl: 'js/packages/package.html',
+                controller: 'packageCtrl'
+            }).
             otherwise({
                 redirectTo: '/dashboard'
             });
