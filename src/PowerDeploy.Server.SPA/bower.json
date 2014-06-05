@@ -1,11 +1,14 @@
 {
-    "name": "powerdeploy-dashboard",
-    "description": "PowerDeploy dashboard",
-    "version": "0.1.0",
-    "homepage": "https://github.com/tobiaszuercher/powerdeploy",
-    "private": true,
-    "dependencies": {
-        "angular": "~1.2.17",
-        "angular-route": "~1.2.16"
-    }
+  "name": "powerdeploy-dashboard",
+  "description": "PowerDeploy dashboard",
+  "version": "0.1.0",
+  "homepage": "https://github.com/tobiaszuercher/powerdeploy",
+  "private": true,
+  "dependencies": {
+    "angular": "~1.2.17",
+    "angular-route": "~1.2.16"
+  },
+  "resolutions": {
+    "angular": "1.2.16"
+  }
 }
