@@ -34,6 +34,14 @@ namespace PowerDeploy.Server.ServiceModel.Package
         //}
     }
 
+    public class PackageOverviewDto
+    {
+        public string NugetId { get; set; }
+        public int Count { get; set; }
+        public DateTime LastPublish { get; set; }
+        public string LastVersion { get; set; }
+    }
+
     public class PackageVersionDto
     {
         public string Version { get; set; }
