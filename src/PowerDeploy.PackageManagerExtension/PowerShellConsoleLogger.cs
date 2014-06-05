@@ -97,7 +97,7 @@ namespace PowerDeploy.PackageManagerExtension
         {
             var runspace = Runspace.DefaultRunspace;
             
-            var pipeline = runspace.CreateNestedPipeline(string.Format("{0} '{1}'", cmd, message), false);
+            var pipeline = runspace.CreateNestedPipeline(string.Format(@"{0} ""{1}""", cmd, message), false);
             
             pipeline.Invoke();
         }

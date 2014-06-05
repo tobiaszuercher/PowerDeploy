@@ -15,11 +15,12 @@ namespace PowerDeploy.PackageManagerExtension
         [Parameter(Mandatory = true)]
         public string Directory { get; set; }
 
-        public static readonly ILog Log = LogManager.GetLogger(typeof(InvokeDirectoryTransform));
+        public static ILog Log { get; private set; }
     
         protected override void ProcessRecord()
         {
             LogManager.LogFactory = new PowerShellCommandLineLogFactory();
+            Log = LogManager.GetLogger(typeof (InvokeDirectoryTransform));
 
             try
             {
@@ -30,7 +31,7 @@ namespace PowerDeploy.PackageManagerExtension
             }
             catch (DirectoryNotFoundException)
             {
-                Log.Warn(".powerdeploy folder not found for project " + Directory + "! i'll skip it!");
+                Log.Warn(".powerdeploy folder not found for " + Directory + "!");
             }
             catch (FileNotFoundException exception)
             {

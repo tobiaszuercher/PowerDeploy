@@ -60,7 +60,6 @@
     <Compile Include="PowerShellCommandLineLogFactory.cs" />
     <Compile Include="PowerShellConsoleLogger.cs" />
     <Compile Include="GetEnvironmentDir.cs" />
-    <Compile Include="PowerShellBuddy.cs" />
     <Compile Include="InvokeDirectoryTransform.cs" />
     <Content Include="scripts\init.ps1">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
