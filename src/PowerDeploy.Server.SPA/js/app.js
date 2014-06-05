@@ -23,6 +23,10 @@ angular.module('powerdeploy', ['powerdeploy.config', 'powerdeploy.rest', 'ngRout
             templateUrl: 'js/packages/packageOverview.html',
             controller: 'packageCtrl'
         }).
+        when('/environment', {
+            templateUrl: 'js/environment/environment.html',
+            controller: 'environmentCtrl'
+        }).
         otherwise({
             redirectTo: '/dashboard'
         });
