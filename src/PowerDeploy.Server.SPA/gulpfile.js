@@ -11,7 +11,8 @@ var gulp = require('gulp'),
     concat = require('gulp-concat'),
     notify = require('gulp-notify'),
     cache = require('gulp-cache'),
-    livereload = require('gulp-livereload');
+    livereload = require('gulp-livereload'),
+    inject = require('gulp-inject');
 
 function startExpress() {
   var express = require('express');
@@ -20,29 +21,38 @@ function startExpress() {
   app.listen(1337);
 }
 
-// Styles
 gulp.task('styles', function() {
-  return gulp.src('css/main.scss')
-    .pipe(sass({ style: 'expanded' }))
-    .pipe(autoprefixer('last 2 version', 'safari 5', 'ie 8', 'ie 9', 'opera 12.1', 'ios 6', 'android 4'))
-    .pipe(gulp.dest('dist/css'))
-    .pipe(rename({ suffix: '.min' }))
-    .pipe(minifycss())
-    .pipe(gulp.dest('dist/css'))
+  return gulp.src('css/**/*.scss')
+    .pipe(sass({ style: 'compact', sourcemap: true }))
+    .pipe(autoprefixer('last 2 version', 'safari 5', 'ie 9', 'opera 12.1', 'ios 6', 'android 4'))
+    .pipe(gulp.dest('css/'))
+    //.pipe(gulp.dest('dist/css'))
+    //.pipe(rename({ suffix: '.min' }))
+    //.pipe(minifycss())
+    //.pipe(gulp.dest('css/'))
+    //.pipe(gulp.dest('dist/css'))
     //.pipe(notify({ message: 'Styles task complete' }));
 });
 
-// Scripts
 gulp.task('scripts', function() {
-  return gulp.src('js/**.js')
-    //.pipe(jshint('.jshintrc'))
-    //.pipe(jshint.reporter('jshint-stylish'))
+  return gulp.src('js/**/*.js')
+    .pipe(jshint('.jshintrc'))
+    .pipe(jshint.reporter('jshint-stylish'))
     .pipe(concat('main.js'))
     .pipe(gulp.dest('dist/js'))
     .pipe(rename({ suffix: '.min' }))
     .pipe(uglify())
     .pipe(gulp.dest('dist/js'))
     //.pipe(notify({ message: 'Scripts task complete' }));
+});
+
+gulp.task('inject', function() {
+   gulp.src('index.html')
+  //.pipe(inject(gulp.src(['js/**/*.js'], {read: false})))
+  .pipe(inject(gulp.src(['lib/**/*.js', '!lib/**/*.min.js'], {read: false}), { starttag: '<!-- inject:vendor:js -->' }))
+  .pipe(inject(gulp.src(['js/**/*.js', '!js/**/*.min.js'], {read: false}), { starttag: '<!-- inject:angularapp:js -->' }))
+  .pipe(inject(gulp.src(['css/**/*.css', '!css/**/*.min.css'], {read: false})))
+  .pipe(gulp.dest(".")); 
 });
 
 //// Images
@@ -61,7 +71,7 @@ gulp.task('clean', function() {
 
 // Default task
 gulp.task('default', ['clean'], function() {
-    gulp.start('styles', 'scripts', 'images', 'watch', 'server');
+    gulp.start('styles', 'images', 'inject', 'watch', 'server');
 });
 
 gulp.task('server', function () {
@@ -75,7 +85,9 @@ gulp.task('watch', function() {
   gulp.watch('css/**/*.scss', ['styles']);
 
   // Watch .js files
-  gulp.watch('js/**/*.js', ['scripts']);
+  //gulp.watch('js/**/*.js', ['scripts']);
+    
+  gulp.watch('lib/**/*.*', ['inject']);
 
   // Watch image files
   gulp.watch('img/**/*', ['images']);
@@ -84,7 +96,7 @@ gulp.task('watch', function() {
   var server = livereload();
 
   // Watch any files in dist/, reload on change
-  gulp.watch(['dist/**', 'index.html', 'js/**/*.html']).on('change', function(file) {
+  gulp.watch(['js/**/*.*', 'index.html', 'css/**/*.*']).on('change', function(file) {
     console.log(file.path + ' changed');
     server.changed(file.path);
   });
