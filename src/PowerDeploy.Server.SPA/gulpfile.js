@@ -13,21 +13,17 @@ var gulp = require('gulp'),
     cache = require('gulp-cache'),
     livereload = require('gulp-livereload');
 
-var paths = {
-  "angular": ["js/*/*/*.js"]
-};
-
 function startExpress() {
   var express = require('express');
   var app = express();
   app.use(express.static(__dirname));
-  app.listen(4000);
+  app.listen(1337);
 }
 
 // Styles
 gulp.task('styles', function() {
   return gulp.src('css/main.scss')
-    .pipe(sass({ style: 'expanded', }))
+    .pipe(sass({ style: 'expanded' }))
     .pipe(autoprefixer('last 2 version', 'safari 5', 'ie 8', 'ie 9', 'opera 12.1', 'ios 6', 'android 4'))
     .pipe(gulp.dest('dist/css'))
     .pipe(rename({ suffix: '.min' }))
@@ -79,7 +75,7 @@ gulp.task('watch', function() {
   gulp.watch('css/**/*.scss', ['styles']);
 
   // Watch .js files
-  gulp.watch('js/*.js', ['scripts']);
+  gulp.watch('js/**/*.js', ['scripts']);
 
   // Watch image files
   gulp.watch('img/**/*', ['images']);
@@ -88,9 +84,8 @@ gulp.task('watch', function() {
   var server = livereload();
 
   // Watch any files in dist/, reload on change
-  gulp.watch(['dist/**', 'index.html']).on('change', function(file) {
+  gulp.watch(['dist/**', 'index.html', 'js/**/*.html']).on('change', function(file) {
     console.log(file.path + ' changed');
     server.changed(file.path);
   });
-
 });
