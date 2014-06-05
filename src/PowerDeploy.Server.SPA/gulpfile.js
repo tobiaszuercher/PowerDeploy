@@ -49,7 +49,7 @@ gulp.task('scripts', function() {
 gulp.task('inject', function() {
    gulp.src('index.html')
   //.pipe(inject(gulp.src(['js/**/*.js'], {read: false})))
-  .pipe(inject(gulp.src(['lib/**/*.js', '!lib/**/*.min.js'], {read: false}), { starttag: '<!-- inject:vendor:js -->' }))
+  //.pipe(inject(gulp.src(['lib/**/*.js', '!lib/**/*.min.js'], {read: false}), { starttag: '<!-- inject:vendor:js -->' }))
   .pipe(inject(gulp.src(['js/**/*.js', '!js/**/*.min.js'], {read: false}), { starttag: '<!-- inject:angularapp:js -->' }))
   .pipe(inject(gulp.src(['css/**/*.css', '!css/**/*.min.css'], {read: false})))
   .pipe(gulp.dest(".")); 
