@@ -21,8 +21,6 @@ namespace PowerDeploy.Server
         {
             SetConfig(new HostConfig
             {
-                RedirectToDefaultDocuments = true,
-                DefaultRedirectPath = "index.html",
                 DebugMode = true,
                 WriteErrorsToResponse = true,
             });

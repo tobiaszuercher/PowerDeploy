@@ -1,11 +1,33 @@
 <h2>Dashboard</h2>
 <br>
+<div class="row">
+    <div class="col-sm-3">
+        <div class="tile-stats tile-green">
+            <div class="icon"><i class="entypo-paper-plane"></i></div>
+            <div class="num" data-start="0" data-end="42" data-postfix="" data-duration="1500" data-delay="600">42</div>
+
+            <h3>Daily deployments</h3>
+            <p>deployed to all environments.</p>
+        </div>
+    </div>
+    <div class="col-sm-3">
+        <div class="tile-stats tile-red">
+            <div class="icon"><i class="entypo-suitcase"></i></div>
+            <div class="num" data-start="0" data-end="12" data-postfix="" data-duration="1500" data-delay="0">12</div>
+
+            <h3>Built packages today</h3>
+            <p>Packages pushed to nuget today.</p>
+        </div>
+    </div>
+</div>
+
+<br />
 
 <div class="row">
     <div class="col-md-5">
         <div class="panel panel-primary">
             <div class="panel-heading">
-                <div class="panel-title">Latest Updated Profiles</div>
+                <div class="panel-title">Deployment overview</div>
 
                 <div class="panel-options">
                     <a href="#sample-modal" data-toggle="modal" data-target="#sample-modal-dialog-1" class="bg"><i class="entypo-cog"></i></a>
