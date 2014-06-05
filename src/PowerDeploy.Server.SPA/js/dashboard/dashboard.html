@@ -1,93 +1,100 @@
 <h2>Dashboard</h2>
 <br>
 <div class="row">
-    <div class="col-sm-3">
-        <div class="tile-stats tile-green">
-            <div class="icon"><i class="entypo-paper-plane"></i></div>
-            <div class="num" data-start="0" data-end="42" data-postfix="" data-duration="1500" data-delay="600">42</div>
+    <!-- content -->
+    <div class="col-md-6">
+        <div class="row">
+            <div class="col-sm-6">
+                <div class="tile-stats tile-green">
+                    <div class="icon"><i class="entypo-paper-plane"></i></div>
+                    <div class="num" data-start="0" data-end="42" data-postfix="" data-duration="1500" data-delay="600">42</div>
 
-            <h3>Daily deployments</h3>
-            <p>deployed to all environments.</p>
-        </div>
-    </div>
-    <div class="col-sm-3">
-        <div class="tile-stats tile-red">
-            <div class="icon"><i class="entypo-suitcase"></i></div>
-            <div class="num" data-start="0" data-end="12" data-postfix="" data-duration="1500" data-delay="0">12</div>
-
-            <h3>Built packages today</h3>
-            <p>Packages pushed to nuget today.</p>
-        </div>
-    </div>
-</div>
-
-<br />
-
-<div class="row">
-    <div class="col-md-5">
-        <div class="panel panel-primary">
-            <div class="panel-heading">
-                <div class="panel-title">Deployment overview</div>
-
-                <div class="panel-options">
-                    <a href="#sample-modal" data-toggle="modal" data-target="#sample-modal-dialog-1" class="bg"><i class="entypo-cog"></i></a>
-                    <a href="#" data-rel="collapse"><i class="entypo-down-open"></i></a>
-                    <a href="#" data-rel="reload"><i class="entypo-arrows-ccw"></i></a>
-                    <a href="#" data-rel="close"><i class="entypo-cancel"></i></a>
+                    <h3>Daily deployments</h3>
+                    <p>deployed to all environments.</p>
                 </div>
             </div>
+            <div class="col-sm-6">
+                <div class="tile-stats tile-red">
+                    <div class="icon"><i class="entypo-suitcase"></i></div>
+                    <div class="num" data-start="0" data-end="12" data-postfix="" data-duration="1500" data-delay="0">12</div>
 
-            <div class="panel-body with-table">
-                <table class="table table-bordered table-responsive">
-                    <thead>
-                    <tr>
-                        <th>Package</th>
-                        <th>Test</th>
-                        <th>UAT</th>
-                        <th>Production</th>
-                    </tr>
-                    </thead>
+                    <h3>Built packages today</h3>
+                    <p>Packages pushed to nuget today.</p>
+                </div>
+            </div>
+        </div>
 
-                    <tbody>
-                    <tr>
-                        <td>PowerDeploy.Sample.Database</td>
-                        <td>v1.0.0.0</td>
-                        <td>v1.0.0.0</td>
-                        <td class="text-center">v1.0.0.0</td>
-                    </tr>
+        <br />
 
-                    <tr>
-                        <td>PowerDeploy.Sample.Backend</td>
-                        <td>v1.0.0.0</td>
-                        <td>v1.0.0.0</td>
-                        <td class="text-center">v1.0.0.0</td>
-                    </tr>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="panel panel-primary">
+                    <div class="panel-heading">
+                        <div class="panel-title">Deployment overview</div>
 
-                    <tr>
-                        <td>PowerDeploy.Sample.Frontend</td>
-                        <td>v1.0.0.0</td>
-                        <td>v1.0.0.0</td>
-                        <td class="text-center">v1.0.0.0</td>
-                    </tr>
+                        <div class="panel-options">
+                            <a href="#sample-modal" data-toggle="modal" data-target="#sample-modal-dialog-1" class="bg"><i class="entypo-cog"></i></a>
+                            <a href="#" data-rel="collapse"><i class="entypo-down-open"></i></a>
+                            <a href="#" data-rel="reload"><i class="entypo-arrows-ccw"></i></a>
+                            <a href="#" data-rel="close"><i class="entypo-cancel"></i></a>
+                        </div>
+                    </div>
 
-                    </tbody>
-                </table>
+                    <div class="panel-body with-table">
+                        <table class="table table-bordered table-responsive">
+                            <thead>
+                            <tr>
+                                <th>Package</th>
+                                <th>Test</th>
+                                <th>UAT</th>
+                                <th>Production</th>
+                            </tr>
+                            </thead>
+
+                            <tbody>
+                            <tr>
+                                <td>PowerDeploy.Sample.Database</td>
+                                <td>v1.0.0.0</td>
+                                <td>v1.0.0.0</td>
+                                <td class="text-center">v1.0.0.0</td>
+                            </tr>
+
+                            <tr>
+                                <td>PowerDeploy.Sample.Backend</td>
+                                <td>v1.0.0.0</td>
+                                <td>v1.0.0.0</td>
+                                <td class="text-center">v1.0.0.0</td>
+                            </tr>
+
+                            <tr>
+                                <td>PowerDeploy.Sample.Frontend</td>
+                                <td>v1.0.0.0</td>
+                                <td>v1.0.0.0</td>
+                                <td class="text-center">v1.0.0.0</td>
+                            </tr>
+
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
 
-    <div class="col-md-6 col-md-offset-1">
-        <ul class="cbp_tmtimeline">
-            <li>
-                <time class="cbp_tmtime" datetime="2014-03-27T18:30"><span class="hidden">27/03/2014</span> <span class="large">Now</span></time>
+    <!-- timeline -->
+    <div class="col-md-6">
+        <div class="col-md-12">
+            <ul class="cbp_tmtimeline">
+                <li>
+                    <time class="cbp_tmtime" datetime="2014-03-27T18:30"><span class="hidden">27/03/2014</span> <span class="large">Now</span></time>
 
-                <div class="cbp_tmicon">
-                    <i class="entypo-user"></i>
-                </div>
+                    <div class="cbp_tmicon">
+                        <i class="entypo-user"></i>
+                    </div>
 
-                <div class="cbp_tmlabel empty">
-                    <span>No Activity</span>
-                </div>
+                    <div class="cbp_tmlabel empty">
+                        <span>No Activity</span>
+                    </div>
                 <li>
                     <time class="cbp_tmtime" datetime="2014-03-27T03:45"><span>03:45 AM</span> <span>Today</span></time>
 
@@ -96,25 +103,38 @@
                     </div>
 
                     <div class="cbp_tmlabel">
-                        <h2><a href="#">olibanjoli</a> <span>posted a status update</span></h2>
+                        <h2><a href="#">Art Ramadani</a> <span>posted a status update</span></h2>
                         <p>Tolerably earnestly middleton extremely distrusts she boy now not. Add and offered prepare how cordial two promise. Greatly who affixed suppose but enquire compact prepare all put. Added forth chief trees but rooms think may.</p>
                     </div>
                 </li>
-        </ul>
+                <li>
+                    <time class="cbp_tmtime" datetime="2014-03-26T13:22"><span>01:22 PM</span> <span>Yesterday</span></time>
+
+                    <div class="cbp_tmicon bg-secondary">
+                        <i class="entypo-suitcase"></i>
+                    </div>
+
+                    <div class="cbp_tmlabel">
+                        <h2><a href="#">Jack Bauer</a> <span>deployed RestAPI to TEST</span></h2>
+                        <p>You have a meeting at <strong>Laborator Office</strong> Today.</p>
+                    </div>
+                </li>
+                <li>
+                    <time class="cbp_tmtime" datetime="2014-03-26T13:22"><span>01:22 PM</span> <span>Yesterday</span></time>
+
+                    <div class="cbp_tmicon bg-secondary">
+                        <i class="entypo-suitcase"></i>
+                    </div>
+
+                    <div class="cbp_tmlabel">
+                        <h2><a href="#">David Pallmer</a> <span>marked RestAPI v1.0.1 as ready for PROD!</span></h2>
+                        <p>You have a meeting at <strong>Laborator Office</strong> Today.</p>
+                    </div>
+                </li>
+            </ul>
+        </div>
     </div>
 </div>
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 

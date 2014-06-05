@@ -21,16 +21,13 @@
 
     <link rel="stylesheet" href="assets/js/vertical-timeline/css/component.css">
     
-    <!-- inject:css -->
-    <link rel="stylesheet" href="/css/main.css">
-    <!-- endinject -->
+    <link rel="stylesheet" href="dist/css/main.css">
 
     <script src="assets/js/jquery-1.11.0.min.js"></script>
 
-    <script src="/lib/angular/angular.js"></script>
-    <script src="/lib/angular-resource/angular-resource.js"></script>
-    <script src="/lib/angular-route/angular-route.js"></script>
+    <!--[if lt IE 9]><script src="assets/js/ie8-responsive-file-warning.js"></script><![endif]-->
 
+<<<<<<< HEAD
     <!-- inject:angularapp:js -->
     <script src="/js/app.js"></script>
     <script src="/js/config.js"></script>
@@ -40,6 +37,18 @@
     <script src="/js/packages/packageCtrl.js"></script>
     <script src="/js/settings/settingsCtrl.js"></script>
     <!-- endinject -->
+=======
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+    <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <script src="lib/angular/angular.js"></script>
+    <script src="lib/angular-route/angular-route.js"></script>
+    <script src="lib/angular-resource/angular-resource.js"></script>
+    <script src="dist/js/main.js"></script>
+>>>>>>> 768aff4cbf45835f6017c6039ebb1f37b6327510
 
 </head>
 <body class="page-body" data-url="http://neon.dev">
@@ -74,7 +83,7 @@
 
     <ul id="main-menu" class="multiple-expanded auto-inherit-active-class">
         <li>
-            <a href="#/dashboard">
+            <a href="index.html">
                 <i class="entypo-gauge"></i>
                 <span>Dashboard</span>
             </a>
@@ -103,11 +112,14 @@
             </ul>
         </li>
         <li>
-            <a href="index.html">
+            <a href="#/package">
                 <i class="entypo-doc-text"></i>
                 <span>Packages</span>
             </a>
             <ul>
+                <li>
+                    <a href="#/package-overview"><span>Overview</span></a>
+                </li>
                 <li>
                     <a href="#/package"><span>Sample.Web</span></a>
                 </li>
