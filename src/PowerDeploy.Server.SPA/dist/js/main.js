@@ -1,4 +1,4 @@
-var pdApp = angular.module('pdApp', ['ngRoute', 'ngResource']);
+var pdApp = --.module('pdApp', ['ngRoute', 'ngResource']);
 
 pdApp.config(['$routeProvider',
     function($routeProvider) {
@@ -29,7 +29,6 @@ pdApp.controller('dashboardCtrl', ['$scope', '$routeParams',
     function($scope, $routeParams) {
     }
 ]);
-
 pdApp.filter("StripRavenDbIdPrefix", [
     function () {
       var result = function (id) {

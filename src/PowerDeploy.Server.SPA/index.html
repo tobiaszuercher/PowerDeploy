@@ -21,22 +21,24 @@
 
     <link rel="stylesheet" href="assets/js/vertical-timeline/css/component.css">
     
-    <link rel="stylesheet" href="dist/css/main.css">
+    <!-- inject:css -->
+    <link rel="stylesheet" href="/css/main.css">
+    <!-- endinject -->
 
     <script src="assets/js/jquery-1.11.0.min.js"></script>
 
-    <!--[if lt IE 9]><script src="assets/js/ie8-responsive-file-warning.js"></script><![endif]-->
+    <script src="/lib/angular/angular.js"></script>
+    <script src="/lib/angular-resource/angular-resource.js"></script>
+    <script src="/lib/angular-route/angular-route.js"></script>
 
-    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
-    <!--[if lt IE 9]>
-    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-    <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
-    <![endif]-->
-
-    <script src="lib/angular/angular.js"></script>
-    <script src="lib/angular-route/angular-route.js"></script>
-    <script src="lib/angular-resource/angular-resource.js"></script>
-    <script src="dist/js/main.js"></script>
+    <!-- inject:angularapp:js -->
+    <script src="/js/app.js"></script>
+    <script src="/js/filters.js"></script>
+    <script src="/js/restServices.js"></script>
+    <script src="/js/dashboard/dashboardCtrl.js"></script>
+    <script src="/js/packages/packageCtrl.js"></script>
+    <script src="/js/settings/settingsCtrl.js"></script>
+    <!-- endinject -->
 
 </head>
 <body class="page-body" data-url="http://neon.dev">
