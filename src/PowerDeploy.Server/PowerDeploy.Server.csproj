@@ -135,9 +135,6 @@
     <None Include="Service References\NuGetServer\service.edmx" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="index1.html">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
     <Content Include="swagger-ui\css\highlight.default.css">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
