@@ -48,5 +48,22 @@ namespace PowerDeploy.Tests
                 .Deploy(DeploySzenario.Environment.Prod, "WebApp", "1.1.0")
                 .Play();
         }
+
+        [Test]
+        [Ignore]
+        public void PerfTest()
+        {
+            var documentStore = new DocumentStore() { DefaultDatabase = "PowerDeploy", Url = "http://localhost:8080", }.Initialize();
+
+            var szenario = documentStore.CreateSzenario();
+
+            for (int i = 0; i < 10000; i++)
+            {
+                szenario.PublishPackage("PerfPackage", "1.0." + i);
+            }
+
+            szenario.Play();
+                
+        }
     }
 }

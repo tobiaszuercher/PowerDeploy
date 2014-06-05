@@ -107,6 +107,7 @@
     <Compile Include="GitCommandLineWrapper.cs" />
     <Compile Include="Indexes\Deployment_ByEnvironment.cs" />
     <Compile Include="Indexes\Deployment_Latest.cs" />
+    <Compile Include="Indexes\Package_Overview.cs" />
     <Compile Include="Indexes\Pakages_GroupedByNugetId.cs" />
     <Compile Include="Mapping\DeploymentExtensions.cs" />
     <Compile Include="Model\Deployment.cs" />

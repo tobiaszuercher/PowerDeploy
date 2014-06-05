@@ -1,4 +1,5 @@
-﻿using PowerDeploy.Server.Model;
+﻿using System.Linq;
+using PowerDeploy.Server.Model;
 using PowerDeploy.Server.ServiceModel;
 using PowerDeploy.Server.ServiceModel.Deployment;
 using PowerDeploy.Server.ServiceModel.Package;
@@ -33,7 +34,11 @@ namespace PowerDeploy.Server.Mapping
         public static PackageDto ToDto(this Package from)
         {
             var to = from.ConvertTo<PackageDto>();
-            //to.Uri = new QueryPackageDto2() { NugetId = to.NugetId, Version = to.Version }.ToAbsoluteUri();
+            to.Versions = from.Versions.Select(v => new PackageVersionDto()
+            {
+                Version = v.Version, 
+                Published = v.Published
+            }).ToList();
 
             return to;
         }

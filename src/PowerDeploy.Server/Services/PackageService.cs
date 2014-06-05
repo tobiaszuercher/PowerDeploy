@@ -2,6 +2,7 @@
 using System.Linq;
 
 using PowerDeploy.Core;
+using PowerDeploy.Server.Indexes;
 using PowerDeploy.Server.Mapping;
 using PowerDeploy.Server.Model;
 using PowerDeploy.Server.Provider;
@@ -38,15 +39,23 @@ namespace PowerDeploy.Server.Services
         {
             using (var session = DocumentStore.OpenSession())
             {
-                return session.Query<Package>().FirstOrDefault(p => p.NugetId == request.NugetId).ToDto();
+                return session.Load<Package>("packages/" + request.NugetId).ToDto();
             }
         }
 
-        public List<PackageDto> Get(GetPackageRequest request)
+        public List<PackageOverviewDto> Get(GetPackageRequest request)
         {
             using (var session = DocumentStore.OpenSession())
             {
-                return session.Query<Package>().ToList().Select(p => p.ToDto()).ToList();
+                var packages = session.Query<Package>().ToList();
+
+                return packages.Select(package => new PackageOverviewDto()
+                {
+                    NugetId = package.NugetId, 
+                    Count = package.Versions.Count, 
+                    LastVersion = package.Versions.OrderByDescending(p => p.Version).First().Version,
+                    LastPublish = package.Versions.OrderByDescending(p => p.Version).First().Published,
+                }).ToList();
             }
         }
     }
