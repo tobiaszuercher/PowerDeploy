@@ -1,13 +1,11 @@
-var pdApp = angular.module('pdApp', [
-    'ngRoute'
-]);
+var pdApp = angular.module('pdApp', ['ngRoute', 'ngResource']);
 
 pdApp.config(['$routeProvider',
     function($routeProvider) {
         $routeProvider.
             when('/settings', {
                 templateUrl: 'js/settings/settings.html',
-                controller: 'SettingsCtrl'
+                controller: 'settingsCtrl'
             }).
             when('/dashboard', {
                 templateUrl: 'js/dashboard/dashboard.html',
