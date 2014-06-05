@@ -33,7 +33,7 @@ namespace PowerDeploy.Server.Mapping
         public static PackageDto ToDto(this Package from)
         {
             var to = from.ConvertTo<PackageDto>();
-            to.Uri = new QueryPackageDto() { NugetId = to.NugetId, Version = to.Version }.ToAbsoluteUri();
+            //to.Uri = new QueryPackageDto2() { NugetId = to.NugetId, Version = to.Version }.ToAbsoluteUri();
 
             return to;
         }

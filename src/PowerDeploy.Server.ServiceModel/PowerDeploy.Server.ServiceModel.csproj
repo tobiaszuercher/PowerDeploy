@@ -78,7 +78,7 @@
     <Compile Include="Deployment\QueryDeploymentsDto.cs" />
     <Compile Include="PackageGroup.cs" />
     <Compile Include="Deployment\QueryLastDeploymentDto.cs" />
-    <Compile Include="Package\QueryPackageDto.cs" />
+    <Compile Include="Package\GetPackageByIdRequest.cs" />
     <Compile Include="ServerSettings.cs" />
     <Compile Include="Deployment\DeploymentDto.cs" />
     <Compile Include="EnvironmentDto.cs" />
