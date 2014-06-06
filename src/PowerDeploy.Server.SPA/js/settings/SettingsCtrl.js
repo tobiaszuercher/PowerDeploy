@@ -5,23 +5,25 @@ angular.module('powerdeploy')
             $scope.settingsBackup = {};
             $scope.versionControlSystems = ['Git', 'Tfs']
 
-            $scope.settings = settings.get({}, function() {
-                 $scope.settingsBackup = angular.copy($scope.settings);
-            });
-            
-            $scope.submit = function() {
+            $scope.settings = settings.get({}, function () {
+                    $scope.settingsBackup = angular.copy($scope.settings);
+                }, function () {
+                    toastr.error('server communication failed');
+                });
+
+            $scope.submit = function () {
                 $scope.settings.$save($scope.onSaveSuccess, $scope.onSaveError);
             };
-            
-            $scope.reset = function() {
+
+            $scope.reset = function () {
                 $scope.settings = angular.copy($scope.settingsBackup);
             }
-            
-            $scope.onSaveSuccess = function(settings, responseHeaders) {
+
+            $scope.onSaveSuccess = function (settings, responseHeaders) {
                 toastr.info('Settings saved!');
             };
 
-            $scope.onSaveError = function() {
+            $scope.onSaveError = function () {
                 toastr.error('Save failed!');
             }
 }]);
