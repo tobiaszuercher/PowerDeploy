@@ -22,7 +22,7 @@ namespace PowerDeploy.Server.Indexes
     ////        public DateTime LastFinishedAt { get; set; }
     ////        public string EnvironmentId { get; set; }
     ////        public string EnvironmentName { get; set; }
-    ////        public string PackageName { get; set; }
+    ////        public string NugetId { get; set; }
     ////        public string PackageId { get; set; }
     ////        public int Deployments { get; set; }
     ////        public DeployStatus Status { get; set; }
@@ -38,7 +38,7 @@ namespace PowerDeploy.Server.Indexes
     ////                LastRequestedAt = deployment.RequestedAt,
     ////                EnvironmentId = deployment.EnvironmentId,
     ////                EnvironmentName = LoadDocument<Environment>(deployment.EnvironmentId).Name,
-    ////                PackageName = LoadDocument<Package>(deployment.PackageId).NugetId,
+    ////                NugetId = LoadDocument<Package>(deployment.PackageId).NugetId,
     ////                PackageId = deployment.PackageId,
     ////            };
 

@@ -1,8 +1,6 @@
-﻿using System.Collections.Generic;
-using System.Linq;
+﻿using System.Linq;
 using PowerDeploy.Core;
 using PowerDeploy.Server.Indexes;
-using PowerDeploy.Server.Mapping;
 using PowerDeploy.Server.Model;
 using PowerDeploy.Server.Provider;
 using PowerDeploy.Server.ServiceModel;
@@ -42,9 +40,21 @@ namespace PowerDeploy.Server.Services
 
                 var response = new PackageDto(request.NugetId);
 
+                   var deployed = session.Query<Deployment_Latest.ReducedResult, Deployment_Latest>()
+                    .Where(d => d.NugetId == request.NugetId).ToList();
+
                 foreach (var package in packages)
                 {
-                    response.Versions.Add(new PackageVersionDto() { Published = package.Published, Version = package.Version });
+                    var found = deployed.Where(p => p.Package.Version == package.Version).ToList();
+
+                    var pv = new PackageVersionDto { Published = package.Published, Version = package.Version };
+
+                    if (found.Any())
+                    {
+                        found.ForEach(f => pv.DeployedOn.Add(f.EnvironmentName));
+                    }
+
+                    response.Versions.Add(pv);
                 }
 
                 response.LastVersion = response.Versions.OrderByDescending(p => p.Published).First().Version;

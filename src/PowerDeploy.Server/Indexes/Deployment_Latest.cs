@@ -4,6 +4,7 @@ using System.Linq;
 using PowerDeploy.Server.Model;
 using PowerDeploy.Server.ServiceModel.Deployment;
 
+using Raven.Abstractions.Indexing;
 using Raven.Client.Indexes;
 
 using Environment = PowerDeploy.Server.Model.Environment;
@@ -20,6 +21,7 @@ namespace PowerDeploy.Server.Indexes
             public string EnvironmentId { get; set; }
             public string EnvironmentName { get; set; }
             public Package Package { get; set; }
+            public string NugetId { get; set; }
             public int Deployments { get; set; }
             public DeployStatus Status { get; set; }
         }
@@ -36,7 +38,8 @@ namespace PowerDeploy.Server.Indexes
                                      EnvironmentName = LoadDocument<Environment>(deployment.EnvironmentId).Name,
                                      Package = deployment.Package,
                                      Deployments = 1,
-                                     Status = deployment.Status
+                                     Status = deployment.Status,
+                                     NugetId = deployment.Package.NugetId
                                  };
 
 
@@ -53,8 +56,11 @@ namespace PowerDeploy.Server.Indexes
                                                 EnvironmentName = g.OrderByDescending(d => d.FinishedAt).First().EnvironmentName,
                                                 Package = g.OrderByDescending(d => d.FinishedAt).First().Package,
                                                 Deployments = g.Sum(d => d.Deployments),
-                                                Status = g.OrderByDescending(d => d.FinishedAt).First().Status
+                                                Status = g.OrderByDescending(d => d.FinishedAt).First().Status,
+                                                NugetId = g.First().NugetId
                                             };
+
+            Indexes.Add(x => x.Package.NugetId, FieldIndexing.Default);
         }
     }
 }

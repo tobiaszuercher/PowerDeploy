@@ -41,5 +41,11 @@ namespace PowerDeploy.Server.ServiceModel.Package
         public string Version { get; set; }
         public DateTime Published { get; set; }
         public long Size { get; set; }
+        public List<string> DeployedOn { get; set; }
+
+        public PackageVersionDto()
+        {
+            DeployedOn = new List<string>();
+        }
     }
 }
