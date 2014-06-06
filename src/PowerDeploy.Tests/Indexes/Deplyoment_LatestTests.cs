@@ -35,9 +35,9 @@ namespace Powerdeploy.Server.Tests.Indexes
 
                     var package = results.FirstOrDefault();
 
-                    Assert.AreEqual("1.0.0.1", package.PackageVersion);
-                    Assert.AreEqual("ConsoleApp", package.NugetId);
-                    Assert.AreEqual(new PackageDto("ConsoleApp").Id, package.PackageId);
+                    Assert.AreEqual("1.0.0.1", package.Package.Version);
+                    Assert.AreEqual("ConsoleApp", package.Package.NugetId);
+                    Assert.AreEqual("packages/ConsoleApp/1.0.0.1", package.Package.Id);
                     Assert.AreEqual(2, package.Deployments);
                 }
             }
@@ -65,8 +65,8 @@ namespace Powerdeploy.Server.Tests.Indexes
                     var package = results.FirstOrDefault();
 
                     ////Assert.AreEqual("1.0.0.0", package.PackageVersion);
-                    Assert.AreEqual("ConsoleApp", package.NugetId);
-                    Assert.AreEqual(new PackageDto("ConsoleApp").Id, package.PackageId);
+                    Assert.AreEqual("ConsoleApp", package.Package.NugetId);
+                    Assert.AreEqual("packages/ConsoleApp/1.0.0.0", package.Package.Id);
                     Assert.AreEqual(2, package.Deployments);
                 }
             }
@@ -92,8 +92,8 @@ namespace Powerdeploy.Server.Tests.Indexes
                     var package = results.FirstOrDefault();
 
                     //Assert.AreEqual("1.0.0.1", package.PackageVersion);
-                    Assert.AreEqual("ConsoleApp", package.NugetId);
-                    Assert.AreEqual(new PackageDto("ConsoleApp").Id, package.PackageId);
+                    Assert.AreEqual("ConsoleApp", package.Package.NugetId);
+                    Assert.AreEqual("packages/ConsoleApp/1.0.0.1", package.Package.Id);
                     Assert.AreEqual(1, package.Deployments);
                 }
             }
@@ -122,10 +122,12 @@ namespace Powerdeploy.Server.Tests.Indexes
                     var consoleApp = results.First();
                     var webApp = results.Skip(1).First();
 
-                    Assert.AreEqual(new PackageDto("ConsoleApp").Id, consoleApp.PackageId);
+                    WaitForUserToContinueTheTest(store);
+
+                    Assert.AreEqual("packages/ConsoleApp/1.0.0.1", consoleApp.Package.Id);
                     Assert.AreEqual(2, consoleApp.Deployments);
 
-                    Assert.AreEqual(new PackageDto("WebApp").Id, webApp.PackageId);
+                    Assert.AreEqual("packages/WebApp/1.0.0.0", webApp.Package.Id);
                     Assert.AreEqual(1, webApp.Deployments);
                 }
             }
@@ -162,13 +164,13 @@ namespace Powerdeploy.Server.Tests.Indexes
                     var test = results.First(d => d.EnvironmentName == DeploySzenario.Environment.Test.ToString());
                     var prod = results.First(d => d.EnvironmentName == DeploySzenario.Environment.Prod.ToString());
 
-                    Assert.AreEqual(new PackageDto("ConsoleApp").Id, dev.PackageId);
+                    Assert.AreEqual("packages/ConsoleApp/1.1.0.0", dev.Package.Id);
                     Assert.AreEqual(4, dev.Deployments);
 
-                    Assert.AreEqual(new PackageDto("ConsoleApp").Id, test.PackageId);
+                    Assert.AreEqual("packages/ConsoleApp/1.0.1.0", test.Package.Id);
                     Assert.AreEqual(3, test.Deployments);
 
-                    Assert.AreEqual(new PackageDto("ConsoleApp").Id, prod.PackageId);
+                    Assert.AreEqual("packages/ConsoleApp/1.0.0.1", prod.Package.Id);
                     Assert.AreEqual(2, prod.Deployments);
                 }
             }

@@ -43,19 +43,11 @@ namespace PowerDeploy.Server.Services
             }
         }
 
-        public List<PackageOverviewDto> Get(GetPackageRequest request)
+        public object Get(GetPackageOverviewRequest request)
         {
             using (var session = DocumentStore.OpenSession())
             {
-                var packages = session.Query<Package>().ToList();
-
-                return packages.Select(package => new PackageOverviewDto()
-                {
-                    NugetId = package.NugetId, 
-                    Count = package.Versions.Count, 
-                    LastVersion = package.Versions.OrderByDescending(p => p.Version).First().Version,
-                    LastPublish = package.Versions.OrderByDescending(p => p.Version).First().Published,
-                }).ToList();
+                return session.Query<Package_Overview.ReducedResult, Package_Overview>().ToList().Select(p => p.ConvertTo<PackageOverviewDto>());                
             }
         }
     }

@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using PowerDeploy.Server.Model;
 using PowerDeploy.Server.ServiceModel.Deployment;
 using Raven.Client;
@@ -14,7 +13,7 @@ namespace PowerDeploy.Tests
         private readonly IDocumentStore _store;
         private readonly List<Package> _packages;
         private readonly List<Deployment> _deployments;
-        private readonly List<PowerDeploy.Server.Model.Environment> _environments; 
+        private readonly List<PowerDeploy.Server.Model.Environment> _environments;
 
         public DeploySzenario(IDocumentStore store)
         {
@@ -36,15 +35,7 @@ namespace PowerDeploy.Tests
 
         public DeploySzenario PublishPackage(string nugetId, string version)
         {
-            var package = _packages.FirstOrDefault(p => p.NugetId == nugetId);
-
-            if (package == null)
-            {
-                package = new Package(nugetId);
-                _packages.Add(package);
-            }
-
-            package.Versions.Add(new PackageVersion() { Published = GetNextDate(), Version = version });
+            _packages.Add(new Package(nugetId, version) { Published = GetNextDate() });
 
             return this;
         }
@@ -55,17 +46,16 @@ namespace PowerDeploy.Tests
 
             _deployments.Add(new Deployment
             {
-                EnvironmentId = "environments/" + (int)environment, 
-                PackageId = new Package(nugetId).Id, 
-                RequestedAt = timestamp, 
+                EnvironmentId = "environments/" + (int)environment,
+                Package = new Package(nugetId, version),
+                RequestedAt = timestamp,
                 FinishedAt = timestamp.AddMinutes(2),
-                Version = version,
                 Status = DeployStatus.Successful
             });
 
             return this;
         }
-        
+
         public DeploySzenario Play()
         {
             using (var session = _store.OpenSession())

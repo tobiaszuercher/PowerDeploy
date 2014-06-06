@@ -43,7 +43,7 @@ namespace PowerDeploy.Server.Services
 
                 var packageInfo = session.Load<Package>("packages/{0}/{1}".Fmt(request.PackageId, request.Version));
 
-                deploymentInfo.PackageId = packageInfo.Id;
+                deploymentInfo.Package = packageInfo;
                 deploymentInfo.Status = DeployStatus.Deploying;
                 session.Store(deploymentInfo);
 
@@ -73,16 +73,13 @@ namespace PowerDeploy.Server.Services
             {
                 var deployments = session.Query<Deployment>()
                     .Include(d => d.EnvironmentId)
-                    .Include(d => d.PackageId).ToList()
                     .OrderByDescending(d => d.FinishedAt);
 
                 var result = new List<DeploymentDto>();
 
                 foreach (var deployment in deployments)
                 {
-                    result.Add(deployment.ToDto(
-                          session.Load<Environment>(deployment.EnvironmentId), 
-                          session.Load<Package>(deployment.PackageId)));
+                    result.Add(deployment.ToDto(session.Load<Environment>(deployment.EnvironmentId)));
                 }
 
                 return result;
