@@ -1,8 +1,11 @@
 angular.module('powerdeploy')
-    .controller('packageCtrl', ['$scope', 'packages',
-        function ($scope, packages) {
+angular.module('powerdeploy')
+    .controller('packageCtrl', ['$routeParams', '$scope', 'packages',
+        function ($routeParams, $scope, packages) {
 
-            $scope.packages = packages.query({}, function () {}, function () {
+            $scope.package = packages.get({ id: $routeParams.nugetId }, function () {
+                toastr.success('yay');
+            }, function () {
                 toastr.error('server communication failed');
             });
         }]);

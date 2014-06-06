@@ -15,13 +15,13 @@ angular.module('powerdeploy', ['powerdeploy.config', 'powerdeploy.rest', 'ngRout
             templateUrl: 'js/dashboard/dashboard.html',
             controller: 'dashboardCtrl'
         }).
-        when('/package', {
+        when('/package/:nugetId', {
             templateUrl: 'js/packages/package.html',
             controller: 'packageCtrl'
         }).
         when('/package-overview', {
             templateUrl: 'js/packages/packageOverview.html',
-            controller: 'packageCtrl'
+            controller: 'packageOverviewCtrl'
         }).
         when('/environment', {
             templateUrl: 'js/environment/environment.html',
