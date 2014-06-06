@@ -29,12 +29,12 @@ namespace PowerDeploy.Server
 
             Plugins.Add(new CorsFeature());
             Plugins.Add(new SwaggerFeature());
-            Plugins.Add(new PostmanFeature()
+            Plugins.Add(new PostmanFeature
             {
                 DefaultLabelFmt = new List<string> { "route" }
             });
 
-            var documentStore = new DocumentStore() { DefaultDatabase = "PowerDeploy", Url = "http://localhost:8080", }.Initialize();
+            var documentStore = new DocumentStore { DefaultDatabase = "PowerDeploy", Url = "http://localhost:8080", }.Initialize();
 
             IndexCreation.CreateIndexes(typeof(Deployment_Latest).Assembly, documentStore);
 
