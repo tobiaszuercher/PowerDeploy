@@ -1,6 +1,6 @@
 <h1 class="margin-bottom">Settings</h1>
 
-<form role="form" method="post" class="form-horizontal form-groups-bordered validate" action="" novalidate="novalidate">
+<form name="settingsForm" role="form" method="post" class="form-horizontal form-groups-bordered validate" action="" novalidate="novalidate">
 
     <div class="row">
         <div class="col-md-6">
@@ -28,59 +28,51 @@
                         <label for="field-1" class="col-sm-3 control-label">Work Dir</label>
 
                         <div class="col-sm-5">
-                            <input type="text" class="form-control" id="field-1" ng-model="settings.WorkDir">
+                            <input type="text" class="form-control" id="field-1" ng-model="settings.WorkDir" ng-required="true" required>
                         </div>
                     </div>
-                        
-                    <div class="form-group">
-                        <label class="col-sm-3 control-label">Version Control System</label>
-                        <div class="col-sm-5">
-                            <select class="form-control" ng-model="settings.VersionControlSystem" ng-options="vcs for vcs in versionControlSystems">
-                            </select>
-                        </div>
-                    </div>
+         
                     
-                    <!-- examples -->
+                    <!-- Git executable -->
                     <div class="form-group">
                         <label for="field-git-executable" class="col-sm-3 control-label">Git executable</label>
-
                         <div class="col-sm-8">
-                            <input type="text" class="form-control" id="field-git-executable" value="" placeholder="C:\Program Files (x86)\Git\bin">
+                            <input type="text" class="form-control" id="field-git-executable" placeholder="C:\Program Files (x86)\Git\bin" ng-model="settings.GitExecutable">
                         </div>
                     </div>
 
+                    <!-- NuGet Server URL -->
                     <div class="form-group">
                         <label for="field-nuget-server-url" class="col-sm-3 control-label">NuGet Server URL</label>
-
                         <div class="col-sm-8">
-                            <input type="text" class="form-control" id="field-nuget-server-url" value="" placeholder="http://localhost/nuggy">
+                            <input type="text" class="form-control" id="field-nuget-server-url" placeholder="http://localhost/nuggy" ng-model="settings.NuGetServerUri">
                             <span class="description">Link to NuGet Server where PowerDeploy will fetch your packages.</span>
                         </div>
                     </div>
 
+                    <!-- Version Control System -->
                     <div class="form-group">
                         <label for="field-3" class="col-sm-3 control-label">Source Control System</label>
                         <div class="col-sm-8">
-                            <select class="form-control">
-                                <option>Git</option>
-                                <option>TFS (not supported yet)</option>
-                            </select>
+                            <select class="form-control" ng-model="settings.VersionControlSystem" ng-options="vcs for vcs in versionControlSystems"></select>
                         </div>
                     </div>
 
+                    <!-- Repository URL -->
                     <div class="form-group">
                         <label for="field-3" class="col-sm-3 control-label">Repository URL</label>
 
                         <div class="col-sm-8">
-                            <input type="text" class="form-control" name="site-url" id="field-3" data-validate="required,url" value="" placeholder="https://github.com/tobiaszuercher/PowerDeploy.git">
+                            <input type="text" class="form-control" name="site-url" id="field-3" data-validate="required,url" placeholder="https://github.com/tobiaszuercher/PowerDeploy.git" ng-model="settings.RepositoryUrl">
                         </div>
                     </div>
 
+                    <!-- Environment Path -->
                     <div class="form-group">
                         <label for="field-4" class="col-sm-3 control-label">Environment Path</label>
 
                         <div class="col-sm-8">
-                            <input type="text" class="form-control" name="email" id="field-4" data-validate="required" value="" placeholder="/.powerdeploy">
+                            <input type="text" class="form-control" name="email" id="field-4" data-validate="required" required placeholder="/.powerdeploy" ng-model="settings.EnvironmentsPath">
                             <span class="description">Path to the .powerdeploy folder relative to the repository root.</span>
                         </div>
                     </div>
@@ -93,8 +85,8 @@
     </div>
 
     <div class="form-group default-padding">
-        <button type="button" ng-click='submit()' class="btn btn-success">Save Changes</button>
-        <button type="reset" class="btn">Reset Previous</button>
+        <button type="button" ng-click="submit()" class="btn btn-success" ng-disabled="settingsForm.$invalid">Save Changes</button>
+        <button type="button" class="btn" ng-click="reset()">Reset Previous</button>
     </div>
 
 </form>
