@@ -3,17 +3,9 @@
 <div class="row">
     <div class="col-md-5">
         <div class="list-group">
-            <a href="#/package" class="list-group-item">
-                <span class="badge badge-info">5</span>
-                RestAPI
-            </a>
-            <a href="#/package" class="list-group-item">
-                <span class="badge badge-info">14</span>
-                WebApp
-            </a>
-            <a href="#/package" class="list-group-item">
-                <span class="badge badge-info">11</span>
-                Database
+            <a ng-href="#/package/{{ package.NugetId }}" class="list-group-item" ng-repeat="package in packages">
+                <span class="badge badge-info">{{ package.Count }}</span>
+                {{ package.NugetId }}
             </a>
         </div>
     </div>

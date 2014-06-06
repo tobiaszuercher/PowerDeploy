@@ -6,5 +6,14 @@ angular.module('powerdeploy.rest')
                     method: 'PUT'
                 }
             });
-  }
-]);
+
+    }])
+    .factory('packages', ['REST_API_URL', '$resource',
+        function (REST_API_URL, $resource) {
+            return $resource(REST_API_URL + 'packages/:id', null, {
+                'save': {
+                    method: 'PUT'
+                }
+            })
+        }]
+);
