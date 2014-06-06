@@ -9,8 +9,10 @@ namespace PowerDeploy.Server.ServiceModel.Package
     public class PackageDto// : IComparable
     {
         public string Uri { get; set; }
-        public string Id { get; set; }
         public string NugetId { get; set; }
+        public int Count { get; set; }
+        public DateTime LastPublish { get; set; }
+        public string LastVersion { get; set; }
 
         public List<PackageVersionDto> Versions { get; set; }
 
@@ -22,16 +24,8 @@ namespace PowerDeploy.Server.ServiceModel.Package
         public PackageDto(string nugetId)
             : this()
         {
-            Id = string.Format("packages/{0}", nugetId);
             NugetId = nugetId;
         }
-
-        //public int CompareTo(object other)
-        //{
-        //    var otherVersion = new Version(((PackageDto)other).Version);
-
-        //    return new Version(Version).CompareTo(otherVersion);
-        //}
     }
 
     public class PackageOverviewDto

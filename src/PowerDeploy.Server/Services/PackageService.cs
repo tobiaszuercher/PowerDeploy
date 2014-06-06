@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-
 using PowerDeploy.Core;
 using PowerDeploy.Server.Indexes;
 using PowerDeploy.Server.Mapping;
@@ -35,11 +34,23 @@ namespace PowerDeploy.Server.Services
             };
         }
 
-        public PackageDto Get(GetPackageByIdRequest request)
+        public PackageDto Get(GetPackageByNugetIdRequest request)
         {
             using (var session = DocumentStore.OpenSession())
             {
-                return session.Load<Package>("packages/" + request.NugetId).ToDto();
+                var packages = session.Query<Package>().Where(p => p.NugetId == request.NugetId).ToList();
+
+                var response = new PackageDto(request.NugetId);
+
+                foreach (var package in packages)
+                {
+                    response.Versions.Add(new PackageVersionDto() { Published = package.Published, Version = package.Version });
+                }
+
+                response.LastVersion = response.Versions.OrderByDescending(p => p.Published).First().Version;
+                response.LastPublish = response.Versions.OrderByDescending(p => p.Published).First().Published;
+
+                return response;
             }
         }
 
