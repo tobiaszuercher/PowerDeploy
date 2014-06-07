@@ -1,4 +1,5 @@
-﻿using PowerDeploy.Server.Model;
+﻿using PowerDeploy.Server.Indexes;
+using PowerDeploy.Server.Model;
 using PowerDeploy.Server.ServiceModel;
 using PowerDeploy.Server.ServiceModel.Deployment;
 using PowerDeploy.Server.ServiceModel.Package;
@@ -21,6 +22,14 @@ namespace PowerDeploy.Server.Mapping
             return to;
         }
 
+        public static DeploymentDto ToDto(this Deployment_Latest.ReducedResult from, Environment environment)
+        {
+            var to = from.ConvertTo<DeploymentDto>();
+            to.Environment = environment.ToDto();
+
+            return to;
+        }
+
         public static EnvironmentDto ToDto(this Environment from)
         {
             var to = from.ConvertTo<EnvironmentDto>();
@@ -31,11 +40,6 @@ namespace PowerDeploy.Server.Mapping
         public static PackageDto ToDto(this Package from)
         {
             var to = from.ConvertTo<PackageDto>();
-            //to.Versions = from.Versions.Select(v => new PackageVersionDto()
-            //{
-            //    Version = v.Version, 
-            //    Published = v.Published
-            //}).ToList();
 
             return to;
         }

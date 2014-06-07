@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 
 using PowerDeploy.Core;
+using PowerDeploy.Server.Indexes;
 using PowerDeploy.Server.Mapping;
 using PowerDeploy.Server.Model;
 using PowerDeploy.Server.Provider;
@@ -67,22 +68,18 @@ namespace PowerDeploy.Server.Services
             }
         }
 
-        public List<DeploymentDto> Get(QueryDeploymentsDto request)
+        public List<DeploymentDto> Get(GetCurrentDeploymentsRequest request)
         {
             using (var session = DocumentStore.OpenSession())
             {
-                var deployments = session.Query<Deployment>()
-                    .Include(d => d.EnvironmentId)
-                    .OrderByDescending(d => d.FinishedAt);
-
                 var result = new List<DeploymentDto>();
 
-                foreach (var deployment in deployments)
-                {
-                    result.Add(deployment.ToDto(session.Load<Environment>(deployment.EnvironmentId)));
-                }
+                var deployments = session.Query<Deployment_Latest.ReducedResult, Deployment_Latest>()
+                                         .Include<Deployment_Latest.ReducedResult>(r => r.EnvironmentId)
+                                         .ToList().Select(d => d.ToDto(session.Load<Environment>(d.EnvironmentId)));
 
-                return result;
+
+                return deployments.ToList();
             }
         }
     }

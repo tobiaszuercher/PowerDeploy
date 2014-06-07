@@ -25,16 +25,16 @@ powerdeploy.filter('boolConverter', [
     }
 ]);
 
-//powerdeploy.filter('formatdate', [function () {
-//  var result = function (date, formatstring) {
-//    if (formatstring === null) {
-//      formatstring = 'DD MMM YYYY';
-//    }
-//    return moment(date).format(formatstring);
-//  };
-//
-//  return result;
-//}]);
+powerdeploy.filter('formatdate', [function () {
+  var result = function (date, formatstring) {
+    if (formatstring === null) {
+      formatstring = 'DD.MMM.YYYY';
+    }
+    return moment(date).format(formatstring);
+  };
+
+  return result;
+}]);
 
 //powerdeploy.filter('convertdate', [function () {
 //  var result = function (date) {

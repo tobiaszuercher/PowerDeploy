@@ -19,7 +19,7 @@ angular.module('powerdeploy', ['powerdeploy.config', 'powerdeploy.rest', 'ngRout
             templateUrl: 'js/packages/package.html',
             controller: 'packageCtrl'
         }).
-        when('/package-overview', {
+        when('/package', {
             templateUrl: 'js/packages/packageOverview.html',
             controller: 'packageOverviewCtrl'
         }).

@@ -4,14 +4,14 @@ using ServiceStack;
 namespace PowerDeploy.Server.ServiceModel.Package
 {
     [Route("/packages/{NugetId}", "GET")]
-    public class GetPackageByNugetIdRequest : IReturn<PackageDto>
+    public class GetPackageByNugetIdRequest : IReturn<PackageWithVersionDto>
     {
         [ApiMember(Name = "NugetId", ParameterType = "path", IsRequired = false)]
         public string NugetId { get; set; }
     }
 
     [Route("/packages", "GET")]
-    public class GetPackageOverviewRequest : IReturn<List<PackageOverviewDto>>
+    public class GetPackagesRequest : IReturn<List<PackageOverviewDto>>
     {
     }
 }
