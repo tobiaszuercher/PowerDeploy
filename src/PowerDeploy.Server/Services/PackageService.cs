@@ -32,15 +32,15 @@ namespace PowerDeploy.Server.Services
             };
         }
 
-        public PackageDto Get(GetPackageByNugetIdRequest request)
+        public PackageWithVersionDto Get(GetPackageByNugetIdRequest request)
         {
             using (var session = DocumentStore.OpenSession())
             {
                 var packages = session.Query<Package>().Where(p => p.NugetId == request.NugetId).ToList();
 
-                var response = new PackageDto(request.NugetId);
+                var response = new PackageWithVersionDto(request.NugetId);
 
-                   var deployed = session.Query<Deployment_Latest.ReducedResult, Deployment_Latest>()
+                var deployed = session.Query<Deployment_Latest.ReducedResult, Deployment_Latest>()
                     .Where(d => d.NugetId == request.NugetId).ToList();
 
                 foreach (var package in packages)
@@ -57,18 +57,21 @@ namespace PowerDeploy.Server.Services
                     response.Versions.Add(pv);
                 }
 
-                response.LastVersion = response.Versions.OrderByDescending(p => p.Published).First().Version;
-                response.LastPublish = response.Versions.OrderByDescending(p => p.Published).First().Published;
+                if (response.Versions.Any())
+                {
+                    response.LastVersion = response.Versions.OrderByDescending(p => p.Published).First().Version;
+                    response.LastPublish = response.Versions.OrderByDescending(p => p.Published).First().Published;
+                }
 
                 return response;
             }
         }
 
-        public object Get(GetPackageOverviewRequest request)
+        public object Get(GetPackagesRequest request)
         {
             using (var session = DocumentStore.OpenSession())
             {
-                return session.Query<Package_Overview.ReducedResult, Package_Overview>().ToList().Select(p => p.ConvertTo<PackageOverviewDto>());                
+                return session.Query<Package_Overview.ReducedResult, Package_Overview>().ToList().Select(p => p.ConvertTo<PackageDto>());
             }
         }
     }
