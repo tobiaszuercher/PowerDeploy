@@ -25,7 +25,14 @@ namespace PowerDeploy.Server.ServiceModel.Environment
     public class EnvironmentVariablesDto
     {
         public EnvironmentDto Environment { get; set; }
-        public List<KeyValuePair<string, string>> Variables { get; set; }
+        public List<VariableDto> Variables { get; set; }
+    }
+
+    public class VariableDto
+    {
+        public string Name { get; set; }
+        public string Value { get; set; }
+        public string Resolved { get; set; }
     }
 
     ////[Route("/environment", Verbs = "POST,PUT")]

@@ -8,13 +8,15 @@
                 <tr>
                     <th>Variable</th>
                     <th>Value</th>
+                    <th>Resolved</th>
                 </tr>
                 </thead>
 
                 <tbody>
                     <tr ng-repeat="variable in environment.Variables">
-                        <td>{{ variable.Key }}</td>
+                        <td>{{ variable.Name }}</td>
                         <td>{{ variable.Value }}</td>
+                        <td>{{ variable.Resolved }}</td>
                     </tr>
                 </tbody>
             </table>

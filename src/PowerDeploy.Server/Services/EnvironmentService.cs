@@ -2,6 +2,7 @@
 using System.IO;
 using System.Linq;
 using PowerDeploy.Core;
+using PowerDeploy.Core.Template;
 using PowerDeploy.Server.Mapping;
 using PowerDeploy.Server.Provider;
 using PowerDeploy.Server.ServiceModel;
@@ -41,8 +42,7 @@ namespace PowerDeploy.Server.Services
         {
             using (var session = DocumentStore.OpenSession())
             {
-                var environment = session.Query<Environment>()
-                                         .FirstOrDefault(e => e.Name == name);
+                var environment = session.Query<Environment>().FirstOrDefault(e => e.Name == name);
 
                 if (environment == null)
                 {
@@ -63,13 +63,16 @@ namespace PowerDeploy.Server.Services
                         var provider = new EnvironmentProvider();
                         var serializedEnvironment = provider.GetEnvironmentFromFile(Path.Combine(workspace.EnviornmentPath, name + ".xml"));
 
-                        result.Variables = new List<KeyValuePair<string, string>>();
-                        result.Variables.AddRange(serializedEnvironment.Variables.Select(v => new KeyValuePair<string, string>(v.Name, v.Value)));
-                        result.Variables.Add(new KeyValuePair<string, string>("db.host", "localhost"));
-                        result.Variables.Add(new KeyValuePair<string, string>("db.user", "db-user"));
-                        result.Variables.Add(new KeyValuePair<string, string>("db.pass", "db-pass"));
-                        result.Variables.Add(new KeyValuePair<string, string>("db.name", "PizzaDatabase"));
-                        result.Variables.Add(new KeyValuePair<string, string>("jack", "bauer"));
+
+                        var resolver = new VariableResolver(serializedEnvironment.Variables);
+
+                        result.Variables = new List<VariableDto>();
+                        result.Variables.AddRange(serializedEnvironment.Variables.Select(v => new VariableDto()
+                        {
+                            Name = v.Name,
+                            Value = v.Value,
+                            Resolved = resolver.TransformVariables(v.Value)
+                        }));
                     }
 
                     return result;
