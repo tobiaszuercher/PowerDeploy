@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using PowerDeploy.Core;
@@ -61,18 +62,28 @@ namespace PowerDeploy.Server.Services
                         workspace.UpdateSources();
 
                         var provider = new EnvironmentProvider();
-                        var serializedEnvironment = provider.GetEnvironmentFromFile(Path.Combine(workspace.EnviornmentPath, name + ".xml"));
 
-
-                        var resolver = new VariableResolver(serializedEnvironment.Variables);
-
-                        result.Variables = new List<VariableDto>();
-                        result.Variables.AddRange(serializedEnvironment.Variables.Select(v => new VariableDto()
+                        try
                         {
-                            Name = v.Name,
-                            Value = v.Value,
-                            Resolved = resolver.TransformVariables(v.Value)
-                        }));
+                            var serializedEnvironment = provider.GetEnvironmentFromFile(Path.Combine(workspace.EnviornmentPath, name + ".xml"));
+
+
+                            var resolver = new VariableResolver(serializedEnvironment.Variables);
+
+                            result.Variables = new List<VariableDto>();
+                            result.Variables.AddRange(serializedEnvironment.Variables.Select(v => new VariableDto()
+                            {
+                                Name = v.Name,
+                                Value = v.Value,
+                                Resolved = resolver.TransformVariables(v.Value)
+                            }));
+                        }
+                        catch (FileNotFoundException e)
+                        {
+                            result.Variables = new List<VariableDto>();
+                            // todo: think about what to send back if there was no xml file for it.
+                        }
+                        
                     }
 
                     return result;
