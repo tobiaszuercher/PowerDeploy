@@ -25,7 +25,7 @@ namespace PowerDeploy.Server
         {
             new PhysicalFileSystem().EnsureDirectoryExists(_directory);
 
-            ExecuteGitCommand("clone -q");
+            ExecuteGitCommand("clone " + repository + " . -q");
         }
 
         public void Pull()
@@ -35,7 +35,7 @@ namespace PowerDeploy.Server
 
         public void PullOrCloneRepository(string repository)
         {
-            if (!Directory.Exists(Path.Combine(_directory, ".git")))
+            if (!File.Exists(Path.Combine(_directory, ".git")))
             {
                 Clone(repository);
             }

@@ -9,6 +9,7 @@ using Raven.Client.Indexes;
 
 using ServiceStack;
 using ServiceStack.Api.Swagger;
+using ServiceStack.Configuration;
 using ServiceStack.Text;
 
 namespace PowerDeploy.Server
@@ -19,6 +20,8 @@ namespace PowerDeploy.Server
 
         public override void Configure(Container container)
         {
+            Licensing.RegisterLicense(new AppSettings().GetString("servicestack:license"));
+
             SetConfig(new HostConfig
             {
                 DebugMode = true,
