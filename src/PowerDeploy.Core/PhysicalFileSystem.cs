@@ -76,6 +76,7 @@ namespace PowerDeploy.Core
         public void DeleteTempWorkingDirs()
         {
             TempWorkingDirs.ForEach(path => Directory.Delete(path, true));
+            TempWorkingDirs.Clear();
         }
     }
 }

@@ -1,17 +1,23 @@
 ﻿using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using PowerDeploy.Core;
 using PowerDeploy.Server.Mapping;
-using PowerDeploy.Server.Model;
+using PowerDeploy.Server.Provider;
+using PowerDeploy.Server.ServiceModel;
 using PowerDeploy.Server.ServiceModel.Environment;
 using Raven.Client;
 
 using ServiceStack;
+using Environment = PowerDeploy.Server.Model.Environment;
 
 namespace PowerDeploy.Server.Services
 {
     public class EnvironmentService : Service
     {
         public IDocumentStore DocumentStore { get; set; }
+        public IFileSystem FileSystem { get; set; }
+        public ServerSettings ServerSettings { get; set; }
 
         public List<EnvironmentDto> Get(GetAllEnvironmentsRequest request)
         {
@@ -43,22 +49,31 @@ namespace PowerDeploy.Server.Services
                     throw HttpError.NotFound("Environment {0} not found.".Fmt(name));
                 }
 
-                var result = new EnvironmentVariablesDto()
+                using (var workspace = new Workspace(FileSystem, ServerSettings))
                 {
-                    Environment = environment.ToDto()
-                };
+                    var result = new EnvironmentVariablesDto()
+                    {
+                        Environment = environment.ToDto()
+                    };
 
-                if (fetchVariables)
-                {
-                    result.Variables = new List<KeyValuePair<string, string>>();
-                    result.Variables.Add(new KeyValuePair<string, string>("db.host", "localhost"));
-                    result.Variables.Add(new KeyValuePair<string, string>("db.user", "db-user"));
-                    result.Variables.Add(new KeyValuePair<string, string>("db.pass", "db-pass"));
-                    result.Variables.Add(new KeyValuePair<string, string>("db.name", "PizzaDatabase"));
-                    result.Variables.Add(new KeyValuePair<string, string>("jack", "bauer"));
+                    if (fetchVariables)
+                    {
+                        workspace.UpdateSources();
+
+                        var provider = new EnvironmentProvider();
+                        var serializedEnvironment = provider.GetEnvironmentFromFile(Path.Combine(workspace.EnviornmentPath, name + ".xml"));
+
+                        result.Variables = new List<KeyValuePair<string, string>>();
+                        result.Variables.AddRange(serializedEnvironment.Variables.Select(v => new KeyValuePair<string, string>(v.Name, v.Value)));
+                        result.Variables.Add(new KeyValuePair<string, string>("db.host", "localhost"));
+                        result.Variables.Add(new KeyValuePair<string, string>("db.user", "db-user"));
+                        result.Variables.Add(new KeyValuePair<string, string>("db.pass", "db-pass"));
+                        result.Variables.Add(new KeyValuePair<string, string>("db.name", "PizzaDatabase"));
+                        result.Variables.Add(new KeyValuePair<string, string>("jack", "bauer"));
+                    }
+
+                    return result;
                 }
-
-                return result;
             }
         }
 
