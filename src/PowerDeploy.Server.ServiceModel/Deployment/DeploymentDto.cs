@@ -1,5 +1,5 @@
 ﻿using System;
-
+using PowerDeploy.Server.ServiceModel.Environment;
 using PowerDeploy.Server.ServiceModel.Package;
 
 using ServiceStack;

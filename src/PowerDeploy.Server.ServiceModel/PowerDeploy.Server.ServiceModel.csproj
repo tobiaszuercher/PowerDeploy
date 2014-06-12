@@ -81,7 +81,7 @@
     <Compile Include="Package\PackageDto.cs" />
     <Compile Include="ServerSettings.cs" />
     <Compile Include="Deployment\DeploymentDto.cs" />
-    <Compile Include="EnvironmentDto.cs" />
+    <Compile Include="Environment\EnvironmentDto.cs" />
     <Compile Include="Package\PackageWithVersionDto.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Release.cs" />

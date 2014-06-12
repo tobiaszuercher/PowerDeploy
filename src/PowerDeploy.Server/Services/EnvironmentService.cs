@@ -1,9 +1,8 @@
-﻿using System.Linq;
-
+﻿using System.Collections.Generic;
+using System.Linq;
 using PowerDeploy.Server.Mapping;
 using PowerDeploy.Server.Model;
-using PowerDeploy.Server.ServiceModel;
-
+using PowerDeploy.Server.ServiceModel.Environment;
 using Raven.Client;
 
 using ServiceStack;
@@ -14,16 +13,52 @@ namespace PowerDeploy.Server.Services
     {
         public IDocumentStore DocumentStore { get; set; }
 
-        public object Get(QueryEnvironment request)
+        public List<EnvironmentDto> Get(GetAllEnvironmentsRequest request)
         {
             using (var session = DocumentStore.OpenSession())
             {
-                if (request.Id == default(int))
+                return session.Query<Environment>().OrderBy(e => e.Order).ToList().Select(e => e.ToDto()).ToList();
+            }
+        }
+
+        public EnvironmentDto Get(GetEnvironmentRequest request)
+        {
+            return GetEnvironment(request.Name, false).Environment;
+        }
+
+        public EnvironmentVariablesDto Get(GetEnvironmentWithVariablesRequest request)
+        {
+            return GetEnvironment(request.Name, true);
+        }
+
+        private EnvironmentVariablesDto GetEnvironment(string name, bool fetchVariables)
+        {
+            using (var session = DocumentStore.OpenSession())
+            {
+                var environment = session.Query<Environment>()
+                                         .FirstOrDefault(e => e.Name == name);
+
+                if (environment == null)
                 {
-                    return session.Query<Environment>().ToList();
+                    throw HttpError.NotFound("Environment {0} not found.".Fmt(name));
                 }
 
-                return session.Load<Environment>("Environments/" + request.Id);
+                var result = new EnvironmentVariablesDto()
+                {
+                    Environment = environment.ToDto()
+                };
+
+                if (fetchVariables)
+                {
+                    result.Variables = new List<KeyValuePair<string, string>>();
+                    result.Variables.Add(new KeyValuePair<string, string>("db.host", "localhost"));
+                    result.Variables.Add(new KeyValuePair<string, string>("db.user", "db-user"));
+                    result.Variables.Add(new KeyValuePair<string, string>("db.pass", "db-pass"));
+                    result.Variables.Add(new KeyValuePair<string, string>("db.name", "PizzaDatabase"));
+                    result.Variables.Add(new KeyValuePair<string, string>("jack", "bauer"));
+                }
+
+                return result;
             }
         }
 
@@ -51,13 +86,14 @@ namespace PowerDeploy.Server.Services
             }
         }
 
-        public void Delete(DeleteEnvironment request)
-        {
-            using (var session = DocumentStore.OpenSession())
-            {
-                session.Advanced.DocumentStore.DatabaseCommands.Delete("Environments/" + request.Id, null);
-                session.SaveChanges();
-            }
-        }
+        ////public void Delete(DeleteEnvironment request)
+        ////{
+        ////    using (var session = DocumentStore.OpenSession())
+        ////    {
+        ////        session.Advanced.DocumentStore.DatabaseCommands.Delete("Environments/" + request.Id, null);
+        ////        session.SaveChanges();
+        ////    }
+        ////}
+
     }
 }

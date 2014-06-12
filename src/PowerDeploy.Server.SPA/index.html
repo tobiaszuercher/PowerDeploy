@@ -37,7 +37,7 @@
     <script src="/js/environment/environmentCtrl.js"></script>
     <script src="/js/packages/packageCtrl.js"></script>
     <script src="/js/packages/packageOverviewCtrl.js"></script>
-    <script src="/js/settings/settingsCtrl.js"></script>
+    <script src="/js/settings/SettingsCtrl.js"></script>
     <!-- endinject -->
 
 </head>
@@ -78,24 +78,24 @@
                 <span>Dashboard</span>
             </a>
         </li>
-        <li>
+        <li class="opened">
             <a href="#/environment">
                 <i class="entypo-layout"></i>
                 <span>Environments</span>
             </a>
             <ul>
                 <li>
-                    <a href="#/environment">
+                    <a href="#/environment/dev">
                         <span>dev</span>
                     </a>
                 </li>
                 <li>
-                    <a href="#/environment">
+                    <a href="#/environment/test">
                         <span>test</span>
                     </a>
                 </li>
                 <li>
-                    <a href="#/environment">
+                    <a href="#/environment/prod">
                         <span>production</span>
                     </a>
                 </li>

@@ -1,6 +1,8 @@
-﻿using NUnit.Framework;
+﻿using Microsoft.Data.Edm.Csdl;
+using NUnit.Framework;
 
 using PowerDeploy.Server.ServiceModel;
+using PowerDeploy.Server.ServiceModel.Environment;
 using PowerDeploy.Server.Services;
 
 using Raven.Client;
@@ -33,7 +35,7 @@ namespace Powerdeploy.Server.Tests
         ////    container.RegisterAutoWired<EnvironmentService>();
 
         ////    var bla = new JsonServiceClient("http://localhost");
-        ////    bla.Get(new QueryEnvironment() { Id = 1 });
+        ////    bla.Get(new GetAllEnvironmentsRequest() { Name = 1 });
         ////}
     }
 }

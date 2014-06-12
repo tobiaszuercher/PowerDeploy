@@ -3,7 +3,7 @@ using System.Linq;
 
 using PowerDeploy.Server.Model;
 using PowerDeploy.Server.ServiceModel;
-
+using PowerDeploy.Server.ServiceModel.Environment;
 using Raven.Client;
 
 namespace PowerDeploy.Server

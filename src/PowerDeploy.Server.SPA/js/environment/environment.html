@@ -12,36 +12,10 @@
                 </thead>
 
                 <tbody>
-                <tr>
-                    <td>db.host</td>
-                    <td>localhost</td>
-                </tr>
-
-                <tr>
-                    <td>db.name</td>
-                    <td>PizzaFactory</td>
-                </tr>
-
-                <tr>
-                    <td>db.user</td>
-                    <td>db_user</td>
-                </tr>
-
-                <tr>
-                    <td>db.pass</td>
-                    <td>p4$$w0rd</td>
-                </tr>
-
-                <tr>
-                    <td>base.url</td>
-                    <td>http://localhost/powerdeploy.dashboard</td>
-                </tr>
-
-                <tr>
-                    <td>log.base.dir</td>
-                    <td>c:\logs\powerdeploy</td>
-                </tr>
-
+                    <tr ng-repeat="variable in environment.Variables">
+                        <td>{{ variable.Key }}</td>
+                        <td>{{ variable.Value }}</td>
+                    </tr>
                 </tbody>
             </table>
         </div>

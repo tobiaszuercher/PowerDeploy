@@ -16,9 +16,9 @@ var gulp = require('gulp'),
 
 function startExpress() {
   var express = require('express');
-  var app = express();
-  app.use(express.static(__dirname));
-  app.listen(1337);
+    var app = express();
+    app.use(express.static(__dirname));
+    app.listen(1337);
 }
 
 gulp.task('styles', function() {

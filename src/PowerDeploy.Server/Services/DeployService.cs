@@ -25,62 +25,62 @@ namespace PowerDeploy.Server.Services
         public NugetPackageDownloader PackageDownloader { get; set; }
         public IDocumentStore DocumentStore { get; set; }
 
-        public TriggerDeploymentResponse Post(TriggerDeployment request)
-        {
-            using (var session = DocumentStore.OpenSession())
-            {
-                var environment = session.Query<Environment>().FirstOrDefault(e => e.Name == request.Environment);
+        //public TriggerDeploymentResponse Post(TriggerDeployment request)
+        //{
+        //    using (var session = DocumentStore.OpenSession())
+        //    {
+        //        var environment = session.Query<Environment>().FirstOrDefault(e => e.Name == request.Environment);
 
-                if (environment == null)
-                {
-                    throw HttpError.NotFound("Environment {0} not found.".Fmt(request.Environment));
-                }
-                
-                var deploymentInfo = new Deployment()
-                {
-                    EnvironmentId = "environments/" + environment.Id,
-                    RequestedAt = DateTime.UtcNow,
-                };
+        //        if (environment == null)
+        //        {
+        //            throw HttpError.NotFound("Environment {0} not found.".Fmt(request.Environment));
+        //        }
 
-                var packageInfo = session.Load<Package>("packages/{0}/{1}".Fmt(request.PackageId, request.Version));
+        //        var deploymentInfo = new Deployment()
+        //        {
+        //            EnvironmentId = "environments/" + environment.Id,
+        //            RequestedAt = DateTime.UtcNow,
+        //        };
 
-                deploymentInfo.Package = packageInfo;
-                deploymentInfo.Status = DeployStatus.Deploying;
-                session.Store(deploymentInfo);
+        //        var packageInfo = session.Load<Package>("packages/{0}/{1}".Fmt(request.PackageId, request.Version));
 
-                session.SaveChanges();
+        //        deploymentInfo.Package = packageInfo;
+        //        deploymentInfo.Status = DeployStatus.Deploying;
+        //        session.Store(deploymentInfo);
 
-                using (var workspace = new Workspace(FileSystem, ServerSettings))
-                {
-                    var neutralPackagePath = PackageDownloader.Downloaad(request.PackageId, request.Version, workspace.TempWorkDir);
+        //        session.SaveChanges();
 
-                    workspace.UpdateSources();
+        //        using (var workspace = new Workspace(FileSystem, ServerSettings))
+        //        {
+        //            var neutralPackagePath = PackageDownloader.Downloaad(request.PackageId, request.Version, workspace.TempWorkDir);
 
-                    var packageManager = new PackageManager(workspace.EnviornmentPath);
-                    var configuredPackage = packageManager.ConfigurePackageByEnvironment(neutralPackagePath, request.Environment, workspace.TempWorkDir);
-                    packageManager.DeployPackage(configuredPackage);
-                    deploymentInfo.FinishedAt = DateTime.UtcNow;
-                    deploymentInfo.Status = DeployStatus.Successful;
-                    session.SaveChanges();
+        //            workspace.UpdateSources();
 
-                    return new TriggerDeploymentResponse();
-                }
-            }
-        }
+        //            var packageManager = new PackageManager(workspace.EnviornmentPath);
+        //            var configuredPackage = packageManager.ConfigurePackageByEnvironment(neutralPackagePath, request.Environment, workspace.TempWorkDir);
+        //            packageManager.DeployPackage(configuredPackage);
+        //            deploymentInfo.FinishedAt = DateTime.UtcNow;
+        //            deploymentInfo.Status = DeployStatus.Successful;
+        //            session.SaveChanges();
 
-        public List<DeploymentDto> Get(GetCurrentDeploymentsRequest request)
-        {
-            using (var session = DocumentStore.OpenSession())
-            {
-                var result = new List<DeploymentDto>();
+        //            return new TriggerDeploymentResponse();
+        //        }
+        //    }
+        //}
 
-                var deployments = session.Query<Deployment_Latest.ReducedResult, Deployment_Latest>()
-                                         .Include<Deployment_Latest.ReducedResult>(r => r.EnvironmentId)
-                                         .ToList().Select(d => d.ToDto(session.Load<Environment>(d.EnvironmentId)));
+        //public List<DeploymentDto> Get(GetCurrentDeploymentsRequest request)
+        //{
+        //    using (var session = DocumentStore.OpenSession())
+        //    {
+        //        var result = new List<DeploymentDto>();
+
+        //        var deployments = session.Query<Deployment_Latest.ReducedResult, Deployment_Latest>()
+        //                                 .Include<Deployment_Latest.ReducedResult>(r => r.EnvironmentId)
+        //                                 .ToList().Select(d => d.ToDto(session.Load<Environment>(d.EnvironmentId)));
 
 
-                return deployments.ToList();
-            }
-        }
+        //        return deployments.ToList();
+        //    }
+        //}
     }
 }

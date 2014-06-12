@@ -2,6 +2,7 @@
 using PowerDeploy.Server.Model;
 using PowerDeploy.Server.ServiceModel;
 using PowerDeploy.Server.ServiceModel.Deployment;
+using PowerDeploy.Server.ServiceModel.Environment;
 using PowerDeploy.Server.ServiceModel.Package;
 
 using ServiceStack;
