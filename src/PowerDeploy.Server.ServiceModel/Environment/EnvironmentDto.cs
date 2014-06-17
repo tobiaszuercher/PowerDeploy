@@ -26,6 +26,8 @@ namespace PowerDeploy.Server.ServiceModel.Environment
     {
         public EnvironmentDto Environment { get; set; }
         public List<VariableDto> Variables { get; set; }
+        public string Warning { get; set; }
+        public List<string> MissingVariables { get; set; }
     }
 
     public class VariableDto

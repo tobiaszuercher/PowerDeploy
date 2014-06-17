@@ -3,7 +3,6 @@ using System.Linq;
 
 using PowerDeploy.Server.Model;
 using PowerDeploy.Server.ServiceModel;
-using PowerDeploy.Server.ServiceModel.Environment;
 using Raven.Client;
 
 namespace PowerDeploy.Server
@@ -14,7 +13,7 @@ namespace PowerDeploy.Server
         {
             using (var session = documentStore.OpenSession())
             {
-                if (!session.Query<EnvironmentDto>().Any())
+                if (!session.Query<Environment>().Any())
                 {
                     var e1 = new Environment() { Id = 1, Name = "DEV", Description = "Development environment for the Dev's" };
                     var e2 = new Environment() { Id = 2, Name = "TEST", Description = "Dedicated environment for tester." };

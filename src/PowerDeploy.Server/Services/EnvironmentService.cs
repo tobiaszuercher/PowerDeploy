@@ -8,6 +8,7 @@ using PowerDeploy.Server.Mapping;
 using PowerDeploy.Server.Provider;
 using PowerDeploy.Server.ServiceModel;
 using PowerDeploy.Server.ServiceModel.Environment;
+using Raven.Abstractions.Extensions;
 using Raven.Client;
 
 using ServiceStack;
@@ -67,7 +68,6 @@ namespace PowerDeploy.Server.Services
                         {
                             var serializedEnvironment = provider.GetEnvironmentFromFile(Path.Combine(workspace.EnviornmentPath, name + ".xml"));
 
-
                             var resolver = new VariableResolver(serializedEnvironment.Variables);
 
                             result.Variables = new List<VariableDto>();
@@ -77,13 +77,18 @@ namespace PowerDeploy.Server.Services
                                 Value = v.Value,
                                 Resolved = resolver.TransformVariables(v.Value)
                             }));
+
+                            if (resolver.VariableUsageList.Any(v => v.IsMissingValue))
+                            {
+                                result.MissingVariables =
+                                    new List<string>(resolver.VariableUsageList.Where(v => v.IsMissingValue).Select(v => v.Variable.Name));
+                            }
                         }
                         catch (FileNotFoundException e)
                         {
                             result.Variables = new List<VariableDto>();
-                            // todo: think about what to send back if there was no xml file for it.
+                            result.Warning = "No xml file found for this environment!";
                         }
-                        
                     }
 
                     return result;

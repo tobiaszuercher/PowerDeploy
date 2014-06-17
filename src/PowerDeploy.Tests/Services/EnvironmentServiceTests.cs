@@ -35,7 +35,7 @@ namespace Powerdeploy.Server.Tests
         ////    container.RegisterAutoWired<EnvironmentService>();
 
         ////    var bla = new JsonServiceClient("http://localhost");
-        ////    bla.Get(new GetAllEnvironmentsRequest() { Name = 1 });
+        ////    bla.Get(new GetAllEnvironmentsRequest());
         ////}
     }
 }

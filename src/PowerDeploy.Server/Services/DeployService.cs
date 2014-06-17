@@ -68,7 +68,7 @@ namespace PowerDeploy.Server.Services
             }
         }
 
-        public List<DeploymentDto> Get(GetCurrentDeploymentsRequest request)
+        public object Get(GetCurrentDeploymentsRequest request)
         {
             using (var session = DocumentStore.OpenSession())
             {
@@ -76,10 +76,13 @@ namespace PowerDeploy.Server.Services
 
                 var deployments = session.Query<Deployment_Latest.ReducedResult, Deployment_Latest>()
                                          .Include<Deployment_Latest.ReducedResult>(r => r.EnvironmentId)
-                                         .ToList().Select(d => d.ToDto(session.Load<Environment>(d.EnvironmentId)));
+                                         .ToList()
+                                         .Select(d => d.ToDto(session.Load<Environment>(d.EnvironmentId)))
+                                         .OrderBy(d => d.Environment.Order);
+                
+                var bla = deployments.GroupBy(d => d.Package.NugetId);
 
-
-                return deployments.ToList();
+                return bla;
             }
         }
     }
