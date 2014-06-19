@@ -155,13 +155,26 @@ namespace PowerDeploy.Tests.TemplateEngineTests
         [TestCase("true")]
         [TestCase("TRUE")]
         [TestCase("on")]
-        [TestCase("on")]
         [TestCase("1")]
         [TestCase("enabled")]
         public void Conditional_Is_Visible_With_True(string condition)
         {
             var target = new VariableResolver(new List<Variable>());
             var result = target.TransformVariables("Hello\n<!--[if " + condition + "]-->\ntobi!\n<!--[endif]-->");
+
+            Assert.AreEqual("Hello\r\ntobi!", result);
+        }
+
+        [Test]
+        [TestCase("false")]
+        [TestCase("FALSE")]
+        [TestCase("off")]
+        [TestCase("0")]
+        [TestCase("disabled")]
+        public void Conditional_Is_Not_Visible_With_True(string condition)
+        {
+            var target = new VariableResolver(new List<Variable>());
+            var result = target.TransformVariables("Hello\n<!--[if not " + condition + "]-->\ntobi!\n<!--[endif]-->");
 
             Assert.AreEqual("Hello\r\ntobi!", result);
         }
@@ -187,6 +200,26 @@ namespace PowerDeploy.Tests.TemplateEngineTests
 
         [Test]
         [TestCase("false")]
+        [TestCase("False")]
+        [TestCase("FALSE")]
+        [TestCase("off")]
+        [TestCase("0")]
+        [TestCase("disable")]
+        public void Conditional_Is_Not_Visible_With_True_Variable(string condition)
+        {
+            var variableList = new List<Variable>()
+            {
+                new Variable() {Name = "condition", Value = condition}
+            };
+
+            var target = new VariableResolver(variableList);
+            var result = target.TransformVariables("Hello\n<!--[if not ${condition}]-->\ntobi!\n<!--[endif]-->");
+
+            Assert.AreEqual("Hello\r\ntobi!", result);
+        }
+
+        [Test]
+        [TestCase("false")]
         [TestCase("FALSE")]
         [TestCase("off")]
         [TestCase("0")]
@@ -195,6 +228,20 @@ namespace PowerDeploy.Tests.TemplateEngineTests
         {
             var target = new VariableResolver(new List<Variable>());
             var result = target.TransformVariables("Hello\n<!--[if " + condition + "]-->\ntobi!\n<!--[endif]-->");
+
+            Assert.AreEqual("Hello", result);
+        }
+
+        [Test]
+        [TestCase("true")]
+        [TestCase("TRUE")]
+        [TestCase("on")]
+        [TestCase("1")]
+        [TestCase("enabled")]
+        public void Conditional_Not_Visible_With_False_Negated(string condition)
+        {
+            var target = new VariableResolver(new List<Variable>());
+            var result = target.TransformVariables("Hello\n<!--[if not " + condition + "]-->\ntobi!\n<!--[endif]-->");
 
             Assert.AreEqual("Hello", result);
         }
@@ -214,6 +261,25 @@ namespace PowerDeploy.Tests.TemplateEngineTests
 
             var target = new VariableResolver(variableList);
             var result = target.TransformVariables("Hello\r\n<!--[if ${condition}]-->\r\ntobi!\r\n<!--[endif]-->");
+
+            Assert.AreEqual("Hello", result);
+        }
+
+        [Test]
+        [TestCase("true")]
+        [TestCase("TRUE")]
+        [TestCase("on")]
+        [TestCase("1")]
+        [TestCase("enabled")]
+        public void Conditional_Is_Visible_With_False_Variable_Negated(string condition)
+        {
+            var variableList = new List<Variable>()
+            {
+                new Variable() {Name = "condition", Value = condition}
+            };
+
+            var target = new VariableResolver(variableList);
+            var result = target.TransformVariables("Hello\r\n<!--[if not ${condition}]-->\r\ntobi!\r\n<!--[endif]-->");
 
             Assert.AreEqual("Hello", result);
         }

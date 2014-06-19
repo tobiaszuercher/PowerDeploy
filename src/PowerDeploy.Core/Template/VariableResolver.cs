@@ -30,7 +30,7 @@ namespace PowerDeploy.Core.Template
 
         private static readonly Regex VariableRegex = new Regex(@"\$\{(?<Name>[^\}]+)\}", RegexOptions.Compiled);
         private static readonly Regex NormalizeRegex = new Regex(@"\r\n|\n\r|\n|\r", RegexOptions.Compiled);
-        private static readonly Regex ConditionalOpenRegex = new Regex(@"<!--\s*\[if\s*(?<expression>[^\]]*)]\s*-->", RegexOptions.Compiled);
+        private static readonly Regex ConditionalOpenRegex = new Regex(@"<!--\s*\[if (?<negate>not)?\s*(?<expression>[^\]]*)]\s*-->", RegexOptions.Compiled);
         private static readonly Regex ConditionalCloseRegex = new Regex(@"<!--\s*\[endif]\s*-->", RegexOptions.Compiled);
 
         public VariableResolver(IList<Variable> variables)
@@ -64,7 +64,7 @@ namespace PowerDeploy.Core.Template
 
         private string ParseConditional(string input)
         {
-            // normalize line endings in order to be aple to split line by line
+            // normalize line endings in order to be able to split line by line
             var normalized = NormalizeRegex.Replace(input, e => "\r\n");
 
             var transformed = new StringBuilder();
@@ -73,12 +73,21 @@ namespace PowerDeploy.Core.Template
 
             foreach (var line in normalized.Split(new [] { System.Environment.NewLine}, StringSplitOptions.None))
             {
-                var match = ConditionalOpenRegex.Match(line);
+                var conditionalStatementMatch = ConditionalOpenRegex.Match(line);
 
-                if (match.Success)
+                if (conditionalStatementMatch.Success)
                 {
-                    // we have a <!-- [if xxxx] -->
-                    lastCondition = TrueStrings.Contains(match.Groups["expression"].Value.ToUpperInvariant());
+                    var variableBoolValue = TrueStrings.Contains(conditionalStatementMatch.Groups["expression"].Value.ToUpperInvariant());
+
+                    if (conditionalStatementMatch.Groups["negate"].Success)
+                    {
+                        lastCondition = !variableBoolValue;
+                    }
+                    else
+                    {
+                        lastCondition = variableBoolValue;
+                    }
+
                     insideCondition = true;
                 }
                 else if(ConditionalCloseRegex.IsMatch(line))
