@@ -9,8 +9,11 @@ namespace PowerDeploy.PackageManagerExtension
     [Cmdlet(VerbsLifecycle.Invoke, "DirectoryTransform")]
     public class InvokeDirectoryTransform : PSCmdlet
     {
-        [Parameter(Mandatory = true)]
+        [Parameter]
         public string Environment { get; set; }
+
+        [Parameter]
+        public string EnvironmentFile { get; set; }
 
         [Parameter(Mandatory = true)]
         public string Directory { get; set; }
@@ -24,10 +27,16 @@ namespace PowerDeploy.PackageManagerExtension
 
             try
             {
-                var envProvider = new EnvironmentProvider(Directory);
-                
+                // TODO: make that nice, i'm in hurry right know :)
+                EnvironmentProvider envProvider = null;
+
+                envProvider = string.IsNullOrEmpty(Environment) ? new EnvironmentProvider() : new EnvironmentProvider(Directory);
+
                 var templateEngine = new TemplateEngine();
-                templateEngine.TransformDirectory(Directory, envProvider.GetEnvironment(Environment), false);
+
+                Environment env = !string.IsNullOrEmpty(Environment) ? envProvider.GetEnvironment(Environment) : envProvider.GetEnvironmentFromFile(EnvironmentFile);
+                
+                templateEngine.TransformDirectory(Directory, env, false);
             }
             catch (DirectoryNotFoundException)
             {
