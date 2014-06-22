@@ -32,11 +32,11 @@ namespace PowerDeploy.Core.Template
             foreach (var templateFile in _fileSystem.EnumerateDirectoryRecursive(path, "*.template.*", SearchOption.AllDirectories))
             {
                 ++templateCounter;
-                Log.InfoFormat("  Transform template {0}", templateFile);
+                Log.Info(string.Format("  Transform template {0}", templateFile));
 
                 var templateText = _fileSystem.ReadFile(templateFile);
                 var transformed = VariableResolver.TransformVariables(templateText);
-
+                    
                 _fileSystem.OverwriteFile(templateFile.Replace(".template.", ".").Replace(".Template.", "."), transformed);
 
                 if (deleteTemplate)
