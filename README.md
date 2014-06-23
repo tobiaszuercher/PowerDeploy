@@ -22,7 +22,7 @@ What is deployed on UAT? What's in TEST? Those questions can be answered with th
 This is a simple string-replace mechanism which lets you transform any files (like web- or app.configs to a specific environment. For me, config transformation should really be very simple and straight forward: have a template with placeholders and do some string replacements.
 
 There is also an integration for Visual Studio: `Install-Package PowerDeploy.PackageManagerExtension` TODO: write more
-  * [Why another template engine](https://github.com/tobiaszuercher/powerdeploy/wiki)
+  * [Why another template engine](https://github.com/tobiaszuercher/PowerDeploy/wiki/Why-another-template-engine)
   * [Syntax](https://github.com/tobiaszuercher/powerdeploy/wiki/Syntax)
   * [Template Engine: Best practices](https://github.com/tobiaszuercher/PowerDeploy/wiki/Template-Engine-Best-Practices)
 
