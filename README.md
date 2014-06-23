@@ -35,3 +35,5 @@ See more in the [Wiki](https://github.com/tobiaszuercher/powerdeploy/wiki)
 ## Core Team
  - [tobiaszuercher](https://github.com/tobiaszuercher) (Tobias Zürcher)
  - [olibanjoli](https://github.com/olibanjoli) (Oliver Zürcher)
+
+aka the twinZ
