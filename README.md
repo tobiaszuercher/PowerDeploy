@@ -28,6 +28,8 @@ There is also an integration for Visual Studio: `Install-Package PowerDeploy.Pac
 
 See more in the [Wiki](https://github.com/tobiaszuercher/powerdeploy/wiki)
 
+*NOTE*: Everything is under development! `PowerDeploy.TemplateEngine` is the only component which is production ready!
+
 -----
 
 ## Core Team
