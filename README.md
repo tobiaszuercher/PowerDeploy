@@ -27,3 +27,9 @@ There is also an integration for Visual Studio: `Install-Package PowerDeploy.Pac
   * [Template Engine: Best practices](https://github.com/tobiaszuercher/PowerDeploy/wiki/Template-Engine-Best-Practices)
 
 See more in the [Wiki](https://github.com/tobiaszuercher/powerdeploy/wiki)
+
+-----
+
+## Core Team
+ - [tobiaszuercher](https://github.com/tobiaszuercher) (Tobias Zürcher)
+ - [olibanjoli](https://github.com/olibanjoli) (Oliver Zürcher)
