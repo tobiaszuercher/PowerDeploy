@@ -13,10 +13,12 @@ It will be easy to add your own deployment logic for another package type.
 PowerDeploy has multiple components:
 
 #### PowerDeploy.Server
-REST service implemented with Servicestack to access information about deployments or to trigger deployments
+REST service implemented with Servicestack to access information about deployments or to trigger deployments.
+*in development*
 
 #### PowerDeploy.Dashboard
 What is deployed on UAT? What's in TEST? Those questions can be answered with the PowerDeploy Dashboard! We strongly believe that deployments and build's should be decoupled. While the build server creates NuGet Packages, the dashboard is used to show what packages are available you are able to trigger a deployment.
+*in development*
 
 #### PowerDeploy.TemplateEngine
 This is a simple string-replace mechanism which lets you transform any files (like web- or app.configs to a specific environment. For me, config transformation should really be very simple and straight forward: have a template with placeholders and do some string replacements.
