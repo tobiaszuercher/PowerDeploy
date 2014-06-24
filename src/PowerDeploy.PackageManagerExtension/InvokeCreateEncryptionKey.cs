@@ -7,6 +7,9 @@ using PowerDeploy.Core.Logging;
 
 namespace PowerDeploy.PackageManagerExtension
 {
+    /// <summary>
+    /// Creates a random password and writes it into a file
+    /// </summary>
     [Cmdlet(VerbsLifecycle.Invoke, "CreateEncryptionKey")]
     public class InvokeCreateEncryptionKey : PSCmdlet
     {

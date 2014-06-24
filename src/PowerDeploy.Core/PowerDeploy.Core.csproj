@@ -79,6 +79,7 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Cryptography\AES.cs" />
     <Compile Include="Deploy\DeployerMetadataAttribute.cs" />
     <Compile Include="Deploy\IDeployer.cs" />
     <Compile Include="Deploy\IDeployerCapabilities.cs" />

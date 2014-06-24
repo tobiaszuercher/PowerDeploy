@@ -59,10 +59,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="InvokeCreateEncryptionKey.cs" />
+    <Compile Include="InvokeEncryptConfigs.cs" />
     <Compile Include="PowerShellCommandLineLogFactory.cs" />
     <Compile Include="PowerShellConsoleLogger.cs" />
     <Compile Include="GetEnvironmentDir.cs" />
     <Compile Include="InvokeDirectoryTransform.cs" />
+    <Compile Include="EnvironmentEncrypter.cs" />
     <Content Include="scripts\init.ps1">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>

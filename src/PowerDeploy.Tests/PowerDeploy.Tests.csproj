@@ -166,6 +166,7 @@
     <Compile Include="TemplateEngineTests\EnvironmentSerializationTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="TemplateEngineTests\TemplateEngineTests.cs" />
+    <Compile Include="TemplateEngineTests\EnvironmentEncrypterTest.cs" />
     <Compile Include="TemplateEngineTests\VariableResolverTests.cs" />
     <Compile Include="TemplateEngineTests\ZipPackagesTests.cs" />
     <Compile Include="TestExtensionMethods.cs" />
@@ -183,6 +184,10 @@
     <ProjectReference Include="..\..\src\PowerDeploy.Server\PowerDeploy.Server.csproj">
       <Project>{e8845574-680f-431a-a8bb-86b02c226660}</Project>
       <Name>PowerDeploy.Server</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\PowerDeploy.PackageManagerExtension\PowerDeploy.PackageManagerExtension.csproj">
+      <Project>{E4D59A9A-ECFC-4642-A25D-EBC1AF76C37E}</Project>
+      <Name>PowerDeploy.PackageManagerExtension</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup />

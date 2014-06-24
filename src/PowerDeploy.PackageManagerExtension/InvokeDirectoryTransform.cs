@@ -46,6 +46,7 @@ namespace PowerDeploy.PackageManagerExtension
             {
                 Log.Warn(".powerdeploy folder not found for " + Directory + "!");
             }
+
             catch (FileNotFoundException exception)
             {
                 Log.Error(exception.Message);

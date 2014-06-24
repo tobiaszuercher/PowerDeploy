@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 
@@ -75,6 +77,13 @@ namespace PowerDeploy.Core
             }
             
             throw new DirectoryNotFoundException(".powerdeploy folder not found");
+        }
+
+        public IEnumerable<string> GetEnvironments(bool excludeShared = true)
+        {
+            var files = Directory.GetFiles(EnvironmentDirectory.ToString(), "*.xml");
+
+            return files;
         }
 
         private DirectoryInfo FindEnvironmentFolder(string startFolder)
