@@ -5,7 +5,7 @@
     )
 	Write-Host "Transform templates for each project-folder in the current solution..."
 
-	Get-Project -All | % { Invoke-DirectoryTransform -Environment $environment -Directory (Split-Path -parent $_.Fullname) }
+	Get-Project -All | Where-Object  { $_.Type -ne 'Web Site' } | % { Invoke-DirectoryTransform -Environment $environment -Directory (Split-Path -parent $_.Fullname) }
 }
 
 function Get-Environments {
