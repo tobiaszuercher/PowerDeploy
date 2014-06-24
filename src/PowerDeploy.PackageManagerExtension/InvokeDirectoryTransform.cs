@@ -1,8 +1,12 @@
-﻿using System.IO;
+﻿using System;
+using System.IO;
 using System.Management.Automation;
+
 using PowerDeploy.Core;
 using PowerDeploy.Core.Logging;
 using PowerDeploy.Core.Template;
+
+using Environment = PowerDeploy.Core.Environment;
 
 namespace PowerDeploy.PackageManagerExtension
 {
