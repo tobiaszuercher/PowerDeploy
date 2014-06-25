@@ -1,4 +1,7 @@
-﻿using System.Linq;
+﻿using System.Diagnostics;
+using System.IO;
+using System.Linq;
+using System.Text.RegularExpressions;
 
 using PowerDeploy.Core;
 using PowerDeploy.Core.Cryptography;
@@ -35,18 +38,29 @@ namespace PowerDeploy.PackageManagerExtension
             }
         }
 
+        private const string RegexFormat = @"<variable (?<spaces_name>\s*)(name=""{0}"")(?<spaces_value>\s*)(value=""(?<value>[^""]+)"") do-encrypt=""([^""]*)""";
+
+        private Regex CreateRegexForVariable(string name)
+        {
+            return new Regex(string.Format(RegexFormat, name));
+        }
+
         private void EncryptEnvironmentConfig(string configFile)
         {
             var environment = this.envProvider.GetEnvironmentFromFile(configFile);
+            string environmentAsText = File.ReadAllText(configFile);
 
             var variablesToEncrypt = environment.Variables.Where(p => p.DoEncrypt).ToList();
 
             foreach (var variable in variablesToEncrypt)
             {
-                variable.DoEncrypt = false;
-                variable.Encrypted = true;
-                variable.Value = AES.Encrypt(variable.Value, this.aesKey);
+                var regex = this.CreateRegexForVariable(variable.Name);
+
+                var encryptedValue = AES.Encrypt(variable.Value, this.aesKey);
+                environmentAsText = regex.Replace(environmentAsText, @"<variable ${spaces_name}name=""" + variable.Name + @"""${spaces_value}value=""" + encryptedValue + @""" encrypted=""true""");
             }
+
+            File.WriteAllText(configFile, environmentAsText);
         }
     }
 }
