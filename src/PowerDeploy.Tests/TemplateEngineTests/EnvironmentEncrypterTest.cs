@@ -1,11 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Xml;
-
-using NUnit.Framework;
+﻿using NUnit.Framework;
 
 using PowerDeploy.PackageManagerExtension;
 
@@ -17,8 +10,9 @@ namespace PowerDeploy.Tests.TemplateEngineTests
         [Test]
         public void EncryptVariablesFromEnvironment()
         {
+            // TODO: write some good tests :-)
             var envEncryptor = new EnvironmentEncrypter(@"C:\git\PowerDeploy\src\.powerdeploy", "some-secret-aes-key");
-            envEncryptor.EncryptAllEnvironments();
+            //envEncryptor.EncryptAllEnvironments();
         }
     }
 }

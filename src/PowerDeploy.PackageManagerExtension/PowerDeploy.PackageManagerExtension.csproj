@@ -59,7 +59,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="InvokeCreateEncryptionKey.cs" />
-    <Compile Include="InvokeEncryptConfigs.cs" />
+    <Compile Include="InvokeEncryptEnvironments.cs" />
     <Compile Include="PowerShellCommandLineLogFactory.cs" />
     <Compile Include="PowerShellConsoleLogger.cs" />
     <Compile Include="GetEnvironmentDir.cs" />

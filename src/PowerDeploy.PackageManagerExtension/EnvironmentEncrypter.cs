@@ -1,5 +1,4 @@
-﻿using System.Diagnostics;
-using System.IO;
+﻿using System.IO;
 using System.Linq;
 using System.Text.RegularExpressions;
 
@@ -9,7 +8,7 @@ using PowerDeploy.Core.Cryptography;
 namespace PowerDeploy.PackageManagerExtension
 {
     /// <summary>
-    /// Scans all variables in all environments. If they have a do-encrypt attribute, the value will be encrypted using the aesKey.
+    /// Class to encrypt variables in environments. If they have a do-encrypt attribute, the value will be encrypted using the aesKey.
     /// Before encryption:
     /// <variable name="Database.password" value="some-secret-password" do-encrypt="true" />
     /// 
@@ -58,6 +57,8 @@ namespace PowerDeploy.PackageManagerExtension
 
                 var encryptedValue = AES.Encrypt(variable.Value, this.aesKey);
                 environmentAsText = regex.Replace(environmentAsText, @"<variable ${spaces_name}name=""" + variable.Name + @"""${spaces_value}value=""" + encryptedValue + @""" encrypted=""true""");
+
+                // TODO: log.Info() containing variable name...
             }
 
             File.WriteAllText(configFile, environmentAsText);
