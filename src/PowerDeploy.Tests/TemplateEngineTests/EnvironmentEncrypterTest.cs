@@ -12,7 +12,7 @@ namespace PowerDeploy.Tests.TemplateEngineTests
         public void EncryptVariablesFromEnvironment()
         {
             // TODO: write some good tests :-)
-            var envEncryptor = new EnvironmentEncrypter(@"C:\git\PowerDeploy\src\.powerdeploy", "some-secret-aes-key");
+            //var envEncryptor = new EnvironmentEncrypter(@"C:\git\PowerDeploy\src\.powerdeploy", "some-secret-aes-key");
             //envEncryptor.EncryptAllEnvironments();
         }
     }
