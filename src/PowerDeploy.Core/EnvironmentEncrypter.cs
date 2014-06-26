@@ -2,10 +2,10 @@
 using System.Linq;
 using System.Text.RegularExpressions;
 
-using PowerDeploy.Core;
 using PowerDeploy.Core.Cryptography;
+using PowerDeploy.Core.Logging;
 
-namespace PowerDeploy.PackageManagerExtension
+namespace PowerDeploy.Core
 {
     /// <summary>
     /// Class to encrypt variables in environments. If they have a do-encrypt attribute, the value will be encrypted using the aesKey.
@@ -21,17 +21,19 @@ namespace PowerDeploy.PackageManagerExtension
 
         private EnvironmentProvider envProvider;
 
+        private ILog Log = LogManager.GetLogger(typeof(EnvironmentEncrypter));
+
         public EnvironmentEncrypter(string startFolder, string aesKey)
         {
             this.envProvider = new EnvironmentProvider();
             this.aesKey = aesKey;
 
-            envProvider.Initialize(startFolder);
+            this.envProvider.Initialize(startFolder);
         }
 
         public void EncryptAllEnvironments()
         {
-            foreach (var environmentConfigFile in envProvider.GetEnvironments(false))
+            foreach (var environmentConfigFile in this.envProvider.GetEnvironments(false))
             {
                 this.EncryptEnvironmentConfig(environmentConfigFile);
             }
@@ -58,7 +60,7 @@ namespace PowerDeploy.PackageManagerExtension
                 var encryptedValue = AES.Encrypt(variable.Value, this.aesKey);
                 environmentAsText = regex.Replace(environmentAsText, @"<variable ${spaces_name}name=""" + variable.Name + @"""${spaces_value}value=""" + encryptedValue + @""" encrypted=""true""");
 
-                // TODO: log.Info() containing variable name...
+                Log.InfoFormat("encrypting variable '{0}'", variable.Name);
             }
 
             File.WriteAllText(configFile, environmentAsText);

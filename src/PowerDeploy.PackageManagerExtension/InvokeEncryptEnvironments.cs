@@ -1,6 +1,7 @@
 ﻿using System.IO;
 using System.Management.Automation;
 
+using PowerDeploy.Core;
 using PowerDeploy.Core.Logging;
 
 namespace PowerDeploy.PackageManagerExtension

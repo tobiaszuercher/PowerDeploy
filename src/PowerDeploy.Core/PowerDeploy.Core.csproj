@@ -88,6 +88,7 @@
     <Compile Include="Deploy\XCopyDeployer.cs" />
     <Compile Include="Deploy\XCopyOptions.cs" />
     <Compile Include="Environment.cs" />
+    <Compile Include="EnvironmentEncrypter.cs" />
     <Compile Include="EnvironmentOverview.cs" />
     <Compile Include="EnvironmentProvider.cs" />
     <Compile Include="Extensions\StringExtensions.cs" />

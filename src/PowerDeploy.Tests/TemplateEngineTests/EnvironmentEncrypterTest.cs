@@ -1,5 +1,6 @@
 ﻿using NUnit.Framework;
 
+using PowerDeploy.Core;
 using PowerDeploy.PackageManagerExtension;
 
 namespace PowerDeploy.Tests.TemplateEngineTests
