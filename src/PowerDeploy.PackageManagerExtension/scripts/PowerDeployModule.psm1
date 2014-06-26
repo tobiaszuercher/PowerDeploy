@@ -1,11 +1,12 @@
 ﻿function Switch-Environment {
 	[CmdletBinding()]
     param(
-        [Parameter(Position = 0)] [string]$environment
+        [Parameter(Position = 0)] [string]$environment,
+		[Parameter(Position = 1)] [string]$passwordFile
     )
 	Write-Host "Transform templates for each project-folder in the current solution..."
 
-	Get-Project -All | Where-Object  { $_.Type -ne 'Web Site' } | % { Invoke-DirectoryTransform -Environment $environment -Directory (Split-Path -parent $_.Fullname) }
+	Get-Project -All | Where-Object  { $_.Type -ne 'Web Site' } | % { Invoke-DirectoryTransform -Environment $environment -Directory (Split-Path -parent $_.Fullname) -PasswordFile $passwordFile }
 }
 
 function Get-Environments {

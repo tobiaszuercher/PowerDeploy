@@ -56,8 +56,13 @@ namespace PowerDeploy.Core.Template
                                 var foundVariable = variables.FirstOrDefault(v => v.Name == m.Groups["Name"].Value);
                                 if (foundVariable != null)
                                 {
+                                    if (foundVariable.Encrypted)
+                                    {
+                                        Log.WarnFormat("    Using encrypted variable! Use -PasswordFile parameter to decrypt the value.");
+                                    }
+
                                     Log.Debug(string.Format("    Resolve inline variable {0} to {1}", foundVariable.Name, foundVariable.Value));
-                                    
+
                                     return foundVariable.Value;
                                 }
 
@@ -72,6 +77,11 @@ namespace PowerDeploy.Core.Template
                 return parsedDefaultValue;
             }
 
+            if (Variable.Encrypted)
+            {
+                Log.WarnFormat("    Using encrypted variable! Use -PasswordFile parameter to decrypt the value.");
+            }
+   
             Log.Debug(string.Format("    Resolve variable {0} to {1}", Variable.Name, Variable.Value));
 
             return Variable.Value;
