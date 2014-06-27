@@ -12,8 +12,11 @@ namespace PowerDeploy.PackageManagerExtension
     [Cmdlet(VerbsLifecycle.Invoke, "EncryptEnvironments")]
     public class InvokeEncryptEnvironments : PSCmdlet
     {
-        [Parameter(Mandatory = true)]
+        [Parameter]
         public string PasswordFile { get; set; }
+
+        [Parameter]
+        public string Password { get; set; }
 
         [Parameter(Mandatory = true)]
         public string Directory { get; set; }
@@ -25,17 +28,31 @@ namespace PowerDeploy.PackageManagerExtension
             LogManager.LogFactory = new PowerShellCommandLineLogFactory();
             Log = LogManager.GetLogger(typeof(InvokeDirectoryTransform));
 
-            if (File.Exists(PasswordFile) == false)
+            string aesKey = string.Empty;
+
+            if (string.IsNullOrEmpty(PasswordFile) == false)
             {
-                Log.ErrorFormat("Passwordfile '{0}' doesnt exist! Abording...", PasswordFile);
-                return;
+                if (File.Exists(PasswordFile) == false)
+                {
+                    Log.ErrorFormat("Passwordfile '{0}' doesnt exist! Abording...", PasswordFile);
+                    return;
+                }
+
+                aesKey = File.ReadAllText(PasswordFile);
+
+                if (string.IsNullOrEmpty(aesKey))
+                {
+                    Log.ErrorFormat("Passwordfile '{0}' is empty! Abording...", PasswordFile);
+                    return;
+                }
             }
-
-            var aesKey = File.ReadAllText(PasswordFile);
-
-            if (string.IsNullOrEmpty(aesKey))
+            else if (string.IsNullOrEmpty(Password) == false)
             {
-                Log.ErrorFormat("Passwordfile '{0}' is empty! Abording...", PasswordFile);
+                aesKey = Password;
+            }
+            else
+            {
+                Log.Error("Please provide a Password or PasswordFile");
                 return;
             }
 

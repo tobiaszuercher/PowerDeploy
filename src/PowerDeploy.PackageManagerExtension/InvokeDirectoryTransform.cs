@@ -23,6 +23,9 @@ namespace PowerDeploy.PackageManagerExtension
         [Parameter]
         public string PasswordFile { get; set; }
 
+        [Parameter]
+        public string Password { get; set; }
+
         [Parameter(Mandatory = true)]
         public string Directory { get; set; }
 
@@ -82,6 +85,10 @@ namespace PowerDeploy.PackageManagerExtension
                 {
                     Log.WarnFormat("Could not read PasswordFile '{0}'.", this.PasswordFile);
                 }
+            }
+            else if (string.IsNullOrEmpty(this.Password) == false)
+            {
+                this.aesKey = this.Password;
             }
         }
     }
