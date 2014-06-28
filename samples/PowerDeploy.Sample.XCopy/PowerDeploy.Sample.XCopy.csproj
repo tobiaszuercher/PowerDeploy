@@ -85,7 +85,9 @@
     <Content Include="App.Template.config">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <None Include="App.config" />
+    <None Include="App.config">
+      <DependentUpon>App.Template.config</DependentUpon>
+    </None>
     <Content Include="Folder\config-in-folder.config">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
