@@ -8,7 +8,7 @@ using PowerDeploy.Core.Logging;
 namespace PowerDeploy.Core
 {
     /// <summary>
-    /// Class to encrypt variables in environments. If they have a do-encrypt attribute, the value will be encrypted using the aesKey.
+    /// Class to encrypt variables in environments. If they have a do-encrypt attribute, the value will be encrypted using the _aesKey.
     /// Before encryption:
     /// <variable name="Database.password" value="some-secret-password" do-encrypt="true" />
     /// 
@@ -17,25 +17,25 @@ namespace PowerDeploy.Core
     /// </summary>
     public class EnvironmentEncrypter
     {
-        private readonly string aesKey;
+        private readonly string _aesKey;
 
-        private EnvironmentProvider envProvider;
+        private EnvironmentProvider _envProvider;
 
         private ILog Log = LogManager.GetLogger(typeof(EnvironmentEncrypter));
 
         public EnvironmentEncrypter(string startFolder, string aesKey)
         {
-            this.envProvider = new EnvironmentProvider();
-            this.aesKey = aesKey;
+            _envProvider = new EnvironmentProvider();
+            _aesKey = aesKey;
 
-            this.envProvider.Initialize(startFolder);
+            _envProvider.Initialize(startFolder);
         }
 
         public void EncryptAllEnvironments()
         {
-            foreach (var environmentConfigFile in this.envProvider.GetEnvironments(false))
+            foreach (var environmentConfigFile in this._envProvider.GetEnvironments(false))
             {
-                this.EncryptEnvironmentConfig(environmentConfigFile);
+                EncryptEnvironmentConfig(environmentConfigFile);
             }
         }
 
@@ -48,16 +48,16 @@ namespace PowerDeploy.Core
 
         private void EncryptEnvironmentConfig(string configFile)
         {
-            var environment = this.envProvider.GetEnvironmentFromFile(configFile);
+            var environment = _envProvider.GetEnvironmentFromFile(configFile);
             string environmentAsText = File.ReadAllText(configFile);
 
             var variablesToEncrypt = environment.Variables.Where(p => p.DoEncrypt).ToList();
 
             foreach (var variable in variablesToEncrypt)
             {
-                var regex = this.CreateRegexForVariable(variable.Name);
+                var regex = CreateRegexForVariable(variable.Name);
 
-                var encryptedValue = AES.Encrypt(variable.Value, this.aesKey);
+                var encryptedValue = AES.Encrypt(variable.Value, _aesKey);
                 environmentAsText = regex.Replace(environmentAsText, @"<variable ${spaces_name}name=""" + variable.Name + @"""${spaces_value}value=""" + encryptedValue + @""" encrypted=""true""");
 
                 Log.InfoFormat("encrypting variable '{0}'", variable.Name);
