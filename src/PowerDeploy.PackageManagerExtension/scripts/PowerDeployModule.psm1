@@ -43,4 +43,4 @@ Export-ModuleMember Switch-Environment
 Export-ModuleMember Encrypt-Environments
 Export-ModuleMember Create-EncryptionKey
 
-#Register-TabExpansion 'Switch-Environment' @{ 'environment' = { Get-EnvironmentDir | Get-ChildItem | % { $_.Basename } } }
+Register-TabExpansion 'Switch-Environment' @{ 'environment' = { Get-EnvironmentDir | Get-ChildItem | % { $_.Basename } } }
