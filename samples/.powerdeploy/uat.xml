@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
-<environment description="production">
-  <variable name="Firstname" value="qI6UXWKWTEb5IenD90UW5rJ0MHEyBESYRaSEfmBXKXWd6ApaZX/wZKZ0LpbANGi2" encrypted="true" />
+<environment description="User acceptance test environment">
+  <variable name="Firstname" value="Jack" />
   <variable name="Lastname" value="Bauer" />
   <variable name="SampleAppConsole_Destination" value="c:\temp\yes_baby" />
   <variable name="xcopy.unit.variable1" value="hello var1" />

@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<environment name="dev" description="Used for unit tests, not a real environment">
+<environment description="First used environment for developers to do integration tests">
   <variable name="Firstname" value="Jack" />
   <variable name="Lastname" value="Bauer" />
   <variable name="SampleAppConsole_Destination" value="c:\temp\yes_baby" />
