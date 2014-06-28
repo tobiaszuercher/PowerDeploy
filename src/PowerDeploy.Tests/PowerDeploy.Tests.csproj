@@ -162,6 +162,7 @@
     <Compile Include="Services\DeployServiceTests.cs" />
     <Compile Include="Services\EnvironmentServiceTests.cs" />
     <Compile Include="StringExtensions.cs" />
+    <Compile Include="TemplateEngineTests\AESTest.cs" />
     <Compile Include="TemplateEngineTests\EnvironmentProviderTest.cs" />
     <Compile Include="TemplateEngineTests\EnvironmentSerializationTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

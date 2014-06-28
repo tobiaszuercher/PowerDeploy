@@ -1,4 +1,7 @@
-﻿using NUnit.Framework;
+﻿using System.Security.Cryptography;
+using System.Text;
+
+using NUnit.Framework;
 
 using PowerDeploy.Core;
 using PowerDeploy.PackageManagerExtension;
