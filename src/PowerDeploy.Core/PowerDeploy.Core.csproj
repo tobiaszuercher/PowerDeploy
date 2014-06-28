@@ -93,8 +93,6 @@
     <Compile Include="EnvironmentProvider.cs" />
     <Compile Include="Extensions\StringExtensions.cs" />
     <Compile Include="Extensions\ZipPackageExtensions.cs" />
-    <Compile Include="FileSystem\FileAdapter.cs" />
-    <Compile Include="FileSystem\IFile.cs" />
     <Compile Include="IEnvironmentProvider.cs" />
     <Compile Include="IEnvironmentSerializer.cs" />
     <Compile Include="IFileSystem.cs" />
