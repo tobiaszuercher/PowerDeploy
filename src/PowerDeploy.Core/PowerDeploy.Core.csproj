@@ -79,6 +79,7 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Cryptography\AES.cs" />
     <Compile Include="Deploy\DeployerMetadataAttribute.cs" />
     <Compile Include="Deploy\IDeployer.cs" />
     <Compile Include="Deploy\IDeployerCapabilities.cs" />
@@ -87,6 +88,7 @@
     <Compile Include="Deploy\XCopyDeployer.cs" />
     <Compile Include="Deploy\XCopyOptions.cs" />
     <Compile Include="Environment.cs" />
+    <Compile Include="EnvironmentEncrypter.cs" />
     <Compile Include="EnvironmentOverview.cs" />
     <Compile Include="EnvironmentProvider.cs" />
     <Compile Include="Extensions\StringExtensions.cs" />

@@ -1,0 +1,10 @@
+<?xml version="1.0"?>
+<environment name="unittest" description="Used for unit tests, not a real environment">
+
+
+
+  <!-- come comment -->
+  <variable name="Firstname"     value="AdwL8p7FFUlzELHJoDKzF6zUbyVYJK3Eq/RPGT3JFOaRlBkPb15tteb0zi3AjScy" encrypted="true" />
+  <variable name="Lastname" value="Bauer" />
+  <variable name="SampleAppConsole_Destination" value="c:\temp\yes_baby" />
+</environment>

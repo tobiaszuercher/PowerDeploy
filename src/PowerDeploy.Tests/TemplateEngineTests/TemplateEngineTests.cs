@@ -36,7 +36,7 @@ namespace PowerDeploy.Tests.TemplateEngineTests
                 dir.AddFile("read-only.txt", "will be transformed").SetReadOnly();
 
                 // before the bugfix: this threw a Exception because the file was ReadOnly
-                target.TransformDirectory(dir.DirectoryInfo.FullName, GetUnitEnvironment(), false);
+                target.TransformDirectory(dir.DirectoryInfo.FullName, GetUnitEnvironment());
 
                 Assert.AreNotEqual("will be transformed", dir.ReadFile("read-only.txt"));
             }

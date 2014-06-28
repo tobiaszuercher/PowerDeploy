@@ -23,7 +23,7 @@ namespace PowerDeploy.MsBuild
                 var envProvider = new EnvironmentProvider(Directory);
 
                 var templateEngine = new TemplateEngine();
-                templateEngine.TransformDirectory(Directory, envProvider.GetEnvironment(Environment), false);
+                templateEngine.TransformDirectory(Directory, envProvider.GetEnvironment(Environment));
             }
             catch (DirectoryNotFoundException)
             {

@@ -1,4 +1,5 @@
-﻿using System.IO;
+﻿using System.Collections.Generic;
+using System.IO;
 
 namespace PowerDeploy.Core
 {
@@ -8,6 +9,7 @@ namespace PowerDeploy.Core
 
         void Initialize(string startFolder);
 
+        IEnumerable<string> GetEnvironments(bool excludeShared = true);
         Environment GetEnvironment(string environmentName);
         Environment GetEnvironmentFromFile(string environmentFile);
     }

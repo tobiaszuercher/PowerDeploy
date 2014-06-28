@@ -9,5 +9,11 @@ namespace PowerDeploy.Core
 
         [XmlAttribute("value")]
         public string Value { get; set; }
+
+        [XmlAttribute("encrypted")]
+        public bool Encrypted { get; set; }
+
+        [XmlAttribute("do-encrypt")]
+        public bool DoEncrypt { get; set; }
     }
 }

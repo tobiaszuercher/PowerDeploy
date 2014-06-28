@@ -1,11 +1,11 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 
 using PowerDeploy.Core.Logging;
 
 using ServiceStack;
-using ServiceStack.Text;
 
 namespace PowerDeploy.Core
 {
@@ -75,6 +75,13 @@ namespace PowerDeploy.Core
             }
             
             throw new DirectoryNotFoundException(".powerdeploy folder not found");
+        }
+
+        public IEnumerable<string> GetEnvironments(bool excludeShared = true)
+        {
+            var files = Directory.GetFiles(EnvironmentDirectory.ToString(), "*.xml");
+
+            return files;
         }
 
         private DirectoryInfo FindEnvironmentFolder(string startFolder)

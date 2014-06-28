@@ -2,6 +2,8 @@
 using System.Linq;
 using System.Xml.Serialization;
 
+using PowerDeploy.Core.Cryptography;
+
 namespace PowerDeploy.Core
 {
     [XmlRoot("environment", Namespace = "")]
@@ -23,6 +25,15 @@ namespace PowerDeploy.Core
         public Variable this[string name]
         {
             get { return Variables.FirstOrDefault(v => v.Name == name); }
+        }
+
+        public void DecryptVariables(string aesKey)
+        {
+            foreach (var variable in this.Variables.Where(p => p.Encrypted))
+            {
+                variable.Value = AES.Decrypt(variable.Value, aesKey);
+                variable.Encrypted = false;
+            }
         }
     }
 }

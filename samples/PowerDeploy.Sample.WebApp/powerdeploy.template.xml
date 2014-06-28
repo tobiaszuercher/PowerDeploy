@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <package type="web" id="SampleWebApp" version="TODO" environment="${env}${subenv}">
-  <AppPoolUser>deployer</AppPoolUser>
+  <AppPoolUser>${Firstname}</AppPoolUser>
   <AppPoolPass>testtest1234!</AppPoolPass>
   <AppPoolName>SampleAppPool</AppPoolName>
   <WebsiteName>PowerDeploySample</WebsiteName>
