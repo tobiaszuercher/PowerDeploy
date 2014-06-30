@@ -37,7 +37,6 @@ namespace PowerDeploy.Tests.TemplateEngineTests
             Assert.Equal(textToEncrypt, decrypted4);
             
             Assert.Equal(password, passwordFromFile);
-            Assert.Equal(encrypted1, encrypted2);
         }
     }
 }
