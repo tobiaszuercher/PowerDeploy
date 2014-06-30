@@ -1,5 +1,6 @@
 PowerDeploy
 ===========
+![CI status](https://ci.appveyor.com/api/projects/status/frmeya6j84r4c8o3/branch/master)
 
 This is a simple open source deployment utility which helps every developer to make deployments as easy as possible. The target is to support 
 * IIS
