@@ -58,21 +58,20 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="PowerDeploy.Sample.WebApp.nuspec" />
-    <None Include="Web.Debug.config">
-      <DependentUpon>Web.config</DependentUpon>
-    </None>
-    <None Include="Web.Release.config">
-      <DependentUpon>Web.config</DependentUpon>
-    </None>
   </ItemGroup>
   <ItemGroup>
     <Content Include="powerdeploy.template.xml">
       <SubType>Designer</SubType>
     </Content>
-    <Content Include="Web.config" />
+    <Content Include="Web.config">
+      <DependentUpon>Web.template.config</DependentUpon>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Web.template.config" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

@@ -58,7 +58,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="InvokeCreateEncryptionKey.cs" />
+    <Compile Include="NewEncriptionKey.cs" />
     <Compile Include="InvokeEncryptEnvironments.cs" />
     <Compile Include="PowerShellCommandLineLogFactory.cs" />
     <Compile Include="PowerShellConsoleLogger.cs" />

@@ -28,6 +28,8 @@ namespace PowerDeploy.PackageManagerExtension
             LogManager.LogFactory = new PowerShellCommandLineLogFactory();
             Log = LogManager.GetLogger(typeof(InvokeDirectoryTransform));
 
+            Log.Info("Encrypting all variables marked with do-encrypt attribute");
+
             string aesKey = string.Empty;
 
             if (string.IsNullOrEmpty(PasswordFile) == false)

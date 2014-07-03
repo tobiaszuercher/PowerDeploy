@@ -6,4 +6,6 @@
   
   <variable name="xcopy.unit.variable1" value="hello var1" />
   <variable name="xcopy.unit.variable2" value="hello var2" />
+  
+  <variable name="secret"               value="9sNSaFiW6KRVgZ+eOLZM1oPpKhQ6tzbI7EEpLwVkqlkLzXS7mWmDouRVJ/Z6QpCi" encrypted="true" />
 </environment>

@@ -17,30 +17,30 @@ function Get-Environments {
 	Get-EnvironmentDir | Get-ChildItem | % { $_.Basename }
 }
 
-function Create-EncryptionKey {
-	[CmdletBinding()]
-	param(
-		[Parameter] [string]$PasswordFile
-	)
+#function New-EncryptionKey {
+#	[CmdletBinding()]
+#	param(
+#		[Parameter] [string]$PasswordFile
+#	)
+#
+#	Invoke-CreateEncryptionKey -PasswordFile $PasswordFile
+#}
 
-	Invoke-CreateEncryptionKey -PasswordFile $PasswordFile
-}
+#function Encrypt-Environments {
+#	[CmdletBinding()]
+#	param(
+#		[Parameter()] [string]$PasswordFile,
+#		[Parameter()] [string]$Password
+#	)
 
-function Encrypt-Environments {
-	[CmdletBinding()]
-	param(
-		[Parameter()] [string]$PasswordFile,
-		[Parameter()] [string]$Password
-	)
+#	Write-Host "Encrypting all variables..."
 
-	Write-Host "Encrypting all variables..."
-
-	Invoke-EncryptEnvironments -Directory $pwd -PasswordFile $PasswordFile -Password $Password
-}
+#	Invoke-EncryptEnvironments -Directory $pwd -PasswordFile $PasswordFile -Password $Password
+#}
 
 Export-ModuleMember Get-Environments
 Export-ModuleMember Switch-Environment
-Export-ModuleMember Encrypt-Environments
-Export-ModuleMember Create-EncryptionKey
+#Export-ModuleMember Encrypt-Environments
+#Export-ModuleMember Create-EncryptionKey
 
 Register-TabExpansion 'Switch-Environment' @{ 'environment' = { Get-EnvironmentDir | Get-ChildItem | % { $_.Basename } } }

@@ -10,8 +10,8 @@ namespace PowerDeploy.PackageManagerExtension
     /// <summary>
     /// Creates a random password and writes it into a file
     /// </summary>
-    [Cmdlet(VerbsLifecycle.Invoke, "CreateEncryptionKey")]
-    public class InvokeCreateEncryptionKey : PSCmdlet
+    [Cmdlet(VerbsCommon.New, "EncryptionKey")]
+    public class NewEncriptionKey : PSCmdlet
     {
         public static ILog Log { get; private set; }
 
@@ -25,13 +25,13 @@ namespace PowerDeploy.PackageManagerExtension
 
             var password = Membership.GeneratePassword(64, 0);
 
-            File.WriteAllText(this.PasswordFile, password);
+            File.WriteAllText(PasswordFile, password);
 
-            var fileInfo = new FileInfo(this.PasswordFile);
+            var fileInfo = new FileInfo(PasswordFile);
 
             Log.InfoFormat("Creating encryption key in '{0}'.", fileInfo.Directory);
 
-            this.OpenExplorerAndSelectFile(fileInfo);
+            OpenExplorerAndSelectFile(fileInfo);
         }
 
         private void OpenExplorerAndSelectFile(FileInfo fileInfo)

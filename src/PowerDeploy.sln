@@ -44,7 +44,11 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PowerDeploy.Sample.Tests", 
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "environments", "environments", "{6C7F3BCB-A15F-45E5-A83A-5F29A48F82B8}"
 	ProjectSection(SolutionItems) = preProject
+		..\samples\.powerdeploy\dev.xml = ..\samples\.powerdeploy\dev.xml
 		..\samples\.powerdeploy\local.xml = ..\samples\.powerdeploy\local.xml
+		..\samples\.powerdeploy\prod.xml = ..\samples\.powerdeploy\prod.xml
+		..\samples\.powerdeploy\test.xml = ..\samples\.powerdeploy\test.xml
+		..\samples\.powerdeploy\uat.xml = ..\samples\.powerdeploy\uat.xml
 		..\samples\.powerdeploy\unittest.xml = ..\samples\.powerdeploy\unittest.xml
 	EndProjectSection
 EndProject
@@ -67,6 +71,13 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PowerDeploy.MsBuild.v4.0", "PowerDeploy.MsBuild\PowerDeploy.MsBuild.v4.0.csproj", "{7BC5D9DD-8D4A-455C-B4FA-4037157D7A6D}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PowerDeploy.CommandLine", "PowerDeploy.CommandLine\PowerDeploy.CommandLine.csproj", "{946BFEEA-3192-41AE-BD60-E5E7A6AC37DF}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".environments", ".environments", "{F292A901-36DC-4035-B3B3-3A31DDFC22A2}"
+	ProjectSection(SolutionItems) = preProject
+		.powerdeploy\encrypt.xml = .powerdeploy\encrypt.xml
+		.powerdeploy\local.xml = .powerdeploy\local.xml
+		.powerdeploy\unittest.xml = .powerdeploy\unittest.xml
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
