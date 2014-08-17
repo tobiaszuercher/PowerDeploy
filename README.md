@@ -13,25 +13,21 @@ It will be easy to add your own deployment logic for another package type.
 
 PowerDeploy has multiple components:
 
-#### PowerDeploy.Server
-REST service implemented with Servicestack to access information about deployments or to trigger deployments.
-*in development*
-
 #### PowerDeploy.Dashboard
 What is deployed on UAT? What's in TEST? Those questions can be answered with the PowerDeploy Dashboard! We strongly believe that deployments and build's should be decoupled. While the build server creates NuGet Packages, the dashboard is used to show what packages are available you are able to trigger a deployment.
-*in development*
+*Please Note: this is more or less an educational project about AngularJS, Servicestack and RavenDB for me, so nothing read for use.*
 
-#### PowerDeploy.TemplateEngine
-This is a simple string-replace mechanism which lets you transform any files (like web- or app.configs to a specific environment. For me, config transformation should really be very simple and straight forward: have a template with placeholders and do some string replacements.
+#### PowerDeploy.Transformer
+Got tired of ms config-transform? Transformer is a simple template engine (based on string-replacements) which lets you transform any files (like `web.config` or `app.configs` to a specific environment. For us, config transformation should really be very simple and readable: have a template with placeholders and do some string replacements.
 
-There is also an integration for Visual Studio: `Install-Package PowerDeploy.PackageManagerExtension` TODO: write more
+There is a NuGet Package which adds some commands to your NuGet Package Manager Console in Visual Studio to do the transformations locally: `Install-Package PowerDeploy.PackageManagerExtension`
+
+#### Some links for about Transformer:
   * [Why another template engine](https://github.com/tobiaszuercher/PowerDeploy/wiki/Why-another-template-engine)
   * [Syntax](https://github.com/tobiaszuercher/powerdeploy/wiki/Syntax)
   * [Template Engine: Best practices](https://github.com/tobiaszuercher/PowerDeploy/wiki/Template-Engine-Best-Practices)
 
 See more in the [Wiki](https://github.com/tobiaszuercher/powerdeploy/wiki)
-
-*NOTE*: Everything is under development! `PowerDeploy.TemplateEngine` is the only component which is production ready!
 
 -----
 
